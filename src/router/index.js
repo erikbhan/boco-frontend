@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/endre", //Endre før push
     name: "home",
     component: HomeView,
   },
@@ -17,6 +17,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
+<<<<<<< HEAD
     path: "/register",
     name: "register",
     // route level code-splitting
@@ -24,6 +25,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "register" */ "../views/RegisterView.vue"),
+=======
+    path: "/",
+    name: "loginView",
+    component: () => import("../views/LoginView.vue"),
+>>>>>>> main
   },
 ];
 
