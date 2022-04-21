@@ -1,20 +1,26 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="firstName"
-      :counter="32"
-      :rules="firstNameRules"
-      label="Fornavn"
-      required
-    ></v-text-field>
+    <v-container class="grey lighten-5">
+      <v-row>
+        <v-text-field
+          class="pr-2"
+          v-model="firstName"
+          :counter="32"
+          :rules="firstNameRules"
+          label="Fornavn"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="lastName"
-      :counter="32"
-      :rules="lastNameRules"
-      label="Etternavn"
-      required
-    ></v-text-field>
+        <v-text-field
+          class="pl-2"
+          v-model="lastName"
+          :counter="32"
+          :rules="lastNameRules"
+          label="Etternavn"
+          required
+        ></v-text-field>
+      </v-row>
+    </v-container>
 
     <v-text-field
       v-model="email"
@@ -71,7 +77,7 @@
       >Registrer</v-btn
     >
 
-    <v-btn color="error" class="mr-4" @click="reset">Tøm alle felter</v-btn>
+    <v-btn color="error" class="mr-4" @click="reset">Tøm felter</v-btn>
   </v-form>
 </template>
 <script>
@@ -100,7 +106,8 @@ export default {
     password: "",
     passwordRules: [
       (v) => !!v || "Passord er påkrevd",
-      (v) => (v && v.length <= 32) || "Passord må være mindre enn 32 bokstaver",
+      (v) => (v && v.length <= 32) || "Passord må være mindre enn 32 tegn",
+      (v) => (v && v.length >= 8) || "Passord må være større enn 8 tegn",
     ],
     // confirmPassword: "",
     // confirmPasswordRules: [
@@ -126,6 +133,7 @@ export default {
     reset() {
       this.$refs.form.reset();
       this.$refs.form.resetValidation();
+      this.valid = true;
     },
   },
 };

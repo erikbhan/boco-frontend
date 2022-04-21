@@ -1,5 +1,5 @@
 <template>
-  <register-form-component id="form" />
+  <register-form-component id="form" class="pa-8" />
 </template>
 
 <script>
@@ -14,8 +14,7 @@ export default {
 
 <style scoped>
 #form {
-  max-width: 80%;
+  max-width: 600px;
   margin: auto;
-  margin-top: 5%;
 }
 </style>
