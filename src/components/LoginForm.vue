@@ -1,14 +1,7 @@
 <template>
-  <div class="loginForm" >
-
-
-    <v-img
-        :src="require('../assets/logo3.svg')"
-        class="image"
-        contain
-    />
+  <div class="loginForm">
+    <v-img :src="require('../assets/logo3.svg')" class="image" contain />
     <form @submit.prevent="onSubmit">
-
       <!--
       <div class="inputFields">
         <br><label class="label">E-post</label><br>
@@ -29,63 +22,77 @@
 
       <div class="inputFields">
         <div :class="{ error: v$.user.email.$errors.length }">
-          <br><label class="label" id="emailLabelId">E-post </label><br>
-          <input class="loginInputs" type="email" v-model="v$.user.email.$model">
+          <br /><label class="label" id="emailLabelId">E-post </label><br />
+          <input
+            class="loginInputs"
+            type="email"
+            v-model="v$.user.email.$model"
+          />
 
           <!-- error message -->
-          <div class="input-errors" v-for="(error, index) of v$.user.email.$errors" :key="index">
-            <div class="error-msg" v-show="showError" id="emailErrorId">{{ error.$message }}</div>
+          <div
+            class="input-errors"
+            v-for="(error, index) of v$.user.email.$errors"
+            :key="index"
+          >
+            <div class="error-msg" v-show="showError" id="emailErrorId">
+              {{ error.$message }}
+            </div>
           </div>
         </div>
 
         <!-- password -->
         <div :class="{ error: v$.user.password.$errors.length }">
-          <br><label class="label" id="passwordLabelId">Passord </label><br>
-          <input class="loginInputs" type="password" v-model="v$.user.password.$model">
+          <br /><label class="label" id="passwordLabelId">Passord </label><br />
+          <input
+            class="loginInputs"
+            type="password"
+            v-model="v$.user.password.$model"
+          />
 
           <!-- error message -->
-          <div class="input-errors" v-for="(error, index) of v$.user.password.$errors" :key="index">
-            <div class="error-msg" v-show="showError" id="passwordErrorId">{{ error.$message }}</div>
+          <div
+            class="input-errors"
+            v-for="(error, index) of v$.user.password.$errors"
+            :key="index"
+          >
+            <div class="error-msg" v-show="showError" id="passwordErrorId">
+              {{ error.$message }}
+            </div>
           </div>
 
           <!-- Link to forgot password page will be added here -->
-          <br><a href="url" id="forgottenPasswordLink">Glemt passord</a>
+          <br /><a href="url" id="forgottenPasswordLink">Glemt passord</a>
         </div>
-
       </div>
 
       <div class="buttonLink">
         <!-- Submit Button -->
         <div class="buttons-w">
-          <br><br><button v-on:click="loginClicked" class="loginButton">Logg inn</button>
+          <br /><br /><button v-on:click="loginClicked" class="loginButton">
+            Logg inn
+          </button>
 
           <!-- Link to register new user page will be added here -->
-          <br><a id="newUserLink" href="url">Ny bruker</a>
+          <br /><a id="newUserLink" href="url">Ny bruker</a>
 
           <p id="messageUser">{{ message }}</p>
         </div>
-
       </div>
-
-
-
-
     </form>
-
-
   </div>
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, helpers } from '@vuelidate/validators'
-import {doLogin} from '@/utils/apiutil'
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { doLogin } from "@/utils/apiutil";
 
 export default {
   name: "LoginForm.vue",
 
-  setup () {
-    return { v$: useVuelidate() }
+  setup() {
+    return { v$: useVuelidate() };
   },
 
   validations() {
@@ -98,23 +105,23 @@ export default {
         password: {
           required,
           min: helpers.withMessage(
-              ({$params}) => `Passordet må inneholde minst ${$params.min} tegn`,
-              minLength(8)
-          )
+            ({ $params }) => `Passordet må inneholde minst ${$params.min} tegn`,
+            minLength(8)
+          ),
         },
       },
-    }
+    };
   },
 
-  data(){
-    return{
-      message: '',
+  data() {
+    return {
+      message: "",
       user: {
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       },
       showError: false,
-    }
+    };
   },
 
   methods: {
@@ -123,20 +130,21 @@ export default {
       console.log(this.user.email + " " + this.user.password);
     },*/
 
-    async loginClicked (){
+    async loginClicked() {
       //alert("You entered, username: " + this.username);
-      const loginRequest = { username: this.user.email, password: this.user.password };
+      const loginRequest = {
+        email: this.user.email,
+        password: this.user.password,
+      };
       const loginResponse = await doLogin(loginRequest);
       console.log(loginResponse);
     },
-
   },
-
-}
+};
 </script>
 
 <style scoped>
-.loginForm{
+.loginForm {
   background-color: white;
   border-radius: 10px;
   margin: auto;
@@ -146,21 +154,21 @@ export default {
   padding: 10px;
   font-size: 18px;
 }
-.label{
+.label {
   float: left;
   margin-left: 5%;
 }
-.loginInputs{
-  background-color: #C4C4C4;
+.loginInputs {
+  background-color: #c4c4c4;
   border-radius: 5px;
   width: 90%;
   height: 40px;
   padding: 5px;
 }
-.loginButton{
+.loginButton {
   width: 55%;
   height: 50px;
-  background-color: #1071B8;
+  background-color: #1071b8;
   color: white;
   border-radius: 10px;
   justify-content: center;
@@ -169,35 +177,35 @@ export default {
   font-size: 25px;
   margin-bottom: 20px;
 }
-.loginButton:disabled{
+.loginButton:disabled {
   opacity: 50%;
   cursor: not-allowed;
 }
-.buttonLink{
+.buttonLink {
   margin: auto;
   text-align: center;
   margin-bottom: 40px;
 }
-.image{
+.image {
   width: 45%;
   margin: auto;
   margin-top: 20px;
 }
-#forgottenPasswordLink{
+#forgottenPasswordLink {
   float: right;
-  margin:10px 5% 0 0;
+  margin: 10px 5% 0 0;
 }
 
-#newUserLink{
+#newUserLink {
   text-decoration: none;
   margin-bottom: 40px;
 }
-.inputFields{
+.inputFields {
   margin: auto;
   text-align: center;
 }
 
-.input-errors{
+.input-errors {
   color: red;
 }
 </style>
