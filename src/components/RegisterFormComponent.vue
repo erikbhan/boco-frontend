@@ -73,11 +73,11 @@
       required
     ></v-checkbox> -->
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submit"
+    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submit()"
       >Registrer</v-btn
     >
 
-    <v-btn color="error" class="mr-4" @click="reset">Tøm felter</v-btn>
+    <v-btn color="error" class="mr-4" @click="reset()">Tøm felter</v-btn>
   </v-form>
 </template>
 <script>
@@ -129,18 +129,21 @@ export default {
 
   methods: {
     submit() {
-      // Validate form before using data
+      console.log("Attempting to register user");
       this.valid = this.$refs.form.validate();
       if (!this.valid) return;
+      this.valid = false;
+      console.log("User is validated");
       axios
-        .post("localhost:3000/api/register", {
+        .post("http://localhost:3000/api/register", {
           email: this.email,
           firstName: this.firstName,
           lastname: this.lastName,
           password: this.password,
           address: this.address,
         })
-        .then((this.valid = false));
+        .then(console.log("Sent"))
+        .catch((e) => console.log(e));
     },
     reset() {
       this.$refs.form.reset();
