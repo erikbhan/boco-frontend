@@ -7,11 +7,3 @@ export function doLogin(loginRequest) {
       return response.data;
     });
 }
-
-export function doLoginToken(loginRequest) {
-  return axios
-    .post("http://localhost:8080/server/token", loginRequest)
-    .then((response) => {
-      return response.data;
-    });
-}

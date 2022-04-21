@@ -2,24 +2,6 @@
   <div class="loginForm">
     <v-img :src="require('../assets/logo3.svg')" class="image" contain />
     <form @submit.prevent="onSubmit">
-      <!--
-      <div class="inputFields">
-        <br><label class="label">E-post</label><br>
-        <input class="loginInputs" type="text" v-model="v$.user.email.$model" />
-
-        <br><label class="label"><br>Passord</label><br>
-        <input class="loginInputs" type="password" v-model="v$.user.password.$model" />
-        <br><a href="url" id="forgottenPasswordLink">Glemt passord</a>
-      </div>
-
-
-      <br><br>
-      <div class="buttonLink">
-        <button class="loginButton" type="submit" @click="loginClicked">LOGG INN</button>
-        <br><a id="newUserLink" href="url">Ny bruker</a>
-        <p id="messageUser">{{ message }}</p>
-      </div> -->
-
       <div class="inputFields">
         <div :class="{ error: v$.user.email.$errors.length }">
           <br /><label class="label" id="emailLabelId">E-post </label><br />
@@ -87,6 +69,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, minLength, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
+import { mapState } from "vuex";
 
 export default {
   name: "LoginForm.vue",
@@ -113,6 +96,10 @@ export default {
     };
   },
 
+  computed: mapState({
+    token: (state) => state.user.token,
+  }),
+
   data() {
     return {
       message: "",
@@ -125,18 +112,20 @@ export default {
   },
 
   methods: {
-    /**loginClicked: function (){
-      this.showError = true;
-      console.log(this.user.email + " " + this.user.password);
-    },*/
-
     async loginClicked() {
-      //alert("You entered, username: " + this.username);
+      this.showError = true;
       const loginRequest = {
         email: this.user.email,
         password: this.user.password,
       };
       const loginResponse = await doLogin(loginRequest);
+
+      if (loginResponse === "Failed login") {
+        this.message = "kunne ikke logge inn";
+        return;
+      }
+
+      this.$store.commit("saveToken", loginResponse);
       console.log(loginResponse);
     },
   },
