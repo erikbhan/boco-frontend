@@ -1,5 +1,23 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      label="E-mail"
+      required
+    ></v-text-field>
+
+    <v-text-field
+      v-model="password"
+      :counter="32"
+      :rules="passwordRules"
+      label="Passord"
+      :append-icon="passwordHidden ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="passwordHidden ? 'text' : 'password'"
+      @click:append="passwordHidden = !passwordHidden"
+      required
+    ></v-text-field>
+
     <v-container class="grey lighten-5">
       <v-row>
         <v-text-field
@@ -23,28 +41,10 @@
     </v-container>
 
     <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
-
-    <v-text-field
       v-model="address"
       :counter="32"
       :rules="addressRules"
       label="Addresse"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="password"
-      :counter="32"
-      :rules="passwordRules"
-      label="Passord"
-      :append-icon="passwordHidden ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="passwordHidden ? 'text' : 'password'"
-      @click:append="passwordHidden = !passwordHidden"
       required
     ></v-text-field>
 
@@ -81,6 +81,8 @@
   </v-form>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     passwordHidden: false,
@@ -128,7 +130,17 @@ export default {
   methods: {
     submit() {
       // Validate form before using data
-      this.$refs.form.validate();
+      this.valid = this.$refs.form.validate();
+      if (!this.valid) return;
+      axios
+        .post("localhost:3000/api/register", {
+          email: this.email,
+          firstName: this.firstName,
+          lastname: this.lastName,
+          password: this.password,
+          address: this.address,
+        })
+        .then((this.valid = false));
     },
     reset() {
       this.$refs.form.reset();
