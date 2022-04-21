@@ -62,6 +62,7 @@
         </div>
       </div>
     </form>
+    <label>{{ token }}</label>
   </div>
 </template>
 
