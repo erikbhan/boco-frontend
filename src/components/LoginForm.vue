@@ -62,7 +62,6 @@
         </div>
       </div>
     </form>
-    <label>{{ token }}</label>
   </div>
 </template>
 
@@ -123,6 +122,7 @@ export default {
 
       if (loginResponse === "Failed login") {
         this.message = "kunne ikke logge inn";
+        this.$store.commit('logout');
         return;
       }
 
