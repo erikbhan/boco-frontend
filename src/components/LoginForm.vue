@@ -42,9 +42,13 @@
               {{ error.$message }}
             </div>
           </div>
-
           <!-- Link to forgot password page will be added here -->
-          <br /><a href="url" id="forgottenPasswordLink">Glemt passord</a>
+          <br /><a
+            href="#"
+            @click="forgotPasswordClicked"
+            id="forgottenPasswordLink"
+            >Glemt passord
+          </a>
         </div>
       </div>
 
@@ -77,7 +81,6 @@ export default {
   setup() {
     return { v$: useVuelidate() };
   },
-
   validations() {
     return {
       user: {
@@ -122,12 +125,15 @@ export default {
 
       if (loginResponse === "Failed login") {
         this.message = "kunne ikke logge inn";
-        this.$store.commit('logout');
+        this.$store.commit("logout");
         return;
       }
 
       this.$store.commit("saveToken", loginResponse);
       console.log(loginResponse);
+    },
+    forgotPasswordClicked() {
+      this.$router.push("/resetPassword");
     },
   },
 };
@@ -194,7 +200,6 @@ export default {
   margin: auto;
   text-align: center;
 }
-
 .input-errors {
   color: red;
 }
