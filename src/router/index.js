@@ -22,7 +22,13 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-  }
+  },
+  {
+    path: "/item-card",
+    name: "itemView",
+    component: () =>
+        import("../views/ItemCardView.vue"),
+  },
 ];
 
 const router = createRouter({
