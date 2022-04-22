@@ -1,68 +1,80 @@
 <template>
-  <div class="loginForm">
-    <v-img :src="require('../assets/logo3.svg')" class="image" contain />
-    <form @submit.prevent="onSubmit">
-      <div class="inputFields">
-        <div :class="{ error: v$.user.email.$errors.length }">
-          <br /><label class="label" id="emailLabelId">E-post </label><br />
-          <input
-            class="loginInputs"
-            type="email"
-            v-model="v$.user.email.$model"
-          />
+  <div>
+    <v-col
+        align="center"
+        justify="space-around"
+    >
+        <v-img
+            max-width="45%"
+            :src="require('../assets/logo3.svg')"
+            align="center"
+        ></v-img>
+      </v-col>
 
-          <!-- error message -->
-          <div
-            class="input-errors"
-            v-for="(error, index) of v$.user.email.$errors"
-            :key="index"
-          >
-            <div class="error-msg" v-show="showError" id="emailErrorId">
-              {{ error.$message }}
-            </div>
-          </div>
+    <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+    >
+      <v-col>
+        <v-text-field
+            v-model="user.email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+        ></v-text-field>
+      </v-col>
+
+
+      <v-col
+        align="right"
+      >
+        <v-text-field
+            v-model="user.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required, rules.min]"
+            :type="showPassword ? 'text' : 'password'"
+            name="input-10-1"
+            label="Password"
+            counter
+            @click:append="showPassword = !showPassword"
+        ></v-text-field>
+
+        <div class="text-decoration-underline mt-n4 mr-10">
+          Glemt passord
         </div>
+      </v-col>
 
-        <!-- password -->
-        <div :class="{ error: v$.user.password.$errors.length }">
-          <br /><label class="label" id="passwordLabelId">Passord </label><br />
-          <input
-            class="loginInputs"
-            type="password"
-            v-model="v$.user.password.$model"
-          />
 
-          <!-- error message -->
-          <div
-            class="input-errors"
-            v-for="(error, index) of v$.user.password.$errors"
-            :key="index"
-          >
-            <div class="error-msg" v-show="showError" id="passwordErrorId">
-              {{ error.$message }}
-            </div>
-          </div>
 
-          <!-- Link to forgot password page will be added here -->
-          <br /><a href="url" id="forgottenPasswordLink">Glemt passord</a>
+      <v-col
+          align="center"
+          justify="space-around"
+      >
+        <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mb-4 mt-4"
+            width="50%"
+            height="40px"
+            @click="loginClicked"
+        >
+          Logg inn
+        </v-btn>
+
+        <div>
+          <a
+              href="/"
+              class="text-decoration-none"
+          >Ny bruker</a>
         </div>
-      </div>
+      </v-col>
 
-      <div class="buttonLink">
-        <!-- Submit Button -->
-        <div class="buttons-w">
-          <br /><br /><button v-on:click="loginClicked" class="loginButton">
-            Logg inn
-          </button>
 
-          <!-- Link to register new user page will be added here -->
-          <br /><a id="newUserLink" href="url">Ny bruker</a>
 
-          <p id="messageUser">{{ message }}</p>
-        </div>
-      </div>
-    </form>
+    </v-form>
   </div>
+
 </template>
 
 <script>
@@ -107,12 +119,23 @@ export default {
         email: "",
         password: "",
       },
-      showError: false,
+
+      showPassword: false,
+      valid : true,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+      },
     };
   },
 
   methods: {
     async loginClicked() {
+      console.log(this.user.email + " " + this.user.password);
       this.showError = true;
       const loginRequest = {
         email: this.user.email,
@@ -129,73 +152,11 @@ export default {
       this.$store.commit("saveToken", loginResponse);
       console.log(loginResponse);
     },
+
+
+    validate () {
+      this.$refs.form.validate()
+    },
   },
 };
 </script>
-
-<style scoped>
-.loginForm {
-  background-color: white;
-  border-radius: 10px;
-  margin: auto;
-  width: 80%;
-  margin-top: 20%;
-  justify-content: center;
-  padding: 10px;
-  font-size: 18px;
-}
-.label {
-  float: left;
-  margin-left: 5%;
-}
-.loginInputs {
-  background-color: #c4c4c4;
-  border-radius: 5px;
-  width: 90%;
-  height: 40px;
-  padding: 5px;
-}
-.loginButton {
-  width: 55%;
-  height: 50px;
-  background-color: #1071b8;
-  color: white;
-  border-radius: 10px;
-  justify-content: center;
-  text-align: center;
-  margin: auto;
-  font-size: 25px;
-  margin-bottom: 20px;
-}
-.loginButton:disabled {
-  opacity: 50%;
-  cursor: not-allowed;
-}
-.buttonLink {
-  margin: auto;
-  text-align: center;
-  margin-bottom: 40px;
-}
-.image {
-  width: 45%;
-  margin: auto;
-  margin-top: 20px;
-}
-#forgottenPasswordLink {
-  float: right;
-  margin: 10px 5% 0 0;
-}
-
-#newUserLink {
-  text-decoration: none;
-  margin-bottom: 40px;
-}
-.inputFields {
-  margin: auto;
-  text-align: center;
-}
-
-.input-errors {
-  color: red;
-}
-</style>
