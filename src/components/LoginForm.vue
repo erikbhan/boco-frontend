@@ -50,7 +50,7 @@
         </div>
       </v-col>
     </v-form>
-      <label>{{ message }}</label>
+    <label>{{ message }}</label>
   </div>
 </template>
 
