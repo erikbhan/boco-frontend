@@ -69,6 +69,9 @@
           >Ny bruker</a>
         </div>
       </v-col>
+
+
+
     </v-form>
   </div>
 
