@@ -1,5 +1,5 @@
 <template>
-
+  <ItemCard></ItemCard>
 </template>
 
 <script>
@@ -9,9 +9,7 @@ export default {
   components: {
     ItemCard,
   },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
