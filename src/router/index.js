@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/LoginView.vue";
+
 
 const routes = [
   {
@@ -17,7 +19,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
-<<<<<<< HEAD
     path: "/register",
     name: "register",
     // route level code-splitting
@@ -25,12 +26,13 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "register" */ "../views/RegisterView.vue"),
-=======
-    path: "/",
-    name: "loginView",
-    component: () => import("../views/LoginView.vue"),
->>>>>>> main
   },
+  {
+    path: "/",
+    name: "login",
+    component: LoginView,
+  }
+
 ];
 
 const router = createRouter({
