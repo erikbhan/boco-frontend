@@ -10,14 +10,12 @@ export default {
   name: "LoginView.vue",
   components: {
     LoginForm,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
-.loginPage{
-
+.loginPage {
   background-color: white;
   height: 100%;
   overflow: auto;

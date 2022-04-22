@@ -5,7 +5,7 @@ import LoginView from "../views/LoginView.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/endre", //Endre før push
     name: "home",
     component: HomeView,
   },
