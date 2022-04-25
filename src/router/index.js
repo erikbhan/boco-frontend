@@ -2,6 +2,7 @@ import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
+import NewPasswordView from "../views/NewPasswordView";
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+  },
+  {
+    path: "/newPassword",
+    name: "newPassword",
+    component: NewPasswordView,
   },
 ];
 
