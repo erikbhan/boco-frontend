@@ -6,9 +6,9 @@ jest.mock("axios");
 describe("testing mocking of apiutil.js", () => {
   it("check that login fails with wrong credentials - against mock", async () => {
     // mock api response on POST call (once)
-    const expectedLoginResponse = { response: "Login failed" };
+    const expectedLoginResponse = "Login failed" ;
     axios.post.mockImplementation(() =>
-      Promise.resolve({ data: expectedLoginResponse })
+      Promise.resolve(expectedLoginResponse)
     );
 
     // do the call
@@ -28,8 +28,8 @@ describe("testing mocking of apiutil.js", () => {
       response:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     };
-    const expectedLoginResponse = { response: "Login failed" };
-    axios.post.mockImplementation(() => Promise.resolve({ data: apiResponse }));
+    const expectedLoginResponse = "Login failed";
+    axios.post.mockImplementation(() => Promise.resolve(apiResponse ));
 
     // do the call
     const loginRequest = {
