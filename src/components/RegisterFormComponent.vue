@@ -1,155 +1,240 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+  <section
+    class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
+  >
+    <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">
+      Opprett ny bruker
+    </h2>
 
-    <v-text-field
-      v-model="password"
-      :counter="32"
-      :rules="passwordRules"
-      label="Passord"
-      :append-icon="passwordHidden ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="passwordHidden ? 'text' : 'password'"
-      @click:append="passwordHidden = !passwordHidden"
-      required
-    ></v-text-field>
+    <form @submit.prevent>
+      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="email"
+            >E-mail</label
+          >
+          <input
+            v-model="email"
+            id="email"
+            type="email"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
 
-    <v-container class="grey lighten-5">
-      <v-row>
-        <v-text-field
-          class="pr-2"
-          v-model="firstName"
-          :counter="32"
-          :rules="firstNameRules"
-          label="Fornavn"
-          required
-        ></v-text-field>
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="pword"
+            >Passord</label
+          >
+          <input
+            v-model="pword"
+            id="pword"
+            type="password"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
 
-        <v-text-field
-          class="pl-2"
-          v-model="lastName"
-          :counter="32"
-          :rules="lastNameRules"
-          label="Etternavn"
-          required
-        ></v-text-field>
-      </v-row>
-    </v-container>
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="cpword"
+            >Bekreft Passord</label
+          >
+          <input
+            v-model="cpword"
+            id="cpword"
+            type="password"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
 
-    <v-text-field
-      v-model="address"
-      :counter="32"
-      :rules="addressRules"
-      label="Addresse"
-      required
-    ></v-text-field>
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="fname"
+            >Fornavn</label
+          >
+          <input
+            v-model="fname"
+            id="fname"
+            type="text"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
 
-    <!-- <v-text-field
-      v-model="confirmPassword"
-      :rules="confirmPasswordRules"
-      label="Bekreft passord"
-      :append-icon="confirmPasswordHidden ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="confirmPasswordHidden ? 'text' : 'password'"
-      @click:append="confirmPasswordHidden = !confirmPasswordHidden"
-      required
-    ></v-text-field> -->
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="lname"
+            >Etternavn</label
+          >
+          <input
+            v-model="lname"
+            id="lname"
+            type="text"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
 
-    <!-- <v-select
-      v-model="select"
-      :items="items"
-      :rules="[(v) => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select> -->
+        <div>
+          <label class="text-gray-700 dark:text-gray-200" for="address"
+            >Addresse</label
+          >
+          <input
+            v-model="address"
+            id="address"
+            type="text"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+          />
+        </div>
+      </div>
 
-    <!-- <v-checkbox
-      v-model="checkbox"
-      :rules="[(v) => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox> -->
-
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submit()"
-      >Registrer</v-btn
-    >
-
-    <v-btn color="error" class="mr-4" @click="reset()">Tøm felter</v-btn>
-  </v-form>
+      <div class="flex justify-end mt-6">
+        <button
+          class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+          @click="submit()"
+          type="submit"
+          :disabled="loading"
+        >
+          <div v-if="loading">
+            <div v-if="loading" class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div v-else>Lagre</div>
+        </button>
+      </div>
+    </form>
+    <p v-for="error of v$.$errors" :key="error.$uid">
+      <strong>{{ error.$validator }}</strong>
+      <small> on property</small>
+      <strong>{{ error.$property }}</strong>
+      <small> says:</small>
+      <strong>{{ error.$message }}</strong>
+    </p>
+  </section>
 </template>
+
 <script>
-import axios from "axios";
+import useVuelidate from "@vuelidate/core";
+import { doLogin, registerUser } from "@/utils/apiutil";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
+
+// const isEmailTaken = (value) =>
+// fetch(`/api/unique/${value}`).then((r) => r.json()); // check the email in the server
 
 export default {
-  data: () => ({
-    passwordHidden: false,
-    // confirmPasswordHidden: false,
-    valid: true,
-    firstName: "",
-    firstNameRules: [
-      (v) => !!v || "Fornavn er påkrevd",
-      (v) => (v && v.length <= 32) || "Fornavn må være mindre enn 32 bokstaver",
-    ],
-    lastName: "",
-    lastNameRules: [
-      (v) => !!v || "Etternavn er påkrevd",
-      (v) =>
-        (v && v.length <= 32) || "Etternavn må være mindre enn 32 bokstaver",
-    ],
-    address: "",
-    addressRules: [
-      (v) => !!v || "Addresse er påkrevd",
-      (v) =>
-        (v && v.length <= 32) || "Addresse må være mindre enn 32 bokstaver",
-    ],
-    password: "",
-    passwordRules: [
-      (v) => !!v || "Passord er påkrevd",
-      (v) => (v && v.length <= 32) || "Passord må være mindre enn 32 tegn",
-      (v) => (v && v.length >= 8) || "Passord må være større enn 8 tegn",
-    ],
-    // confirmPassword: "",
-    // confirmPasswordRules: [
-    //   (v) => !!v || "Passord er påkrevd",
-    //   (v) => (v && v.length <= 32) || "Passord må være mindre enn 32 bokstaver",
-    //   // (v) => v === this.password || "Passordene må være like",
-    // ],
-    email: "",
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    // select: null,
-    // items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    // checkbox: false,
-  }),
-
+  setup: () => ({ v$: useVuelidate() }),
+  data() {
+    return {
+      userCreated: false,
+      loading: false,
+      email: "",
+      pword: "",
+      cpword: "",
+      fname: "",
+      lname: "",
+      address: "",
+    };
+  },
+  validations() {
+    return {
+      email: {
+        required,
+        email,
+        // isUnique: helpers.withAsync(isEmailTaken),
+      },
+      pword: {
+        required,
+        minLength: minLength(8),
+      },
+      cpword: { sameAs: sameAs(this.pword) },
+      fname: { required },
+      lname: { required },
+      address: { required },
+    };
+  },
   methods: {
-    submit() {
-      console.log("Attempting to register user");
-      this.valid = this.$refs.form.validate();
-      if (!this.valid) return;
-      this.valid = false;
-      console.log("User is validated");
-      axios
-        .post("http://localhost:3000/api/register", {
-          email: this.email,
-          firstName: this.firstName,
-          lastname: this.lastName,
-          password: this.password,
-          address: this.address,
-        })
-        .then(console.log("Sent"))
-        .catch((e) => console.log(e));
-    },
-    reset() {
-      this.$refs.form.reset();
-      this.$refs.form.resetValidation();
-      this.valid = true;
+    async submit() {
+      console.log(this.$data);
+
+      this.loading = true;
+      const result = await this.v$.$validate();
+
+      if (!result) {
+        //Invalid form
+        console.log("Form not submitted");
+        this.loading = false;
+        return;
+      }
+
+      const registerInfo = {
+        email: this.email,
+        firstName: this.fname,
+        lastname: this.lname,
+        password: this.pword,
+        address: this.address,
+      };
+
+      let response = await registerUser(registerInfo);
+      if (response.status === 200) this.userCreated = true;
+
+      //If a user is created succsessfully, try to login
+      if (this.userCreated) {
+        const loginRequest = {
+          email: this.user.email,
+          password: this.user.password,
+        };
+
+        const loginResponse = await doLogin(loginRequest);
+
+        if (loginResponse === "Failed login") {
+          this.message = "kunne ikke logge inn";
+          this.$store.commit("logout");
+          this.$router.push("/login");
+          return;
+        }
+        this.$router.push("/");
+
+        this.$store.commit("saveToken", loginResponse);
+        console.log(loginResponse);
+      }
+      this.loading = false;
     },
   },
 };
 </script>
+
+<style scoped>
+/* https://loading.io/css/ */
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
