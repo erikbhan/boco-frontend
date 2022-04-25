@@ -1,6 +1,7 @@
+<!--suppress HtmlDeprecatedAttribute -->
 <template>
   <div>
-    <v-col align="center" justify="space-around">
+    <v-col align="center" justify="space-around" class="mt-16">
       <v-img
         max-width="45%"
         :src="require('../assets/logo3.svg')"
@@ -12,8 +13,8 @@
       <v-col>
         <v-text-field
           v-model="user.email"
-          :rules="emailRules"
-          label="E-mail"
+          :rules="[rules.email]"
+          label="Epost"
           required
         ></v-text-field>
       </v-col>
@@ -25,7 +26,7 @@
           :rules="[rules.required, rules.min]"
           :type="showPassword ? 'text' : 'password'"
           name="input-10-1"
-          label="Password"
+          label="Passord"
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
@@ -50,7 +51,6 @@
         </div>
       </v-col>
     </v-form>
-      <label>{{ message }}</label>
   </div>
 </template>
 
@@ -75,19 +75,17 @@ export default {
 
       showPassword: false,
       valid: true,
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        required: (value) => !!value || "Feltet er påkrevd",
+        min: (v) => v.length >= 8 || "Minimum 8 tegn",
+        email: (v) => /.+@.+\..+/.test(v) || "Epost adressen må være gyldig",
       },
     };
   },
 
   methods: {
     async loginClicked() {
+      console.log(this.user.email + " " + this.user.password);
       const loginRequest = {
         email: this.user.email,
         password: this.user.password,
@@ -95,7 +93,7 @@ export default {
       const loginResponse = await doLogin(loginRequest);
 
       if (loginResponse === "Failed login") {
-        this.message = "kunne ikke logge inn";
+        this.message = "Feil brukernavn/passord";
         this.$store.commit("logout");
         return;
       }
