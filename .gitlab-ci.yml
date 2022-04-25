@@ -17,12 +17,21 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
 
-install_dependencies:       # This job runs in the build stage, which runs first.
+image: node:6
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies_job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - echo "Installing dependencies..."
     - npm install
     - echo "Dependencies installed."
+  artifacts:
+    paths:
+      - node_modules/
 
 
 lint-test-job:   # This job also runs in the test stage.
@@ -31,10 +40,16 @@ lint-test-job:   # This job also runs in the test stage.
     - echo "Linting the code..."
     - npm run lint
     - echo "Code-linting complete."
+  artifacts:
+    paths:
+      - node_modules/
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Running unit tests..."
     - npm run test:unit -- --coverage
-    - echo "Unit tests complete."
+    - echo (Unit tests complete."
+  artifacts:
+    paths:
+      - node_modules/
