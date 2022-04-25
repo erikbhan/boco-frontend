@@ -14,9 +14,9 @@ export function registerUser(registerInfo) {
   return axios
     .post(API_URL + "register", {
       email: registerInfo.email,
-      firstName: registerInfo.fname,
-      lastname: registerInfo.lname,
-      password: registerInfo.pword,
+      firstName: registerInfo.firstName,
+      lastname: registerInfo.lastname,
+      password: registerInfo.password,
       address: registerInfo.address,
     })
     .then((response) => {

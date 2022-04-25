@@ -122,7 +122,6 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
-      userCreated: false,
       loading: false,
       email: "",
       pword: "",
@@ -151,34 +150,25 @@ export default {
   },
   methods: {
     async submit() {
-      console.log(this.$data);
-
+      //Display loading symbol
       this.loading = true;
-      const result = await this.v$.$validate();
 
+      //Validate form
+      const result = await this.v$.$validate();
       if (!result) {
-        //Invalid form
-        console.log("Form not submitted");
         this.loading = false;
         return;
       }
 
-      const registerInfo = {
-        email: this.email,
-        firstName: this.fname,
-        lastname: this.lname,
-        password: this.pword,
-        address: this.address,
-      };
-
-      let response = await registerUser(registerInfo);
-      if (response.status === 200) this.userCreated = true;
+      //Send a request to create a user and save success as a bool
+      const userCreated = await this.sendRegisterRequest();
 
       //If a user is created succsessfully, try to login
-      if (this.userCreated) {
+      //If we get this far, we will be pushed anyway so there is no point updating "loading"
+      if (userCreated) {
         const loginRequest = {
-          email: this.user.email,
-          password: this.user.password,
+          email: this.email,
+          password: this.pword,
         };
 
         const loginResponse = await doLogin(loginRequest);
@@ -189,12 +179,24 @@ export default {
           this.$router.push("/login");
           return;
         }
-        this.$router.push("/");
 
         this.$store.commit("saveToken", loginResponse);
-        console.log(loginResponse);
+        this.$router.push("/");
       }
-      this.loading = false;
+    },
+    async sendRegisterRequest() {
+      const registerInfo = {
+        email: this.email,
+        firstName: this.fname,
+        lastname: this.lname,
+        password: this.pword,
+        address: this.address,
+      };
+
+      const response = await registerUser(registerInfo);
+
+      if (response.status === 200) return true;
+      return false;
     },
   },
 };
