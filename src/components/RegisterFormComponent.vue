@@ -21,48 +21,49 @@
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="pword"
+          <label class="text-gray-700 dark:text-gray-200" for="password"
             >Passord</label
           >
           <input
-            v-model="pword"
-            id="pword"
+            v-model="password"
+            id="password"
             type="password"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="cpword"
+          <label class="text-gray-700 dark:text-gray-200" for="confirmPassword"
             >Bekreft Passord</label
           >
           <input
-            v-model="cpword"
-            id="cpword"
+            v-model="confirmPassword"
+            id="confirmPassword"
             type="password"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="fname"
+          <label class="text-gray-700 dark:text-gray-200" for="firstName"
             >Fornavn</label
           >
           <input
-            v-model="fname"
-            id="fname"
+            data-test="firstNameTest"
+            v-model="firstName"
+            id="firstName"
             type="text"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="lname"
+          <label class="text-gray-700 dark:text-gray-200" for="lastName"
             >Etternavn</label
           >
           <input
-            v-model="lname"
-            id="lname"
+            v-model="lastName"
+            id="lastName"
             type="text"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
@@ -100,15 +101,17 @@
         </button>
       </div>
     </form>
-    <p v-for="error of v$.$errors" :key="error.$uid">
-      <strong>{{ error.$validator }}</strong>
-      <small> on property</small>
-      <strong>{{ error.$property }}</strong>
-      <small> says:</small>
-      <strong>{{ error.$message }}</strong>
-    </p>
   </section>
-  <p v-if="errorMessage">{{ errorMessage }}</p>
+  <ul data-test="errorMessageList">
+    <li v-if="errorMessage" data-test="customErrorMsg">{{ errorMessage }}</li>
+    <li v-for="error of v$.$errors" :key="error.$uid">
+      <!-- {{ error.$validator }} -->
+      Field
+      {{ error.$property }}
+      has error:
+      {{ error.$message }}
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -126,10 +129,10 @@ export default {
       errorMessage: "",
       loading: false,
       email: "",
-      pword: "",
-      cpword: "",
-      fname: "",
-      lname: "",
+      password: "",
+      confirmPassword: "",
+      firstName: "",
+      lastName: "",
       address: "",
     };
   },
@@ -140,13 +143,13 @@ export default {
         email,
         // isUnique: helpers.withAsync(isEmailTaken),
       },
-      pword: {
+      password: {
         required,
         minLength: minLength(8),
       },
-      cpword: { sameAs: sameAs(this.pword) },
-      fname: { required },
-      lname: { required },
+      confirmPassword: { sameAs: sameAs(this.password) },
+      firstName: { required },
+      lastName: { required },
       address: { required },
     };
   },
@@ -174,7 +177,7 @@ export default {
 
       const loginRequest = {
         email: this.email,
-        password: this.pword,
+        password: this.password,
       };
 
       const loginResponse = await doLogin(loginRequest);
@@ -192,9 +195,9 @@ export default {
     async sendRegisterRequest() {
       const registerInfo = {
         email: this.email,
-        firstName: this.fname,
-        lastname: this.lname,
-        password: this.pword,
+        firstName: this.firstName,
+        lastname: this.lastName,
+        password: this.password,
         address: this.address,
       };
 
