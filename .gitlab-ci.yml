@@ -17,7 +17,7 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
 
-image: node:14
+image: node:16
 
 cache:
   paths:
