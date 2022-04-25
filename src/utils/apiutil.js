@@ -4,9 +4,13 @@ const API_URL = "http://65.108.62.223:3000/api/";
 
 export function doLogin(loginRequest) {
   return axios
-    .post(API_URL + "login/authentication", loginRequest)
+    .post(process.env.VUE_APP_BASEURL + "login/authentication", loginRequest)
     .then((response) => {
       return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error.response;
     });
 }
 
