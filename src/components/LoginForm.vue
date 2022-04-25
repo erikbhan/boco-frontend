@@ -90,7 +90,7 @@
           >
         </div>
       </div>
-      <div class="flex flex-row min-h-screen justify-center items-center">
+      <div class="flex justify-center">
         <label>{{ message }}</label>
       </div>
     </div>
@@ -153,11 +153,17 @@ export default {
 
       const loginResponse = await doLogin(loginRequest);
 
-      if (loginResponse.data === "Login failed") {
+      if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
         this.$store.commit("logout");
-      } else {
+      }
+      else if(loginResponse.isLoggedIn === true){
         this.$store.commit("saveToken", loginResponse);
+        this.message = loginResponse.token;
+        console.log("Logged in")
+      }
+      else {
+        console.log("Something went wrong")
       }
     },
 
