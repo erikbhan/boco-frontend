@@ -1,10 +1,11 @@
+import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 
 const routes = [
   {
-    path: "/endre", //Endre før push
+    path: "/", //Endre før push
     name: "home",
     component: HomeView,
   },
@@ -14,9 +15,12 @@ const routes = [
     component: () => import("../views/AboutView.vue"),
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
     component: () => import("../views/ProfileView.vue"),
+    beforeEnter: () => {
+      if (store.state.user.token == null) router.push("login");
+    },
   },
   {
     path: "/register",
@@ -28,7 +32,7 @@ const routes = [
       import(/* webpackChunkName: "register" */ "../views/RegisterView.vue"),
   },
   {
-    path: "/",
+    path: "/login",
     name: "login",
     component: LoginView,
   },
