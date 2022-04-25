@@ -9,8 +9,8 @@
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Tittel</label
-      >
+        id="titleLabel"
+        >Tittel</label>
       <input
         type="text"
         id="title"
@@ -35,6 +35,7 @@
     <div class="mb-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="selectCategoryLabel"
         >Kategori</label
       >
       <select
@@ -70,6 +71,7 @@
     <div class="mb-6" :class="{ error: v$.item.price.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="priceLabel"
         >Pris</label
       >
       <input
@@ -96,6 +98,7 @@
     <div class="mb-6" :class="{ error: v$.item.description.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="descriptionLabel"
         >Beskrivelse</label
       >
       <textarea
@@ -122,6 +125,7 @@
     <div>
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="imageLabel"
       >
         Bilder
       </label>
@@ -152,6 +156,7 @@
       <button
         @click="saveClicked"
         class="content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        id="saveButton"
       >
         Lagre
       </button>
