@@ -108,6 +108,7 @@
       <strong>{{ error.$message }}</strong>
     </p>
   </section>
+  <p v-if="errorMessage">{{ errorMessage }}</p>
 </template>
 
 <script>
@@ -122,6 +123,7 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
+      errorMessage: "",
       loading: false,
       email: "",
       pword: "",
@@ -165,24 +167,27 @@ export default {
 
       //If a user is created succsessfully, try to login
       //If we get this far, we will be pushed anyway so there is no point updating "loading"
-      if (userCreated) {
-        const loginRequest = {
-          email: this.email,
-          password: this.pword,
-        };
-
-        const loginResponse = await doLogin(loginRequest);
-
-        if (loginResponse === "Failed login") {
-          this.message = "kunne ikke logge inn";
-          this.$store.commit("logout");
-          this.$router.push("/login");
-          return;
-        }
-
-        this.$store.commit("saveToken", loginResponse);
-        this.$router.push("/");
+      if (!userCreated) {
+        this.errorMessage = "Could not create user.";
+        return;
       }
+
+      const loginRequest = {
+        email: this.email,
+        password: this.pword,
+      };
+
+      const loginResponse = await doLogin(loginRequest);
+
+      if (loginResponse === "Failed login") {
+        this.errorMessage = "Failed to log in with new user";
+        this.$store.commit("logout");
+        this.$router.push("/login");
+        return;
+      }
+
+      this.$store.commit("saveToken", loginResponse);
+      this.$router.push("/");
     },
     async sendRegisterRequest() {
       const registerInfo = {
