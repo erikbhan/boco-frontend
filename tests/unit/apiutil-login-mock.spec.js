@@ -7,8 +7,9 @@ describe("testing mocking of apiutil.js", () => {
   it("check that login fails with wrong credentials - against mock", async () => {
     // mock api response on POST call (once)
     const expectedLoginResponse = "Login failed" ;
+
     axios.post.mockImplementation(() =>
-      Promise.resolve(expectedLoginResponse)
+      Promise.resolve({data: "Login failed"})
     );
 
     // do the call
@@ -29,7 +30,7 @@ describe("testing mocking of apiutil.js", () => {
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     };
     const expectedLoginResponse = "Login failed";
-    axios.post.mockImplementation(() => Promise.resolve(apiResponse ));
+    axios.post.mockImplementation(() => Promise.resolve({data: apiResponse}));
 
     // do the call
     const loginRequest = {
