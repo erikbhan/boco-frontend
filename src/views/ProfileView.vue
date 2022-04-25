@@ -1,10 +1,6 @@
 <!-- View for looking at different profile display methods -->
 <template>
-  <v-container>
-    <v-row align="center" class="pa-2">
-      <large-profile-card :isCurrentUser="true" :userID="2" />
-    </v-row>
-  </v-container>
+  <large-profile-card :isCurrentUser="true" />
 </template>
 
 <script>
