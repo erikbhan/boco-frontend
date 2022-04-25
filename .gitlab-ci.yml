@@ -50,7 +50,7 @@ unit-test-job:   # This job runs in the test stage.
   script:
     - echo "Running unit tests..."
     - npm run test:unit -- --coverage
-    - echo (Unit tests complete."
+    - echo "Unit tests complete."
   artifacts:
     paths:
       - node_modules/
