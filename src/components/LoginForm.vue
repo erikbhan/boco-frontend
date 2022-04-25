@@ -101,6 +101,8 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
+import store from "@/store";
+import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
   name: "LoginForm.vue",
@@ -159,6 +161,11 @@ export default {
       } else {
         this.$store.commit("saveToken", loginResponse);
       }
+
+      let user = parseUserFromToken(store.state.user.token);
+      console.log(user);
+      let id = user.account_id;
+      this.$router.push("/profile/" + id);
     },
 
     validate() {

@@ -8,7 +8,9 @@
       </router-link>
     </div>
     <div class="flex-1 pl-1">
-      <div class="font-medium dark:text-white">{{ user.firstName }} {{ user.lastName }} </div>
+      <div class="font-medium dark:text-white">
+        {{ user.firstName }} {{ user.lastName }}
+      </div>
     </div>
     <div class="flex flex-row justify-center">
       <button class="w-10 text-right flex justify-end">Åpne chat</button>

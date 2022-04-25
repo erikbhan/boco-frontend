@@ -1,9 +1,11 @@
 import axios from "axios";
 import { tokenHeader } from "./token-utils";
 
+const VUE_APP_BASEURL = "http://65.108.62.223:3000/api/";
+
 export function doLogin(loginRequest) {
   return axios
-    .post(process.env.VUE_APP_BASEURL + "login/authentication", loginRequest)
+    .post(VUE_APP_BASEURL + "login/authentication", loginRequest)
     .then((response) => {
       return response.data;
     })
@@ -15,7 +17,7 @@ export function doLogin(loginRequest) {
 
 export function getUser(userid) {
   return axios
-    .get(`http://65.108.62.223:3000/api/user/` + userid, {
+    .get(VUE_APP_BASEURL + "users/" + userid + "/profile", {
       headers: tokenHeader(),
     })
     .then((response) => {
@@ -28,7 +30,7 @@ export function getUser(userid) {
 
 export function getRenterRating(userid) {
   return axios
-    .get(`http://65.108.62.223:3000/api/user/renter-rating/` + userid, {
+    .get(VUE_APP_BASEURL + "users/" + userid + "", {
       headers: tokenHeader(),
     })
     .then((response) => {
@@ -41,7 +43,7 @@ export function getRenterRating(userid) {
 
 export function getOwnerRating(userid) {
   return axios
-    .get(`http://65.108.62.223:3000/api/user/owner-rating/` + userid, {
+    .get(VUE_APP_BASEURL + "users/" + userid + "", {
       headers: tokenHeader(),
     })
     .then((response) => {

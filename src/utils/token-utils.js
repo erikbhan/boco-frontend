@@ -8,6 +8,5 @@ export function tokenHeader() {
 
 export function parseUserFromToken() {
   let token = store.state.user.token;
-  console.log(token);
-  return jwt_decode();
+  return jwt_decode(token);
 }

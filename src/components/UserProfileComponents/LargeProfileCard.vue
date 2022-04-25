@@ -4,8 +4,9 @@
   >
     <div v-show="isCurrentUser" class="flex justify-end px-4 pt-4">
       <button
-        id="dropdownButton"
+        id="dropdownDefault"
         data-dropdown-toggle="dropdown"
+        @click="dropdown = !dropdown"
         class="hidden sm:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
         type="button"
       >
@@ -23,18 +24,11 @@
 
       <div
         id="dropdown"
-        class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
-        data-popper-reference-hidden=""
-        data-popper-escaped=""
-        data-popper-placement="top"
-        style="
-          position: absolute;
-          inset: auto auto 0px 0px;
-          margin: 0px;
-          transform: translate3d(653.6px, 2976.8px, 0px);
-        "
+        v-show="dropdown"
+        zindex="2"
+        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
-        <ul class="py-1" aria-labelledby="dropdownButton">
+        <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
             <router-link
               to=""
@@ -58,7 +52,7 @@
           </li>
           <li>
             <router-link
-              to=""
+              to="/newPassword"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Endre passord</router-link
             >
@@ -76,11 +70,11 @@
     <div class="flex flex-col items-center pb-10">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
-        :src="getProfilePicture()"
+        src="../../assets/defaultUserProfileImage.jpg"
         alt="Profile picture"
       />
       <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-        {{ user.firstName }} {{ user.lastName }}
+        {{ user.first_name }} {{ user.last_name }}
       </h5>
       <div>
         <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
@@ -111,6 +105,7 @@ export default {
       user: this.getUser(),
       renterRating: 3, //getRenterRating(this.userID),
       ownerRating: 5, //getOwnerRating(this.userID),
+      dropdown: false,
     };
   },
   computed: {
@@ -125,16 +120,18 @@ export default {
   methods: {
     getUser() {
       let id = router.currentRoute.value.params.id;
-      if (this.isCurrentUser) {
-        return parseUserFromToken();
-      }
-      return getUser(id);
+      let currentUser = parseUserFromToken();
+      console.log(currentUser);
+      if ((id = currentUser.account_id)) return currentUser;
+      let user = getUser(id);
+      console.log(user);
+      return user;
     },
     getProfilePicture() {
-      if (this.user.picture == "") {
-        return "../assets/defaultUserProfileImage.jpg";
-      }
-      return this.user.picture;
+      /* if (this.user.picture == "") {
+        return this.user.picture;
+      } */
+      return "../assets/defaultUserProfileImage.jpg";
     },
   },
 };
