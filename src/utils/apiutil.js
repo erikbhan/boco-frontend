@@ -3,9 +3,13 @@ import { tokenHeader } from "./token-utils";
 
 export function doLogin(loginRequest) {
   return axios
-    .post(`http://65.108.62.223:3000/api/login/authentication`, loginRequest)
+    .post(process.env.VUE_APP_BASEURL + "login/authentication", loginRequest)
     .then((response) => {
       return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error.response;
     });
 }
 
