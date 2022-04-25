@@ -106,9 +106,6 @@ import router from "@/router";
 
 export default {
   name: "LargeProfileCard",
-  props: {
-    isCurrentUser: Boolean,
-  },
   data() {
     return {
       user: this.getUser(),
@@ -116,23 +113,22 @@ export default {
       ownerRating: 5, //getOwnerRating(this.userID),
     };
   },
+  computed: {
+    isCurrentUser() {
+      if (this.user.id == parseUserFromToken().id) return true;
+      return false;
+    },
+  },
   components: {
     RatingComponent,
   },
   methods: {
     getUser() {
       let id = router.currentRoute.value.params.id;
-      /* let user = {
-        id: router.currentRoute.value.params.id,
-        firstName: "Navn",
-        lastName: "Navnesen",
-        picture: "",
-      }; */
       if (this.isCurrentUser) {
         return parseUserFromToken();
       }
       return getUser(id);
-      //return user;
     },
     getProfilePicture() {
       if (this.user.picture == "") {
