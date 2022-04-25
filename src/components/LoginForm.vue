@@ -1,57 +1,4 @@
 <template>
-  <!--<div>
-    <v-col align="center" justify="space-around">
-      <v-img
-        max-width="45%"
-        :src="require('../assets/logo3.svg')"
-        align="center"
-      ></v-img>
-    </v-col>
-
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-col>
-        <v-text-field
-          v-model="user.email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </v-col>
-
-      <v-col align="right">
-        <v-text-field
-          v-model="user.password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.min]"
-          :type="showPassword ? 'text' : 'password'"
-          name="input-10-1"
-          label="Password"
-          counter
-          @click:append="showPassword = !showPassword"
-        ></v-text-field>
-
-        <div class="text-decoration-underline mt-n4 mr-10">Glemt passord</div>
-      </v-col>
-
-      <v-col align="center" justify="space-around">
-        <v-btn
-          :disabled="!valid"
-          color="success"
-          class="mb-4 mt-4"
-          width="50%"
-          height="40px"
-          @click="loginClicked"
-        >
-          Logg inn
-        </v-btn>
-
-        <div>
-          <a href="/" class="text-decoration-none">Ny bruker</a>
-        </div>
-      </v-col>
-    </v-form>
-  </div>-->
-
   <div class="m-6" :class="{ error: v$.user.email.$errors.length }">
     <div class="mb-6">
       <label
@@ -69,10 +16,7 @@
       />
 
       <!-- error message -->
-      <div
-        v-for="(error, index) of v$.user.email.$errors"
-        :key="index"
-      >
+      <div v-for="(error, index) of v$.user.email.$errors" :key="index">
         <div class="text-red-600 text-sm" v-show="showError" id="emailErrorId">
           {{ error.$message }}
         </div>
@@ -98,7 +42,11 @@
         v-for="(error, index) of v$.user.password.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm" v-show="showError" id="passwordErrorId">
+        <div
+          class="text-red-600 text-sm"
+          v-show="showError"
+          id="passwordErrorId"
+        >
           {{ error.$message }}
         </div>
       </div>
@@ -113,10 +61,13 @@
     <button
       @click="loginClicked"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      :disabled="notValid"
     >
       Logg inn
     </button>
+  </div>
+
+  <div>
+    <label>{{ response }}</label>
   </div>
 </template>
 
@@ -163,6 +114,8 @@ export default {
         password: "",
       },
 
+      response: '',
+
       showPassword: false,
       valid: true,
       showError: false,
@@ -172,7 +125,7 @@ export default {
       ],
       rules: {
         required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        min: (v) => v.length >= 0 || "Min 8 characters",
       },
     };
   },
@@ -181,11 +134,30 @@ export default {
     async loginClicked() {
       console.log(this.user.email + " " + this.user.password);
       this.showError = true;
+
+      this.v$.user.email.$touch();
+      if (this.v$.user.email.$invalid) {
+        console.log("Invalid, avslutter...");
+        return;
+      }
+
+      console.log("videre!");
+
       const loginRequest = {
         email: this.user.email,
         password: this.user.password,
       };
+
+      console.log("før");
+
+      console.log("env: " + process.env.VUE_APP_BASEURL);
+
       const loginResponse = await doLogin(loginRequest);
+
+
+      console.log("respons" + loginResponse);
+
+      this.response = loginResponse.data;
 
       if (loginResponse === "Failed login") {
         this.message = "kunne ikke logge inn";
