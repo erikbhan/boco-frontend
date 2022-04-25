@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name: "ItemCard.vue",
   data() {
     return {
       item: {

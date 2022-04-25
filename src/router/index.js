@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 
-
 const routes = [
   {
     path: "/endre", //Endre før push
@@ -22,7 +21,17 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
-  }
+  },
+  {
+    path: "/addNewItem",
+    name: "addNewItem",
+    component: () => import("../views/AddNewItemView.vue"),
+  },
+  {
+    path: "/itemCard",
+    name: "itemCard",
+    component: () => import("../views/ItemCardView.vue"),
+  },
 ];
 
 const router = createRouter({
