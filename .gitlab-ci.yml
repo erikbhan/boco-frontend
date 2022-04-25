@@ -20,21 +20,21 @@ stages:          # List of stages for jobs, and their order of execution
 install_dependencies:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - echo ("Installing dependencies...")
+    - echo "Installing dependencies..."
     - npm install
-    - echo ("Dependencies installed.")
+    - echo "Dependencies installed."
 
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
   script:
-    - echo ("Linting the code...")
+    - echo "Linting the code..."
     - npm run lint
-    - echo ("Code-linting complete.")
+    - echo "Code-linting complete."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - echo(Running unit tests...)
+    - echo "Running unit tests..."
     - npm run test:unit -- --coverage
-    - echo (Unit tests complete.)
+    - echo "Unit tests complete."
