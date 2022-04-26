@@ -101,7 +101,6 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-import store from "@/store";
 import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
@@ -162,8 +161,7 @@ export default {
         this.$store.commit("saveToken", loginResponse);
       }
 
-      let user = parseUserFromToken(store.state.user.token);
-      console.log(user);
+      let user = parseUserFromToken();
       let id = user.account_id;
       this.$router.push("/profile/" + id);
     },
