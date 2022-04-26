@@ -102,7 +102,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-//import { parseUserFromToken } from "@/utils/token-utils";
+import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
   name: "LoginForm.vue",
@@ -158,12 +158,15 @@ export default {
       if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
         this.$store.commit("logout");
-      }
-      else if (loginResponse.isLoggedIn === true) {
+      } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
-        await this.$router.push("/");
-      }
-      else {
+
+        let user = parseUserFromToken(loginResponse.token);
+        console.log(user);
+        let id = user.accountId;
+        console.log(id);
+        this.$router.push("/profile/" + id);
+      } else {
         console.log("Something went wrong");
       }
     },
