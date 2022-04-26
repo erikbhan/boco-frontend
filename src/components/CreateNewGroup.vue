@@ -142,10 +142,10 @@
     <!-- Images -->
     <div class="mt-6">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder
+        Bilde
       </label>
 
       <input
