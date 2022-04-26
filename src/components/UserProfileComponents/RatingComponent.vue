@@ -1,5 +1,5 @@
 <template>
-  <ul class="flex justify-center">
+  <ul v-if="compRating != -1" class="flex justify-center">
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {{ ratingType }}:&nbsp;
@@ -20,6 +20,18 @@
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {{ compRating }} out of 5
+      </p>
+    </li>
+  </ul>
+  <ul v-else class="flex justify-center">
+    <li>
+      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+        {{ ratingType }}:&nbsp;
+      </p>
+    </li>
+    <li>
+      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+        Rating ikke tilgjengelig
       </p>
     </li>
   </ul>
