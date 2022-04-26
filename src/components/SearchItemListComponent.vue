@@ -54,6 +54,12 @@ export default {
     },
   },
 
+  /**
+   * Her må det lages en metode som henter alle items (i en gruppe) fra databasen.
+   * De kan deretter bli pusha inn i items array, og da burde de bli displayet i lista.
+   * Når denne metoden er på plass kan items[] i data tømmes. Da vil alt dataen komme fra db.
+   */
+
   data() {
     return {
       items: [
