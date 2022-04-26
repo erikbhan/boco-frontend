@@ -37,6 +37,11 @@ const routes = [
     name: "newPassword",
     component: NewPasswordView,
   },
+  {
+    path: "/searchItemList",
+    name: "searchItemList",
+    component: () => import("../views/SearchItemListView.vue"),
+  },
 ];
 
 const router = createRouter({
