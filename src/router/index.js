@@ -47,7 +47,8 @@ const routes = [
     path: "/searchItemList",
     name: "searchItemList",
     component: () => import("../views/SearchItemListView.vue"),
-
+  },
+  {
     path: "/createNewGroup",
     name: "createNewGroup",
     component: () => import("../views/CreateNewGroupView.vue"),
