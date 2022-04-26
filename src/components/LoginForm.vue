@@ -52,6 +52,7 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         v-model="v$.user.password.$model"
         required
+        @keyup.enter="loginClicked"
       />
       <!-- error message -->
       <div
@@ -83,14 +84,14 @@
       >
         Logg inn
       </button>
-      <div class="flex justify-center align-items: flex-end; mb-6 mt-6">
+      <div class="align-items: flex-end; mb-6 mt-6">
         <div class="ml-3 text-sm">
           <router-link to="register" class="text-blue-600"
             >Ny bruker</router-link
           >
         </div>
       </div>
-      <div class="flex flex-row min-h-screen justify-center items-center">
+      <div class="flex justify-center">
         <label>{{ message }}</label>
       </div>
     </div>
@@ -101,6 +102,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
+import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
   name: "LoginForm.vue",
@@ -153,12 +155,21 @@ export default {
 
       const loginResponse = await doLogin(loginRequest);
 
-      if (loginResponse.data === "Login failed") {
+      if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
         this.$store.commit("logout");
-      } else {
-        this.$store.commit("saveToken", loginResponse);
       }
+      else if (loginResponse.isLoggedIn === true) {
+        this.$store.commit("saveToken", loginResponse.token);
+        await this.$router.push("/endre");
+      }
+      else {
+        console.log("Something went wrong");
+      }
+
+      let user = parseUserFromToken();
+      let id = user.account_id;
+      this.$router.push("/profile/" + id);
     },
 
     validate() {
