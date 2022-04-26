@@ -37,6 +37,11 @@ const routes = [
     name: "newPassword",
     component: NewPasswordView,
   },
+  {
+    path: "/createNewGroup",
+    name: "createNewGroup",
+    component: () => import("../views/CreateNewGroupView.vue"),
+  },
 ];
 
 const router = createRouter({
