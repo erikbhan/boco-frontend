@@ -158,18 +158,17 @@ export default {
       if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
         this.$store.commit("logout");
-      }
-      else if (loginResponse.isLoggedIn === true) {
+      } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
-        await this.$router.push("/endre");
-      }
-      else {
+
+        let user = parseUserFromToken(loginResponse.token);
+        console.log(user);
+        let id = user.accountId;
+        console.log(id);
+        this.$router.push("/profile/" + id);
+      } else {
         console.log("Something went wrong");
       }
-
-      let user = parseUserFromToken();
-      let id = user.account_id;
-      this.$router.push("/profile/" + id);
     },
 
     validate() {

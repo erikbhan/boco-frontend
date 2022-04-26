@@ -6,7 +6,11 @@ export function tokenHeader() {
   return { Authorization: token };
 }
 
-export function parseUserFromToken() {
+export function parseCurrentUser() {
   let token = store.state.user.token;
+  return jwt_decode(token);
+}
+
+export function parseUserFromToken(token) {
   return jwt_decode(token);
 }
