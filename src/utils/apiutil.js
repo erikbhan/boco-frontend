@@ -3,14 +3,17 @@ import axios from "axios";
 const API_URL = process.env.VUE_APP_BASEURL;
 
 export function doLogin(loginRequest) {
+  const auth = {isLoggedIn: false, token: ""};
   return axios
     .post(API_URL + "login/authentication", loginRequest)
     .then((response) => {
-      return response.data;
+      auth.isLoggedIn = true;
+      auth.token = response.data;
+      return auth;
     })
     .catch((error) => {
       console.log(error.response);
-      return error.response;
+      return auth;
     });
 }
 
