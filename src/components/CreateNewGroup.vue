@@ -9,6 +9,7 @@
     <div class="mt-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="radioBoxLabel"
         >Synlighet</label
       >
       <div class="form-check">
@@ -16,14 +17,15 @@
           class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
-          id="flexRadioDefault1"
+          id="flexRadioOpen"
           value="Åpen"
           @change="checkRadioButton($event)"
           checked
         />
         <label
           class="form-check-label inline-block text-gray-800"
-          for="flexRadioDefault1"
+          for="flexRadioOpen"
+          id="radioBoxOpenLabel"
         >
           Åpen
         </label>
@@ -33,13 +35,14 @@
           class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
-          id="flexRadioDefault2"
+          id="flexRadioPrivate"
           value="Privat"
           @change="checkRadioButton($event)"
         />
         <label
           class="form-check-label inline-block text-gray-800"
-          for="flexRadioDefault2"
+          for="flexRadioPrivate"
+          id="radioBoxPrivateLabel"
         >
           Privat
         </label>
@@ -157,22 +160,21 @@
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
         <button
-            @click="$refs.file.click()"
-            class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50 cursor-not-allowed"
-            :disabled="imageAdded"
+          @click="$refs.file.click()"
+          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50 cursor-not-allowed"
+          :disabled="imageAdded"
         >
           Velg bilde
         </button>
 
         <!-- Button for removing an image -->
         <button
-            class="w-1/12 ml-5 text-white bg-white-500 font-medium rounded-lg text-sm"
-            v-show="imageAdded"
-            @click="removeImage"
+          class="w-1/12 ml-5 text-white bg-white-500 font-medium rounded-lg text-sm"
+          v-show="imageAdded"
+          @click="removeImage"
         >
-          <img src="../assets/removeIcon.png" alt="Remove icon image">
+          <img src="../assets/removeIcon.png" alt="Remove icon image" />
         </button>
-
       </div>
 
       <!-- Div box for showing all chosen images -->
@@ -196,7 +198,7 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, helpers, maxLength} from "@vuelidate/validators";
+import { required, helpers, maxLength } from "@vuelidate/validators";
 
 export default {
   name: "CreateNewGroup.vue",
@@ -247,18 +249,17 @@ export default {
       imageThere: false,
     };
   },
-  computed:{
-    imageAdded: function (){
-      if(this.imageThere){
+  computed: {
+    imageAdded: function () {
+      if (this.imageThere) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
-    }
+    },
   },
   methods: {
-    removeImage: function (){
+    removeImage: function () {
       this.group.images.pop();
       this.imageThere = false;
       console.log("Bilder nå: " + this.group.images.length);
