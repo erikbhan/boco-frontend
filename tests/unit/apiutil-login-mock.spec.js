@@ -4,42 +4,39 @@ import axios from "axios";
 jest.mock("axios");
 
 describe("testing mocking of apiutil.js", () => {
+
   it("check that login fails with wrong credentials - against mock", async () => {
-    // mock api response on POST call (once)
-    const expectedLoginResponse = { response: "Login failed" };
+
+    const loginRequest = {
+      email: "wrong@email.com",
+      password: "thisiswrong123"};
+
+    const expectedLoginResponse = { isLoggedIn: false, token: "" }
+
     axios.post.mockImplementation(() =>
       Promise.resolve({ data: expectedLoginResponse })
     );
 
-    // do the call
-    const loginRequest = {
-      email: "wrong@email.com",
-      password: "thisiswrong123",
-    };
     const loginResponse = await doLogin(loginRequest);
 
-    //  check response
-    //  note that even if wrong username and password are used, mock is configured to return Success
-    expect(loginResponse).toEqual(expectedLoginResponse);
+    expect(loginResponse.token.isLoggedIn).toEqual(expectedLoginResponse.isLoggedIn);
   });
-  it("check that login succeeds when correct credentials - against mock", async () => {
-    // mock api response on POST call (once)
-    const apiResponse = {
-      response:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    };
-    const expectedLoginResponse = { response: "Login failed" };
-    axios.post.mockImplementation(() => Promise.resolve({ data: apiResponse }));
 
-    // do the call
+  it("check that login succeeds when correct credentials - against mock", async () => {
+
     const loginRequest = {
       email: "correct@email.com",
-      password: "thisiscorrect123",
-    };
+      password: "thisiscorrect123"};
+
+    const apiResponse = {isLoggedIn: true, token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM" +
+          "0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"};
+
+    const expectedLoginResponse = {isLoggedIn: false, token: ""};
+
+    axios.post.mockImplementation(() => Promise.resolve({ data: apiResponse }));
+
     const loginResponse = await doLogin(loginRequest);
 
-    //  check response
-    //  note that even if wrong username and password are used, mock is configured to return Success
-    expect(loginResponse).not.toEqual(expectedLoginResponse);
+    expect(loginResponse.token.isLoggedIn).not.toEqual(expectedLoginResponse.isLoggedIn);
   });
 });
