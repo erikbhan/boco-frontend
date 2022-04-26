@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <router-link to="/" class="m-6">Logg inn</router-link>
+    <router-link to="/login" class="m-6">Logg inn</router-link>
 
     <router-link to="/register" class="m-6">Registrer deg</router-link>
 
@@ -12,8 +12,6 @@
 export default {
   name: "HelloWorld",
 
-  data: () => ({
-
-}),
-}
+  data: () => ({}),
+};
 </script>
