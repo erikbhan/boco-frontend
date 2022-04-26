@@ -10,7 +10,8 @@
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="titleLabel"
-        >Tittel</label>
+        >Tittel</label
+      >
       <input
         type="text"
         id="title"

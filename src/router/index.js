@@ -27,11 +27,6 @@ const routes = [
     name: "addNewItem",
     component: () => import("../views/AddNewItemView.vue"),
   },
-  {
-    path: "/itemCard",
-    name: "itemCard",
-    component: () => import("../views/ItemCardView.vue"),
-  },
 ];
 
 const router = createRouter({
