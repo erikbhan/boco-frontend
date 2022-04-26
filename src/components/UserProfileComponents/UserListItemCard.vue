@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     getProfilePicture() {
-      if (this.user.picture == "") {
-        return "../assets/defaultUserProfileImage.jpg";
+      if (this.user.picture != "") {
+        return this.user.picture;
       }
-      return this.user.picture;
+      return "../assets/defaultUserProfileImage.jpg";
     },
   },
 };

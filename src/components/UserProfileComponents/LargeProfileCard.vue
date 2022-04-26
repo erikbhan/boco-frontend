@@ -115,7 +115,7 @@ export default {
     RatingComponent,
   },
   methods: {
-    getUser() {
+    async getUser() {
       this.currentUser = parseUserFromToken();
       this.id = router.currentRoute.value.params.id;
       if (this.id == this.currentUser.account_id) {
@@ -123,10 +123,15 @@ export default {
         this.user = this.currentUser;
         return;
       }
-      this.user = getUser(this.id);
+      let getuser = await getUser(this.id);
+      this.user = {
+        account_id: getuser.userID,
+        first_name: getuser.firstName,
+        last_name: getuser.lastName,
+      };
     },
     getProfilePicture() {
-      /* if (this.user.picture == "") {
+      /* if (this.user.picture != "") {
         return this.user.picture;
       } */
       return "../assets/defaultUserProfileImage.jpg";

@@ -15,13 +15,27 @@ export function doLogin(loginRequest) {
     });
 }
 
-export function getUser(userid) {
+export function registerUser(registerInfo) {
+  return axios
+    .post(VUE_APP_BASEURL + "register", {
+      email: registerInfo.email,
+      firstName: registerInfo.firstName,
+      lastname: registerInfo.lastname,
+      password: registerInfo.password,
+      address: registerInfo.address,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.log(err));
+}
+
+export async function getUser(userid) {
   return axios
     .get(VUE_APP_BASEURL + "users/" + userid + "/profile", {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
