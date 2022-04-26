@@ -1,11 +1,11 @@
 import axios from "axios";
 import { tokenHeader } from "./token-utils";
 
-const VUE_APP_BASEURL = "http://65.108.62.223:3000/api/";
+const API_URL = process.env.VUE_APP_BASEURL;
 
 export function doLogin(loginRequest) {
   return axios
-    .post(VUE_APP_BASEURL + "login/authentication", loginRequest)
+    .post(API_URL + "login/authentication", loginRequest)
     .then((response) => {
       return response.data;
     })
@@ -17,7 +17,7 @@ export function doLogin(loginRequest) {
 
 export function registerUser(registerInfo) {
   return axios
-    .post(VUE_APP_BASEURL + "register", {
+    .post(API_URL + "register", {
       email: registerInfo.email,
       firstName: registerInfo.firstName,
       lastname: registerInfo.lastname,
@@ -32,7 +32,7 @@ export function registerUser(registerInfo) {
 
 export async function getUser(userid) {
   return axios
-    .get(VUE_APP_BASEURL + "users/" + userid + "/profile", {
+    .get(API_URL + "users/" + userid + "/profile", {
       headers: tokenHeader(),
     })
     .then((response) => {
@@ -45,7 +45,7 @@ export async function getUser(userid) {
 
 export function getRenterRating(userid) {
   return axios
-    .get(VUE_APP_BASEURL + "users/" + userid + "", {
+    .get(API_URL + "users/" + userid + "", {
       headers: tokenHeader(),
     })
     .then((response) => {
@@ -58,7 +58,7 @@ export function getRenterRating(userid) {
 
 export function getOwnerRating(userid) {
   return axios
-    .get(VUE_APP_BASEURL + "users/" + userid + "", {
+    .get(API_URL + "users/" + userid + "", {
       headers: tokenHeader(),
     })
     .then((response) => {
