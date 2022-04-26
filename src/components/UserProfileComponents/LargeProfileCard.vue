@@ -74,7 +74,7 @@
         alt="Profile picture"
       />
       <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-        {{ user.first_name }} {{ user.last_name }}
+        {{ user.firstName }} {{ user.lastName }}
       </h5>
       <div>
         <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
@@ -94,8 +94,8 @@
 
 <script>
 import RatingComponent from "@/components/UserProfileComponents/RatingComponent.vue";
-import { parseUserFromToken } from "@/utils/token-utils";
-import { getUser /* getRenterRating, getOwnerRating */ } from "@/utils/apiutil";
+import { parseCurrentUser } from "@/utils/token-utils";
+import { getUser, getRenterRating, getOwnerRating } from "@/utils/apiutil";
 import router from "@/router";
 
 export default {
@@ -106,8 +106,8 @@ export default {
       currentUser: {},
       id: -1,
       isCurrentUser: false,
-      renterRating: 0, //getRenterRating(this.userID),
-      ownerRating: 0, //getOwnerRating(this.userID),
+      renterRating: -1, //getRenterRating(this.userID),
+      ownerRating: -1, //getOwnerRating(this.userID),
       dropdown: false,
     };
   },
@@ -116,19 +116,16 @@ export default {
   },
   methods: {
     async getUser() {
-      this.currentUser = parseUserFromToken();
+      this.currentUser = parseCurrentUser();
       this.id = router.currentRoute.value.params.id;
       if (this.id == this.currentUser.account_id) {
         this.isCurrentUser = true;
         this.user = this.currentUser;
         return;
       }
-      let getuser = await getUser(this.id);
-      this.user = {
-        account_id: getuser.userID,
-        first_name: getuser.firstName,
-        last_name: getuser.lastName,
-      };
+      this.user = await getUser(this.id);
+      this.renterRating = getRenterRating(this.id);
+      this.ownerRating = getOwnerRating(this.id);
     },
     getProfilePicture() {
       /* if (this.user.picture != "") {

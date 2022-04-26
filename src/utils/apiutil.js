@@ -4,7 +4,7 @@ import { tokenHeader } from "./token-utils";
 const API_URL = process.env.VUE_APP_BASEURL;
 
 export function doLogin(loginRequest) {
-  const auth = {isLoggedIn: false, token: ""};
+  const auth = { isLoggedIn: false, token: "" };
   return axios
     .post(API_URL + "login/authentication", loginRequest)
     .then((response) => {
@@ -48,7 +48,7 @@ export async function getUser(userid) {
 
 export function getRenterRating(userid) {
   return axios
-    .get(API_URL + "users/" + userid + "", {
+    .get(API_URL + "rating/" + userid + "/as_owner", {
       headers: tokenHeader(),
     })
     .then((response) => {
@@ -61,7 +61,7 @@ export function getRenterRating(userid) {
 
 export function getOwnerRating(userid) {
   return axios
-    .get(API_URL + "users/" + userid + "", {
+    .get(API_URL + "rating/" + userid + "/as_renter", {
       headers: tokenHeader(),
     })
     .then((response) => {
