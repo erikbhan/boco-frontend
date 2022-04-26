@@ -84,7 +84,7 @@
       >
         Logg inn
       </button>
-      <div class="flex justify-center align-items: flex-end; mb-6 mt-6">
+      <div class="align-items: flex-end; mb-6 mt-6">
         <div class="ml-3 text-sm">
           <router-link to="register" class="text-blue-600"
             >Ny bruker</router-link
