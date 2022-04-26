@@ -9,7 +9,7 @@
     </div>
     <div class="flex-1 pl-1">
       <div class="font-medium dark:text-white">
-        {{ user.firstName }} {{ user.lastName }}
+        {{ user.first_name }} {{ user.last_name }}
       </div>
     </div>
     <div class="flex flex-row justify-center">

@@ -1,5 +1,7 @@
 <template>
-  <register-form-component id="form" class="pa-8" />
+  <div class="h-screen bg-gray-200 content-center grid place-items-center">
+    <RegisterFormComponent />
+  </div>
 </template>
 
 <script>
@@ -11,10 +13,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-#form {
-  max-width: 600px;
-  margin: auto;
-}
-</style>

@@ -102,30 +102,28 @@ export default {
   name: "LargeProfileCard",
   data() {
     return {
-      user: this.getUser(),
-      renterRating: 3, //getRenterRating(this.userID),
-      ownerRating: 5, //getOwnerRating(this.userID),
+      user: {},
+      currentUser: {},
+      id: -1,
+      isCurrentUser: false,
+      renterRating: 0, //getRenterRating(this.userID),
+      ownerRating: 0, //getOwnerRating(this.userID),
       dropdown: false,
     };
-  },
-  computed: {
-    isCurrentUser() {
-      if (this.user.id == parseUserFromToken().id) return true;
-      return false;
-    },
   },
   components: {
     RatingComponent,
   },
   methods: {
     getUser() {
-      let id = router.currentRoute.value.params.id;
-      let currentUser = parseUserFromToken();
-      console.log(currentUser);
-      if ((id = currentUser.account_id)) return currentUser;
-      let user = getUser(id);
-      console.log(user);
-      return user;
+      this.currentUser = parseUserFromToken();
+      this.id = router.currentRoute.value.params.id;
+      if (this.id == this.currentUser.account_id) {
+        this.isCurrentUser = true;
+        this.user = this.currentUser;
+        return;
+      }
+      this.user = getUser(this.id);
     },
     getProfilePicture() {
       /* if (this.user.picture == "") {
@@ -133,6 +131,9 @@ export default {
       } */
       return "../assets/defaultUserProfileImage.jpg";
     },
+  },
+  beforeMount() {
+    this.getUser();
   },
 };
 </script>
