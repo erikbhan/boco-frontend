@@ -58,15 +58,14 @@ export default {
       rules: {
         required: (value) => !!value || "Feltet er påkrevd",
         min: (v) => v.length >= 8 || "Minimum 8 tegn",
-        passwordConfirmation: (v) => v === this.user.password || "Passordene må være like"
+        passwordConfirmation: (v) =>
+          v === this.user.password || "Passordene må være like",
       },
     };
   },
 
   methods: {
-    async setNewPassword() {
-
-    },
+    async setNewPassword() {},
     validate() {
       this.$refs.form.validate();
     },
