@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://65.108.62.223:3000/api/";
+const API_URL = process.env.VUE_APP_BASEURL;
 
 export function doLogin(loginRequest) {
   return axios
-    .post(process.env.VUE_APP_BASEURL + "login/authentication", loginRequest)
+    .post(API_URL + "login/authentication", loginRequest)
     .then((response) => {
       return response.data;
     })
