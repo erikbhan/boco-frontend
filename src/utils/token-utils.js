@@ -3,7 +3,7 @@ import store from "@/store";
 
 export function tokenHeader() {
   let token = store.state.user.token;
-  return { Authorization: token };
+  return { Authorization: "Bearer " + token };
 }
 
 export function parseCurrentUser() {

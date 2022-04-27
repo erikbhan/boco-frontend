@@ -107,3 +107,29 @@ export function postNewItem(itemInfo) {
       return error;
     });
 }
+
+export function getMyGroups() {
+  return axios
+    .get(API_URL + "user/communities", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export function getVisibleGroups() {
+  return axios
+    .get(API_URL + "communities", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
