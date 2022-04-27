@@ -89,6 +89,12 @@ const routes = [
     component: () => import("../views/MessagesView.vue"),
     beforeEnter: guardRoute,
   },
+  {
+    path: "/groupHomePage",
+    name: "GroupHome",
+    component: () => import("../views/GroupHomeView.vue"),
+    beforeEnter: guardRoute,
+  },
 ];
 
 const router = createRouter({
