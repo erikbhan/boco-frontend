@@ -97,9 +97,23 @@ export function doNewPassword() {
 
 export function postNewItem(itemInfo) {
   return axios
-    .post(API_URL + "listing", itemInfo)
+    .post(API_URL + "listing", itemInfo, {
+        headers: tokenHeader(),
+    })
     .then((response) => {
-      console.log("prøver: " + response.data);
+      console.log("poster: " + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
+}
+
+export function postNewgroup(groupInfo) {
+  return axios
+    .post(API_URL + "communities/create", groupInfo, { headers: tokenHeader() })
+    .then((response) => {
       return response;
     })
     .catch((error) => {
