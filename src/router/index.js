@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import NewPasswordView from "../views/NewPasswordView";
 
+
 const routes = [
   {
     path: "/", //Endre før push
@@ -57,6 +58,17 @@ const routes = [
     name: "addNewItem",
     component: () => import("../views/AddNewItemView.vue"),
   },
+  {
+    path: "/notifications",
+    name: "notifications",
+    component: () => import("../views/NotificationView.vue"),
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: () => import("../views/MessagesView.vue"),
+  },
+
 ];
 
 const router = createRouter({
