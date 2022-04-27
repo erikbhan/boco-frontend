@@ -5,6 +5,9 @@
     <router-link to="/register" class="m-6">Registrer deg</router-link>
 
     <router-link to="/about" class="m-6">Om BoCo</router-link>
+
+<div @click="logout" class="m-6 cursor-pointer"><p>Logout</p></div>
+
   </div>
 </template>
 
@@ -13,5 +16,11 @@ export default {
   name: "HelloWorld",
 
   data: () => ({}),
+
+  methods: {
+    logout (){
+      this.$store.commit("logout");
+    },
+  }
 };
 </script>

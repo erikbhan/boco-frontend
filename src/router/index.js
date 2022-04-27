@@ -72,6 +72,17 @@ const routes = [
     component: () => import("../views/AddNewItemView.vue"),
     beforeEnter: guardRoute,
   },
+  {
+    path: "/notifications",
+    name: "notifications",
+    component: () => import("../views/NotificationView.vue"),
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: () => import("../views/MessagesView.vue"),
+  },
+
 ];
 
 const router = createRouter({

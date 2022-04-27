@@ -165,7 +165,7 @@ export default {
         console.log(user);
         let id = user.accountId;
         console.log(id);
-        this.$router.push("/profile/" + id);
+        await this.$router.push("/profile/" + id);
       } else {
         console.log("Something went wrong");
       }
