@@ -9,7 +9,7 @@
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        id="titleLabel"
+        id="addressLabel"
         >Tittel</label
       >
       <input
@@ -122,6 +122,34 @@
       </div>
     </div>
 
+
+    <!-- Address -->
+    <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
+      <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          id="titleLabel"
+      >Adresse</label>
+      <input
+          type="text"
+          class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          v-model="v$.item.address.$model"
+          id="adress"
+          required
+      />
+
+      <!-- error message for address-->
+      <div
+          class="text-red"
+          v-for="(error, index) of v$.item.address.$errors"
+          :key="index"
+      >
+        <div class="text-red-600 text-sm">
+          {{ error.$message }}
+        </div>
+      </div>
+    </div>
+
+
     <!-- Images -->
     <div>
       <label
@@ -167,6 +195,9 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
+import { parseUserFromToken } from "@/utils/token-utils";
+import { postNewItem } from "@/utils/apiutil";
+
 import {
   required,
   helpers,
@@ -174,6 +205,7 @@ import {
   between,
   minLength,
 } from "@vuelidate/validators";
+import router from "@/router";
 
 export default {
   name: "AddNewItem",
@@ -186,14 +218,20 @@ export default {
     return {
       item: {
         title: {
-          required,
+          required: helpers.withMessage(
+              () => "Tittelen kan ikke være tom",
+              required
+          ),
           max: helpers.withMessage(
             () => `Tittelen kan inneholde max 50 tegn`,
             maxLength(50)
           ),
         },
         description: {
-          required,
+          required: helpers.withMessage(
+              () => "Beskrivelsen kan ikke være tom",
+              required
+          ),
           max: helpers.withMessage(
             () => `Beskrivelsen kan inneholde max 200 tegn`,
             maxLength(200)
@@ -213,6 +251,16 @@ export default {
         select: {
           required: helpers.withMessage(() => `Velg en kategori`, required),
         },
+        address: {
+          required: helpers.withMessage(
+              () => "Addressen kan ikke være tom",
+              required
+          ),
+          max: helpers.withMessage(
+              () => `Addressen kan inneholde max 50 tegn`,
+              maxLength(50)
+          ),
+        },
       },
     };
   },
@@ -222,11 +270,13 @@ export default {
       item: {
         title: "",
         description: "",
+        address: "",
         price: "",
         category: "",
         select: null,
         type: "",
         images: [],
+        userId: -1,
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
@@ -251,12 +301,39 @@ export default {
 
       if (this.checkValidation()) {
         console.log("validert, videre...");
+
+        this.checkUser();
+
         console.log("Tittel: " + this.item.title);
         console.log("Kategori: " + this.item.select);
         console.log("Beskrivelse: " + this.item.description);
+        console.log("Addressen: " + this.item.address);
         console.log("Pris: " + this.item.price);
         console.log("bilder: " + this.item.images);
+
+        const itemInfo = {
+          title: this.item.title,
+          description: this.item.description,
+          pricePerDay: this.item.price,
+          address: this.item.address,
+          userID: this.item.userId,
+          categoryNames: [],
+          communityIDs: [],
+        };
+
+        console.log(itemInfo);
+
+        const postRequest = await postNewItem(itemInfo);
+
+        console.log("posted: " + postRequest);
+
       }
+    },
+
+    checkUser: async function (){
+      let user = parseUserFromToken(this.$store.state.user.token);
+      this.item.userId = parseInt(user.accountId);
+      console.log("id: " + this.item.userId);
     },
 
     addImage: function (event) {
@@ -265,5 +342,8 @@ export default {
       console.log("antall bilder: " + this.item.images.length);
     },
   },
+  beforeMount() {
+    console.log("Token: " + this.$store.state.user.token);
+  }
 };
 </script>
