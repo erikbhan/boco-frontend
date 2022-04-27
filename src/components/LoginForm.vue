@@ -1,9 +1,5 @@
 <template>
   <div class="App">
-    <div id="logoField" class="flex justify-center m-6">
-      <img src="../assets/logo3.svg" alt="BoCo logo" />
-    </div>
-
     <div
       id="emailField"
       class="m-6"
@@ -73,7 +69,7 @@
     <div id="buttonsField" class="m-6">
       <div class="align-items: flex-end; mb-6">
         <div class="ml-3 text-sm">
-          <router-link to="about" class="text-blue-600"
+          <router-link to="/resetPassword" class="text-blue-600"
             >Glemt passord</router-link
           >
         </div>
@@ -102,7 +98,6 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
   name: "LoginForm.vue",
@@ -110,7 +105,6 @@ export default {
   setup() {
     return { v$: useVuelidate() };
   },
-
   validations() {
     return {
       user: {
@@ -160,12 +154,7 @@ export default {
         this.$store.commit("logout");
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
-
-        let user = parseUserFromToken(loginResponse.token);
-        console.log(user);
-        let id = user.accountId;
-        console.log(id);
-        this.$router.push("/profile/" + id);
+        await this.$router.push("/");
       } else {
         console.log("Something went wrong");
       }

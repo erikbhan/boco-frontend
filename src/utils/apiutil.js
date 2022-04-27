@@ -84,3 +84,26 @@ export function getAverageRating(userid) {
       console.error(error);
     });
 }
+export function doNewPassword() {
+  //m
+  //add newPasswordInfo to input
+  const auth = { newPasswordSet: false };
+  //return axios
+  //.post(API_URL + "newPassword", newPasswordInfo)
+  //.then((response) => {auth.newPasswordSet = true;return auth;})
+  //.catch((error) => {console.log(error);return auth;});
+  return auth; //remove after axios is added
+}
+
+export function postNewItem(itemInfo) {
+  return axios
+    .post(API_URL + "listing", itemInfo)
+    .then((response) => {
+      console.log("prøver: " + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
+}
