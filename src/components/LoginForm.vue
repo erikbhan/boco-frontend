@@ -1,79 +1,102 @@
 <template>
-  <div class="loginForm">
-    <v-img :src="require('../assets/logo3.svg')" class="image" contain />
-    <form @submit.prevent="onSubmit">
-      <div class="inputFields">
-        <div :class="{ error: v$.user.email.$errors.length }">
-          <br /><label class="label" id="emailLabelId">E-post </label><br />
-          <input
-            class="loginInputs"
-            type="email"
-            v-model="v$.user.email.$model"
-          />
-
-          <!-- error message -->
+  <div class="App">
+    <div
+      id="emailField"
+      class="m-6"
+      :class="{ error: v$.user.email.$errors.length }">
+      <div class="mb-6">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >E-post</label
+        >
+        <input
+          type="email"
+          id="email"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="eksempel@eksempel.no"
+          v-model="v$.user.email.$model"
+          required
+        />
+        <!-- error message -->
+        <div v-for="(error, index) of v$.user.email.$errors" :key="index">
           <div
-            class="input-errors"
-            v-for="(error, index) of v$.user.email.$errors"
-            :key="index"
+            class="text-red-600 text-sm"
+            v-show="showError"
+            id="emailErrorId"
           >
-            <div class="error-msg" v-show="showError" id="emailErrorId">
-              {{ error.$message }}
-            </div>
+            {{ error.$message }}
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- password -->
-        <div :class="{ error: v$.user.password.$errors.length }">
-          <br /><label class="label" id="passwordLabelId">Passord </label><br />
-          <input
-            class="loginInputs"
-            type="password"
-            v-model="v$.user.password.$model"
-          />
+    <div
+      id="passwordField"
+      class="m-6"
+      :class="{ error: v$.user.password.$errors.length }"
+    >
+      <label
+        for="password"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Passord</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        v-model="v$.user.password.$model"
+        required
+        @keyup.enter="loginClicked"
+      />
+      <!-- error message -->
+      <div
+        class="text-red"
+        v-for="(error, index) of v$.user.password.$errors"
+        :key="index"
+      >
+        <div
+          class="text-red-600 text-sm"
+          v-show="showError"
+          id="passwordErrorId"
+        >
+          {{ error.$message }}
+        </div>
+      </div>
+    </div>
 
-          <!-- error message -->
-          <div
-            class="input-errors"
-            v-for="(error, index) of v$.user.password.$errors"
-            :key="index"
+    <div id="buttonsField" class="m-6">
+      <div class="align-items: flex-end; mb-6">
+        <div class="ml-3 text-sm">
+          <router-link to="/resetPassword" class="text-blue-600"
+            >Glemt passord</router-link
           >
-            <div class="error-msg" v-show="showError" id="passwordErrorId">
-              {{ error.$message }}
-            </div>
-          </div>
-          <!-- Link to forgot password page will be added here -->
-          <br /><a
-            href="#"
-            @click="forgotPasswordClicked"
-            id="forgottenPasswordLink"
-            >Glemt passord
-          </a>
         </div>
       </div>
-
-      <div class="buttonLink">
-        <!-- Submit Button -->
-        <div class="buttons-w">
-          <br /><br /><button v-on:click="loginClicked" class="loginButton">
-            Logg inn
-          </button>
-
-          <!-- Link to register new user page will be added here -->
-          <br /><a id="newUserLink" href="url">Ny bruker</a>
-
-          <p id="messageUser">{{ message }}</p>
+      <button
+        @click="loginClicked"
+        class="flex justify-center align-items: flex-end; text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Logg inn
+      </button>
+      <div class="align-items: flex-end; mb-6 mt-6">
+        <div class="ml-3 text-sm">
+          <router-link to="register" class="text-blue-600"
+            >Ny bruker</router-link
+          >
         </div>
       </div>
-    </form>
+      <div class="flex justify-center">
+        <label>{{ message }}</label>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-import { mapState } from "vuex";
 
 export default {
   name: "LoginForm.vue",
@@ -90,18 +113,10 @@ export default {
         },
         password: {
           required,
-          min: helpers.withMessage(
-            ({ $params }) => `Passordet må inneholde minst ${$params.min} tegn`,
-            minLength(8)
-          ),
         },
       },
     };
   },
-
-  computed: mapState({
-    token: (state) => state.user.token,
-  }),
 
   data() {
     return {
@@ -110,6 +125,7 @@ export default {
         email: "",
         password: "",
       },
+
       showError: false,
     };
   },
@@ -117,27 +133,39 @@ export default {
   methods: {
     async loginClicked() {
       this.showError = true;
+
+      this.v$.user.email.$touch();
+
+      if (this.v$.user.email.$invalid) {
+        console.log("Ugyldig, avslutter...");
+        return;
+      }
+
       const loginRequest = {
         email: this.user.email,
         password: this.user.password,
       };
+
       const loginResponse = await doLogin(loginRequest);
 
-      if (loginResponse === "Failed login") {
-        this.message = "kunne ikke logge inn";
+      if (loginResponse.isLoggedIn === false) {
+        this.message = "Feil e-post/passord";
         this.$store.commit("logout");
-        return;
+      } else if (loginResponse.isLoggedIn === true) {
+        this.$store.commit("saveToken", loginResponse.token);
+        await this.$router.push('/');
+      } else {
+        console.log("Something went wrong");
       }
-
-      this.$store.commit("saveToken", loginResponse);
-      console.log(loginResponse);
     },
-    forgotPasswordClicked() {
-      this.$router.push("/resetPassword");
+
+    validate() {
+      this.$refs.form.validate();
     },
   },
 };
 </script>
+<<<<<<< src/components/LoginForm.vue
 
 <style scoped>
 .loginForm {
@@ -204,3 +232,5 @@ export default {
   color: red;
 }
 </style>
+=======
+>>>>>>> src/components/LoginForm.vue
