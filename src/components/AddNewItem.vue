@@ -68,24 +68,23 @@
       </div>
     </div>
 
-
     <!-- Select Group -->
     <div class="mb-6">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-      >Gruppe</label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        >Gruppe</label
       >
       <select
-          v-model="v$.item.selectGroup.$model"
-          class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        v-model="v$.item.selectGroup.$model"
+        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option class="text-gray-400" value="" disabled selected>
           Select a Group
         </option>
         <option
-            v-for="group in groups"
-            :key="group"
-            class="text-gray-900 text-sm"
+          v-for="group in groups"
+          :key="group"
+          class="text-gray-900 text-sm"
         >
           {{ group }}
         </option>
@@ -93,9 +92,9 @@
 
       <!-- error message for select box -->
       <div
-          class="text-red"
-          v-for="(error, index) of v$.item.selectGroup.$errors"
-          :key="index"
+        class="text-red"
+        v-for="(error, index) of v$.item.selectGroup.$errors"
+        :key="index"
       >
         <div class="text-red-600 text-sm">
           {{ error.$message }}
@@ -157,32 +156,31 @@
       </div>
     </div>
 
-
     <!-- Address -->
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-      >Adresse</label>
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Adresse</label
+      >
       <input
-          type="text"
-          class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          v-model="v$.item.address.$model"
-          id="adress"
-          required
+        type="text"
+        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        v-model="v$.item.address.$model"
+        id="adress"
+        required
       />
 
       <!-- error message for address-->
       <div
-          class="text-red"
-          v-for="(error, index) of v$.item.address.$errors"
-          :key="index"
+        class="text-red"
+        v-for="(error, index) of v$.item.address.$errors"
+        :key="index"
       >
         <div class="text-red-600 text-sm">
           {{ error.$message }}
         </div>
       </div>
     </div>
-
 
     <!-- Images -->
     <div>
@@ -252,8 +250,8 @@ export default {
       item: {
         title: {
           required: helpers.withMessage(
-              () => "Tittelen kan ikke være tom",
-              required
+            () => "Tittelen kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
             () => `Tittelen kan inneholde max 50 tegn`,
@@ -262,8 +260,8 @@ export default {
         },
         description: {
           required: helpers.withMessage(
-              () => "Beskrivelsen kan ikke være tom",
-              required
+            () => "Beskrivelsen kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
             () => `Beskrivelsen kan inneholde max 200 tegn`,
@@ -289,12 +287,12 @@ export default {
         },
         address: {
           required: helpers.withMessage(
-              () => "Addressen kan ikke være tom",
-              required
+            () => "Addressen kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
-              () => `Addressen kan inneholde max 50 tegn`,
-              maxLength(50)
+            () => `Addressen kan inneholde max 50 tegn`,
+            maxLength(50)
           ),
         },
       },
@@ -365,11 +363,10 @@ export default {
         const postRequest = await postNewItem(itemInfo);
 
         console.log("posted: " + postRequest);
-
       }
     },
 
-    checkUser: async function (){
+    checkUser: async function () {
       let user = parseUserFromToken(this.$store.state.user.token);
       this.item.userId = parseInt(user.accountId);
       console.log("id: " + this.item.userId);
@@ -380,6 +377,6 @@ export default {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
       console.log("antall bilder: " + this.item.images.length);
     },
-  }
+  },
 };
 </script>

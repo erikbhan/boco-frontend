@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="compRating != -1" class="flex justify-center">
+  <ul v-if="rating != -1" class="flex justify-center">
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {{ ratingType }}:&nbsp;
@@ -19,7 +19,7 @@
     </li>
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        {{ compRating }} out of 5
+        {{ rating }} out of 5
       </p>
     </li>
   </ul>
@@ -40,11 +40,6 @@
 <script>
 export default {
   name: "RatingComponent",
-  data() {
-    return {
-      compRating: this.rating + 0,
-    };
-  },
   props: {
     rating: Number,
     ratingType: String,
