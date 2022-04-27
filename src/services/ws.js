@@ -31,7 +31,7 @@ const ws = (function () {
         
         console.log("Websocket Connected");
         stompClient.subscribe(
-            "/user/" + parseCurrentUser().account_id + "/queue/messages",
+            "/user/" + parseCurrentUser().accountId + "/queue/messages",
             onMessageReceived
         );
     };

@@ -32,7 +32,7 @@ export default {
     },
     computed: {
         userID() {
-            return parseCurrentUser().account_id;
+            return parseCurrentUser().accountId;
         },
         key() {
             return this.selected.userId || "ERROR" ;

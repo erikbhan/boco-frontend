@@ -21,7 +21,7 @@ export default {
     },
     computed: {
         userID() {
-            return parseCurrentUser().account_id;
+            return parseCurrentUser().accountId;
         }
     },
     methods: {
