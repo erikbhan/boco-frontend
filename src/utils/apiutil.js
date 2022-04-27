@@ -83,15 +83,29 @@ export function doNewPassword() {
   return auth; //remove after axios is added
 }
 
-export function postNewItem(itemInfo){
-    return axios
-        .post(API_URL + "listing", itemInfo)
-        .then((response) => {
-            console.log("prøver: " + response.data);
-            return response;
-        })
-        .catch((error) => {
-            console.log(error.response);
-            return error;
-        });
+export function postNewItem(itemInfo) {
+  return axios
+    .post(API_URL + "listing", itemInfo, {
+        headers: tokenHeader(),
+    })
+    .then((response) => {
+      console.log("poster: " + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
+}
+
+export function postNewgroup(groupInfo) {
+  return axios
+    .post(API_URL + "communities/create", groupInfo, { headers: tokenHeader() })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
 }
