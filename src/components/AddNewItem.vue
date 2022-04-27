@@ -68,6 +68,41 @@
       </div>
     </div>
 
+
+    <!-- Select Group -->
+    <div class="mb-6">
+      <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+      >Gruppe</label
+      >
+      <select
+          v-model="v$.item.selectGroup.$model"
+          class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option class="text-gray-400" value="" disabled selected>
+          Select a Group
+        </option>
+        <option
+            v-for="group in groups"
+            :key="group"
+            class="text-gray-900 text-sm"
+        >
+          {{ group }}
+        </option>
+      </select>
+
+      <!-- error message for select box -->
+      <div
+          class="text-red"
+          v-for="(error, index) of v$.item.selectGroup.$errors"
+          :key="index"
+      >
+        <div class="text-red-600 text-sm">
+          {{ error.$message }}
+        </div>
+      </div>
+    </div>
+
     <!-- price -->
     <div class="mb-6" :class="{ error: v$.item.price.$errors.length }">
       <label
@@ -251,6 +286,9 @@ export default {
         select: {
           required: helpers.withMessage(() => `Velg en kategori`, required),
         },
+        selectGroup: {
+          required: helpers.withMessage(() => `Velg en gruppe`, required),
+        },
         address: {
           required: helpers.withMessage(
               () => "Addressen kan ikke være tom",
@@ -277,9 +315,11 @@ export default {
         type: "",
         images: [],
         userId: -1,
+        selectGroup: null,
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
+      groups: [4040, 4041],
     };
   },
   methods: {
@@ -310,6 +350,7 @@ export default {
         console.log("Addressen: " + this.item.address);
         console.log("Pris: " + this.item.price);
         console.log("bilder: " + this.item.images);
+        console.log("gruppe: " + this.item.selectGroup);
 
         const itemInfo = {
           title: this.item.title,
@@ -318,7 +359,7 @@ export default {
           address: this.item.address,
           userID: this.item.userId,
           categoryNames: [],
-          communityIDs: [],
+          communityIDs: [this.item.selectGroup],
         };
 
         console.log(itemInfo);
