@@ -40,10 +40,11 @@ const routes = [
     component: () => import("../views/RegisterView.vue"),
   },
   {
-    path: "/chat",
-    name: "chat",
+    path: "/messages",
+    name: "messages",
     component: () =>
       import(/* webpackChunkName: "register" */ "../views/ChatView.vue"),
+    beforeEnter: guardRoute,
   },
   {
     path: "/login",
@@ -88,13 +89,7 @@ const routes = [
     name: "notifications",
     component: () => import("../views/NotificationView.vue"),
     beforeEnter: guardRoute,
-  },
-  {
-    path: "/messages",
-    name: "messages",
-    component: () => import("../views/MessagesView.vue"),
-    beforeEnter: guardRoute,
-  },
+  }
 ];
 
 const router = createRouter({
