@@ -9,7 +9,7 @@
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        id="addressLabel"
+        id="titleLabel"
         >Tittel</label
       >
       <input
@@ -162,7 +162,6 @@
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          id="titleLabel"
       >Adresse</label>
       <input
           type="text"
@@ -381,9 +380,6 @@ export default {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
       console.log("antall bilder: " + this.item.images.length);
     },
-  },
-  beforeMount() {
-    console.log("Token: " + this.$store.state.user.token);
   }
 };
 </script>
