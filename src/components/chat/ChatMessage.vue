@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {parseCurrentUser} from "@/utils/token-utils";
+
 export default {
     props: {
         message: Object
@@ -17,16 +19,21 @@ export default {
             abc: "abcde"
         }
     },
+    computed: {
+        userID() {
+            return parseCurrentUser().account_id;
+        }
+    },
     methods: {
         color() { 
-            return  this?.message.from == 1 ? "bg-gray-300" : "bg-blue-600";
+            console.log(this.userID);
+            return  this?.message.from == this.userID  ? "bg-gray-300" : "bg-blue-600";
         },
         textColor() {
-            return  this?.message.from == 1 ? "text-gray-900" : "text-white";
+            return  this?.message.from == this.userID ? "text-gray-900" : "text-white";
         },
         side () {
-            console.log(this.message.from)
-            return this?.message.from == 1 ? "justify-start" : "justify-end"
+            return this?.message.from == this.userID ? "justify-start" : "justify-end"
         },
         calculateTime() {
             //let time = this.message.from;

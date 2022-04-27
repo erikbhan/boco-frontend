@@ -27,7 +27,7 @@
             <div class="flex items-center justify-between w-full p-3 border-t border-gray-300">
                 <input type="text" placeholder="Message"
                     class="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
-                    name="message" v-model="message"/>
+                    name="message" v-model="message" />
                 <button v-on:click="sendMessage" style="padding: 10px; color: red;">
                     <svg class="w-5 h-5 text-gray-500 origin-center transform rotate-90"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -43,48 +43,75 @@
 <script>
 import ChatMessage from "./ChatMessage.vue"
 import axios from 'axios';
+import { parseCurrentUser } from "@/utils/token-utils";
+import ws from '@/services/ws';
 
 export default {
     data: () => {
         return {
-            userid: 1,
             messages: [],
-            message: "",
-            recipientID: 2
+            message: ""
         };
     },
     components: { ChatMessage },
+    computed: {
+        userid() {
+            console.log(parseCurrentUser());
+            return parseCurrentUser().account_id;
+        },
+        recipientID() {
+            return this.userid == 1 ? 2 : 1;
+        }
+    },
     methods: {
         calculateSide(from) {
-            console.log(from == this.userid ? 'end' : 'start')
+            console.log("userid ", this.userid)
             return from == this.userid ? 'end' : 'start'
         },
         async sendMessage() {
             const token = this.$store.state.user.token;
 
             // Post new message to server /chats/users/{userId}/messages 
-            await axios.post(process.env.VUE_APP_BASEURL + `/chats/users/${this.recipientID}/messages`, {
+            await axios.post(process.env.VUE_APP_BASEURL + `chats/users/${this.recipientID}/messages`, {
                 message: this.message
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+            ws.sendMessage({ sender: parseInt(this.userid), recipient: this.recipientID });
+            this.reloadMessages();
+        },
+        async reloadMessages() {
+                    const token = this.$store.state.user.token;
+            const response = await fetch(`${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            })
 
+            this.messages = await response.json()
         }
     },
     async created() {
+        console.log(this.$store.state.user, " hello")
         const token = this.$store.state.user.token;
         console.log(process.env.VUE_APP_BASEURL);
         // Fetch /chats/users/{userId}/messages from api
-        const response = await fetch(`${process.env.VUE_APP_BASEURL}/chats/users/${this.recipientID}/messages`, {
+        const response = await fetch(`${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
         });
-        
+
+        ws.on("NEW_MESSAGE", () => {
+            this.reloadMessages();
+        })
+
         this.messages = await response.json()
     }
 }

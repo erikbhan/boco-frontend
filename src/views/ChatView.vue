@@ -17,15 +17,24 @@
 <script>
 import ChatProfile from "@/components/chat/ChatProfile.vue";
 import CurrentChat from "@/components/chat/CurrentChat.vue";
-//import ChatComponent from "../components/ChatComponent.vue";
+import {parseCurrentUser} from "@/utils/token-utils";
 
 export default {
     components: {
-    ChatProfile,
-    CurrentChat
-},
-    data() {
-        return {};
+        ChatProfile,
+        CurrentChat
     },
-};
+    data() {
+        return {
+            ws: null
+        };
+    },
+    computed: {
+        userID() {
+            return parseCurrentUser().account_id;
+        }
+    },
+    async created() {
+    }
+}
 </script>
