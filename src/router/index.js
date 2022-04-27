@@ -7,15 +7,6 @@ import NewPasswordView from "../views/NewPasswordView";
 /**
  * Guards routes. If token is null, no user is logged in and only the
  * login page and the register page will be accessible.
- *
- * Legg denne metoden i login component for å nullstille token, har ikke logg ut metode ennå
- * så må nullstilles på denne måten.
- * beforeMount() {
-    console.log("Token: " + this.$store.state.user.token);
-    this.$store.commit("logout");
-    console.log("Token etter: " + this.$store.state.user.token);
-  }
- *
  */
 function guardRoute(to, from, next) {
   var isAuthenticated = false;
