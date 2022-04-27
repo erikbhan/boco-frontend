@@ -43,7 +43,6 @@ const routes = [
     component: NewPasswordView,
   },
   {
-
     path: "/searchItemList",
     name: "searchItemList",
     component: () => import("../views/SearchItemListView.vue"),
@@ -52,7 +51,11 @@ const routes = [
     path: "/createNewGroup",
     name: "createNewGroup",
     component: () => import("../views/CreateNewGroupView.vue"),
-
+  },
+  {
+    path: "/group/:id/memberlist",
+    name: "memberlist",
+    component: () => import("../views/MemberListView.vue"),
   },
 ];
 
