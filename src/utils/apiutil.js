@@ -82,3 +82,16 @@ export function doNewPassword() {
   //.catch((error) => {console.log(error);return auth;});
   return auth; //remove after axios is added
 }
+
+export function postNewItem(itemInfo){
+    return axios
+        .post(API_URL + "listing", itemInfo)
+        .then((response) => {
+            console.log("prøver: " + response.data);
+            return response;
+        })
+        .catch((error) => {
+            console.log(error.response);
+            return error;
+        });
+}
