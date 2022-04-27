@@ -72,6 +72,18 @@ export function getOwnerRating(userid) {
     });
 }
 
+export function getAverageRating(userid) {
+  return axios
+    .get(API_URL + "rating/" + userid + "/average", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 export function doNewPassword() {
   //m
   //add newPasswordInfo to input
@@ -83,15 +95,15 @@ export function doNewPassword() {
   return auth; //remove after axios is added
 }
 
-export function postNewItem(itemInfo){
-    return axios
-        .post(API_URL + "listing", itemInfo)
-        .then((response) => {
-            console.log("prøver: " + response.data);
-            return response;
-        })
-        .catch((error) => {
-            console.log(error.response);
-            return error;
-        });
+export function postNewItem(itemInfo) {
+  return axios
+    .post(API_URL + "listing", itemInfo)
+    .then((response) => {
+      console.log("prøver: " + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
 }
