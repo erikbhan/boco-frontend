@@ -349,6 +349,7 @@ export default {
 
         console.log(groupInfo);
         const postCreatedGroup = await postNewgroup(groupInfo);
+        console.log(postCreatedGroup);
       }
 
 
