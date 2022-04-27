@@ -76,6 +76,31 @@
       </div>
     </div>
 
+    <!-- Place -->
+    <div class="mt-6" :class="{ error: v$.group.place.$errors.length }">
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >By/Sted</label
+      >
+      <input
+        type="text"
+        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        v-model="v$.group.place.$model"
+        required
+      />
+
+      <!-- error message for place-->
+      <div
+        class="text-red"
+        v-for="(error, index) of v$.group.place.$errors"
+        :key="index"
+      >
+        <div class="text-red-600 text-sm">
+          {{ error.$message }}
+        </div>
+      </div>
+    </div>
+
     <!-- Select category -->
     <div class="mt-6">
       <label
@@ -199,6 +224,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
+import { postNewgroup } from "@/utils/apiutil";
 
 export default {
   name: "CreateNewGroup.vue",
@@ -217,6 +243,16 @@ export default {
           ),
           max: helpers.withMessage(
             () => `Navnet kan være på max 50 tegn`,
+            maxLength(50)
+          ),
+        },
+        place: {
+          required: helpers.withMessage(
+            () => "Stedsnavn kan ikke være tom",
+            required
+          ),
+          max: helpers.withMessage(
+            () => `Stednavn kan være på max 50 tegn`,
             maxLength(50)
           ),
         },
@@ -245,6 +281,8 @@ export default {
         images: [],
         categories: ["Borettslag", "Idrettsklubb", "Fritidsklubb"],
         radio: null,
+        place: "",
+        visibility: 1,
       },
       imageThere: false,
     };
@@ -267,6 +305,14 @@ export default {
     checkRadioButton: function (event) {
       this.group.radio = event.target.value;
       console.log(this.group.radio);
+
+      if (this.group.radio == null || this.group.radio == "Åpen") {
+        this.group.visibility = 1;
+      } else {
+        this.group.visibility = 0;
+      }
+
+      console.log("visibility: " + this.group.visibility);
     },
     checkValidation: function () {
       console.log("sjekker validering");
@@ -287,11 +333,26 @@ export default {
       if (this.checkValidation()) {
         console.log("validert, videre...");
         console.log("Navn: " + this.group.name);
+        console.log("Sted: " + this.group.place);
         console.log("Synlighet: " + this.group.radio);
         console.log("Kategori: " + this.group.select);
         console.log("Beskrivelse: " + this.group.description);
         console.log("bilder: " + this.group.images);
+
+        const groupInfo = {
+          name: this.group.name,
+          description: this.group.description,
+          visibility: this.group.visibility,
+          location: this.group.place,
+          picture: "",
+        };
+
+        console.log(groupInfo);
+        const postCreatedGroup = await postNewgroup(groupInfo);
+        console.log(postCreatedGroup);
       }
+
+
     },
 
     addImage: function (event) {
@@ -301,6 +362,6 @@ export default {
       this.imageThere = true;
       console.log("image: " + this.imageThere);
     },
-  },
+  }
 };
 </script>

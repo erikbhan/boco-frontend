@@ -1,13 +1,13 @@
 <template>
   <div
-    class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    class="min-w-full md:min-w-0 md:w-96 my-4 py-8 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
   >
-    <div v-show="isCurrentUser" class="flex justify-end px-4 pt-4">
+    <div v-show="isCurrentUser" class="flex absolute justify-end px-4 pt-4">
       <button
         id="dropdownDefault"
         data-dropdown-toggle="dropdown"
         @click="dropdown = !dropdown"
-        class="hidden sm:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+        class="w-10 h-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
         type="button"
       >
         <svg
@@ -25,7 +25,6 @@
       <div
         id="dropdown"
         v-show="dropdown"
-        zindex="2"
         class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
@@ -51,6 +50,13 @@
             >
           </li>
           <li>
+            <div
+                @click="logout"
+                class="cursor-pointer block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            >Logg ut
+            </div>
+          </li>
+          <li>
             <router-link
               to="/newPassword"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -67,6 +73,7 @@
         </ul>
       </div>
     </div>
+
     <div class="flex flex-col items-center pb-10">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
@@ -95,8 +102,7 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/RatingComponent.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
-import { getUser, getRenterRating, getOwnerRating } from "@/utils/apiutil";
-import router from "@/router";
+import { getUser, getAverageRating } from "@/utils/apiutil";
 
 export default {
   name: "LargeProfileCard",
@@ -106,8 +112,8 @@ export default {
       currentUser: {},
       id: -1,
       isCurrentUser: false,
-      renterRating: -1, //getRenterRating(this.userID),
-      ownerRating: -1, //getOwnerRating(this.userID),
+      renterRating: -1,
+      ownerRating: -1,
       dropdown: false,
     };
   },
@@ -116,23 +122,31 @@ export default {
   },
   methods: {
     async getUser() {
-      this.currentUser = parseCurrentUser();
-      this.id = router.currentRoute.value.params.id;
-      if (this.id == this.currentUser.account_id) {
+      this.currentUser = await parseCurrentUser();
+      this.id = await this.$router.currentRoute.value.params.id;
+
+      if (this.id === this.currentUser.accountId) {
         this.isCurrentUser = true;
         this.user = this.currentUser;
         return;
       }
       this.user = await getUser(this.id);
-      this.renterRating = getRenterRating(this.id);
-      this.ownerRating = getOwnerRating(this.id);
+      let rating = await getAverageRating(this.id);
+      if (rating >= 0 && rating <= 5) {
+        this.renterRating = rating;
+        this.ownerRating = rating;
+      }
     },
     getProfilePicture() {
-      /* if (this.user.picture != "") {
+      if (this.user.picture !== "") {
         return this.user.picture;
-      } */
+      }
       return "../assets/defaultUserProfileImage.jpg";
     },
+    logout(){
+      this.$store.commit('logout');
+      this.$router.push('/')
+    }
   },
   beforeMount() {
     this.getUser();

@@ -1,6 +1,7 @@
-<!-- View for looking at different profile display methods -->
 <template>
-  <large-profile-card :isCurrentUser="true" />
+  <div class="h-screen bg-gray-200 grid place-items-center">
+    <large-profile-card :isCurrentUser="true" class="align-top" />
+  </div>
 </template>
 
 <script>

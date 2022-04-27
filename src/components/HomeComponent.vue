@@ -6,21 +6,20 @@
 
     <router-link to="/about" class="m-6">Om BoCo</router-link>
 
-<div @click="logout" class="m-6 cursor-pointer"><p>Logout</p></div>
-
+    <div @click="logout" class="m-6 cursor-pointer"><p>Logout</p></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "HomeComponent",
 
   data: () => ({}),
 
   methods: {
-    logout (){
+    logout() {
       this.$store.commit("logout");
     },
-  }
+  },
 };
 </script>

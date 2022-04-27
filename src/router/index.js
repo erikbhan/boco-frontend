@@ -12,8 +12,7 @@ function guardRoute(to, from, next) {
   let isAuthenticated = store.state.user.token != null;
   if (isAuthenticated) {
     next(); // allow to enter route
-  }
-  else {
+  } else {
     next("/login"); // go to '/login';
   }
 }
@@ -63,9 +62,19 @@ const routes = [
     component: () => import("../views/SearchItemListView.vue"),
   },
   {
+    path: "/resetPassword",
+    name: "resetPassword",
+    component: () => import("../views/ResetPasswordView.vue"),
+  },
+  {
     path: "/createNewGroup",
     name: "createNewGroup",
     component: () => import("../views/CreateNewGroupView.vue"),
+  },
+  {
+    path: "/group/:id/memberlist",
+    name: "memberlist",
+    component: () => import("../views/MemberListView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -86,7 +95,6 @@ const routes = [
     component: () => import("../views/MessagesView.vue"),
     beforeEnter: guardRoute,
   },
-
 ];
 
 const router = createRouter({
