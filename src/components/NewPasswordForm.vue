@@ -107,26 +107,13 @@ export default {
         rePassword: "",
       },
 
-<<<<<<< HEAD
-      valid: true,
-      rules: {
-        required: (value) => !!value || "Feltet er påkrevd",
-        min: (v) => v.length >= 8 || "Minimum 8 tegn",
-        passwordConfirmation: (v) =>
-          v === this.user.password || "Passordene må være like",
-      },
-=======
       showError: false,
->>>>>>> main
     };
   },
   computed: mapState({
     token: (state) => state.user.token,
   }),
   methods: {
-<<<<<<< HEAD
-    async setNewPassword() {},
-=======
     async setNewPassword() {
       this.showError = true;
 
@@ -153,7 +140,6 @@ export default {
         console.log("Something went wrong");
       }
     },
->>>>>>> main
     validate() {
       this.$refs.form.validate();
     },
