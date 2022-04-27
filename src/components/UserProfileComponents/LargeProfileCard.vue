@@ -50,6 +50,13 @@
             >
           </li>
           <li>
+            <div
+                @click="logout"
+                class="cursor-pointer block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            >Logg ut
+            </div>
+          </li>
+          <li>
             <router-link
               to="/newPassword"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -118,7 +125,7 @@ export default {
       this.currentUser = await parseCurrentUser();
       this.id = await this.$router.currentRoute.value.params.id;
 
-      if (this.id == this.currentUser.accountId) {
+      if (this.id === this.currentUser.accountId) {
         this.isCurrentUser = true;
         this.user = this.currentUser;
         return;
@@ -131,11 +138,15 @@ export default {
       }
     },
     getProfilePicture() {
-      if (this.user.picture != "") {
+      if (this.user.picture !== "") {
         return this.user.picture;
       }
       return "../assets/defaultUserProfileImage.jpg";
     },
+    logout(){
+      this.$store.commit('logout');
+      this.$router.push('/')
+    }
   },
   beforeMount() {
     this.getUser();
