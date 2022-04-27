@@ -19,7 +19,7 @@ function guardRoute(to, from, next) {
 
 const routes = [
   {
-    path: "/", //Endre før push
+    path: "/",
     name: "home",
     component: HomeView,
   },
