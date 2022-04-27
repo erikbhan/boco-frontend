@@ -2,7 +2,7 @@ image: node:16-alpine
 stages:
   - build
   - test
-  - deploy
+  # - deploy
 
 install_dependencies:
   stage: build
@@ -32,5 +32,5 @@ build:
 run_tests:
   stage: test
   needs:
-    - install_dependencies
+    - build
   script: npm run test:unit
