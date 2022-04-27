@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div>This is an about page</div>
 </template>
+
+<script>
+import { defineComponent } from "vue";
+
+// Components
+
+export default defineComponent({
+  name: "HomeView",
+
+  components: {
+  },
+});
+</script>
