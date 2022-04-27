@@ -71,8 +71,6 @@ export default {
         },
         async sendMessage() {
             const token = this.$store.state.user.token;
-
-            // Post new message to server /chats/users/{userId}/messages 
             await axios.post(process.env.VUE_APP_BASEURL + `chats/users/${this.recipientID}/messages`, {
                 message: this.message
             }, {
@@ -80,11 +78,12 @@ export default {
                     Authorization: `Bearer ${token}`
                 }
             })
+            this.message = "";
             ws.sendMessage({ sender: parseInt(this.userid), recipient: this.recipientID });
             this.reloadMessages();
         },
         async reloadMessages() {
-                    const token = this.$store.state.user.token;
+            const token = this.$store.state.user.token;
             const response = await fetch(`${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`, {
                 method: "GET",
                 headers: {
