@@ -1,18 +1,14 @@
 <template>
-  <Home />
+  <group-list />
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import GroupList from "@/components/GroupeComponents/GroupeList.vue";
 
-// Components
-import Home from "../components/HomeComponent.vue";
-
-export default defineComponent({
+export default {
   name: "HomeView",
-
   components: {
-    Home,
+    GroupList,
   },
-});
+};
 </script>
