@@ -89,7 +89,13 @@ const routes = [
     name: "notifications",
     component: () => import("../views/NotificationView.vue"),
     beforeEnter: guardRoute,
-  }
+  },
+  {
+    path: "/user/:id/groups",
+    name: "myGroups",
+    component: () => import("../views/MyGroupsView.vue"),
+    beforeEnter: guardRoute,
+  },
 ];
 
 const router = createRouter({

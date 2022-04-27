@@ -37,7 +37,7 @@
           </li>
           <li>
             <router-link
-              to=""
+              :to="'/user/' + id + '/groups'"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Mine grupper
             </router-link>
@@ -51,9 +51,10 @@
           </li>
           <li>
             <div
-                @click="logout"
-                class="cursor-pointer block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-            >Logg ut
+              @click="logout"
+              class="cursor-pointer block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            >
+              Logg ut
             </div>
           </li>
           <li>
@@ -143,10 +144,10 @@ export default {
       }
       return "../assets/defaultUserProfileImage.jpg";
     },
-    logout(){
-      this.$store.commit('logout');
-      this.$router.push('/')
-    }
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/");
+    },
   },
   beforeMount() {
     this.getUser();
