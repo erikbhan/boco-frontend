@@ -2,8 +2,8 @@ image: node:lts-alpine
 
 stages:
   - install
-  - build
   - quality
+  - build
   # - deploy
   - audit
 
