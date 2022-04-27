@@ -240,7 +240,6 @@ import {
   between,
   minLength,
 } from "@vuelidate/validators";
-import router from "@/router";
 
 export default {
   name: "AddNewItem",
