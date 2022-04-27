@@ -2,7 +2,7 @@
     <div class="col-span-3 sm:col-span-2 block">
         <div class="w-full">
             <div class="flex justify-between border-b border-gray-300">
-                <div class="grid space-y-2 content-center m-3">
+                <div class="grid sm:hidden  space-y-2 content-center m-3">
                     <div class="w-8 h-0.5 bg-gray-600"></div>
                     <div class="w-8 h-0.5 bg-gray-600"></div>
                     <div class="w-8 h-0.5 bg-gray-600"></div>
@@ -16,9 +16,9 @@
                 <div></div>
             </div>
 
-            <div class="relative w-full p-6 overflow-y-auto h-full">
+            <div class="relative w-full p-6 overflow-y-auto" style="max-height: 400px">
                 <ul class="space-y-2">
-                    <div>
+                    <div >
                         <ChatMessage v-for="(message, i) in messages" v-bind:key="i" :message="message"></ChatMessage>
                     </div>
                 </ul>
@@ -45,6 +45,7 @@ import ChatMessage from "./ChatMessage.vue"
 import axios from 'axios';
 import { parseCurrentUser } from "@/utils/token-utils";
 import ws from '@/services/ws';
+
 
 export default {
     data: () => {

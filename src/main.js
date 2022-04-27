@@ -5,5 +5,8 @@ import store from "./store";
 import "./index.css";
 import ws from './services/ws';
 
-createApp(App).use(router).use(store).mount("#app");
+createApp(App)
+    .use(router)
+    .use(store)
+    .mount("#app");
 console.log("WS", ws.test);
