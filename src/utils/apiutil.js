@@ -71,3 +71,16 @@ export function getOwnerRating(userid) {
       console.error(error);
     });
 }
+
+export function getAverageRating(userid) {
+  return axios
+    .get(API_URL + "rating/" + userid + "/average", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
