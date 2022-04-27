@@ -19,7 +19,7 @@ cache:
 npm:install:
   stage: build
   script:
-    - npm ci -g @vue/cli
+    - npm ci @vue/cli
     - npm ci
 
 test:unit:
