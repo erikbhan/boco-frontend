@@ -9,12 +9,11 @@ import NewPasswordView from "../views/NewPasswordView";
  * login page and the register page will be accessible.
  */
 function guardRoute(to, from, next) {
-  var isAuthenticated = false;
-  if (store.state.user.token != null) isAuthenticated = true;
-  else isAuthenticated = false;
+  let isAuthenticated = store.state.user.token != null;
   if (isAuthenticated) {
     next(); // allow to enter route
-  } else {
+  }
+  else {
     next("/login"); // go to '/login';
   }
 }
@@ -23,13 +22,11 @@ const routes = [
   {
     path: "/", //Endre før push
     name: "home",
-    beforeEnter: guardRoute,
     component: HomeView,
   },
   {
     path: "/about",
     name: "about",
-    beforeEnter: guardRoute,
     component: () => import("../views/AboutView.vue"),
   },
   {
@@ -58,7 +55,6 @@ const routes = [
     path: "/searchItemList",
     name: "searchItemList",
     component: () => import("../views/SearchItemListView.vue"),
-    beforeEnter: guardRoute,
   },
   {
     path: "/createNewGroup",
@@ -76,11 +72,13 @@ const routes = [
     path: "/notifications",
     name: "notifications",
     component: () => import("../views/NotificationView.vue"),
+    beforeEnter: guardRoute,
   },
   {
     path: "/messages",
     name: "messages",
     component: () => import("../views/MessagesView.vue"),
+    beforeEnter: guardRoute,
   },
 
 ];
