@@ -72,6 +72,18 @@ export function getOwnerRating(userid) {
     });
 }
 
+export function getAverageRating(userid) {
+  return axios
+    .get(API_URL + "rating/" + userid + "/average", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 export function doNewPassword() {
   //m
   //add newPasswordInfo to input
