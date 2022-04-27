@@ -60,8 +60,8 @@ export default {
     components: { ChatMessage },
     computed: {
         userid() {
-            console.log(parseCurrentUser());
-            return parseCurrentUser().account_id;
+
+            return parseCurrentUser().accountId;
         },
         recipientID() {
             return this.recipient.userId;
@@ -72,7 +72,6 @@ export default {
     },
     methods: {
         calculateSide(from) {
-            console.log("userid ", this.userid)
             return from == this.userid ? 'end' : 'start'
         },
         async sendMessage() {
