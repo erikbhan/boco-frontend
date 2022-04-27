@@ -3,7 +3,8 @@
     <div
       id="emailField"
       class="m-6"
-      :class="{ error: v$.user.email.$errors.length }">
+      :class="{ error: v$.user.email.$errors.length }"
+    >
       <div class="mb-6">
         <label
           for="email"
@@ -153,7 +154,7 @@ export default {
         this.$store.commit("logout");
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
-        await this.$router.push('/');
+        await this.$router.push("/");
       } else {
         console.log("Something went wrong");
       }

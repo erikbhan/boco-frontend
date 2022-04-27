@@ -12,8 +12,7 @@ function guardRoute(to, from, next) {
   let isAuthenticated = store.state.user.token != null;
   if (isAuthenticated) {
     next(); // allow to enter route
-  }
-  else {
+  } else {
     next("/login"); // go to '/login';
   }
 }

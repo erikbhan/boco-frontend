@@ -72,12 +72,13 @@ export function getOwnerRating(userid) {
     });
 }
 
-export function doNewPassword() { //m
-    //add newPasswordInfo to input
-    const auth = { newPasswordSet: false };
-    //return axios
-    //.post(API_URL + "newPassword", newPasswordInfo)
-    //.then((response) => {auth.newPasswordSet = true;return auth;})
-    //.catch((error) => {console.log(error);return auth;});
-    return auth; //remove after axios is added
+export function doNewPassword() {
+  //m
+  //add newPasswordInfo to input
+  const auth = { newPasswordSet: false };
+  //return axios
+  //.post(API_URL + "newPassword", newPasswordInfo)
+  //.then((response) => {auth.newPasswordSet = true;return auth;})
+  //.catch((error) => {console.log(error);return auth;});
+  return auth; //remove after axios is added
 }

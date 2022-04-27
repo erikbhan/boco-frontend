@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NotificationsForm/>
+    <NotificationsForm />
   </div>
 </template>
 
@@ -10,11 +10,9 @@ import NotificationsForm from "@/components/NotificationsForm";
 export default {
   name: "NotificationView.vue",
   components: {
-    NotificationsForm
+    NotificationsForm,
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
