@@ -1,52 +1,36 @@
-image: node:lts
+image: node:16
 
 stages:
-  - build
+  - setup
   - test
-#  - deploy
 
-# These folders are cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    # Default cache directory from https://classic.yarnpkg.com/en/docs/install-ci/#gitlab.
-    - node_modules/
-    # Enables git-lab CI caching. Both .cache and public must be cached, otherwise builds will fail.
-    - .cache/
-    - public/
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
 
-npm:install:
-  stage: build
+# Define a hidden job to be used with extends
+# Better than default to avoid activating cache for all jobs
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+setup:
+  stage: setup
   script:
     - npm ci
+  extends: .dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 3 days #delete cache after 3 days to conserve space
+    paths:
+      - node_modules
 
-test:unit:
-  stage: test
-  needs: ["npm:install"]
+test:
+  stage:test:
   script:
-    - npm ci
     - npm run test:unit
-
-#test:coverage:
-#  stage: test
-#  needs: ["npm:install"]
-#  script:
-#    - ./node_modules/.bin/gatsby info
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-#    - if: $CI_MERGE_REQUEST_ID
-
-#pages:
-#  stage: deploy
-#  needs: 
-#    - npm:install
-#    - test:unit
-#    - test:gatsby
-#  script:
-#    - ./node_modules/.bin/gatsby build --prefix-paths
-#  artifacts:
-#    paths:
-#      - public
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
