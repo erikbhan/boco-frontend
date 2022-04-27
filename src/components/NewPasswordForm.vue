@@ -1,10 +1,7 @@
 <template>
   <div
-    class="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800"
+    class="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-8 "
   >
-    <div id="logoField" class="flex justify-center m-6">
-      <img src="../assets/logo3.svg" alt="BoCo logo" />
-    </div>
 
     <div
       id="firstPasswordField"
