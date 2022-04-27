@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MessagesForm/>
+    <MessagesForm />
   </div>
 </template>
 
@@ -10,11 +10,9 @@ import MessagesForm from "@/components/MessagesForm";
 export default {
   name: "MessagesView.vue",
   components: {
-    MessagesForm
+    MessagesForm,
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
