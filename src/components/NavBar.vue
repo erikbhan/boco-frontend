@@ -5,10 +5,10 @@
     </div>
     <ul class="flex">
       <li>
-        <img class="m-6 cursor-pointer h-8 " src="../assets/messages.png" alt="Meldinger" @click="$router.push('/messages')"/>
+        <img class="m-6 cursor-pointer h-8 " src="../assets/additem.png" alt="Legg til" @click="$router.push('/addNewItem')"/>
       </li>
       <li>
-        <img class="m-6 cursor-pointer h-8 " src="../assets/notifications.png" alt="Varlser" @click="$router.push('/notifications')"/>
+        <img class="m-6 cursor-pointer h-8 " src="../assets/messages.png" alt="Meldinger" @click="$router.push('/messages')"/>
       </li>
       <li>
         <img class="m-6 cursor-pointer h-8 " src="../assets/profile.png" alt="Profil" @click="loadProfile"/>
