@@ -31,6 +31,6 @@ setup:
       - node_modules
 
 test:
-  stage:test:
+  stage: test
   script:
     - npm run test:unit
