@@ -9,9 +9,9 @@
                 </div>
                 <div class="relative flex items-center p-3">
                     <img class="object-cover w-10 h-10 rounded-full"
-                        src="https://gitlab.stud.idi.ntnu.no/uploads/-/system/user/avatar/4168/avatar.png?width=400"
-                        alt="username" />
-                    <span class="block ml-2 font-bold text-gray-600">Sid</span>
+                        src="https://www.mintface.xyz/content/images/2021/08/QmTndiF423kjdXsNzsip1QQkBQqDuzDhJnGuJAXtv4XXiZ-1.png"
+                        alt="{{name}}" />
+                    <span class="block ml-2 font-bold text-gray-600">{{name}}</span>
                 </div>
                 <div></div>
             </div>
@@ -48,6 +48,9 @@ import ws from '@/services/ws';
 
 
 export default {
+    props: {
+        recipient: Object,
+    },
     data: () => {
         return {
             messages: [],
@@ -61,7 +64,10 @@ export default {
             return parseCurrentUser().account_id;
         },
         recipientID() {
-            return this.userid == 1 ? 2 : 1;
+            return this.recipient.userId;
+        },
+        name() {
+            return this.recipient.firstName + " " + this.recipient.lastName;
         }
     },
     methods: {
@@ -96,9 +102,7 @@ export default {
         }
     },
     async created() {
-        console.log(this.$store.state.user, " hello")
         const token = this.$store.state.user.token;
-        console.log(process.env.VUE_APP_BASEURL);
         // Fetch /chats/users/{userId}/messages from api
         const response = await fetch(`${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`, {
             method: "GET",
