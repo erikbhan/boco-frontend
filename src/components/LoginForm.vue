@@ -1,5 +1,8 @@
 <template>
-  <div class="App">
+
+  <div class="max-w-md p-6 mx-auto rounded-md shadow-lg mt-16">
+
+    <div class="flex justify-center text-2xl ">Logg inn</div>
     <div
       id="emailField"
       class="m-6"
@@ -45,7 +48,7 @@
       <input
         type="password"
         id="password"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
         v-model="v$.user.password.$model"
         required
         @keyup.enter="loginClicked"
@@ -69,20 +72,20 @@
     <div id="buttonsField" class="m-6">
       <div class="align-items: flex-end; mb-6">
         <div class="ml-3 text-sm">
-          <router-link to="/resetPassword" class="text-blue-600"
+          <router-link to="/resetPassword" class="text-blue-600 flex justify-end"
             >Glemt passord</router-link
           >
         </div>
       </div>
       <button
         @click="loginClicked"
-        class="flex justify-center align-items: flex-end; text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
       >
         Logg inn
       </button>
-      <div class="align-items: flex-end; mb-6 mt-6">
-        <div class="ml-3 text-sm">
-          <router-link to="register" class="text-blue-600"
+      <div class="align-items: flex-end; mb-6 mt-12">
+        <div class="text-sm">
+          <router-link to="register" class="text-blue-600 flex justify-center"
             >Ny bruker</router-link
           >
         </div>

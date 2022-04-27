@@ -30,7 +30,12 @@ setup:
     paths:
       - node_modules
 
-test:
+lint_test:
+  stage: test
+  script:
+    - npm run lint
+
+unit_test:
   stage: test
   script:
     - npm run test:unit
