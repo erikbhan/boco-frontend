@@ -68,7 +68,7 @@
     <div id="buttonsField" class="m-6">
       <div class="align-items: flex-end; mb-6">
         <div class="ml-3 text-sm">
-          <router-link to="about" class="text-blue-600"
+          <router-link to="/resetPassword" class="text-blue-600"
             >Glemt passord</router-link
           >
         </div>
@@ -104,7 +104,6 @@ export default {
   setup() {
     return { v$: useVuelidate() };
   },
-
   validations() {
     return {
       user: {

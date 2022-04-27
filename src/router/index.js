@@ -57,6 +57,11 @@ const routes = [
     component: () => import("../views/SearchItemListView.vue"),
   },
   {
+    path: "/resetPassword",
+    name: "resetPassword",
+    component: () => import("../views/ResetPasswordView.vue"),
+  },
+  {
     path: "/createNewGroup",
     name: "createNewGroup",
     component: () => import("../views/CreateNewGroupView.vue"),
@@ -80,7 +85,6 @@ const routes = [
     component: () => import("../views/MessagesView.vue"),
     beforeEnter: guardRoute,
   },
-
 ];
 
 const router = createRouter({
