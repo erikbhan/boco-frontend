@@ -1,17 +1,17 @@
 <template>
   <nav class="flex items-center justify-between bg-white h-20 shadow-2xl">
     <div class="logo">
-      <img class="ml-4 cursor-pointer h-16 " src="../assets/logo3.svg" alt="BoCo logo" @click="$router.push('/')"/>
+      <img class="m-2 cursor-pointer h-16 " src="../assets/logo3.svg" alt="BoCo logo" @click="$router.push('/')"/>
     </div>
     <ul class="flex">
       <li>
-        <div class="text-black mr-4 bg-gray-100 p-1 hover:bg-gray-600 transition-all rounded" @click="loadMessages">Meldinger</div>
+        <img class="m-6 cursor-pointer h-8 " src="../assets/messages.png" alt="Meldinger" @click="$router.push('/messages')"/>
       </li>
       <li>
-        <div class="text-black mr-4 bg-gray-100 p-1 hover:bg-gray-600 transition-all rounded" @click="loadNotifications">Varsler</div>
+        <img class="m-6 cursor-pointer h-8 " src="../assets/notifications.png" alt="Varlser" @click="$router.push('/notifications')"/>
       </li>
       <li>
-        <div class="text-black mr-4 bg-gray-100 p-1 hover:bg-gray-600 transition-all rounded" @click="loadProfile">Profil</div>
+        <img class="m-6 cursor-pointer h-8 " src="../assets/profile.png" alt="Profil" @click="loadProfile"/>
       </li>
     </ul>
   </nav>
@@ -24,24 +24,6 @@ export default {
   name: "NavBar.vue",
 
   methods: {
-    async loadMessages(){
-      if(this.$store.state.user.token !== null){
-        await this.$router.push("/messages")
-      }
-      else {
-        await this.$router.push("/login");
-      }
-
-    },
-    async loadNotifications(){
-      if(this.$store.state.user.token !== null){
-        await this.$router.push("/notifications")
-      }
-      else {
-        await this.$router.push("/login");
-      }
-
-    },
     async loadProfile() {
       if(this.$store.state.user.token !== null){
       let user = parseUserFromToken(this.$store.state.user.token);
