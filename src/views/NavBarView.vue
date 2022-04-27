@@ -1,15 +1,15 @@
 <template>
 <div>
-  <NavbarComponent></NavbarComponent>
+  <Navbar/>
 </div>
 </template>
 
 <script>
-import NavbarComponent from "@/components/NavbarComponent";
+import Navbar from "@/components/NavBar";
 export default {
   name: "NavBarView",
   components:{
-    NavbarComponent,
+    Navbar,
   },
 }
 </script>
