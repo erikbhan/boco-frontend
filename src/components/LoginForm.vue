@@ -1,14 +1,9 @@
 <template>
   <div class="App">
-    <div id="logoField" class="flex justify-center m-6">
-      <img src="../assets/logo3.svg" alt="BoCo logo" />
-    </div>
-
     <div
       id="emailField"
       class="m-6"
-      :class="{ error: v$.user.email.$errors.length }"
-    >
+      :class="{ error: v$.user.email.$errors.length }">
       <div class="mb-6">
         <label
           for="email"
@@ -102,7 +97,6 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-import { parseUserFromToken } from "@/utils/token-utils";
 
 export default {
   name: "LoginForm.vue",
@@ -160,12 +154,7 @@ export default {
         this.$store.commit("logout");
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
-
-        let user = parseUserFromToken(loginResponse.token);
-        console.log(user);
-        let id = user.accountId;
-        console.log(id);
-        await this.$router.push("/profile/" + id);
+        await this.$router.push('/');
       } else {
         console.log("Something went wrong");
       }
