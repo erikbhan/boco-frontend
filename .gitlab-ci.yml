@@ -1,110 +1,36 @@
-# # This file is a template, and might need editing before it works on your project.
-# # To contribute improvements to CI/CD templates, please follow the Development guide at:
-# # https://docs.gitlab.com/ee/development/cicd/templates.html
-# # This specific template is located at:
-# # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
-
-# # This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# # It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# # it uses echo commands to simulate the pipeline execution.
-# #
-# # A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# # Stages run in sequential order, but jobs within stages run in parallel.
-# #
-# # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-
-# stages:          # List of stages for jobs, and their order of execution
-#   - build
-#   - test
-
-# image: node:16
-
-# cache:
-#   paths:
-#     - node_modules/
-
-# install_dependencies_job:       # This job runs in the build stage, which runs first.
-#   stage: build
-
-#   script:
-#     - echo "Installing dependencies..."
-#     - npm install
-#     - echo "Dependencies installed."
-#   artifacts:
-#     paths:
-#       - node_modules/
-
-
-# lint-test-job:   # This job also runs in the test stage.
-#   stage: test    # It can run at the same time as unit-test-job (in parallel).
-#   script:
-#     - echo "Linting the code..."
-#     - npm run lint
-#     - echo "Code-linting complete."
-#   artifacts:
-#     paths:
-#       - node_modules/
-
-# unit-test-job:   # This job runs in the test stage.
-#   stage: test    # It only starts when the job in the build stage completes successfully.
-#   script:
-#     - echo "Running unit tests..."
-#     - npm run test:unit -- --coverage
-#     - echo "Unit tests complete."
-#   artifacts:
-#     paths:
-#       - node_modules/
-
+image: node:16-alpine
 stages:
   - build
   - test
-  # - deploy
+  - deploy
 
-install:
-  image: node:16-alpine # alpine/slim is a smaller image
-  stage: .pre         # always first, no matter if it is listed in stages
-  cache:
-    key: NPM_DOWNLOAD_CACHE  # a single-key-4-all-branches for install jobs
+install_dependencies:
+  stage: build
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
-      - .npm/
-  before_script:
-    - cp .env.gitlab-testing .env
+      - node_modules/
   script:
-    # define cache dir & use it npm!
-    - npm ci --cache .npm --prefer-offline
-  artifacts:
-    paths:
-    - node_modules/
-    - .env
+    - npm ci
+  only:
+    changes:
+      - package-lock.json
 
 build:
   stage: build
-  needs:
-    - job: install         
-      artifacts: true       # true by default, grabs `node_modules`
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - npm run build
   artifacts:
     paths:
-      - dist/               # whereever your build results are stored
+      - build
 
-test:
+run_tests:
   stage: test
   needs:
-    - job: install
-      artifacts: true      # grabs node_modules
-    - job: build
-      artifacts: true      # grabs built files
-  script:
-    - npm test
-
-# deploy:
-#   stage: deploy
-#   needs:
-#       # does not need node_modules so don't state install as a need
-#     - job: build
-#       artifacts: true      # grabs dist/
-#     - job: test            # must succeed
-#       artifacts: false     # not needed
-#   script:
-#     - npm publish
+    - install_dependencies
+  script: npm run test:unit
