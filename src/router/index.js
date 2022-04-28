@@ -67,7 +67,7 @@ const routes = [
   {
     path: "/createNewGroup",
     name: "createNewGroup",
-    component: () => import("../views/FormViews/NewCommunityView.vue"),
+    component: () => import("../views/CommunityViews/NewCommunityView.vue"),
   },
   {
     path: "/group/:id/memberlist",
@@ -78,13 +78,13 @@ const routes = [
   {
     path: "/addNewItem",
     name: "addNewItem",
-    component: () => import("../views/FormViews/NewItemView.vue"),
+    component: () => import("../views/CommunityViews/NewItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../views/FormViews/NotificationView.vue"),
+    component: () => import("../views/NavigationViews/NotificationView.vue"),
     beforeEnter: guardRoute,
   },
   {

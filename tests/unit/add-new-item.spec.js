@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import AddNewItem from "@/components/FormComponents/NewItemForm.vue";
+import AddNewItem from "@/components/CommunityComponents/NewItemForm.vue";
 
 describe("addNewItem elements rendering", () => {
   it("renders all labels", () => {

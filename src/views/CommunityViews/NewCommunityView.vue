@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import NewCommunity from "@/components/FormComponents/NewCommunityForm";
+import NewCommunity from "@/components/CommunityComponents/NewCommunityForm";
 export default {
   name: "CreateNewGroupView.vue",
   components: {
