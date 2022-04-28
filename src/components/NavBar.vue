@@ -1,36 +1,38 @@
 <template>
-  <nav class="flex items-center justify-between bg-white h-20 border-1 border-b border-gray-300 border-solid">
+  <nav
+    class="flex items-center justify-between bg-white h-14 border-1 border-b border-gray-300 border-solid"
+  >
     <div class="logo">
       <img
-          class="m-2 cursor-pointer h-16"
-          src="../assets/logo3.svg"
-          alt="BoCo logo"
-          @click="$router.push('/')"
+        class="m-1 ml-4 cursor-pointer h-12"
+        src="../assets/logo3.svg"
+        alt="BoCo logo"
+        @click="$router.push('/')"
       />
     </div>
     <ul class="flex">
       <li>
         <img
-            class="m-6 cursor-pointer h-8"
-            src="../assets/additem.png"
-            alt="Legg til"
-            @click="$router.push('/addNewItem')"
+          class="m-6 cursor-pointer h-7"
+          src="../assets/additem.png"
+          alt="Legg til"
+          @click="$router.push('/addNewItem')"
         />
       </li>
       <li>
         <img
-            class="m-6 cursor-pointer h-8"
-            src="../assets/messages.png"
-            alt="Meldinger"
-            @click="$router.push('/messages')"
+          class="m-6 cursor-pointer h-7"
+          src="../assets/messages.png"
+          alt="Meldinger"
+          @click="$router.push('/messages')"
         />
       </li>
       <li>
         <img
-            class="m-6 cursor-pointer h-8"
-            src="../assets/profile.png"
-            alt="Profil"
-            @click="loadProfile"
+          class="m-6 cursor-pointer h-7"
+          src="../assets/profile.png"
+          alt="Profil"
+          @click="loadProfile"
         />
       </li>
     </ul>

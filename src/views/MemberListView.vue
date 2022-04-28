@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import MemberList from "@/components/MemberList.vue";
+import MemberList from "@/components/GroupeComponents/MemberList.vue";
 
 export default {
   data() {

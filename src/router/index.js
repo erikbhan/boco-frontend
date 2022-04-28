@@ -19,7 +19,7 @@ function guardRoute(to, from, next) {
 
 const routes = [
   {
-    path: "/", //Endre før push
+    path: "/",
     name: "home",
     component: HomeView,
   },
@@ -38,6 +38,13 @@ const routes = [
     path: "/register",
     name: "register",
     component: () => import("../views/RegisterView.vue"),
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: () =>
+      import(/* webpackChunkName: "register" */ "../views/ChatView.vue"),
+    beforeEnter: guardRoute,
   },
   {
     path: "/login",
