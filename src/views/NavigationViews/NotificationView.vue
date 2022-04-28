@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import NotificationsForm from "@/components/FormComponents/NotificationsForm";
+import NotificationsForm from "@/components/NavigationComponents/NotificationsForm";
 
 export default {
   name: "NotificationView.vue",

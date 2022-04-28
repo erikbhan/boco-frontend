@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import CreateNewGroup from "@/components/FormComponents/NewGroupForm.vue";
+import CreateNewGroup from "@/components/CommunityComponents/NewCommunityForm.vue";
 
 describe("CreateNewGroup elements rendering", () => {
   it("renders all labels", () => {
@@ -9,7 +9,6 @@ describe("CreateNewGroup elements rendering", () => {
     expect(wrapper.find("#radioBoxOpenLabel").text()).toMatch("Åpen");
     expect(wrapper.find("#radioBoxPrivateLabel").text()).toMatch("Privat");
     expect(wrapper.find("#titleLabel").text()).toMatch("Gruppenavn");
-    expect(wrapper.find("#selectCategoryLabel").text()).toMatch("Kategori");
     expect(wrapper.find("#descriptionLabel").text()).toMatch("Beskrivelse");
     expect(wrapper.find("#imageLabel").text()).toMatch("Bilde");
   });
@@ -20,10 +19,6 @@ describe("CreateNewGroup elements rendering", () => {
     const titleInput = wrapper.find("#title");
     await titleInput.setValue("Fjellgata");
     expect(titleInput.element.value).toBe("Fjellgata");
-
-    const selectedCategory = wrapper.find("#categories");
-    await selectedCategory.setValue("Borettslag");
-    expect(selectedCategory.element.value).toBe("Borettslag");
 
     const descriptionInput = wrapper.find("#description");
     await descriptionInput.setValue("Dette er et borettslag");

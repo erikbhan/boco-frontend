@@ -1,41 +1,43 @@
 image: node:16
 
 stages:
-  - setup
+#  - setup
   - test
 
-variables:
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+#variables:
+#  npm_config_cache: "$CI_PROJECT_DIR/.npm"
 
 # Define a hidden job to be used with extends
 # Better than default to avoid activating cache for all jobs
-.dependencies_cache:
-  cache:
-    key:
-      files:
-        - package-lock.json
-    paths:
-      - .npm
-    policy: pull
+#.dependencies_cache:
+#  cache:
+#    key:
+#      files:
+#        - package-lock.json
+#    paths:
+#      - .npm
+#    policy: pull
 
-setup:
-  stage: setup
+#setup:
+#  stage: setup
+#  script:
+#    - npm ci
+#  extends: .dependencies_cache
+#  cache:
+#    policy: pull-push
+#  artifacts:
+#    expire_in: 3 days #delete cache after 3 days to conserve space
+#    paths:
+#      - node_modules
+
+test:
+  stage: test
   script:
     - npm ci
-  extends: .dependencies_cache
-  cache:
-    policy: pull-push
-  artifacts:
-    expire_in: 3 days #delete cache after 3 days to conserve space
-    paths:
-      - node_modules
-
-lint_test:
-  stage: test
-  script:
     - npm run lint
-
-unit_test:
-  stage: test
-  script:
     - npm run test:unit
+
+#unit_test:
+#  stage: test
+#  script:
+#    - npm run test:unit

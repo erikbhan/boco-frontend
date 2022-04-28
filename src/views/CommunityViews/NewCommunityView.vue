@@ -1,13 +1,13 @@
 <template>
-  <CreateNewGroup></CreateNewGroup>
+  <NewCommunity />
 </template>
 
 <script>
-import CreateNewGroup from "@/components/FormComponents/NewGroupForm";
+import NewCommunity from "@/components/CommunityComponents/NewCommunityForm";
 export default {
   name: "CreateNewGroupView.vue",
   components: {
-    CreateNewGroup,
+    NewCommunity,
   },
 };
 </script>

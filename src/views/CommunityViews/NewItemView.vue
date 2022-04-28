@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AddNewItem from "@/components/FormComponents/NewItemForm";
+import AddNewItem from "@/components/CommunityComponents/NewItemForm";
 
 export default {
   name: "AddNewItemView.vue",

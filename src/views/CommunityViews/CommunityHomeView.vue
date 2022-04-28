@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import GroupHome from "@/components/GroupComponents/GroupHome";
+import GroupHome from "@/components/CommunityComponents/CommunityHome";
 export default {
   name: "GroupHomeView.vue",
   components: {

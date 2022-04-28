@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SearchItemListComponent from "@/components/GroupComponents/SearchItemList";
+import SearchItemListComponent from "@/components/CommunityComponents/SearchItemList";
 export default {
   name: "SearchItemListView",
   components: {
