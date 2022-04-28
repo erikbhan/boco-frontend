@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import CreateNewGroup from "@/components/CreateNewGroup";
+import CreateNewGroup from "@/components/FormComponents/NewGroupForm";
 export default {
   name: "CreateNewGroupView.vue",
   components: {

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import GroupList from "@/components/GroupeComponents/GroupList.vue";
+import GroupList from "@/components/GroupComponents/GroupList.vue";
 import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
 
 export default {

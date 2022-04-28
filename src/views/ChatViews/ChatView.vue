@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import ChatProfile from "@/components/chat/ChatProfile.vue";
-import CurrentChat from "@/components/chat/CurrentChat.vue";
+import ChatProfile from "@/components/ChatComponents/ChatProfile.vue";
+import CurrentChat from "@/components/ChatComponents/CurrentChat.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
 
 export default {

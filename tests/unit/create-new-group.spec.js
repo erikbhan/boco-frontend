@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import CreateNewGroup from "@/components/CreateNewGroup.vue";
+import CreateNewGroup from "@/components/FormComponents/NewGroupForm.vue";
 
 describe("CreateNewGroup elements rendering", () => {
   it("renders all labels", () => {
