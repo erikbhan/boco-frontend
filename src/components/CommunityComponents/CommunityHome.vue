@@ -2,7 +2,7 @@
   <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
     <div>
       <img
-          class="cursor-pointer h-8 mr-4 mt-4 float-right"
+          class="cursor-pointer h-8  float-right"
           v-if="isLoggedIn"
           src="@/assets/members.png"
           alt="Medlemmer"
