@@ -101,42 +101,6 @@
       </div>
     </div>
 
-    <!-- Select category -->
-    <div class="mt-6">
-      <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="selectCategoryLabel"
-        >Kategori</label
-      >
-      <select
-        v-model="v$.group.select.$model"
-        id="categories"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option class="text-gray-400" value="" disabled selected>
-          Select a category
-        </option>
-        <option
-          v-for="category in group.categories"
-          :key="category"
-          class="text-gray-900 text-sm"
-        >
-          {{ category }}
-        </option>
-      </select>
-
-      <!-- error message for select box -->
-      <div
-        class="text-red"
-        v-for="(error, index) of v$.group.select.$errors"
-        :key="index"
-      >
-        <div class="text-red-600 text-sm">
-          {{ error.$message }}
-        </div>
-      </div>
-    </div>
-
     <!-- Description -->
     <div class="mt-6" :class="{ error: v$.group.description.$errors.length }">
       <label
@@ -184,13 +148,16 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <button
+        <div class="text-red-500 uppercase text-center">
+          midlertidig fjernet
+        </div>
+        <!-- <button
           @click="$refs.file.click()"
-          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50 cursor-not-allowed"
+          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
-        </button>
+        </button> -->
 
         <!-- Button for removing an image -->
         <button
@@ -266,9 +233,6 @@ export default {
             maxLength(200)
           ),
         },
-        select: {
-          required: helpers.withMessage(() => `Velg en kategori`, required),
-        },
       },
     };
   },
@@ -276,10 +240,8 @@ export default {
     return {
       group: {
         name: "",
-        select: null,
         description: "",
         images: [],
-        categories: ["Borettslag", "Idrettsklubb", "Fritidsklubb"],
         radio: null,
         place: "",
         visibility: 1,
@@ -335,7 +297,6 @@ export default {
         console.log("Navn: " + this.group.name);
         console.log("Sted: " + this.group.place);
         console.log("Synlighet: " + this.group.radio);
-        console.log("Kategori: " + this.group.select);
         console.log("Beskrivelse: " + this.group.description);
         console.log("bilder: " + this.group.images);
 
