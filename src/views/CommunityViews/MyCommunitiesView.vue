@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import GroupList from "@/components/GroupComponents/GroupList.vue";
+import GroupList from "@/components/CommunityComponents/CommunityList.vue";
 import { getMyGroups } from "@/utils/apiutil";
 
 export default {

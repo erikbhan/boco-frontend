@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import SearchItemListComponent from "@/components/GroupComponents/SearchItemList.vue";
+import SearchItemListComponent from "@/components/CommunityComponents/SearchItemList.vue";
 
 describe("CreateNewGroup elements rendering", () => {
   it("Tests setting values of input field", async () => {
