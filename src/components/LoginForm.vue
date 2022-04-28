@@ -1,8 +1,6 @@
 <template>
-
   <div class="max-w-md p-6 mx-auto rounded-md shadow-lg mt-16">
-
-    <div class="flex justify-center text-2xl ">Logg inn</div>
+    <div class="flex justify-center text-2xl">Logg inn</div>
     <div
       id="emailField"
       class="m-6"
@@ -48,7 +46,7 @@
       <input
         type="password"
         id="password"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         v-model="v$.user.password.$model"
         required
         @keyup.enter="loginClicked"
@@ -72,7 +70,9 @@
     <div id="buttonsField" class="m-6">
       <div class="align-items: flex-end; mb-6">
         <div class="ml-3 text-sm">
-          <router-link to="/resetPassword" class="text-blue-600 flex justify-end"
+          <router-link
+            to="/resetPassword"
+            class="text-blue-600 flex justify-end"
             >Glemt passord</router-link
           >
         </div>

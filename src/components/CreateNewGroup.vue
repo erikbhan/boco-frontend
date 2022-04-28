@@ -351,8 +351,6 @@ export default {
         const postCreatedGroup = await postNewgroup(groupInfo);
         console.log(postCreatedGroup);
       }
-
-
     },
 
     addImage: function (event) {
@@ -362,6 +360,6 @@ export default {
       this.imageThere = true;
       console.log("image: " + this.imageThere);
     },
-  }
+  },
 };
 </script>
