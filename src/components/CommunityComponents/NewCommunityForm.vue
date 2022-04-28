@@ -101,7 +101,7 @@
       </div>
     </div>
 
-    <!-- Select category -->
+    <!-- Select category
     <div class="mt-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -125,7 +125,7 @@
         </option>
       </select>
 
-      <!-- error message for select box -->
+      error message for select box
       <div
         class="text-red"
         v-for="(error, index) of v$.group.select.$errors"
@@ -135,7 +135,7 @@
           {{ error.$message }}
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Description -->
     <div class="mt-6" :class="{ error: v$.group.description.$errors.length }">
@@ -184,13 +184,16 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <button
+        <div class="text-red-500 uppercase text-center">
+          midlertidig fjernet
+        </div>
+        <!-- <button
           @click="$refs.file.click()"
-          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50 cursor-not-allowed"
+          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
-        </button>
+        </button> -->
 
         <!-- Button for removing an image -->
         <button
@@ -266,9 +269,9 @@ export default {
             maxLength(200)
           ),
         },
-        select: {
-          required: helpers.withMessage(() => `Velg en kategori`, required),
-        },
+        // select: {
+        //   required: helpers.withMessage(() => `Velg en kategori`, required),
+        // },
       },
     };
   },
@@ -276,10 +279,10 @@ export default {
     return {
       group: {
         name: "",
-        select: null,
+        // select: null,
         description: "",
         images: [],
-        categories: ["Borettslag", "Idrettsklubb", "Fritidsklubb"],
+        // categories: ["Borettslag", "Idrettsklubb", "Fritidsklubb"],
         radio: null,
         place: "",
         visibility: 1,
@@ -335,7 +338,7 @@ export default {
         console.log("Navn: " + this.group.name);
         console.log("Sted: " + this.group.place);
         console.log("Synlighet: " + this.group.radio);
-        console.log("Kategori: " + this.group.select);
+        // console.log("Kategori: " + this.group.select);
         console.log("Beskrivelse: " + this.group.description);
         console.log("bilder: " + this.group.images);
 
