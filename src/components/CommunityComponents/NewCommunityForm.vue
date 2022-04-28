@@ -262,44 +262,26 @@ export default {
     removeImage: function () {
       this.group.images.pop();
       this.imageThere = false;
-      console.log("Bilder nå: " + this.group.images.length);
     },
     checkRadioButton: function (event) {
       this.group.radio = event.target.value;
-      console.log(this.group.radio);
 
       if (this.group.radio == null || this.group.radio == "Åpen") {
         this.group.visibility = 1;
       } else {
         this.group.visibility = 0;
       }
-
-      console.log("visibility: " + this.group.visibility);
     },
     checkValidation: function () {
-      console.log("sjekker validering");
-
       this.v$.group.$touch();
       if (this.v$.group.$invalid) {
-        console.log("Invalid, avslutter...");
         return false;
       }
-
-      console.log("validert!");
       return true;
     },
 
     async saveClicked() {
-      console.log("Attempting to save item");
-
       if (this.checkValidation()) {
-        console.log("validert, videre...");
-        console.log("Navn: " + this.group.name);
-        console.log("Sted: " + this.group.place);
-        console.log("Synlighet: " + this.group.radio);
-        console.log("Beskrivelse: " + this.group.description);
-        console.log("bilder: " + this.group.images);
-
         const groupInfo = {
           name: this.group.name,
           description: this.group.description,
@@ -308,18 +290,13 @@ export default {
           picture: "",
         };
 
-        console.log(groupInfo);
-        const postCreatedGroup = await postNewgroup(groupInfo);
-        console.log(postCreatedGroup);
+        await postNewgroup(groupInfo);
       }
     },
 
     addImage: function (event) {
-      console.log(event.target.files);
       this.group.images.push(URL.createObjectURL(event.target.files[0]));
-      console.log("antall bilder: " + this.group.images.length);
       this.imageThere = true;
-      console.log("image: " + this.imageThere);
     },
   },
 };
