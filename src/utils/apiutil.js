@@ -147,3 +147,29 @@ export function getVisibleGroups() {
       console.error(error);
     });
 }
+
+export async function GetCommunity(communityID) {
+    return axios
+        .get(API_URL + "community/" + communityID, {
+            headers: tokenHeader(),
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+export async function GetListingsInCommunity(communityID) {
+    return axios
+        .get(API_URL + "community/" + communityID + "/listings", {
+            headers: tokenHeader(),
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
