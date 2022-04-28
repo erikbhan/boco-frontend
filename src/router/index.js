@@ -94,6 +94,17 @@ const routes = [
     path: "/user/:id/groups",
     name: "myGroups",
     component: () => import("../views/MyGroupsView.vue"),
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: () => import("../views/MessagesView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/groupHomePage",
+    name: "GroupHome",
+    component: () => import("../views/GroupHomeView.vue"),
     beforeEnter: guardRoute,
   },
 ];
