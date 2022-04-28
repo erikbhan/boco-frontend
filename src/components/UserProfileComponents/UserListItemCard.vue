@@ -34,7 +34,7 @@
 
 <script>
 import { getAverageRating } from "@/utils/apiutil";
-import RatingComponent from "./RatingComponent.vue";
+import RatingComponent from "./Rating.vue";
 
 export default {
   name: "UserListItem",

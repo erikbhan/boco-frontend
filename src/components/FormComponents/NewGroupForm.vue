@@ -198,7 +198,7 @@
           v-show="imageAdded"
           @click="removeImage"
         >
-          <img src="../assets/removeIcon.png" alt="Remove icon image" />
+          <img src="../../assets/removeIcon.png" alt="Remove icon image" />
         </button>
       </div>
 

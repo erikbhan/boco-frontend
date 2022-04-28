@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import ItemCard from "@/components/ItemCard";
+import ItemCard from "@/components/GroupComponents/ItemCard";
 export default {
   name: "SearchItemListComponent",
 

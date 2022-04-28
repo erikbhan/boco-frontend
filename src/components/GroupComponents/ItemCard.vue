@@ -3,7 +3,7 @@
     <div class="w-4/5 rounded bg-gray-200">
       <img
         class="w-full"
-        :src="item.img || require('../assets/default-product.png')"
+        :src="item.img || require('../../assets/default-product.png')"
         alt="Item image"
       />
       <div class="p-1 m-1">

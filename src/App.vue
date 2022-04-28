@@ -10,7 +10,7 @@ import { defineComponent } from "vue";
 
 // Components
 
-import NavBar from "./components/NavBar.vue";
+import NavBar from "./components/NavigationComponents/NavBar.vue";
 
 export default defineComponent({
   name: "App",

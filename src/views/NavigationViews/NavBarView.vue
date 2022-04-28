@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Navbar from "@/components/NavBar";
+import Navbar from "@/components/NavigationComponents/NavBar";
 export default {
   name: "NavBarView",
   components: {

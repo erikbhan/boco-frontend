@@ -5,7 +5,7 @@
     <div class="logo">
       <img
         class="m-1 ml-4 cursor-pointer h-12"
-        src="../assets/logo3.svg"
+        src="../../assets/logo3.svg"
         alt="BoCo logo"
         @click="$router.push('/')"
       />
@@ -14,7 +14,7 @@
       <li>
         <img
           class="m-6 cursor-pointer h-7"
-          src="../assets/additem.png"
+          src="../../assets/additem.png"
           alt="Legg til"
           @click="$router.push('/addNewItem')"
         />
@@ -22,7 +22,7 @@
       <li>
         <img
           class="m-6 cursor-pointer h-7"
-          src="../assets/messages.png"
+          src="../../assets/messages.png"
           alt="Meldinger"
           @click="$router.push('/messages')"
         />
@@ -30,7 +30,7 @@
       <li>
         <img
           class="m-6 cursor-pointer h-7"
-          src="../assets/profile.png"
+          src="../../assets/profile.png"
           alt="Profil"
           @click="loadProfile"
         />

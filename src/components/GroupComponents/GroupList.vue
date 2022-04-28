@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import GroupListItem from "@/components/GroupeComponents/GroupListItem.vue";
+import GroupListItem from "@/components/GroupComponents/GroupListItem.vue";
 
 export default {
   name: "GroupList",

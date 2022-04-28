@@ -1,8 +1,8 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import LoginView from "../views/LoginView.vue";
-import NewPasswordView from "../views/NewPasswordView";
+import HomeView from "../views/GroupViews/HomeView.vue";
+import LoginView from "../views/FormViews/LoginView.vue";
+import NewPasswordView from "../views/FormViews/NewPasswordView";
 
 /**
  * Guards routes. If token is null, no user is logged in and only the
@@ -24,26 +24,21 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    component: () => import("../views/AboutView.vue"),
-  },
-  {
     path: "/profile/:id",
     name: "profile",
-    component: () => import("../views/ProfileView.vue"),
+    component: () => import("../views/UserProfileViews/ProfileView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/register",
     name: "register",
-    component: () => import("../views/RegisterView.vue"),
+    component: () => import("../views/FormViews/RegisterView.vue"),
   },
   {
     path: "/messages",
     name: "messages",
     component: () =>
-      import(/* webpackChunkName: "register" */ "../views/ChatView.vue"),
+      import(/* webpackChunkName: "register" */ "../views/ChatViews/ChatView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -60,45 +55,45 @@ const routes = [
   {
     path: "/searchItemList",
     name: "searchItemList",
-    component: () => import("../views/SearchItemListView.vue"),
+    component: () => import("../views/GroupViews/SearchItemListView.vue"),
   },
   {
     path: "/resetPassword",
     name: "resetPassword",
-    component: () => import("../views/ResetPasswordView.vue"),
+    component: () => import("../views/FormViews/ResetPasswordView.vue"),
   },
   {
     path: "/createNewGroup",
     name: "createNewGroup",
-    component: () => import("../views/CreateNewGroupView.vue"),
+    component: () => import("../views/FormViews/CreateNewGroupView.vue"),
   },
   {
     path: "/group/:id/memberlist",
     name: "memberlist",
-    component: () => import("../views/MemberListView.vue"),
+    component: () => import("../views/GroupViews/MemberListView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/addNewItem",
     name: "addNewItem",
-    component: () => import("../views/AddNewItemView.vue"),
+    component: () => import("../views/FormViews/AddNewItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../views/NotificationView.vue"),
+    component: () => import("../views/FormViews/NotificationView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/user/:id/groups",
     name: "myGroups",
-    component: () => import("../views/MyGroupsView.vue"),
+    component: () => import("../views/GroupViews/MyGroupsView.vue"),
   },
   {
     path: "/groupHomePage",
     name: "GroupHome",
-    component: () => import("../views/GroupHomeView.vue"),
+    component: () => import("../views/GroupViews/GroupHomeView.vue"),
     beforeEnter: guardRoute,
   },
 ];
