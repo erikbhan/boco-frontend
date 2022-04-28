@@ -1,6 +1,6 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/GroupViews/HomeView.vue";
+import HomeView from "../views/CommunityViews/CommunityView.vue";
 import LoginView from "../views/FormViews/LoginView.vue";
 import NewPasswordView from "../views/FormViews/NewPasswordView";
 
@@ -38,7 +38,9 @@ const routes = [
     path: "/messages",
     name: "messages",
     component: () =>
-      import(/* webpackChunkName: "register" */ "../views/ChatViews/ChatView.vue"),
+      import(
+        /* webpackChunkName: "register" */ "../views/ChatViews/ChatView.vue"
+      ),
     beforeEnter: guardRoute,
   },
   {
@@ -55,7 +57,7 @@ const routes = [
   {
     path: "/searchItemList",
     name: "searchItemList",
-    component: () => import("../views/GroupViews/SearchItemListView.vue"),
+    component: () => import("../views/CommunityViews/SearchItemListView.vue"),
   },
   {
     path: "/resetPassword",
@@ -65,18 +67,18 @@ const routes = [
   {
     path: "/createNewGroup",
     name: "createNewGroup",
-    component: () => import("../views/FormViews/CreateNewGroupView.vue"),
+    component: () => import("../views/FormViews/NewCommunityView.vue"),
   },
   {
     path: "/group/:id/memberlist",
     name: "memberlist",
-    component: () => import("../views/GroupViews/MemberListView.vue"),
+    component: () => import("../views/CommunityViews/MemberListView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/addNewItem",
     name: "addNewItem",
-    component: () => import("../views/FormViews/AddNewItemView.vue"),
+    component: () => import("../views/FormViews/NewItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -88,12 +90,12 @@ const routes = [
   {
     path: "/user/:id/groups",
     name: "myGroups",
-    component: () => import("../views/GroupViews/MyGroupsView.vue"),
+    component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
   },
   {
     path: "/groupHomePage",
     name: "GroupHome",
-    component: () => import("../views/GroupViews/GroupHomeView.vue"),
+    component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
     beforeEnter: guardRoute,
   },
 ];
