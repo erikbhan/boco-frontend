@@ -8,10 +8,10 @@
       />
       <div class="p-1 m-1">
         <p class="text-gray-700 text-xs font-bold" id="adress">
-          {{ item.adresse }}
+          {{ item.address }}
         </p>
         <p class="font-bold text-sm" id="title">{{ item.title }}</p>
-        <p class="text-gray-700 text-xs" id="price">{{ item.price }} kr</p>
+        <p class="text-gray-700 text-xs" id="price">{{ item.pricePerDay }} kr</p>
       </div>
     </div>
   </div>
@@ -22,9 +22,9 @@ export default {
   props: {
     item: {
       img: String,
-      adresse: String,
+      address: String,
       title: String,
-      price: Number,
+      pricePerDay: Number,
     },
   },
 };

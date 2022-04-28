@@ -2,15 +2,15 @@
   <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
     <div>
       <img
-          class="cursor-pointer h-8  float-right"
-          v-if="isLoggedIn"
-          src="@/assets/members.png"
-          alt="Medlemmer"
-          @click="$router.push('/group/:id/memberlist')"
+        class="cursor-pointer h-8 float-right"
+        v-if="isLoggedIn"
+        src="@/assets/members.png"
+        alt="Medlemmer"
+        @click="$router.push('/group/:id/memberlist')"
       />
     </div>
     <div class="mb-5 mt-5 border-b-2 border-blue-900">
-      <label class="text-xl font-bold">Tøyenhus borettslag</label>
+      <label class="text-xl font-bold">{{ community.name }}</label>
     </div>
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -44,6 +44,7 @@
 
 <script>
 import ItemCard from "@/components/CommunityComponents/ItemCard";
+import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
 
@@ -57,43 +58,49 @@ export default {
       filteredItems = this.items.filter(
         (p) =>
           p.title.toLowerCase().includes(this.search.toLowerCase()) ||
-          p.adresse.toLowerCase().includes(this.search.toLowerCase()) ||
-          p.price === Number(this.search)
+          p.address.toLowerCase().includes(this.search.toLowerCase()) ||
+          p.pricePerDay === Number(this.search)
       );
 
       return filteredItems;
     },
   },
   created() {
-    if(this.$store.state.user.token !== null){
-      this.isLoggedIn = true
+    if (this.$store.state.user.token !== null) {
+      this.isLoggedIn = true;
     }
   },
 
-  /**
-   * Her må det lages en metode som henter alle items (i en gruppe) fra databasen.
-   * De kan deretter bli pusha inn i items array, og da burde de bli displayet i lista.
-   * Når denne metoden er på plass kan items[] i data tømmes. Da vil alt dataen komme fra db.
-   */
-
   data() {
     return {
-      isLoggedIn: false,
-      items: [
-        { img: "", adresse: "Oslo", title: "Dyson", price: 1000 },
-
-        { img: "", adresse: "Trondheim", title: "Gressklipper", price: 500 },
-
-        { img: "", adresse: "Bergen", title: "Bil", price: 500 },
-      ],
+      items: [],
       item: {
         img: "",
-        adresse: "",
+        address: "",
         title: "",
-        price: 0,
+        pricePerDay: 0,
       },
       search: "",
+      communityID: -1,
+      community: {},
     };
+  },
+  methods: {
+    getCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
+      this.community = await GetCommunity(this.communityID);
+      console.log("community: " + this.community.name);
+    },
+    getListingsOfCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
+      this.items = await GetListingsInCommunity(this.communityID);
+    },
+  },
+  beforeMount() {
+    this.getCommunityFromAPI(); //To get the id of the community before mounting the view
+    this.getListingsOfCommunityFromAPI();
   },
 };
 </script>
