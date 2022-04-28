@@ -1,5 +1,14 @@
 <template>
   <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
+    <div>
+      <img
+          class="cursor-pointer h-8  float-right"
+          v-if="isLoggedIn"
+          src="@/assets/members.png"
+          alt="Medlemmer"
+          @click="$router.push('/group/:id/memberlist')"
+      />
+    </div>
     <div class="mb-5 mt-5 border-b-2 border-blue-900">
       <label class="text-xl font-bold">Tøyenhus borettslag</label>
     </div>
@@ -41,7 +50,6 @@ export default {
   components: {
     ItemCard,
   },
-
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -56,6 +64,11 @@ export default {
       return filteredItems;
     },
   },
+  created() {
+    if(this.$store.state.user.token !== null){
+      this.isLoggedIn = true
+    }
+  },
 
   /**
    * Her må det lages en metode som henter alle items (i en gruppe) fra databasen.
@@ -65,6 +78,7 @@ export default {
 
   data() {
     return {
+      isLoggedIn: false,
       items: [
         { img: "", adresse: "Oslo", title: "Dyson", price: 1000 },
 
