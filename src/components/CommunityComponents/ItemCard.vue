@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-    <div class="w-4/5 rounded bg-gray-200">
+    <div class="w-52 rounded bg-gray-200">
       <img
         class="w-full"
         :src="item.img || require('../../assets/default-product.png')"

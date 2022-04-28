@@ -1,10 +1,7 @@
 <template>
-  <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
+  <section class="w-full px-5 py-4 mx-auto rounded-md">
 
-    <!-- Community name header -->
-    <div class="mb-5 mt-5 border-b-2 border-blue-900">
-      <label class="text-xl font-bold">{{ community.name }}</label>
-    </div>
+    <CommunityHeader :admin-status="false" :community="community"  class="mb-5"/>
 
     <!-- Search field -->
     <div class="relative" id="searchComponent">
@@ -30,8 +27,8 @@
     </div>
 
     <!-- Item cards -->
-    <div class="absolute inset-x-0 px-6 py-3 mt-4">
-      <div class="grid grid-cols-2">
+    <div class="absolute inset-x-0 px-6 py-3">
+      <div class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center">
         <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
       </div>
     </div>
@@ -40,11 +37,13 @@
 
 <script>
 import ItemCard from "@/components/CommunityComponents/ItemCard";
+import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
 import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
 
   components: {
+    CommunityHeader,
     ItemCard,
   },
 
