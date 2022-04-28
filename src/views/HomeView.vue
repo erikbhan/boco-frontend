@@ -34,9 +34,9 @@ export default {
       this.localGroups = await getVisibleGroups();
     },
   },
-  beforeMount() {
-    this.getMyGroups();
-    this.getPotentialGroups();
+  async created() {
+    await this.getMyGroups();
+    await this.getPotentialGroups();
   },
 };
 </script>
