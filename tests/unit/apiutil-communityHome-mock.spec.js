@@ -54,5 +54,5 @@ describe("testing mocking of apiutil.js", () => {
 
         const communityItemResponse = await GetListingsInCommunity(4040);
         expect(communityItemResponse).toBe(expectedResponse);
-    });
+    })
 });
