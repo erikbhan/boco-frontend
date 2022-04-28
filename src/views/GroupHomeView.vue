@@ -9,9 +9,7 @@ export default {
   components: {
     GroupHome,
   },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

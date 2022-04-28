@@ -98,7 +98,7 @@ export function doNewPassword() {
 export function postNewItem(itemInfo) {
   return axios
     .post(API_URL + "listing", itemInfo, {
-        headers: tokenHeader(),
+      headers: tokenHeader(),
     })
     .then((response) => {
       console.log("poster: " + response.data);
