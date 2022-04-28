@@ -96,7 +96,6 @@ const routes = [
     path: "/community/:id",
     name: "GroupHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
-    beforeEnter: guardRoute,
   },
 ];
 
