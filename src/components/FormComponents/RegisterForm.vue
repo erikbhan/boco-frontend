@@ -1,107 +1,78 @@
 <template>
-  <section
-    class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
+  <div
+    class="max-w-sm p-6 m-auto bg-white overflow-hidden rounded-md shadow-md mt-[10%]"
   >
-    <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-      Opprett ny bruker
-    </h2>
+    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200">Opprett ny bruker</h3>
 
     <form @submit.prevent>
       <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="email"
-            >E-mail</label
-          >
           <input
             v-model="email"
             id="email"
             type="email"
+            placeholder="E-post adresse"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="password"
-            >Passord</label
-          >
           <input
             v-model="password"
             id="password"
             type="password"
+            placeholder="Passord"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="confirmPassword"
-            >Bekreft Passord</label
-          >
           <input
             v-model="confirmPassword"
             id="confirmPassword"
             type="password"
+            placeholder="Bekreft passord"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="firstName"
-            >Fornavn</label
-          >
           <input
             data-test="firstNameTest"
             v-model="firstName"
             id="firstName"
             type="text"
+            placeholder="Fornavn"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="lastName"
-            >Etternavn</label
-          >
           <input
             v-model="lastName"
             id="lastName"
             type="text"
+            placeholder="Etternavn"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
 
         <div>
-          <label class="text-gray-700 dark:text-gray-200" for="address"
-            >Addresse</label
-          >
           <input
             v-model="address"
             id="address"
             type="text"
+            placeholder="Adresse"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
           />
         </div>
       </div>
 
       <div class="flex justify-end mt-6">
-        <button
-          class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          @click="submit()"
-          type="submit"
-          :disabled="loading"
-        >
-          <div v-if="loading">
-            <div v-if="loading" class="lds-ring">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-          <div v-else>Lagre</div>
-        </button>
+        <Button @click="submit" :text="'Lagre'"></Button>
       </div>
     </form>
-  </section>
+  </div>
   <ul data-test="errorMessageList">
     <li v-if="errorMessage" data-test="customErrorMsg">{{ errorMessage }}</li>
     <li v-for="error of v$.$errors" :key="error.$uid">
@@ -118,11 +89,15 @@
 import useVuelidate from "@vuelidate/core";
 import { doLogin, registerUser } from "@/utils/apiutil";
 import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import Button from "@/components/BaseComponents/ColoredButton"
 
 // const isEmailTaken = (value) =>
 // fetch(`/api/unique/${value}`).then((r) => r.json()); // check the email in the server
 
 export default {
+  components: {
+    Button,
+  },
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
@@ -203,48 +178,9 @@ export default {
 
       const response = await registerUser(registerInfo);
 
-      if (response.status === 200) return true;
-      return false;
+      return response.status === 200;
+
     },
   },
 };
 </script>
-
-<style scoped>
-/* https://loading.io/css/ */
-.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 20px;
-  height: 20px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  margin: 2px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-</style>
