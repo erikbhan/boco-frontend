@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatMessageComponent renders correctly 1`] = `
+<div
+  class="w-full break-words flex justify-start"
+>
+  <div
+    class="bg-gray-300 rounded px-5 py-2 my-2 relative text-gray-900"
+    style="max-width: 70%;"
+  >
+    <span
+      class="block"
+    >
+      string 1
+    </span>
+    <span
+      class="block text-xs text-right"
+    >
+      10:20
+    </span>
+  </div>
+</div>
+`;

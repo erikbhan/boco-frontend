@@ -2,9 +2,17 @@ import { shallowMount } from "@vue/test-utils";
 import CreateNewGroup from "@/components/CommunityComponents/NewCommunityForm.vue";
 
 describe("CreateNewGroup elements rendering", () => {
-  it("renders all labels", () => {
-    const wrapper = shallowMount(CreateNewGroup);
+  let wrapper;
 
+  beforeEach(() => {
+    wrapper = shallowMount(CreateNewGroup);
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  it("renders all labels", () => {
     expect(wrapper.find("#radioBoxLabel").text()).toMatch("Synlighet");
     expect(wrapper.find("#radioBoxOpenLabel").text()).toMatch("Åpen");
     expect(wrapper.find("#radioBoxPrivateLabel").text()).toMatch("Privat");
@@ -14,8 +22,6 @@ describe("CreateNewGroup elements rendering", () => {
   });
 
   it("Tests setting values of input field", async () => {
-    const wrapper = shallowMount(CreateNewGroup);
-
     const titleInput = wrapper.find("#title");
     await titleInput.setValue("Fjellgata");
     expect(titleInput.element.value).toBe("Fjellgata");
@@ -26,8 +32,6 @@ describe("CreateNewGroup elements rendering", () => {
   });
 
   it("Tests if radio box checks", async () => {
-    const wrapper = shallowMount(CreateNewGroup);
-
     const radioInputOpen = wrapper.find("#flexRadioOpen");
     await radioInputOpen.setChecked();
     expect(radioInputOpen.element.checked).toBeTruthy();
