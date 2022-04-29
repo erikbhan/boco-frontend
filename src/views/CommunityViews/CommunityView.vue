@@ -1,28 +1,24 @@
 <template>
-  <div>
-    <img
-      class="cursor-pointer h-8 mr-4 mt-4 float-right"
-      v-if="loggedIn"
-      src="@/assets/newCommunity.png"
-      alt="Legg til gruppe"
-      @click="$router.push('/createNewGroup')"
-    />
-  </div>
-  <div>
-    <div id="myGroups" v-if="loggedIn">
-      <div class="m-4">Mine grupper:</div>
-      <CommunityList :communities="myCommunities" :member="true" />
+  <div v-if="loggedIn">
+    <div class="flex flex-row p-4 relative">
+      <p class="capitalize font-bold w-full">Mine felleskap</p>
+      <PlusIcon
+        class="cursor-pointer max-h-6 max-w-6 float-right grow"
+        @click="$router.push('/createNewGroup')"
+        v-if="loggedIn"
+        alt="Lag ett nytt felleskap"
+      />
     </div>
-    <div id="localGroups">
-      <div class="m-4">Offentlige grupper:</div>
-      <CommunityList :communities="publicCommunities" :member="false" />
-    </div>
+    <CommunityList :communities="myCommunities" :member="true" />
   </div>
+  <p class="capitalize font-bold w-full p-4">Offentlige felleskap</p>
+  <CommunityList :communities="publicCommunities" :member="false" />
 </template>
 
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
+import { PlusIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "HomeView",
@@ -35,12 +31,16 @@ export default {
   },
   components: {
     CommunityList,
+    PlusIcon,
   },
   async created() {
-    this.loggedIn = this.$store.state.user.token !== null;
     this.publicCommunities = await getVisibleGroups();
+    this.loggedIn = this.$store.state.user.token !== null;
     if (!this.loggedIn) return;
+
     this.myCommunities = await getMyGroups();
+
+    // Remove all of the user's communities from the public communities arrays
     this.publicCommunities = this.publicCommunities.filter(
       (val) => !this.myCommunities.includes(val)
     );
