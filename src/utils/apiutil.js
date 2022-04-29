@@ -208,10 +208,7 @@ export function JoinOpenCommunity(communityId) {
 }
 
 export async function GetIfUserAlreadyInCommunity(communityID) {
-    console.log("token: " + tokenHeader().Authorization);
-
     if(tokenHeader().Authorization == "Bearer " + null){
-        console.log("ikke logget på!");
         return false;
     }
 
@@ -220,11 +217,9 @@ export async function GetIfUserAlreadyInCommunity(communityID) {
             headers: tokenHeader(),
         })
         .then((response) => {
-            console.log("res: " + response.data);
             return response.data;
         })
         .catch((error) => {
-            console.error("err: " + error);
             return error;
         });
 }
