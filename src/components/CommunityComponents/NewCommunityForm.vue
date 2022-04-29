@@ -1,9 +1,7 @@
 <template>
   <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
     <!-- Component heading -->
-    <div class="flex justify-center mt-6">
-      <p class="text-4xl">Opprett Gruppe</p>
-    </div>
+    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny gruppe</h3>
 
     <!-- Radio boxes -->
     <div class="mt-6">
@@ -59,7 +57,7 @@
       <input
         type="text"
         id="title"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         v-model="v$.group.name.$model"
         required
       />
@@ -84,7 +82,7 @@
       >
       <input
         type="text"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         v-model="v$.group.place.$model"
         required
       />
@@ -112,7 +110,7 @@
         id="description"
         rows="4"
         v-model="v$.group.description.$model"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-200 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         required
       ></textarea>
 
