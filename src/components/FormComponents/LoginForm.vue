@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-sm m-auto overflow-hidden bg-white rounded-lg shadow-md mt-[10%]">
+  <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]">
     <div class="px-6 py-4 mt-4">
 
       <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200">Logg på</h3>

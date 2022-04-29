@@ -1,7 +1,7 @@
 <template>
-  <div class="m-6">
+  <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4">
     <!-- Component heading -->
-    <div class="flex justify-center">
+    <div class="flex justify-center ">
       <p class="text-4xl mb-6 mt-6">Utleie</p>
     </div>
 

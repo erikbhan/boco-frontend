@@ -1,5 +1,5 @@
 <template>
-  <div class="m-6">
+  <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
     <!-- Component heading -->
     <div class="flex justify-center mt-6">
       <p class="text-4xl">Opprett Gruppe</p>

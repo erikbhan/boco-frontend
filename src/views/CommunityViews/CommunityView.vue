@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="max-w-sm m-auto">
+  <div >
     <img
-        class="cursor-pointer h-8 mr-4 mt-4 float-right"
+        class="cursor-pointer h-8 float-right"
         v-if="isLoggedIn"
         src="@/assets/newCommunity.png"
         alt="Legg til gruppe"
@@ -18,7 +19,7 @@
       <group-list :groupList="localGroups" />
     </div>
   </div>
-
+  </div>
 </template>
 
 <script>
