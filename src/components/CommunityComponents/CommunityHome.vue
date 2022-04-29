@@ -1,7 +1,10 @@
 <template>
   <section class="w-full px-5 py-4 mx-auto rounded-md">
-
-    <CommunityHeader :admin-status="false" :community="community"  class="mb-5"/>
+    <CommunityHeader
+      :admin-status="false"
+      :community="community"
+      class="mb-5"
+    />
 
     <!-- Search field -->
     <div class="relative" id="searchComponent">
@@ -28,7 +31,9 @@
 
     <!-- Item cards -->
     <div class="absolute inset-x-0 px-6 py-3">
-      <div class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center">
+      <div
+        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+      >
         <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
       </div>
     </div>
@@ -77,18 +82,20 @@ export default {
     };
   },
   methods: {
-    getCommunityFromAPI: async function (){
-      this.communityID = await this.$router.currentRoute.value.params.communityID;
+    getCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
       this.community = await GetCommunity(this.communityID);
     },
-    getListingsOfCommunityFromAPI: async function(){
-      this.communityID = await this.$router.currentRoute.value.params.communityID;
+    getListingsOfCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
       this.items = await GetListingsInCommunity(this.communityID);
     },
   },
   beforeMount() {
     this.getCommunityFromAPI(); //To get the id of the community before mounting the view
     this.getListingsOfCommunityFromAPI();
-  }
+  },
 };
 </script>

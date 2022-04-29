@@ -11,7 +11,9 @@
           {{ item.address }}
         </p>
         <p class="font-bold text-sm" id="title">{{ item.title }}</p>
-        <p class="text-gray-700 text-xs" id="price">{{ item.pricePerDay }} kr</p>
+        <p class="text-gray-700 text-xs" id="price">
+          {{ item.pricePerDay }} kr
+        </p>
       </div>
     </div>
   </div>
