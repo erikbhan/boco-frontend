@@ -8,14 +8,15 @@ describe("CommunityListItem component", () => {
     wrapper = mount(CommunityListItem, {
         //passing prop to component
         props: {
-            group: {
+            community: {
                 communityId: 0,
                 name: "string",
                 description: "string",
                 visibility: 0,
                 location: "string",
                 picture: "string"
-            }
+            },
+            member: false,
         }
     });
   });

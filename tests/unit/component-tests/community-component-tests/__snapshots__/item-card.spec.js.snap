@@ -31,7 +31,7 @@ exports[`ItemCard component renders correctly 1`] = `
         class="text-gray-700 text-xs"
         id="price"
       >
-        0 kr
+        0 kr 
       </p>
     </div>
   </div>
