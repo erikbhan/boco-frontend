@@ -65,9 +65,6 @@ export default {
     }
   },
   methods: {
-    edit() {
-      this.$emit("edit");
-    },
     toggle: function (){
       if(this.hamburgerOpen){
         this.hamburgerOpen = false;
