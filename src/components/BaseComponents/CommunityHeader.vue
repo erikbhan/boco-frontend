@@ -28,35 +28,31 @@
       </div>
     </div>
     <div>
-      <span class="hidden sm:block">
-
-        <!-- If the user is not a member in the community, this button will show -->
-        <div v-if="!member">
-          <ColoredButton
-              v-if="!member"
-              :text="'Bli med'"
-              @click="joinCommunity(community.communityId)"
-              class="m-2"
-          />
-
-        <CustomFooterModal
-            @close="this.dialogOpen = false"
-            :visible="dialogOpen"
-            title="Kan ikke bli med"
-            message="Logg inn først for å bli med i en gruppe."
+      <!-- If the user is not a member in the community, this button will show -->
+      <div v-if="!member">
+        <ColoredButton
+            v-if="!member"
+            :text="'Bli med'"
+            @click="joinCommunity(community.communityId)"
+            class="m-2"
         />
-        </div>
 
-        <!-- If the user is member of the community, this hamburger menu will show -->
-        <div v-if="member">
-          <svg @click="toggle" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      <CustomFooterModal
+          @close="this.dialogOpen = false"
+          :visible="dialogOpen"
+          title="Kan ikke bli med"
+          message="Logg inn først for å bli med i en gruppe."
+      />
+      </div>
 
-        <CommunityHamburger v-if="hamburgerOpen" class="origin-top-right absolute right-0" :community-i-d="community.communityId"/> <!-- class="absolute" -->
-        </div>
+      <!-- If the user is member of the community, this hamburger menu will show -->
+      <div v-if="member">
+        <svg @click="toggle" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
 
-      </span>
+      <CommunityHamburger v-if="hamburgerOpen" class="origin-top-right absolute right-0" :community-i-d="community.communityId"/> <!-- class="absolute" -->
+      </div>
     </div>
   </div>
 </template>
