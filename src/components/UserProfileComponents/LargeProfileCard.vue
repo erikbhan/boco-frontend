@@ -1,13 +1,13 @@
 <template>
   <div
-    class="min-w-full md:min-w-0 md:w-96 my-4 py-8 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-6"
   >
-    <div v-show="isCurrentUser" class="flex absolute justify-end px-4 pt-4">
+    <div v-show="isCurrentUser" class="float-right px-4 pt-4">
       <button
         id="dropdownDefault"
         data-dropdown-toggle="dropdown"
         @click="dropdown = !dropdown"
-        class="w-10 h-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+        class="w-10 h-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg float-right text-sm p-1.5"
         type="button"
       >
         <svg
@@ -25,7 +25,7 @@
       <div
         id="dropdown"
         v-show="dropdown"
-        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 origin-bottom-left absolute"
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center pb-10">
+    <div class="flex flex-col items-center pb-10 mt-16 z-5">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
         src="../../assets/defaultUserProfileImage.jpg"
