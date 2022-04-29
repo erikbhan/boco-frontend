@@ -1,17 +1,17 @@
 <template>
-  <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]">
+  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]">
     <div class="px-6 py-4 mt-4">
 
-      <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200">Logg på</h3>
+      <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Logg på</h3>
 
       <div>
-        <div class="w-full mt-6" :class="{ error: v$.user.password.$errors.length }">
+        <div class="w-full mt-6" :class="{ error: v$.user.email.$errors.length }">
           <input class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                  type="email"
-                 placeholder="Skriv inn din e-postadresse *"
-                 v-model="v$.user.email.$model"
-                 required
-                 />
+                      placeholder="Skriv inn din e-postadresse *"
+                      v-model="v$.user.email.$model"
+                      required
+          />
           <!-- error message -->
           <div v-for="(error, index) of v$.user.email.$errors" :key="index">
             <div
@@ -48,8 +48,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between mt-4">
-          <a href="#" class="text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500">Glemt passord?</a>
+        <div class="flex items-center justify-between mt-8 ">
+          <router-link to="/resetPassword" class="text-blue-500">Glemt passord?</router-link>
 
           <Button @click="loginClicked" :text="'Logg på'"></Button>
         </div>
@@ -74,6 +74,9 @@ import Button from "@/components/BaseComponents/ColoredButton"
 export default {
   name: "LoginForm.vue",
 
+  components: {
+    Button,
+  },
   setup() {
     return { v$: useVuelidate() };
   },
@@ -105,6 +108,7 @@ export default {
 
   methods: {
     async loginClicked() {
+
       this.showError = true;
 
       this.v$.user.$touch();
@@ -123,7 +127,6 @@ export default {
 
       if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
-        this.$store.commit("logout");
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
         await this.$router.push("/");
@@ -131,13 +134,6 @@ export default {
         console.log("Something went wrong");
       }
     },
-
-    validate() {
-      this.$refs.form.validate();
-    },
   },
-  components: {
-    Button,
-  }
 };
 </script>
