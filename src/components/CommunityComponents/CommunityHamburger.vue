@@ -25,9 +25,9 @@
         >Administrer Gruppe</router-link
         >
       </li>
-      <li class="text-red-500">
+      <li>
         <div
-            class="cursor-pointer block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            class="cursor-pointer block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           Forlat Gruppe
         </div>

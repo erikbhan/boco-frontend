@@ -34,7 +34,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
 
-        <CommunityHamburger v-if="hamburgerOpen" class="absolute" :community-i-d="community.communityId"/> <!-- class="absolute" -->
+        <CommunityHamburger v-if="hamburgerOpen" class="origin-top-right absolute right-0" :community-i-d="community.communityId"/> <!-- class="absolute" -->
 
       </span>
     </div>
