@@ -7,7 +7,9 @@
 
 <script>
 import { defineComponent } from "vue";
-import NavBar from "./components/NavigationComponents/NavBar.vue";
+
+// Components
+import NavBar from "./components/BaseComponents/NavBar.vue";
 
 export default defineComponent({
   name: "App",

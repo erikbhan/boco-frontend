@@ -84,7 +84,7 @@ const routes = [
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../views/NavigationViews/NotificationView.vue"),
+    component: () => import("../components/BaseComponents/NotificationsForm.vue"),
     beforeEnter: guardRoute,
   },
   {

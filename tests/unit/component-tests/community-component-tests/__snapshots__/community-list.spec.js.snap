@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityList component renders correctly 1`] = `
+<ul
+  grouplist="[object Object],[object Object]"
+>
+  
+  
+</ul>
+`;
