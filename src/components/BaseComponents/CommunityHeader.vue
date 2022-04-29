@@ -104,7 +104,6 @@ export default {
     },
     joinCommunity: async function(id){
       const response = await JoinOpenCommunity(id);
-      console.log("response: " + response);
       if(response === "Login to join any community"){
         this.dialogOpen = true;
       }
@@ -114,7 +113,6 @@ export default {
     },
     getIfUserInCommunity: async function(){
       this.member = await GetIfUserAlreadyInCommunity(this.$router.currentRoute.value.params.communityID);
-      console.log("in: " + this.member);
     }
   },
   beforeMount() {
