@@ -1,50 +1,95 @@
 <template>
-  <div class="drop-shadow">HEY</div>
-  <div>
-      <div> 
-        {{ item.title }} 
-      </div>
-      <div>
-          Beskrivelse: {{ item.description }}
-      </div>
-      <div>
-          Adressen er: {{ item.address }}
-      </div>
-      <div>
-          Pris per dag er: {{ item.pricePerDay }}
-      </div>
-      <div>
-          <!-- Add in method for displaying user card. Use item.userID on the method -->
-      </div>
-      <div>
-          <!-- Add calculate method. Use amount of time * pricePerDay. Display this here. -->
-          <p>Totalprisen er: mye (Change with tot price from calc method)</p>
-          <button>
-            <!-- This button should send you to the rent page -->
-            Rent page
-          </button>
-      </div>
+    <div>
+        <div>
+            <ImageCarousel :images="images" class=""></ImageCarousel>
+        </div>
+        <!-- Product info -->
+        <div class="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+            <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{{ item.title }}</h1>
+            </div>
+            <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            <!-- Description and details -->
+                <div>
+                    <h3 class="text-base font-semibold text-gray-900">Pris per dag</h3>
+
+                    <div class="space-y-6">
+                        <p class="text-2xl font-medium text-gray-900">{{ item.pricePerDay }} kr</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
+
+                    <div>
+                        <p class="text-sm text-gray-900">(placeholder skal byttes ut med date-picker)</p>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <div class="mt-4 space-y-6">
+                        <p class="text-sm text-gray-600">{{ item.description }}</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <!-- Add in method for displaying user card. Use item.userID on the method -->
+                    (Placeholder) Add usercard here
+                </div>
+                <div>
+                    <div class="mt-4 space-y-6">
+                        <p class="text-base font-semibold text-gray-900">{{ item.address }}</p>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <h3 class="text-base font-semibold text-gray-900">Totalprisen er</h3>
+
+                    <div class="mt-2 space-y-2">
+                        <p class="text-xl font-medium text-gray-900">mye (Change with tot price from calc method)</p>
+                        <button>
+                            <!-- This button should send you to the rent page -->
+                            Rent page
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
 <script>
 import { getItem } from "@/utils/apiutil";
+import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 
 export default {
     name: "ItemInfo",
     data() {
         return {
             item: {
-            listingID: 0,
-            title: "",
-            description: "",
-            pricePerDay: 0,
-            address: "",
-            userID: 0,
-            categoryNames: [],
-            communityIDs: [],
+                listingID: 0,
+                title: "",
+                description: "",
+                pricePerDay: 0,
+                address: "",
+                userID: 0,
+                categoryNames: [],
+                communityIDs: [],
             },
+            images: [
+                {
+                    src: "https://howtofish.com.au/wp-content/uploads/2017/12/fishing_lessons-e1520569512782.jpg",
+                    alt: "fisherman"
+                },
+                {
+                    src: "https://th-thumbnailer.cdn-si-edu.com/NaGo-Ynjy5Op3n9PYq7iySRQAO8=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/d6/93/d6939718-4e41-44a8-a8f3-d13648d2bcd0/c3npbx.jpg",
+                    alt: "phish"
+                },
+                {
+                    src: "https://i.insider.com/57a4db38dd089551028b465b?width=500&format=jpeg&auto=webp",
+                    alt: "fish pog"
+                },
+            ],
         };
+    },
+    components: {
+        ImageCarousel,
     },
     methods: {
         async getItem() {
