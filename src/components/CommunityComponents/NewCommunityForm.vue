@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-sm m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
+  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
     <!-- Component heading -->
     <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny gruppe</h3>
 
