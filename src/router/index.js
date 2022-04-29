@@ -98,6 +98,11 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
     beforeEnter: guardRoute,
   },
+  {
+    path: "/itempage/:id",
+    name: "ItemInfo",
+    component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
+  },
 ];
 
 const router = createRouter({

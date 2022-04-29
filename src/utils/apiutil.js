@@ -147,3 +147,15 @@ export function getVisibleGroups() {
       console.error(error);
     });
 }
+
+export function getItem(itemid) {
+  return axios.get(API_URL + "listing/" + itemid, {
+    headers: tokenHeader(),
+  })
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}

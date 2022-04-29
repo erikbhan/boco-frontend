@@ -27,7 +27,7 @@
 
     <div class="absolute inset-x-0 px-6 py-3 mt-4">
       <div class="grid grid-cols-2">
-        <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
+        <ItemCard v-for="item in searchedItems" :key="item" :item="item" @click="goToItemInfoPage(item)"/>
       </div>
     </div>
   </section>
@@ -40,6 +40,12 @@ export default {
 
   components: {
     ItemCard,
+  },
+
+  methods: {
+    goToItemInfoPage(item) {
+      this.$router.push("/itempage/" + item.listingID);
+    }
   },
 
   computed: {
@@ -66,7 +72,7 @@ export default {
   data() {
     return {
       items: [
-        { img: "", adresse: "Oslo", title: "Dyson", price: 1000 },
+        { img: "", adresse: "Oslo", title: "Dyson", price: 1000 , listingID: 999},
 
         { img: "", adresse: "Trondheim", title: "Gressklipper", price: 500 },
 
