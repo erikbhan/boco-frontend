@@ -1,17 +1,12 @@
 <template>
-  <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
-    <div>
-      <img
-        class="cursor-pointer h-8 float-right"
-        v-if="isLoggedIn"
-        src="@/assets/members.png"
-        alt="Medlemmer"
-        @click="$router.push('/group/:id/memberlist')"
-      />
-    </div>
-    <div class="mb-5 mt-5 border-b-2 border-blue-900">
-      <label class="text-xl font-bold">{{ community.name }}</label>
-    </div>
+  <section class="w-full px-5 py-4 mx-auto rounded-md">
+    <CommunityHeader
+      :admin-status="false"
+      :community="community"
+      class="mb-5"
+    />
+
+    <!-- Search field -->
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -34,8 +29,11 @@
       />
     </div>
 
-    <div class="absolute inset-x-0 px-6 py-3 mt-4">
-      <div class="grid grid-cols-2">
+    <!-- Item cards -->
+    <div class="absolute inset-x-0 px-6 py-3">
+      <div
+        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+      >
         <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
       </div>
     </div>
@@ -44,13 +42,16 @@
 
 <script>
 import ItemCard from "@/components/CommunityComponents/ItemCard";
+import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
 import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
 
   components: {
+    CommunityHeader,
     ItemCard,
   },
+
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -70,7 +71,6 @@ export default {
       this.isLoggedIn = true;
     }
   },
-
   data() {
     return {
       items: [],
@@ -90,7 +90,6 @@ export default {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
       this.community = await GetCommunity(this.communityID);
-      console.log("community: " + this.community.name);
     },
     getListingsOfCommunityFromAPI: async function () {
       this.communityID = await this.$router.currentRoute.value.params
