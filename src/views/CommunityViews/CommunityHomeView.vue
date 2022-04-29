@@ -1,15 +1,13 @@
 <template>
-  <GroupHome></GroupHome>
+  <CommunityHome />
 </template>
 
 <script>
-import GroupHome from "@/components/CommunityComponents/CommunityHome";
+import CommunityHome from "@/components/CommunityComponents/CommunityHome.vue";
 export default {
-  name: "GroupHomeView.vue",
+  name: "CommunityHomeView",
   components: {
-    GroupHome,
+    CommunityHome,
   },
 };
 </script>
-
-<style scoped></style>
