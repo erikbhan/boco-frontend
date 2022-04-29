@@ -98,6 +98,12 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
     beforeEnter: guardRoute,
   },
+  {
+    path: "/newRent",
+    name: "newRent",
+    component: () => import("../views/RentingViews/NewRentView.vue"),
+    beforeEnter: guardRoute,
+  },
 ];
 
 const router = createRouter({
