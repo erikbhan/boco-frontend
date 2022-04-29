@@ -102,6 +102,11 @@ const routes = [
     name: "test",
     component: () => import("../views/TestView.vue"),
   },
+  {
+    path: "/group/:id/admin",
+    name: "CommunityAdmin",
+    component: () => import("@/views/CommunityViews/CommunityAdminView.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="member in memberlist" :key="member.userId">
-      <user-list-item-card :admin="admin" :user="member" />
+      <UserListItemCard :admin="admin" :user="member" />
     </li>
   </ul>
 </template>

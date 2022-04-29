@@ -46,7 +46,6 @@ import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
 import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
-
   components: {
     CommunityHeader,
     ItemCard,

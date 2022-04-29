@@ -28,14 +28,31 @@
       </div>
     </div>
     <div>
-      <span class="hidden sm:block"> <!-- Legg dette til i button: v-if="adminStatus" -->
+      <span class="hidden sm:block">
+        <!-- Legg dette til i button: v-if="adminStatus" -->
 
-        <svg @click="toggle" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          @click="toggle"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-9 h-9 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
 
-        <CommunityHamburger v-if="hamburgerOpen" class="origin-top-right absolute right-0" :community-i-d="community.communityId"/> <!-- class="absolute" -->
-
+        <CommunityHamburger
+          v-if="hamburgerOpen"
+          class="origin-top-right absolute right-0"
+          :community-i-d="community.communityId"
+        />
+        <!-- class="absolute" -->
       </span>
     </div>
   </div>
@@ -48,10 +65,10 @@ export default {
   components: {
     CommunityHamburger,
   },
-  data(){
-    return{
+  data() {
+    return {
       hamburgerOpen: false,
-    }
+    };
   },
   props: {
     adminStatus: Boolean,
@@ -62,17 +79,16 @@ export default {
       visibility: Number,
       location: String,
       picture: String,
-    }
+    },
   },
   methods: {
-    toggle: function (){
-      if(this.hamburgerOpen){
+    toggle: function () {
+      if (this.hamburgerOpen) {
         this.hamburgerOpen = false;
-      }
-      else{
+      } else {
         this.hamburgerOpen = true;
       }
-    }
+    },
   },
 };
 </script>
