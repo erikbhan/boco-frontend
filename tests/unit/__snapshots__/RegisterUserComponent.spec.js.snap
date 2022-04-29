@@ -2,122 +2,94 @@
 
 exports[`RegisterFormComponent renders correctly 1`] = `
 <div
-  data-v-app=""
+  class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4"
 >
-  
-  <section
-    class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
+  <h3
+    class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
   >
-    <h2
-      class="text-lg font-semibold text-gray-700 capitalize dark:text-white"
+    Opprett ny bruker
+  </h3>
+  <form>
+    <div
+      class="grid grid-cols-1 gap-6 mt-4"
     >
-       Opprett ny bruker 
-    </h2>
-    <form>
-      <div
-        class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2"
-      >
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="email"
-          >
-            E-mail
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            id="email"
-            type="email"
-          />
-        </div>
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="password"
-          >
-            Passord
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            id="password"
-            type="password"
-          />
-        </div>
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="confirmPassword"
-          >
-            Bekreft Passord
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            id="confirmPassword"
-            type="password"
-          />
-        </div>
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="firstName"
-          >
-            Fornavn
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            data-test="firstNameTest"
-            id="firstName"
-            type="text"
-          />
-        </div>
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="lastName"
-          >
-            Etternavn
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            id="lastName"
-            type="text"
-          />
-        </div>
-        <div>
-          <label
-            class="text-gray-700 dark:text-gray-200"
-            for="address"
-          >
-            Addresse
-          </label>
-          <input
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            id="address"
-            type="text"
-          />
-        </div>
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          id="email"
+          placeholder="E-post adresse"
+          type="email"
+        />
+        <!-- error message -->
+        
+        
       </div>
-      <div
-        class="flex justify-end mt-6"
-      >
-        <button
-          class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          type="submit"
-        >
-          <div>
-            Lagre
-          </div>
-        </button>
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          id="password"
+          placeholder="Passord"
+          type="password"
+        />
+        <!-- error message -->
+        
+        
       </div>
-    </form>
-  </section>
-  <ul
-    data-test="errorMessageList"
-  >
-    <!--v-if-->
-    
-    
-  </ul>
-  
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          id="confirmPassword"
+          placeholder="Bekreft passord"
+          type="password"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          data-test="firstNameTest"
+          id="firstName"
+          placeholder="Fornavn"
+          type="text"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          id="lastName"
+          placeholder="Etternavn"
+          type="text"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+      <div>
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          id="address"
+          placeholder="Adresse"
+          type="text"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+    </div>
+    <div
+      class="flex justify-end mt-6"
+    >
+      <button
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Lagre
+      </button>
+    </div>
+  </form>
 </div>
 `;
