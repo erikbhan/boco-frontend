@@ -159,3 +159,16 @@ export function getItem(itemid) {
     console.error(error);
   });
 }
+
+export async function getItemPictures(itemid) {
+  let res = await axios.get(API_URL + "listing/" + itemid + "/pictures", {
+    headers: tokenHeader(),
+  })
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+  return res;
+}

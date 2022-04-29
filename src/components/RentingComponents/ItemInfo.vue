@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <ImageCarousel :images="images" class=""></ImageCarousel>
+            <ImageCarousel :images="pictures"></ImageCarousel>
         </div>
         <!-- Product info -->
         <div class="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
@@ -56,6 +56,7 @@
 
 <script>
 import { getItem } from "@/utils/apiutil";
+import { getItemPictures } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 
 export default {
@@ -74,18 +75,11 @@ export default {
             },
             images: [
                 {
-                    src: "https://howtofish.com.au/wp-content/uploads/2017/12/fishing_lessons-e1520569512782.jpg",
-                    alt: "fisherman"
-                },
-                {
-                    src: "https://th-thumbnailer.cdn-si-edu.com/NaGo-Ynjy5Op3n9PYq7iySRQAO8=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/d6/93/d6939718-4e41-44a8-a8f3-d13648d2bcd0/c3npbx.jpg",
-                    alt: "phish"
-                },
-                {
-                    src: "https://i.insider.com/57a4db38dd089551028b465b?width=500&format=jpeg&auto=webp",
-                    alt: "fish pog"
+                    listingID: 0,
+                    picture: "",
                 },
             ],
+            pictures: [],
         };
     },
     components: {
@@ -96,8 +90,26 @@ export default {
             let id = this.$router.currentRoute.value.params.id;
             this.item = await getItem(id);
         },
+        async getItemPictures() {
+            let id = this.$router.currentRoute.value.params.id;
+            this.images = await getItemPictures(id);
+
+            for(let i = 0; i < this.images.length; i++) {
+                let oneImage = {
+                    src: this.images[i].picture,
+                    //How do i make this accurate to the image?
+                    alt: "An image"
+                };
+                this.pictures.push(oneImage);
+            }
+            //Må fjernes for faktisk å være riktig.
+            this.pictures[0].alt = "An fisherman";
+            this.pictures[1].alt = "phish";
+            this.pictures[2].alt = "fish pog";
+        }
     },
-    beforeMount() {
+    async beforeMount() {
+        await this.getItemPictures();
         this.getItem();
     },
 };
