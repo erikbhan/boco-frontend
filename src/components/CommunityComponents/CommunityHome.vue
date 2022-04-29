@@ -1,17 +1,9 @@
 <template>
-  <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
-    <div>
-      <img
-          class="cursor-pointer h-8  float-right"
-          v-if="isLoggedIn"
-          src="@/assets/members.png"
-          alt="Medlemmer"
-          @click="$router.push('/group/:id/memberlist')"
-      />
-    </div>
-    <div class="mb-5 mt-5 border-b-2 border-blue-900">
-      <label class="text-xl font-bold">Tøyenhus borettslag</label>
-    </div>
+  <section class="w-full px-5 py-4 mx-auto rounded-md">
+
+    <CommunityHeader :admin-status="false" :community="community"  class="mb-5"/>
+
+    <!-- Search field -->
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -34,8 +26,9 @@
       />
     </div>
 
-    <div class="absolute inset-x-0 px-6 py-3 mt-4">
-      <div class="grid grid-cols-2">
+    <!-- Item cards -->
+    <div class="absolute inset-x-0 px-6 py-3">
+      <div class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center">
         <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
       </div>
     </div>
@@ -44,12 +37,16 @@
 
 <script>
 import ItemCard from "@/components/CommunityComponents/ItemCard";
+import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
+import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
 
   components: {
+    CommunityHeader,
     ItemCard,
   },
+
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -57,43 +54,41 @@ export default {
       filteredItems = this.items.filter(
         (p) =>
           p.title.toLowerCase().includes(this.search.toLowerCase()) ||
-          p.adresse.toLowerCase().includes(this.search.toLowerCase()) ||
-          p.price === Number(this.search)
+          p.address.toLowerCase().includes(this.search.toLowerCase()) ||
+          p.pricePerDay === Number(this.search)
       );
 
       return filteredItems;
     },
   },
-  created() {
-    if(this.$store.state.user.token !== null){
-      this.isLoggedIn = true
-    }
-  },
-
-  /**
-   * Her må det lages en metode som henter alle items (i en gruppe) fra databasen.
-   * De kan deretter bli pusha inn i items array, og da burde de bli displayet i lista.
-   * Når denne metoden er på plass kan items[] i data tømmes. Da vil alt dataen komme fra db.
-   */
 
   data() {
     return {
-      isLoggedIn: false,
-      items: [
-        { img: "", adresse: "Oslo", title: "Dyson", price: 1000 },
-
-        { img: "", adresse: "Trondheim", title: "Gressklipper", price: 500 },
-
-        { img: "", adresse: "Bergen", title: "Bil", price: 500 },
-      ],
+      items: [],
       item: {
         img: "",
-        adresse: "",
+        address: "",
         title: "",
-        price: 0,
+        pricePerDay: 0,
       },
       search: "",
+      communityID: -1,
+      community: {},
     };
   },
+  methods: {
+    getCommunityFromAPI: async function (){
+      this.communityID = await this.$router.currentRoute.value.params.communityID;
+      this.community = await GetCommunity(this.communityID);
+    },
+    getListingsOfCommunityFromAPI: async function(){
+      this.communityID = await this.$router.currentRoute.value.params.communityID;
+      this.items = await GetListingsInCommunity(this.communityID);
+    },
+  },
+  beforeMount() {
+    this.getCommunityFromAPI(); //To get the id of the community before mounting the view
+    this.getListingsOfCommunityFromAPI();
+  }
 };
 </script>

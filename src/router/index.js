@@ -93,7 +93,7 @@ const routes = [
     component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
   },
   {
-    path: "/community/:id",
+    path: "/community/:communityID",
     name: "GroupHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
