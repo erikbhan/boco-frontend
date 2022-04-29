@@ -27,35 +27,32 @@
         </div>
       </div>
     </div>
-    <div class="flex">
-      <span class="hidden sm:block">
-        <button
-          v-if="adminStatus"
-          @click="edit()"
-          type="button"
-          class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          <!-- Heroicon name: solid/pencil -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-            />
-          </svg>
-          Edit
-        </button>
+    <div>
+      <span class="hidden sm:block"> <!-- Legg dette til i button: v-if="adminStatus" -->
+
+        <svg @click="test" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+
+        <CommunityHamburger v-if="hamburgerOpen" class="absolute" :community-i-d="community.communityId"/> <!-- class="absolute" -->
+
       </span>
     </div>
   </div>
 </template>
 
 <script>
+import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
 export default {
   name: "CommunityHeader",
+  components: {
+    CommunityHamburger,
+  },
+  data(){
+    return{
+      hamburgerOpen: false,
+    }
+  },
   props: {
     adminStatus: Boolean,
     community: {
@@ -65,12 +62,23 @@ export default {
       visibility: Number,
       location: String,
       picture: String,
-    },
+    }
   },
   methods: {
     edit() {
       this.$emit("edit");
     },
+    test: function (){
+      console.log("funker å trykke");
+      console.log("ID: " + this.community.communityId);
+      if(this.hamburgerOpen){
+        this.hamburgerOpen = false;
+      }
+      else{
+        this.hamburgerOpen = true;
+      }
+      console.log("Åpen: " + this.hamburgerOpen);
+    }
   },
 };
 </script>

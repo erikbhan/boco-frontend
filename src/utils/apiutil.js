@@ -173,3 +173,16 @@ export async function GetListingsInCommunity(communityID) {
             console.error(error);
         });
 }
+
+export async function GetMembersOfCommunity(communityID) {
+    return axios
+        .get(API_URL + "community/" + communityID + "/members", {
+            headers: tokenHeader(),
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
