@@ -1,20 +1,20 @@
 import { mount } from "@vue/test-utils";
-import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue"
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue";
 
 describe("IconButtonComponent", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(CustomFooterModal, {
-        //passing prop to component
-        props: {
-            visible: true,
-            title: "String",
-            message: "String",
-        },
-        slots: {
-            default: '<div class="fake-msg">String</div>'
-        }
+      //passing prop to component
+      props: {
+        visible: true,
+        title: "String",
+        message: "String",
+      },
+      slots: {
+        default: '<div class="fake-msg">String</div>',
+      },
     });
   });
 
