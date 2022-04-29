@@ -7,16 +7,18 @@
 
 <script>
 import { defineComponent } from "vue";
-
-// Components
-
 import NavBar from "./components/NavigationComponents/NavBar.vue";
 
 export default defineComponent({
   name: "App",
-
   components: {
     NavBar,
   },
 });
 </script>
+
+<style global>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>
