@@ -13,15 +13,43 @@
             type="email"
             placeholder="E-post adresse"
          />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.email.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="emailErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
 
-        <div class="w-full">
+        <div>
           <input class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                  v-model="password"
                  id="password"
             type="password"
             placeholder="Passord"
             />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.password.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="passwordErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
 
         <div>
@@ -31,6 +59,20 @@
             type="password"
             placeholder="Bekreft passord"
             />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.confirmPassword.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="confirmPasswordErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
 
         <div>
@@ -41,6 +83,20 @@
             type="text"
             placeholder="Fornavn"
             />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.firstName.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="firstNameErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
 
         <div>
@@ -50,6 +106,20 @@
             type="text"
             placeholder="Etternavn"
             />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.lastName.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="lastNameErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
 
         <div>
@@ -59,6 +129,20 @@
             type="text"
             placeholder="Adresse"
             />
+          <!-- error message -->
+          <div
+              class="text-red-600 text-sm"
+              v-for="(error, index) of v$.address.$errors"
+              :key="index"
+          >
+            <div
+                class="text-red-600 text-sm"
+                v-show="showError"
+                id="addressErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -67,16 +151,6 @@
       </div>
     </form>
   </div>
-  <ul data-test="errorMessageList">
-    <li v-if="errorMessage" data-test="customErrorMsg">{{ errorMessage }}</li>
-    <li v-for="error of v$.$errors" :key="error.$uid">
-      <!-- {{ error.$validator }} -->
-      Field
-      {{ error.$property }}
-      has error:
-      {{ error.$message }}
-    </li>
-  </ul>
 </template>
 
 <script>
@@ -95,8 +169,8 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
+      showError: false,
       errorMessage: "",
-      loading: false,
       email: "",
       password: "",
       confirmPassword: "",
@@ -125,7 +199,7 @@ export default {
   methods: {
     async submit() {
       //Display loading symbol
-      this.loading = true;
+      this.showError = true;
 
       //Validate form
       const result = await this.v$.$validate();
