@@ -97,6 +97,11 @@ const routes = [
     name: "GroupHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("../views/TestView.vue"),
+  },
 ];
 
 const router = createRouter({
