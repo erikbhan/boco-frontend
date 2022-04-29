@@ -156,7 +156,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { doLogin, registerUser } from "@/utils/apiutil";
-import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import {required, email, minLength, sameAs, helpers} from "@vuelidate/validators";
 import Button from "@/components/BaseComponents/ColoredButton"
 
 // const isEmailTaken = (value) =>
@@ -182,18 +182,21 @@ export default {
   validations() {
     return {
       email: {
-        required,
-        email,
+        required: helpers.withMessage(`Feltet må være utfylt`, required),
+        email: helpers.withMessage('E-posten er ugyldig', email),
         // isUnique: helpers.withAsync(isEmailTaken),
       },
       password: {
-        required,
-        minLength: minLength(8),
+        required: helpers.withMessage(`Feltet må være utfylt`, required),
+        minLength: helpers.withMessage('Passordet må være minst 8 karakterer lang', minLength(8)),
       },
-      confirmPassword: { sameAs: sameAs(this.password) },
-      firstName: { required },
-      lastName: { required },
-      address: { required },
+      confirmPassword: {
+        sameAs: helpers.withMessage('Passordene må være like', sameAs(this.password)),
+        required: helpers.withMessage(`Feltet må være utfylt`, required)
+      },
+      firstName: {required: helpers.withMessage(`Feltet må være utfylt`, required)},
+      lastName: {required: helpers.withMessage(`Feltet må være utfylt`, required)},
+      address: {required: helpers.withMessage(`Feltet må være utfylt`, required)},
     };
   },
   methods: {

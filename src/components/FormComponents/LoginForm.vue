@@ -84,11 +84,11 @@ export default {
     return {
       user: {
         email: {
-          required,
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
           email: helpers.withMessage(`E-posten er ugyldig`, email),
         },
         password: {
-          required,
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
         },
       },
     };
