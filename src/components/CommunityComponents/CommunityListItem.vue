@@ -11,7 +11,7 @@
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
     <div class="h-10 w-10 flex flex-col justify-center items-center mr-4">
-      <img alt="groupIMG" src="../../assets/group.png" />
+      <img alt="Felleskapets bilde" src="@/assets/group.png" />
     </div>
     <div class="flex-1 pl-1 overflow-hidden">
       <div class="font-medium dark:text-white truncate">
