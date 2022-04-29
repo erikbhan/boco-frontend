@@ -1,16 +1,6 @@
 <template>
   <section class="w-full px-5 py-4 mx-auto rounded-md">
 
-    <div>
-      <img
-          class="cursor-pointer h-8  float-right"
-          v-if="isLoggedIn"
-          src="@/assets/members.png"
-          alt="Medlemmer"
-          @click="$router.push('/group/:id/memberlist')"
-      />
-    </div>
-
     <CommunityHeader :admin-status="false" :community="community"  class="mb-5"/>
 
     <!-- Search field -->
@@ -74,7 +64,6 @@ export default {
 
   data() {
     return {
-      isLoggedIn: false,
       items: [],
       item: {
         img: "",
@@ -98,7 +87,6 @@ export default {
     },
   },
   beforeMount() {
-    if (this.$store.state.user.token !== null){this.isLoggedIn = true}
     this.getCommunityFromAPI(); //To get the id of the community before mounting the view
     this.getListingsOfCommunityFromAPI();
   }
