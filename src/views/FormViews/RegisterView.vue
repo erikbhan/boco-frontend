@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-gray-200 content-center grid place-items-center">
+  <div class="h-screen grid">
     <RegisterFormComponent />
   </div>
 </template>

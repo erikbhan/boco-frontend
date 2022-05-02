@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-gray-200 grid place-items-center">
+  <div>
     <large-profile-card :isCurrentUser="true" class="align-top" />
   </div>
 </template>

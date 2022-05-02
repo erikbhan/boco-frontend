@@ -2,6 +2,7 @@
   <div class="confirmationBox">
     <div class="rentTitle">
       <h1>
+<<<<<<< HEAD
         {{ title }}
       </h1>
     </div>
@@ -17,6 +18,23 @@
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="descriptionLabel"
         >Skriv en melding til utleier:</label
+=======
+       {{ title }}
+      </h1>
+    </div>
+    
+    <div class = "fromTime">
+      <p>Fra: {{ from_time }}</p>
+    </div>
+    <div class = "toTime">
+      <p>Til: {{ to_time }}</p>
+    </div>
+    <div class = "message">
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="descriptionLabel"
+        >Skriv en melding til utleier</label
+>>>>>>> main
       >
       <textarea
         id="description"

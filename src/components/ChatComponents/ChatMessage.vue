@@ -34,7 +34,9 @@ export default {
   methods: {
     color() {
       console.log(this.userID);
-      return this?.message.from == this.userID ? "bg-gray-300" : "bg-blue-600";
+      return this?.message.from == this.userID
+        ? "bg-gray-300"
+        : "bg-primary-medium";
     },
     textColor() {
       return this?.message.from == this.userID ? "text-gray-900" : "text-white";
