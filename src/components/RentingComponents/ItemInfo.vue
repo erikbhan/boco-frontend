@@ -39,19 +39,6 @@
             <p class="text-sm text-gray-600">{{ item.description }}</p>
           </div>
         </div>
-        <div class="mt-4">
-          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
-
-          <div>
-            <p class="text-sm text-gray-900">
-              <DatepickerRange @value="setDate"></DatepickerRange>
-            </p>
-          </div>
-        </div>
-        <div class="mt-2">
-          <!-- Add in method for displaying user card. Use item.userID on the method -->
-          <UserListItemCard :user="userForId"></UserListItemCard>
-        </div>
         <div>
           <div class="mt-4 space-y-6">
             <p class="text-base font-semibold text-gray-900">
@@ -60,13 +47,27 @@
           </div>
         </div>
         <div class="mt-2">
+          <UserListItemCard :user="userForId"></UserListItemCard>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
+
+          <div>
+            <p class="text-sm text-gray-900">
+              <DatepickerRange @value="setDate" :messageOnDisplay="dateMessage"></DatepickerRange>
+            </p>
+          </div>
+        </div>
+        <div class="mt-2">
           <div class="mt-2 space-y-2">
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
-            <button>
+            <button
+              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+            >
               <!-- This button should send you to the rent page -->
-              Rent page
+              Rent now
             </button>
           </div>
         </div>
@@ -106,9 +107,10 @@ export default {
       pictures: [],
       noPicture: true,
       userForId: Object,
-      rentingStartDate: new Date(Number.MAX_VALUE),
+      rentingStartDate: null,
       rentingEndDate: null,
       totPrice: 0,
+      dateMessage: "Venligst velg dato for leieperioden",
     };
   },
   components: {

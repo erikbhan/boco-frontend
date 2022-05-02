@@ -5,7 +5,7 @@
         <input
           type="text"
           v-model="value"
-          placeholder="Date Input (click to open)"
+          v-bind:placeholder="messageOnDisplay"
         />
       </label>
     </div>
@@ -72,6 +72,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    messageOnDisplay: String || "Date Input (click to open)",
   },
   data() {
     return {
