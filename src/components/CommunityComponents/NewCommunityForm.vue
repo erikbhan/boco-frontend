@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
+  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
     <!-- Component heading -->
     <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny gruppe</h3>
 
@@ -158,13 +158,6 @@
         </button> -->
 
         <!-- Button for removing an image -->
-        <button
-          class="w-1/12 ml-5 text-white bg-white-500 font-medium rounded-lg text-sm"
-          v-show="imageAdded"
-          @click="removeImage"
-        >
-          <img src="../../assets/removeIcon.png" alt="Remove icon image" />
-        </button>
       </div>
 
       <!-- Div box for showing all chosen images -->
@@ -174,7 +167,7 @@
     </div>
 
     <!-- Save item button -->
-    <div class="flex justify-center mt-10">
+    <div class="flex justify-center mt-10 float-right">
       <Button
         @click="saveClicked"
         id="saveButton"

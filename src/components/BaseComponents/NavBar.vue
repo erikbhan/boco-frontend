@@ -12,25 +12,22 @@
     </div>
     <ul class="flex">
       <li>
-        <img
+        <PlusIcon
           class="m-6 cursor-pointer h-7"
-          src="../../assets/additem.png"
           alt="Legg til"
           @click="$router.push('/addNewItem')"
         />
       </li>
       <li>
-        <img
+        <ChatAlt2Icon
           class="m-6 cursor-pointer h-7"
-          src="../../assets/messages.png"
           alt="Meldinger"
           @click="$router.push('/messages')"
         />
       </li>
       <li>
-        <img
+        <UserCircleIcon
           class="m-6 cursor-pointer h-7"
-          src="../../assets/profile.png"
           alt="Profil"
           @click="loadProfile"
         />
@@ -41,9 +38,16 @@
 
 <script>
 import { parseUserFromToken } from "@/utils/token-utils";
+import {PlusIcon, ChatAlt2Icon, UserCircleIcon} from "@heroicons/vue/outline";
 
 export default {
   name: "NavBar.vue",
+
+  components:{
+    PlusIcon,
+    ChatAlt2Icon,
+    UserCircleIcon,
+  },
 
   methods: {
     async loadProfile() {
