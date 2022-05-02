@@ -149,7 +149,7 @@ export function getVisibleGroups() {
 }
 
 export async function GetCommunity(communityID) {
-  return axios
+  return await axios
     .get(API_URL + "community/" + communityID, {
       headers: tokenHeader(),
     })

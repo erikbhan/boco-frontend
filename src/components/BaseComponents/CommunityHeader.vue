@@ -48,7 +48,7 @@
       <!-- If the user is member of the community, this hamburger menu will show -->
       <div v-if="member">
         <svg
-          @click="toggle"
+          @click="toggleHamburgerMenu()"
           xmlns="http://www.w3.org/2000/svg"
           class="w-9 h-9 cursor-pointer"
           fill="none"
@@ -67,6 +67,7 @@
           v-if="hamburgerOpen"
           class="origin-top-right absolute right-0"
           :community-i-d="community.communityId"
+          :admin="admin"
         />
         <!-- class="absolute" -->
       </div>
@@ -77,11 +78,12 @@
 <script>
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import CommunityService from "@/services/community.service";
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 import {
   JoinOpenCommunity,
   GetIfUserAlreadyInCommunity,
 } from "@/utils/apiutil";
-import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 
 export default {
   name: "CommunityHeader",
@@ -95,27 +97,15 @@ export default {
       hamburgerOpen: false,
       dialogOpen: false,
       member: true,
+      community: {},
     };
   },
   props: {
-    adminStatus: Boolean,
-    community: {
-      communityId: Number,
-      name: String,
-      description: String,
-      visibility: Number,
-      location: String,
-      picture: String,
-    },
+    admin: Boolean,
   },
   methods: {
-    //To open and close the hamburger menu
-    toggle: function () {
-      if (this.hamburgerOpen) {
-        this.hamburgerOpen = false;
-      } else {
-        this.hamburgerOpen = true;
-      }
+    toggleHamburgerMenu() {
+      this.hamburgerOpen = !this.hamburgerOpen;
     },
     joinCommunity: async function (id) {
       const response = await JoinOpenCommunity(id);
@@ -137,6 +127,11 @@ export default {
   },
   beforeMount() {
     this.getIfUserInCommunity();
+  },
+  async mounted() {
+    this.community = await CommunityService.getCommunity(
+      this.$route.params.communityID
+    );
   },
 };
 </script>

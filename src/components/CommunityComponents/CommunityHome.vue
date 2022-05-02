@@ -1,10 +1,6 @@
 <template>
   <section class="w-full px-5 py-4 mx-auto rounded-md">
-    <CommunityHeader
-      :admin-status="false"
-      :community="community"
-      class="mb-5"
-    />
+    <CommunityHeader :admin="false" class="mb-5" />
 
     <!-- Search field -->
     <div class="relative" id="searchComponent">
@@ -50,7 +46,6 @@ export default {
     CommunityHeader,
     ItemCard,
   },
-
   computed: {
     searchedItems() {
       let filteredItems = [];

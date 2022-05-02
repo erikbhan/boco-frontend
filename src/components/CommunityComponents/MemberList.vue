@@ -1,43 +1,30 @@
 <template>
   <ul>
-    <li v-for="member in memberlist" :key="member.userId">
-      <user-list-item-card :admin="admin" :user="member" />
+    <li v-for="member in members" :key="member.userId">
+      <UserListItemCard :buttons="buttons" :user="member" />
     </li>
   </ul>
 </template>
 
 <script>
 import UserListItemCard from "../UserProfileComponents/UserListItemCard.vue";
-import { GetMembersOfCommunity, GetCommunity } from "@/utils/apiutil";
+import { GetMembersOfCommunity } from "@/utils/apiutil";
 
 export default {
-  data() {
-    return {
-      memberlist: [],
-      community: {},
-    };
-  },
+  name: "MemberList",
   components: {
     UserListItemCard,
   },
   props: {
-    admin: Boolean,
+    buttons: Array,
   },
-  methods: {
-    getAllMembersOfCommunity: async function () {
-      this.memberlist = await GetMembersOfCommunity(
-        this.$router.currentRoute.value.params.id
-      );
-    },
-    getCommunity: async function () {
-      this.community = await GetCommunity(
-        this.$router.currentRoute.value.params.id
-      );
-    },
+  data() {
+    return {
+      members: [],
+    };
   },
-  beforeMount() {
-    this.getAllMembersOfCommunity();
-    this.getCommunity();
+  async created() {
+    this.members = await GetMembersOfCommunity(this.$route.params.communityID);
   },
 };
 </script>

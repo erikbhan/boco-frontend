@@ -70,7 +70,7 @@ const routes = [
     component: () => import("../views/CommunityViews/NewCommunityView.vue"),
   },
   {
-    path: "/group/:id/memberlist",
+    path: "/group/:communityID/memberlist",
     name: "memberlist",
     component: () => import("../views/CommunityViews/MemberListView.vue"),
     beforeEnter: guardRoute,
@@ -104,9 +104,10 @@ const routes = [
     component: () => import("../views/TestView.vue"),
   },
   {
-    path: "/group/:id/admin",
-    name: "CommunityAdmin",
-    component: () => import("@/views/CommunityViews/CommunityAdminView.vue"),
+    path: "/group/:communityID/admin",
+    name: "CommunityAdminView",
+    component: () => import("@/views/CommunityViews/AdminView.vue"),
+    beforeEnter: guardRoute,
   },
 ];
 

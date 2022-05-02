@@ -40,6 +40,7 @@ export default {
 
     this.myCommunities = await getMyGroups();
 
+    //FIX TOMROWKRO
     // Remove all of the user's communities from the public communities arrays
     this.publicCommunities = this.publicCommunities.filter(
       (val) => !this.myCommunities.includes(val)

@@ -1,10 +1,6 @@
 <template>
-  <CommunityHeader
-    :admin-status="false"
-    :community="community"
-    class="mb-5 mt-5"
-  />
-  <MemberList />
+  <CommunityHeader :admin="false" class="mb-5 mt-5" />
+  <MemberList :buttons="['chat']" />
 </template>
 
 <script>

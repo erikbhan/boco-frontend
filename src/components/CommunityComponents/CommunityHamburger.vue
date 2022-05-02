@@ -18,7 +18,7 @@
           >Se Medlemmer
         </router-link>
       </li>
-      <li id="adminGroup">
+      <li id="adminGroup" v-if="admin">
         <router-link
           :to="'/group/' + communityID + '/admin'"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -27,7 +27,7 @@
       </li>
       <li id="leaveGroup">
         <div
-          class="cursor-pointer block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          class="cursor-pointer block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           Forlat Gruppe
         </div>
@@ -41,6 +41,7 @@ export default {
   name: "CommunityHamburger",
   props: {
     communityID: Number,
+    admin: Boolean,
   },
 };
 </script>

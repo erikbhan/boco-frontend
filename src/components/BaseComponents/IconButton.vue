@@ -1,14 +1,4 @@
 <template>
-  <!-- Icon button -->
-  <!-- BUTTON CSS
-  block w-fit text-white text-base bg-primary-medium hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-center dark:bg-primary-medium dark:hover:bg-primary-dark dark:focus:ring-primary-dark
-  
-  DIV CSS
-  flex flex-row px-5 py-2.5 h-10
-  
-  ICON CSS
-  h-6 w-6
-   -->
   <button
     class="flex items-center px-2 py-2 font-medium tracking-wide capitalize text-white transition-colors duration-200 transform rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
     :class="color"
