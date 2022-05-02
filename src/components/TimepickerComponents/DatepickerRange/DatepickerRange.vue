@@ -102,6 +102,10 @@ export default {
       this.endDate = null;
       this.value = null;
       this.error = false;
+      this.$emit("value", {
+        startDate: null,
+        endDate: null,
+      });
     },
     complete() {
       if (this.error) return;

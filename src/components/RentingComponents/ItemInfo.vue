@@ -51,7 +51,7 @@
           <UserListItemCard :user="userForId"></UserListItemCard>
         </div>
         <div class="mt-4">
-          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
+          <h3 class="text-base font-base text-gray-900">Tidspunkter</h3>
 
           <div>
             <p class="text-sm text-gray-900">
@@ -65,7 +65,9 @@
               Total pris: {{ totPrice }} kr
             </p>
             <button
-              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-primary-medium rounded-md hover:bg-primary-light focus:outline-none focus:ring focus:ring-opacity-80"
+              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-600 rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
+              v-bind:class="{ colorChange: allowForRent }"
+              @click="sendToConfirm()"
             >
               <!-- This button should send you to the rent page -->
               Rent now
@@ -112,6 +114,7 @@ export default {
       rentingEndDate: null,
       totPrice: 0,
       dateMessage: "Venligst velg dato for leieperioden",
+      allowForRent: false,
     };
   },
   components: {
@@ -152,15 +155,27 @@ export default {
       this.userForId = await getUser(userId);
     },
     setDate(dateOfsomthing) {
-      this.rentingStartDate = dateOfsomthing.startDate;
-      this.rentingEndDate = dateOfsomthing.endDate;
-      this.calculateTotPrice();
+      if(dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
+        this.totPrice = this.item.pricePerDay;
+        this.allowForRent = false;
+      } else {
+        this.rentingStartDate = dateOfsomthing.startDate;
+        this.rentingEndDate = dateOfsomthing.endDate;
+        this.calculateTotPrice();
+        this.allowForRent = true;
+      }
     },
     calculateTotPrice() {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
       amountOfDays = amountOfDays / 86400000;
       this.totPrice = this.item.pricePerDay * amountOfDays;
-    }
+    },
+    sendToConfirm() {
+      if(this.allowForRent) {
+        //TODO change this to a componet change
+        alert("Hei");
+      }
+    },
   },
   async beforeMount() {
     await this.getItemPictures();
@@ -170,4 +185,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.colorChange {
+  background-color: #004aad;
+}
+
+.colorChange:hover {
+  background-color: #306EC1;
+}
+</style>
