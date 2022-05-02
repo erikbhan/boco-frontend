@@ -1,6 +1,8 @@
 <template>
   <div class="flex items-center justify-between mx-4">
-    <div class="flex-1 min-w-0">
+    <router-link
+    :to="'/community/' + community.communityId"
+    class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate"
       >
@@ -26,7 +28,7 @@
           {{ community.location }}
         </div>
       </div>
-    </div>
+    </router-link>
     <div>
       <!-- If the user is not a member in the community, this button will show -->
       <div v-if="!member">
