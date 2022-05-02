@@ -5,7 +5,7 @@
       class="flex-1 min-w-0"
     >
       <h2
-        class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate"
+        class="text-xl md:text-2xl text-gray-600 font-medium w-full sm:truncate"
       >
         {{ community.name }}
       </h2>
