@@ -22,11 +22,11 @@
 
       <!-- error message for title-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.title.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -58,11 +58,11 @@
 
       <!-- error message for select box -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.select.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -92,11 +92,11 @@
 
       <!-- error message for select box -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.selectGroup.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -119,11 +119,11 @@
 
       <!-- error message for price -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.price.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -146,11 +146,11 @@
 
       <!-- error message for description -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.description.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -172,11 +172,11 @@
 
       <!-- error message for address-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.address.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>

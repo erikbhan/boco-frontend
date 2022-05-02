@@ -66,11 +66,11 @@
 
       <!-- error message for title-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.name.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -91,11 +91,11 @@
 
       <!-- error message for place-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.place.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -118,11 +118,11 @@
 
       <!-- error message for description -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.description.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -148,7 +148,7 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <div class="text-red-500 uppercase text-center">
+        <div class="text-error uppercase text-center">
           midlertidig fjernet
         </div>
         <!-- <button

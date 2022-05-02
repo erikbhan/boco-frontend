@@ -67,7 +67,7 @@
           <li>
             <router-link
               to=""
-              class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Slett bruker</router-link
             >
           </li>
