@@ -115,7 +115,6 @@
         </ul>
       </div>
       <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
-    </div>
 
     <!-- price -->
     <div class="mb-6 mt-4" :class="{ error: v$.item.price.$errors.length }">
