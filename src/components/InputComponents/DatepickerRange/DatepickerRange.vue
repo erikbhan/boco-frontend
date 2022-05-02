@@ -2,7 +2,7 @@
   <div>
     <div class="input" v-on:click="openCalendar()">
       <label>
-        <input type="text" v-model="value" placeholder="HEI HEI">
+        <input type="text" v-model="value" placeholder="Date Input (click to open)">
       </label>
     </div>
     <div class="picker" :style="style">
