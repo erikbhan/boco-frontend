@@ -1,9 +1,7 @@
 <template>
-  <div class="m-6">
+  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4">
     <!-- Component heading -->
-    <div class="flex justify-center">
-      <p class="text-4xl mb-6 mt-6">Utleie</p>
-    </div>
+    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Utleie</h3>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -15,7 +13,7 @@
       <input
         type="text"
         id="title"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         v-model="v$.item.title.$model"
         required
       />
@@ -42,7 +40,7 @@
       <select
         v-model="v$.item.select.$model"
         id="categories"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
       >
         <option class="text-gray-400" value="" disabled selected>
           Select a category
@@ -76,7 +74,7 @@
       >
       <select
         v-model="v$.item.selectGroup.$model"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
       >
         <option class="text-gray-400" value="" disabled selected>
           Select a Group
@@ -113,7 +111,7 @@
         type="number"
         v-model="v$.item.price.$model"
         id="price"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         required
       />
 
@@ -140,7 +138,7 @@
         id="description"
         rows="4"
         v-model="v$.item.description.$model"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-200 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         required
       ></textarea>
 
@@ -164,7 +162,7 @@
       >
       <input
         type="text"
-        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
         v-model="v$.item.address.$model"
         id="adress"
         required
@@ -200,12 +198,10 @@
         accept="image/png, image/jpeg"
       />
 
-      <button
+      <Button
+          :text="'Velg bilde'"
         @click="$refs.file.click()"
-        class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800"
-      >
-        Velg bilde
-      </button>
+        />
 
       <div v-for="image in item.images" :key="image" class="m-2">
         <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
@@ -214,13 +210,12 @@
 
     <!-- Save item button -->
     <div class="flex justify-center">
-      <button
+      <Button
+          :text="'Lagre'"
         @click="saveClicked"
-        class="content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         id="saveButton"
-      >
-        Lagre
-      </button>
+      />
+
     </div>
   </div>
 </template>
@@ -229,6 +224,7 @@
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
 import { postNewItem } from "@/utils/apiutil";
+import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
   required,
@@ -240,6 +236,10 @@ import {
 
 export default {
   name: "AddNewItem",
+
+  components:{
+    Button,
+  },
 
   setup() {
     return { v$: useVuelidate() };
