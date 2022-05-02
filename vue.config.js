@@ -4,7 +4,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "Borrow Company";
+      args[0].title = "Borrow Community";
       return args;
     });
   },

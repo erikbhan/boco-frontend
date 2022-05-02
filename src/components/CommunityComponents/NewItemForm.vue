@@ -1,13 +1,7 @@
 <template>
-  <div
-    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4"
-  >
+  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
     <!-- Component heading -->
-    <h3
-      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
-    >
-      Utleie
-    </h3>
+    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny utleie</h3>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
