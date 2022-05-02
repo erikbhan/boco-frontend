@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex items-center justify-between bg-white h-14 border-1 border-b border-gray-300 border-solid sticky top-0 z-50"
+    class="flex items-center bg-white justify-between h-14 border-1 border-b border-gray-300 border-solid sticky top-0 z-50"
   >
     <div class="logo">
       <img

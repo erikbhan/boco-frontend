@@ -25,7 +25,7 @@
       <div
         id="dropdown"
         v-show="dropdown"
-        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 "
+        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
         <ul class="py-1 absolute bg-white" aria-labelledby="dropdownDefault">
           <li>
@@ -67,7 +67,7 @@
           <li>
             <router-link
               to=""
-              class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Slett bruker</router-link
             >
           </li>

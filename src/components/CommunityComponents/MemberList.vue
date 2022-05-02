@@ -1,5 +1,9 @@
 <template>
-  <CommunityHeader :admin-status="false" :community="community"  class="mb-5 mt-5"/>
+  <CommunityHeader
+    :admin-status="false"
+    :community="community"
+    class="mb-5 mt-5"
+  />
   <ul>
     <li v-for="member in memberlist" :key="member.userId">
       <user-list-item-card :admin="admin" :user="member" />
@@ -26,17 +30,21 @@ export default {
   props: {
     admin: Boolean,
   },
-  methods:{
-    getAllMembersOfCommunity: async function(){
-      this.memberlist = await GetMembersOfCommunity(this.$router.currentRoute.value.params.id);
+  methods: {
+    getAllMembersOfCommunity: async function () {
+      this.memberlist = await GetMembersOfCommunity(
+        this.$router.currentRoute.value.params.id
+      );
     },
-    getCommunity: async function(){
-      this.community = await GetCommunity(this.$router.currentRoute.value.params.id);
-    }
+    getCommunity: async function () {
+      this.community = await GetCommunity(
+        this.$router.currentRoute.value.params.id
+      );
+    },
   },
   beforeMount() {
     this.getAllMembersOfCommunity();
     this.getCommunity();
-  }
+  },
 };
 </script>

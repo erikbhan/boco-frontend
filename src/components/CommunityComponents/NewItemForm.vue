@@ -1,7 +1,13 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4">
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4"
+  >
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Utleie</h3>
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Utleie
+    </h3>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -13,18 +19,18 @@
       <input
         type="text"
         id="title"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.item.title.$model"
         required
       />
 
       <!-- error message for title-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.title.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -40,7 +46,7 @@
       <select
         v-model="v$.item.select.$model"
         id="categories"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
           Select a category
@@ -56,11 +62,11 @@
 
       <!-- error message for select box -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.select.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -74,7 +80,7 @@
       >
       <select
         v-model="v$.item.selectGroup.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
           Select a Group
@@ -90,11 +96,11 @@
 
       <!-- error message for select box -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.selectGroup.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -111,17 +117,17 @@
         type="number"
         v-model="v$.item.price.$model"
         id="price"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       />
 
       <!-- error message for price -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.price.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -138,17 +144,17 @@
         id="description"
         rows="4"
         v-model="v$.item.description.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
       <!-- error message for description -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.description.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -162,7 +168,7 @@
       >
       <input
         type="text"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.item.address.$model"
         id="adress"
         required
@@ -170,11 +176,11 @@
 
       <!-- error message for address-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.item.address.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -198,10 +204,7 @@
         accept="image/png, image/jpeg"
       />
 
-      <Button
-          :text="'Velg bilde'"
-        @click="$refs.file.click()"
-        />
+      <Button :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in item.images" :key="image" class="m-2">
         <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
@@ -210,12 +213,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center">
-      <Button
-          :text="'Lagre'"
-        @click="saveClicked"
-        id="saveButton"
-      />
-
+      <Button :text="'Lagre'" @click="saveClicked" id="saveButton" />
     </div>
   </div>
 </template>
@@ -237,7 +235,7 @@ import {
 export default {
   name: "AddNewItem",
 
-  components:{
+  components: {
     Button,
   },
 

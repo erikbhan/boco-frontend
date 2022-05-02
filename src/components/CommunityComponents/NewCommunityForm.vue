@@ -1,7 +1,13 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4"
+  >
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny gruppe</h3>
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Opprett ny gruppe
+    </h3>
 
     <!-- Radio boxes -->
     <div class="mt-6">
@@ -12,7 +18,7 @@
       >
       <div class="form-check">
         <input
-          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioOpen"
@@ -30,7 +36,7 @@
       </div>
       <div class="form-check">
         <input
-          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioPrivate"
@@ -57,18 +63,18 @@
       <input
         type="text"
         id="title"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.name.$model"
         required
       />
 
       <!-- error message for title-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.name.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -82,18 +88,18 @@
       >
       <input
         type="text"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.place.$model"
         required
       />
 
       <!-- error message for place-->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.place.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -110,17 +116,17 @@
         id="description"
         rows="4"
         v-model="v$.group.description.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
       <!-- error message for description -->
       <div
-        class="text-red"
+        class="text-error"
         v-for="(error, index) of v$.group.description.$errors"
         :key="index"
       >
-        <div class="text-red-600 text-sm">
+        <div class="text-error text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -146,9 +152,7 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <div class="text-red-500 uppercase text-center">
-          midlertidig fjernet
-        </div>
+        <div class="text-error uppercase text-center">midlertidig fjernet</div>
         <!-- <button
           @click="$refs.file.click()"
           class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
@@ -175,12 +179,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center mt-10">
-      <Button
-        @click="saveClicked"
-        id="saveButton"
-        :text="'Lagre'"
-      >
-      </Button>
+      <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
 </template>
@@ -194,7 +193,7 @@ import Button from "@/components/BaseComponents/ColoredButton";
 export default {
   name: "CreateNewGroup.vue",
 
-  components:{
+  components: {
     Button,
   },
   setup() {
