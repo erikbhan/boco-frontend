@@ -38,12 +38,12 @@
 
 <script>
 import { parseUserFromToken } from "@/utils/token-utils";
-import {PlusIcon, ChatAlt2Icon, UserCircleIcon} from "@heroicons/vue/outline";
+import { PlusIcon, ChatAlt2Icon, UserCircleIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "NavBar.vue",
 
-  components:{
+  components: {
     PlusIcon,
     ChatAlt2Icon,
     UserCircleIcon,
