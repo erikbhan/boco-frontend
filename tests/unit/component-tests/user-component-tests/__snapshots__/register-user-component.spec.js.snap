@@ -4,11 +4,12 @@ exports[`RegisterFormComponent renders correctly 1`] = `
 <div
   class="w-full max-w-md mx-auto mb-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
 >
-  <h3
-    class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+  <div
+    class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    id="registerLabel"
   >
-     Opprett ny bruker 
-  </h3>
+     Opprett ny konto 
+  </div>
   <form>
     <div
       class="grid grid-cols-1 gap-6 mt-4"
@@ -87,7 +88,7 @@ exports[`RegisterFormComponent renders correctly 1`] = `
       <button
         class="block text-white bg-primary-medium hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-medium dark:hover:bg-primary-dark dark:focus:ring-primary-light"
       >
-        Lagre
+        Opprett
       </button>
     </div>
   </form>
