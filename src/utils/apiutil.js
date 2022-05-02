@@ -147,3 +147,69 @@ export function getVisibleGroups() {
       console.error(error);
     });
 }
+
+export function getItem(itemid) {
+  return axios
+    .get(API_URL + "listing/" + itemid, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export async function getItemPictures(itemid) {
+  let res = await axios
+    .get(API_URL + "listing/" + itemid + "/pictures", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return res;
+}
+
+export async function GetCommunity(communityID) {
+  return axios
+    .get(API_URL + "community/" + communityID, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export async function GetListingsInCommunity(communityID) {
+  return axios
+    .get(API_URL + "community/" + communityID + "/listings", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export async function GetMembersOfCommunity(communityID) {
+  return axios
+    .get(API_URL + "community/" + communityID + "/members", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
