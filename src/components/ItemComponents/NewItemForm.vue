@@ -79,7 +79,7 @@
             <div class="form-check" v-for="group in groups" :key="group">
               <input
 
-                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="checkbox"
                   :value="group.communityId"
                   @change="onChangeGroup($event)"
@@ -91,7 +91,7 @@
           </li>
         </ul>
       </div>
-      <label class="text-red-600 text-sm block">{{ groupErrorMessage }}</label>
+      <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
     </div>
 
     <!-- price -->
@@ -210,7 +210,6 @@
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
 import { postNewItem, getMyGroups } from "@/utils/apiutil";
-import { postNewItem } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
@@ -374,6 +373,7 @@ export default {
     onChangeGroup: function(e){
       this.selectedGroupId = e.target.value;
       let alreadyInGroupList = false;
+      console.log("selected clicked");
 
       for (let i = 0; i <= this.item.selectedGroups.length; i++) {
         if (this.selectedGroupId == this.item.selectedGroups[i]) {
