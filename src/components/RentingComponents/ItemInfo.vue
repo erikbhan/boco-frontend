@@ -34,24 +34,22 @@
             </p>
           </div>
         </div>
+        <div>
+          <div class="mt-4 space-y-6">
+            <p class="text-sm text-gray-600">{{ item.description }}</p>
+          </div>
+        </div>
         <div class="mt-4">
           <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
 
           <div>
             <p class="text-sm text-gray-900">
-              (placeholder skal byttes ut med date-picker)
               <DatepickerRange @value="setDate"></DatepickerRange>
             </p>
           </div>
         </div>
-        <div class="mt-10">
-          <div class="mt-4 space-y-6">
-            <p class="text-sm text-gray-600">{{ item.description }}</p>
-          </div>
-        </div>
-        <div class="mt-6">
+        <div class="mt-2">
           <!-- Add in method for displaying user card. Use item.userID on the method -->
-          (Placeholder) Add usercard here
           <UserListItemCard :user="userForId"></UserListItemCard>
         </div>
         <div>
@@ -61,13 +59,10 @@
             </p>
           </div>
         </div>
-        <div class="mt-10">
-          <h3 class="text-base font-semibold text-gray-900">Totalprisen er</h3>
-
+        <div class="mt-2">
           <div class="mt-2 space-y-2">
-            <p class="text-xl font-medium text-gray-900">
-              mye (Change with tot price from calc method)
-              {{ totPrice }} kr
+            <p class="text-xl font-semibold text-gray-900">
+              Total pris: {{ totPrice }} kr
             </p>
             <button>
               <!-- This button should send you to the rent page -->
