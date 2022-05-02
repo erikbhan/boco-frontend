@@ -1,13 +1,7 @@
 <template>
   <div class="calendar">
     <div
-      class="
-        grid grid-cols-7
-        py-2
-        mt-0.5
-        border-b border-black border-opacity-10
-        dark:border-litepie-secondary-700 dark:border-opacity-100
-      "
+      class="grid grid-cols-7 py-2 mt-0.5 border-b border-black border-opacity-10 dark:border-litepie-secondary-700 dark:border-opacity-100"
     >
       <div class="months" v-for="day in days" :key="day">{{ day }}</div>
     </div>
@@ -98,22 +92,28 @@ export default {
         if (blockedDay.length === 2) {
           const start = new Date(blockedDay[0]);
           const end = new Date(blockedDay[1]);
-          
+
           // Check if the start or end dates range ends in the current month or after the current month
-          if(start.getMonth() <= this.monthDate.getMonth() && end.getMonth() >= this.monthDate.getMonth()) {
-            if(start.getMonth() < this.monthDate.getMonth() && end.getMonth() > this.monthDate.getMonth()) {
+          if (
+            start.getMonth() <= this.monthDate.getMonth() &&
+            end.getMonth() >= this.monthDate.getMonth()
+          ) {
+            if (
+              start.getMonth() < this.monthDate.getMonth() &&
+              end.getMonth() > this.monthDate.getMonth()
+            ) {
               // Add all days of month to the list
-              for(let i = 1; i <= this.daysInMonth; i++) {
+              for (let i = 1; i <= this.daysInMonth; i++) {
                 blockedDays.push(i);
               }
-            } else if(start.getMonth() === this.monthDate.getMonth()) {
+            } else if (start.getMonth() === this.monthDate.getMonth()) {
               // Add all days of start month to the list
-              for(let i = start.getDate(); i <= this.daysInMonth; i++) {
+              for (let i = start.getDate(); i <= this.daysInMonth; i++) {
                 blockedDays.push(i);
               }
-            } else if(end.getMonth() === this.monthDate.getMonth()) {
+            } else if (end.getMonth() === this.monthDate.getMonth()) {
               // Add all days of end month to the list
-              for(let i = 1; i <= end.getDate(); i++) {
+              for (let i = 1; i <= end.getDate(); i++) {
                 blockedDays.push(i);
               }
             }

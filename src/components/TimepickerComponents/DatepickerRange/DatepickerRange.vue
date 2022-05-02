@@ -2,7 +2,11 @@
   <div>
     <div class="input" v-on:click="openCalendar()">
       <label>
-        <input type="text" v-model="value" placeholder="Date Input (click to open)">
+        <input
+          type="text"
+          v-model="value"
+          placeholder="Date Input (click to open)"
+        />
       </label>
     </div>
     <div class="picker" :style="style">
@@ -40,7 +44,7 @@
         </div>
       </div>
       <div class="footer">
-        <p v-if="error" class="error"> {{ errorMessage }} </p>
+        <p v-if="error" class="error">{{ errorMessage }}</p>
         <div v-else></div>
         <div class="buttons">
           <button class="btn btn-gray" v-on:click="reset()">RESET</button>
@@ -61,13 +65,13 @@ export default {
   },
   props: {
     range: {
-      type: Boolean, 
+      type: Boolean,
       default: true,
     },
     blockedDaysRange: {
       type: Array,
       default: () => [],
-    }
+    },
   },
   data() {
     return {
@@ -99,7 +103,7 @@ export default {
       this.error = false;
     },
     complete() {
-      if(this.error) return;
+      if (this.error) return;
       this.open = false;
       this.style = {
         display: "none",
@@ -107,10 +111,10 @@ export default {
 
       // Set value to the start and end date
       this.value = `${this.startDate.toLocaleDateString()} - ${this.endDate.toLocaleDateString()}`;
-      this.$emit('value', {
+      this.$emit("value", {
         startDate: this.startDate,
-        endDate: this.endDate
-      })
+        endDate: this.endDate,
+      });
     },
     selectDate(date) {
       const day = date.getDate();
@@ -124,19 +128,25 @@ export default {
       }
 
       if (this.range) {
-        this.value = `${this.startDate?.toLocaleDateString()} - ${this.endDate?.toLocaleDateString() || ""}`;
+        this.value = `${this.startDate?.toLocaleDateString()} - ${
+          this.endDate?.toLocaleDateString() || ""
+        }`;
       } else {
         this.value = `${this.startDate.toLocaleDateString()}`;
       }
       // Check if start and end check if any days in range is blocked
-      for(let i = new Date(this.startDate.toUTCString()); i <= this.endDate; i.setDate(i.getDate() + 1)) {
+      for (
+        let i = new Date(this.startDate.toUTCString());
+        i <= this.endDate;
+        i.setDate(i.getDate() + 1)
+      ) {
         if (this.isBlocked(i.getDate(), i.getMonth(), i.getFullYear())) {
           this.error = true;
           return;
         }
       }
 
-      if(this.error) this.error = false;
+      if (this.error) this.error = false;
     },
     isBlocked(day, month, year) {
       return this.blockedDaysRange.some(([start, end]) => {
@@ -149,8 +159,8 @@ export default {
           return true;
         }
         return (
-          (start <= new Date(year, month, day) &&
-          new Date(year, month, day) <= end)
+          start <= new Date(year, month, day) &&
+          new Date(year, month, day) <= end
         );
       });
     },
@@ -220,9 +230,9 @@ export default {
   width: auto;
   max-width: 700px;
   overflow: auto;
-  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 14px 5px rgba(0,0,0,0); 
-  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 14px 5px rgba(0,0,0,0);
-
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 14px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 14px 5px rgba(0, 0, 0, 0);
 }
 .split {
   border-left: 2px solid black;
@@ -271,6 +281,5 @@ export default {
 }
 .btn-gray:hover {
   @apply bg-gray-300;
-  
 }
 </style>

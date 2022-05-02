@@ -2,7 +2,10 @@
   <div>
     <div>
       <div
-        v-bind:class="{'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center': noPicture}"
+        v-bind:class="{
+          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center':
+            noPicture,
+        }"
       >
         <ImageCarousel :images="pictures"></ImageCarousel>
       </div>
@@ -37,6 +40,7 @@
           <div>
             <p class="text-sm text-gray-900">
               (placeholder skal byttes ut med date-picker)
+              <DatepickerRange @value="setDate"></DatepickerRange>
             </p>
           </div>
         </div>
@@ -63,6 +67,7 @@
           <div class="mt-2 space-y-2">
             <p class="text-xl font-medium text-gray-900">
               mye (Change with tot price from calc method)
+              {{ totPrice }} kr
             </p>
             <button>
               <!-- This button should send you to the rent page -->
@@ -81,6 +86,7 @@ import { getItemPictures } from "@/utils/apiutil";
 import { getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
+import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
 
 export default {
   name: "ItemInfo",
@@ -105,45 +111,60 @@ export default {
       pictures: [],
       noPicture: true,
       userForId: Object,
+      rentingStartDate: new Date(Number.MAX_VALUE),
+      rentingEndDate: null,
+      totPrice: 0,
     };
   },
   components: {
     ImageCarousel,
     UserListItemCard,
+    DatepickerRange,
   },
   methods: {
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
       this.item = await getItem(id);
-      console.log(this.item);
-      console.log("This is the user id " + this.item.userID);
+      this.totPrice = this.item.pricePerDay;
     },
     async getItemPictures() {
       let id = this.$router.currentRoute.value.params.id;
       this.images = await getItemPictures(id);
-      
-      if(this.images.length < 1) {
-          let noImage = {
-              src: require('@/assets/default-product.png'),
-              alt: "No image found",
-          };
-          this.pictures.push(noImage);
+
+      if (this.images.length < 1) {
+        let noImage = {
+          src: require("@/assets/default-product.png"),
+          alt: "No image found",
+        };
+        this.pictures.push(noImage);
       } else {
         this.noPicture = false;
         for (let i = 0; i < this.images.length; i++) {
-            let oneImage = {
-                src: this.images[i].picture,
-                //How do i make this accurate to the image?
-                alt: "An image",
-            };
-            this.pictures.push(oneImage);
+          let oneImage = {
+            src: this.images[i].picture,
+            //How do i make this accurate to the image?
+            alt: "An image",
+          };
+          this.pictures.push(oneImage);
         }
       }
       //TODO fixs so each image get a correct alt text.
     },
     async getUser(userId) {
-        this.userForId = await getUser(userId);
-        console.log(this.userForId);
+      this.userForId = await getUser(userId);
+      console.log(this.userForId);
+    },
+    setDate(dateOfsomthing) {
+      this.rentingStartDate = dateOfsomthing.startDate;
+      this.rentingEndDate = dateOfsomthing.endDate;
+      console.log("This is the two dates " + this.rentingStartDate + " " + this.rentingEndDate);
+      this.calculateTotPrice();
+    },
+    calculateTotPrice() {
+      let amountOfDays = this.rentingEndDate - this.rentingStartDate;
+      amountOfDays = amountOfDays / 86400000;
+      console.log("This is the difference in days " + amountOfDays);
+      this.totPrice = this.item.pricePerDay * amountOfDays;
     }
   },
   async beforeMount() {
