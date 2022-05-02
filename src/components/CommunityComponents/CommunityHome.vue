@@ -6,6 +6,7 @@
       class="mb-5"
     />
 
+
     <!-- Search field -->
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
