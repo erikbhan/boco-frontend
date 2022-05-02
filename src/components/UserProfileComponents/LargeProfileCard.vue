@@ -25,7 +25,7 @@
       <div
         id="dropdown"
         v-show="dropdown"
-        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 "
+        class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
         <ul class="py-1 absolute bg-white" aria-labelledby="dropdownDefault">
           <li>

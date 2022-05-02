@@ -1,7 +1,13 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4">
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4"
+  >
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny gruppe</h3>
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Opprett ny gruppe
+    </h3>
 
     <!-- Radio boxes -->
     <div class="mt-6">
@@ -146,9 +152,7 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <div class="text-error uppercase text-center">
-          midlertidig fjernet
-        </div>
+        <div class="text-error uppercase text-center">midlertidig fjernet</div>
         <!-- <button
           @click="$refs.file.click()"
           class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
@@ -175,12 +179,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center mt-10">
-      <Button
-        @click="saveClicked"
-        id="saveButton"
-        :text="'Lagre'"
-      >
-      </Button>
+      <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
 </template>
@@ -194,7 +193,7 @@ import Button from "@/components/BaseComponents/ColoredButton";
 export default {
   name: "CreateNewGroup.vue",
 
-  components:{
+  components: {
     Button,
   },
   setup() {

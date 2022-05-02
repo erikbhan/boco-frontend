@@ -1,7 +1,13 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4">
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[3%] p-4"
+  >
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Utleie</h3>
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Utleie
+    </h3>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -198,10 +204,7 @@
         accept="image/png, image/jpeg"
       />
 
-      <Button
-          :text="'Velg bilde'"
-        @click="$refs.file.click()"
-        />
+      <Button :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in item.images" :key="image" class="m-2">
         <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
@@ -210,12 +213,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center">
-      <Button
-          :text="'Lagre'"
-        @click="saveClicked"
-        id="saveButton"
-      />
-
+      <Button :text="'Lagre'" @click="saveClicked" id="saveButton" />
     </div>
   </div>
 </template>
@@ -237,7 +235,7 @@ import {
 export default {
   name: "AddNewItem",
 
-  components:{
+  components: {
     Button,
   },
 

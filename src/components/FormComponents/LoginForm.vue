@@ -1,66 +1,90 @@
 <template>
-  <div class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]">
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]"
+  >
     <div class="px-6 py-4 mt-4">
-
-      <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Logg på</h3>
+      <h3
+        class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      >
+        Logg på
+      </h3>
 
       <div>
-        <div class="w-full mt-6" :class="{ error: v$.user.email.$errors.length }">
-          <input class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-                 type="email"
-                      placeholder="Skriv inn din e-postadresse *"
-                      v-model="v$.user.email.$model"
-                      required
+        <div
+          class="w-full mt-6"
+          :class="{ error: v$.user.email.$errors.length }"
+        >
+          <input
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+            type="email"
+            placeholder="Skriv inn din e-postadresse *"
+            v-model="v$.user.email.$model"
+            required
           />
           <!-- error message -->
           <div v-for="(error, index) of v$.user.email.$errors" :key="index">
             <div
-                class="text-red-600 text-sm"
-                v-show="showError"
-                id="emailErrorId"
+              class="text-red-600 text-sm"
+              v-show="showError"
+              id="emailErrorId"
             >
               {{ error.$message }}
             </div>
           </div>
         </div>
 
-        <div class="w-full mt-6" :class="{ error: v$.user.password.$errors.length }">
-          <input class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-                 type="password"
-                 placeholder="Vennligst oppgi passordet ditt *"
-                 v-model="v$.user.password.$model"
-                 @keyup.enter="loginClicked"
-                 required
+        <div
+          class="w-full mt-6"
+          :class="{ error: v$.user.password.$errors.length }"
+        >
+          <input
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+            type="password"
+            placeholder="Vennligst oppgi passordet ditt *"
+            v-model="v$.user.password.$model"
+            @keyup.enter="loginClicked"
+            required
           />
           <!-- error message -->
           <div
-              class="text-red-600 text-sm"
-              v-for="(error, index) of v$.user.password.$errors"
-              :key="index"
+            class="text-red-600 text-sm"
+            v-for="(error, index) of v$.user.password.$errors"
+            :key="index"
           >
             <div
-                class="text-red-600 text-sm"
-                v-show="showError"
-                id="passwordErrorId"
+              class="text-red-600 text-sm"
+              v-show="showError"
+              id="passwordErrorId"
             >
               {{ error.$message }}
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-between mt-8 ">
-          <router-link to="/resetPassword" class="text-primary-medium">Glemt passord?</router-link>
+        <div class="flex items-center justify-between mt-8">
+          <router-link to="/resetPassword" class="text-primary-medium"
+            >Glemt passord?</router-link
+          >
 
           <Button @click="loginClicked" :text="'Logg på'"></Button>
         </div>
       </div>
     </div>
 
-    <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
-      <router-link to="/register" class="mx-2 text-sm font-bold text-primary-medium dark:text-primary-light hover:underline">Opprette ny konto</router-link>
+    <div
+      class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"
+    >
+      <router-link
+        to="/register"
+        class="mx-2 text-sm font-bold text-primary-medium dark:text-primary-light hover:underline"
+        >Opprette ny konto</router-link
+      >
     </div>
-    <div class="flex items-center justify-center text-center bg-gray-50" >
-      <label class="mx-2 text-sm font-bold text-red-500 dark:text-primary-light hover:underline">{{ message }}</label>
+    <div class="flex items-center justify-center text-center bg-gray-50">
+      <label
+        class="mx-2 text-sm font-bold text-red-500 dark:text-primary-light hover:underline"
+        >{{ message }}</label
+      >
     </div>
   </div>
 </template>
@@ -69,7 +93,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
-import Button from "@/components/BaseComponents/ColoredButton"
+import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
   name: "LoginForm.vue",
@@ -108,7 +132,6 @@ export default {
 
   methods: {
     async loginClicked() {
-
       this.showError = true;
 
       this.v$.user.$touch();
