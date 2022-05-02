@@ -2,100 +2,76 @@
 
 exports[`LoginForm component renders correctly 1`] = `
 <div
-  class="max-w-md p-6 mx-auto rounded-md shadow-lg mt-16"
+  class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]"
 >
   <div
-    class="flex justify-center text-2xl"
+    class="px-6 py-4 mt-4"
   >
-    Logg inn
-  </div>
-  <div
-    class="m-6"
-    id="emailField"
-  >
-    <div
-      class="mb-6"
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
     >
-      <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        for="email"
-      >
-        E-post
-      </label>
-      <input
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        id="email"
-        placeholder="eksempel@eksempel.no"
-        required=""
-        type="email"
-      />
-      <!-- error message -->
-      
-      
-    </div>
-  </div>
-  <div
-    class="m-6"
-    id="passwordField"
-  >
-    <label
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-      for="password"
-    >
-      Passord
-    </label>
-    <input
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      id="password"
-      required=""
-      type="password"
-    />
-    <!-- error message -->
-    
-    
-  </div>
-  <div
-    class="m-6"
-    id="buttonsField"
-  >
-    <div
-      class="align-items: flex-end; mb-6"
-    >
+      Logg på
+    </h3>
+    <div>
       <div
-        class="ml-3 text-sm"
+        class="w-full mt-6"
+      >
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          placeholder="Skriv inn din e-postadresse *"
+          required=""
+          type="email"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+      <div
+        class="w-full mt-6"
+      >
+        <input
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+          placeholder="Vennligst oppgi passordet ditt *"
+          required=""
+          type="password"
+        />
+        <!-- error message -->
+        
+        
+      </div>
+      <div
+        class="flex items-center justify-between mt-8"
       >
         <router-link
-          class="text-blue-600 flex justify-end"
+          class="text-blue-500"
           to="/resetPassword"
         >
-          Glemt passord
+          Glemt passord?
         </router-link>
-      </div>
-    </div>
-    <button
-      class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-    >
-       Logg inn 
-    </button>
-    <div
-      class="align-items: flex-end; mb-6 mt-12"
-    >
-      <div
-        class="text-sm"
-      >
-        <router-link
-          class="text-blue-600 flex justify-center"
-          to="register"
+        <button
+          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Ny bruker
-        </router-link>
+          Logg på
+        </button>
       </div>
     </div>
-    <div
-      class="flex justify-center"
+  </div>
+  <div
+    class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"
+  >
+    <router-link
+      class="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline"
+      to="/register"
     >
-      <label />
-    </div>
+      Opprette ny konto
+    </router-link>
+  </div>
+  <div
+    class="flex items-center justify-center text-center bg-gray-50"
+  >
+    <label
+      class="mx-2 text-sm font-bold text-red-500 dark:text-blue-400 hover:underline"
+    />
   </div>
 </div>
 `;
