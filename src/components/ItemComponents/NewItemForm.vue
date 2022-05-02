@@ -71,7 +71,7 @@
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="selectCommunityLabel"
-        >Gruppe</label
+        >Grupper</label
       >
       <select
         v-model="v$.item.selectGroup.$model"
