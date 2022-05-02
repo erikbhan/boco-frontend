@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen bg-gray-200 grid place-items-center">
-    <large-profile-card :isCurrentUser="true" class="align-top" />
+  <div>
+    <LargeProfileCard :isCurrentUser="true" class="md:mt-8" />
   </div>
 </template>
 
