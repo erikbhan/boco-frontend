@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ResetPasswordForm from "@/components/FormComponents/ResetPasswordForm.vue"
+import ResetPasswordForm from "@/components/FormComponents/ResetPasswordForm.vue";
 
 describe("ResetPasswordForm component", () => {
   let wrapper;

@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import LoginForm from "@/components/FormComponents/LoginForm.vue"
+import LoginForm from "@/components/FormComponents/LoginForm.vue";
 
 describe("LoginForm component", () => {
   let wrapper;

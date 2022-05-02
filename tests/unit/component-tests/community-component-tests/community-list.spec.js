@@ -1,31 +1,31 @@
 import { mount } from "@vue/test-utils";
-import CommunityList from "@/components/CommunityComponents/CommunityList.vue"
+import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 
 describe("CommunityList component", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(CommunityList, {
-        props:{
-            groupList: [
-                {
-                    communityId: 0,
-                    name: "string",
-                    description: "string",
-                    visibility: 0,
-                    location: "string",
-                    picture: "string"
-                },
-                {
-                    communityId: 0,
-                    name: "string",
-                    description: "string",
-                    visibility: 0,
-                    location: "string",
-                    picture: "string"
-                },
-            ]
-        }
+      props: {
+        groupList: [
+          {
+            communityId: 0,
+            name: "string",
+            description: "string",
+            visibility: 0,
+            location: "string",
+            picture: "string",
+          },
+          {
+            communityId: 0,
+            name: "string",
+            description: "string",
+            visibility: 0,
+            location: "string",
+            picture: "string",
+          },
+        ],
+      },
     });
   });
 
