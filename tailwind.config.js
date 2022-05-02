@@ -22,10 +22,13 @@ module.exports = {
         medium: "#004aad",
         dark: "#003884",
       },
-      contrast: {
+      secondary: {
         light: "#653273",
         dark: "#731050",
       },
+      error: "#E23636",
+      warn: "#EDB95E",
+      success: "#82DD55",
     },
   },
   plugins: [],
