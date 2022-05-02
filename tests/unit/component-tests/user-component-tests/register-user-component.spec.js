@@ -17,7 +17,7 @@ describe("RegisterFormComponent", () => {
   });
 
   it("renders the h2 text correctly", () => {
-    expect(wrapper.find("h3").text()).toBe("Opprett ny bruker");
+    expect(wrapper.find("#registerLabel").text()).toBe("Opprett ny konto");
   });
 
   it("has a button", () => {
