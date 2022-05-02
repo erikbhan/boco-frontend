@@ -186,3 +186,40 @@ export async function GetMembersOfCommunity(communityID) {
       console.error(error);
     });
 }
+
+export function JoinOpenCommunity(communityId) {
+
+    if(tokenHeader().Authorization == "Bearer " + null){
+        console.log("ikke logget på!");
+        return "Login to join any community";
+    }
+
+    return axios
+        .post(API_URL + "communities/" + communityId + "/join", communityId, {
+            headers: tokenHeader(),
+        })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            console.log(error.response);
+            return error;
+        });
+}
+
+export async function GetIfUserAlreadyInCommunity(communityID) {
+    if(tokenHeader().Authorization == "Bearer " + null){
+        return false;
+    }
+
+    return axios
+        .get(API_URL + "communities/" + communityID + "/user/status", {
+            headers: tokenHeader(),
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            return error;
+        });
+}

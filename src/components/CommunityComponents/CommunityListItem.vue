@@ -6,16 +6,36 @@
     :message="community.description"
   >
     <div class="flex justify-center p-2">
+      <!-- If a user is not a member in the community, this button will show -->
       <ColoredButton
         v-if="!member"
         :text="'Bli med'"
         @click="goToJoin(community.communityId)"
+        class="m-2"
       />
+
+      <!-- If a user is member this button will show -->
       <ColoredButton
         v-if="member"
         :text="'Gå til'"
         @click="goToGroup(community.communityId)"
+        class="m-2"
       />
+
+      <!-- If a user isn't member but the community is open, the user is able to get in to see listings(items) -->
+      <ColoredButton
+        v-if="!member && community.visibility === 1"
+        :text="'Gå til'"
+        @click="goToGroup(community.communityId)"
+        class="m-2"
+      />
+    </div>
+
+    <!-- If a user is not logges in and tries to join a community, this message shows -->
+    <div class="flex justify-center p-2">
+      <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+        {{ responseToUser }}
+      </p>
     </div>
   </CustomFooterModal>
   <div
@@ -44,6 +64,7 @@
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue";
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 import { UserGroupIcon, LockClosedIcon } from "@heroicons/vue/outline";
+import { JoinOpenCommunity } from "@/utils/apiutil";
 
 export default {
   name: "CommunityListItem",
@@ -56,6 +77,7 @@ export default {
   data() {
     return {
       dialogOpen: false,
+      responseToUser: "",
     };
   },
   props: {
@@ -66,8 +88,13 @@ export default {
     goToGroup(id) {
       this.$router.push("/community/" + id);
     },
-    goToJoin(id) {
-      this.$router.push("/community/" + id + "/join");
+    async goToJoin(id) {
+      const response = await JoinOpenCommunity(id);
+      if (response === "Login to join any community") {
+        this.responseToUser = "Logg inn først for å bli med i en gruppe";
+      } else {
+        this.$router.push("/community/" + id);
+      }
     },
     toggleDialog() {
       this.dialogOpen = !this.dialogOpen;
