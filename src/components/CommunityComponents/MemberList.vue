@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import UserListItemCard from "../UserProfileComponents/UserListItemCard.vue";
+import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import { GetMembersOfCommunity, GetCommunity } from "@/utils/apiutil";
-import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
 
 export default {
   data() {
