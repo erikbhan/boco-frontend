@@ -1,5 +1,5 @@
 <template>
-  <div class="loginPage">
+  <div class="h-screen grid">
     <LoginForm></LoginForm>
   </div>
 </template>
@@ -13,11 +13,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.loginPage {
-  background-color: white;
-  height: 100%;
-  overflow: auto;
-}
-</style>
