@@ -14,7 +14,7 @@ export default {
         description: "Typ transport",
         fromTime: "2022-07-26",
         toTime: "2022-08-01",
-        pricePerDay: 4.0,
+        price: 4.0,
         listingId: 157,
       },
     };

@@ -1,40 +1,25 @@
 <template>
-  <div class="confirmationBox">
-    <div class="rentTitle">
+  <div id="confirmationBox">
+    <div id="rentTitle">
       <h1>
-<<<<<<< HEAD
         {{ title }}
       </h1>
     </div>
 
-    <div class="fromTime">
-      <p>Fra: {{ fromTime }}</p>
+    <div id="fromTime">
+      <p>Fra: {{ fromTimeString }}</p>
     </div>
-    <div class="toTime">
-      <p>Til: {{ toTime }}</p>
+    <div id="toTime">
+      <p>Til: {{ toTimeString }}</p>
     </div>
-    <div class="message">
+    <div id="price">
+      <p>Totaltpris: {{ price }} kr</p>
+    </div>
+    <div id="message">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="descriptionLabel"
         >Skriv en melding til utleier:</label
-=======
-       {{ title }}
-      </h1>
-    </div>
-    
-    <div class = "fromTime">
-      <p>Fra: {{ from_time }}</p>
-    </div>
-    <div class = "toTime">
-      <p>Til: {{ to_time }}</p>
-    </div>
-    <div class = "message">
-      <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="descriptionLabel"
-        >Skriv en melding til utleier</label
->>>>>>> main
       >
       <textarea
         id="description"
@@ -44,8 +29,8 @@
         required
       ></textarea>
     </div>
-    <button class="cancelButton">Tilbake</button>
-    <div class="confirmButton">
+    <button id="cancelButton" class="text-primary-medium">Tilbake</button>
+    <div id="confirmButton">
       <colored-button @click="sendRent" :text="'Send'"></colored-button>
     </div>
   </div>
@@ -63,11 +48,13 @@ export default {
     return {
       title: this.newRentBox.title,
       fromTime: this.newRentBox.fromTime,
+      fromTimeString: "",
       toTime: this.newRentBox.toTime,
+      toTimeString: "",
       fromTimeMilliseconds: new Date(this.newRentBox.fromTime).valueOf(),
       toTimeMilliseconds: new Date(this.newRentBox.toTime).valueOf(),
       message: "",
-      price: this.newRentBox.price_per_day,
+      price: this.newRentBox.price,
     };
   },
   props: {
@@ -77,14 +64,68 @@ export default {
       description: String,
       fromTime: Date,
       toTime: Date,
-      pricePerDay: Number,
       listingId: Number,
       isAccepted: Boolean,
+      price: Number,
     },
   },
+  created() {
+    this.fromTimeString = this.convertDates(this.fromTime);
+    this.toTimeString = this.convertDates(this.toTime);
+  },
+
   methods: {
+    convertDates(date) {
+      const dateCopy = new Date(date);
+      const dateDate = dateCopy.getDate();
+      const dateMonth = dateCopy.getMonth();
+      let monthString = "";
+      switch (dateMonth) {
+        case 1:
+          monthString = "Januar";
+          break;
+        case 2:
+          monthString = "Februar";
+          break;
+        case 3:
+          monthString = "Mars";
+          break;
+        case 4:
+          monthString = "April";
+          break;
+        case 5:
+          monthString = "Mai";
+          break;
+        case 6:
+          monthString = "Juni";
+          break;
+        case 7:
+          monthString = "Juli";
+          break;
+        case 8:
+          monthString = "August";
+          break;
+        case 9:
+          monthString = "September";
+          break;
+        case 10:
+          monthString = "Oktober";
+          break;
+        case 11:
+          monthString = "November";
+          break;
+        case 12:
+          monthString = "Desember";
+          break;
+        default:
+          monthString = "Noe feil";
+          break;
+      }
+      const dateYear = dateCopy.getFullYear();
+      return dateDate + ". " + monthString + " " + dateYear;
+    },
     cancelRent() {
-      console.log("Canceled");
+      console.log;
     },
     sendRent: async function () {
       const rent = {
@@ -93,9 +134,9 @@ export default {
         renterId: this.newRentBox.renterId,
         isAccepted: false,
         toTime: this.toTimeMilliseconds,
-        fromTime: this.fromTimeMilliseconds,  
+        fromTime: this.fromTimeMilliseconds,
       };
-      
+
       await postNewRent(rent);
       console.log(rent);
     },
@@ -104,7 +145,7 @@ export default {
 </script>
 
 <style scoped>
-.confirmationBox {
+#confirmationBox {
   border: 1px solid silver;
   margin-top: 60fr;
   padding: 10%;
@@ -112,39 +153,42 @@ export default {
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 0.5fr 1.5fr 1fr 1fr 3fr 1fr;
+  grid-template-rows: 0.5fr 1.5fr 0.7fr 0.7fr 0.7fr 3fr 1fr;
   /* max-height: 100%; */
   margin-top: 10%;
 }
-.cancelButton {
+#cancelButton {
   grid-column: 1/2;
   grid-row: 1/2;
 }
-.rentTitle {
+#rentTitle {
   margin-top: 10%;
   text-align: center;
   grid-column: 1/3;
   grid-row: 2/3;
   font-weight: bold;
 }
-.fromTime {
+#fromTime {
   grid-row: 3/4;
   grid-column: 1/3;
   display: block;
 }
-.toTime {
+#toTime {
   grid-row: 4/5;
   grid-column: 1/3;
   display: block;
 }
-
-.message {
-  grid-column: 1/3;
+#price {
   grid-row: 5/6;
+  grid-column: 1/3;
 }
-.confirmButton {
+#message {
   grid-column: 1/3;
   grid-row: 6/7;
+}
+#confirmButton {
+  grid-column: 1/3;
+  grid-row: 7/8;
   align-content: center;
   margin: auto;
   margin-top: 10px;
