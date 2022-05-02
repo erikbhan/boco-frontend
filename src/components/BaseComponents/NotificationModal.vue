@@ -2,7 +2,7 @@
   <!-- Main modal -->
   <div
     v-if="visible"
-    class="fixed grid place-items-center bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+    class="fixed grid place-items-center bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto inset-0 h-full"
   >
     <div class="relative w-full h-full max-w-2xl p-4 md:h-auto">
       <!-- Modal content -->

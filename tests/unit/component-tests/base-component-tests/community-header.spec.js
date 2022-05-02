@@ -1,28 +1,24 @@
 import { mount } from "@vue/test-utils";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader.vue"
+import CommunityHeader from "@/components/BaseComponents/CommunityHeader.vue";
 
 describe("CommunityHeader component", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(CommunityHeader, {
-        //passing prop to component
-        props: {
-            adminStatus: true,
-            community: {
-                communityId: 1,
-                name: "String",
-                description: "String",
-                visibility: 0,
-                location: "String",
-                picture: "String",
-            },
-        }
+      //passing prop to component
+      props: {
+        adminStatus: true,
+        community: {
+          communityId: 1,
+          name: "String",
+          description: "String",
+          visibility: 0,
+          location: "String",
+          picture: "String",
+        },
+      },
     });
-  });
-
-  it("renders correctly", () => {
-    expect(wrapper.element).toMatchSnapshot();
   });
 
   it("is instantiated", () => {

@@ -31,27 +31,44 @@
       <!-- If the user is not a member in the community, this button will show -->
       <div v-if="!member">
         <ColoredButton
-            v-if="!member"
-            :text="'Bli med'"
-            @click="joinCommunity(community.communityId)"
-            class="m-2"
+          v-if="!member"
+          :text="'Bli med'"
+          @click="joinCommunity(community.communityId)"
+          class="m-2"
         />
 
-      <CustomFooterModal
+        <CustomFooterModal
           @close="this.dialogOpen = false"
           :visible="dialogOpen"
           title="Kan ikke bli med"
           message="Logg inn først for å bli med i en gruppe."
-      />
+        />
       </div>
 
       <!-- If the user is member of the community, this hamburger menu will show -->
       <div v-if="member">
-        <svg @click="toggle" xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+        <svg
+          @click="toggle"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-9 h-9 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
 
-      <CommunityHamburger v-if="hamburgerOpen" class="origin-top-right absolute right-0" :community-i-d="community.communityId"/> <!-- class="absolute" -->
+        <CommunityHamburger
+          v-if="hamburgerOpen"
+          class="origin-top-right absolute right-0"
+          :community-i-d="community.communityId"
+        />
+        <!-- class="absolute" -->
       </div>
     </div>
   </div>
@@ -60,7 +77,10 @@
 <script>
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
-import { JoinOpenCommunity, GetIfUserAlreadyInCommunity } from "@/utils/apiutil";
+import {
+  JoinOpenCommunity,
+  GetIfUserAlreadyInCommunity,
+} from "@/utils/apiutil";
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 
 export default {
@@ -70,12 +90,12 @@ export default {
     ColoredButton,
     CustomFooterModal,
   },
-  data(){
-    return{
+  data() {
+    return {
       hamburgerOpen: false,
       dialogOpen: false,
       member: true,
-    }
+    };
   },
   props: {
     adminStatus: Boolean,
@@ -86,37 +106,37 @@ export default {
       visibility: Number,
       location: String,
       picture: String,
-    }
+    },
   },
   methods: {
     //To open and close the hamburger menu
-    toggle: function (){
-      if(this.hamburgerOpen){
+    toggle: function () {
+      if (this.hamburgerOpen) {
         this.hamburgerOpen = false;
-      }
-      else{
+      } else {
         this.hamburgerOpen = true;
       }
     },
-    joinCommunity: async function(id){
+    joinCommunity: async function (id) {
       const response = await JoinOpenCommunity(id);
-      if(response === "Login to join any community"){
+      if (response === "Login to join any community") {
         this.dialogOpen = true;
-      }
-      else{
+      } else {
         window.location.reload();
       }
     },
-    getIfUserInCommunity: async function(){
-      try{
-        this.member = await GetIfUserAlreadyInCommunity(this.$router.currentRoute.value.params.communityID);
-      } catch (error){
+    getIfUserInCommunity: async function () {
+      try {
+        this.member = await GetIfUserAlreadyInCommunity(
+          this.$router.currentRoute.value.params.communityID
+        );
+      } catch (error) {
         console.log(error);
       }
-    }
+    },
   },
   beforeMount() {
     this.getIfUserInCommunity();
-  }
+  },
 };
 </script>

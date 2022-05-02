@@ -24,10 +24,10 @@
 
       <!-- If a user isn't member but the community is open, the user is able to get in to see listings(items) -->
       <ColoredButton
-          v-if="!member && community.visibility===1"
-          :text="'Gå til'"
-          @click="goToGroup(community.communityId)"
-          class="m-2"
+        v-if="!member && community.visibility === 1"
+        :text="'Gå til'"
+        @click="goToGroup(community.communityId)"
+        class="m-2"
       />
     </div>
 
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       dialogOpen: false,
-      responseToUser: '',
+      responseToUser: "",
     };
   },
   props: {
@@ -90,10 +90,9 @@ export default {
     },
     async goToJoin(id) {
       const response = await JoinOpenCommunity(id);
-      if(response === "Login to join any community"){
+      if (response === "Login to join any community") {
         this.responseToUser = "Logg inn først for å bli med i en gruppe";
-      }
-      else{
+      } else {
         this.$router.push("/community/" + id);
       }
     },

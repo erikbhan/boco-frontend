@@ -1,98 +1,90 @@
 <template>
-  <div class="max-w-md p-6 mx-auto rounded-md shadow-lg mt-16">
-    <div class="flex justify-center text-2xl">Logg inn</div>
-    <div
-      id="emailField"
-      class="m-6"
-      :class="{ error: v$.user.email.$errors.length }"
-    >
-      <div class="mb-6">
-        <label
-          for="email"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >E-post</label
+  <div
+    class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%]"
+  >
+    <div class="px-6 py-4 mt-4">
+      <h3
+        class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      >
+        Logg på
+      </h3>
+
+      <div>
+        <div
+          class="w-full mt-6"
+          :class="{ error: v$.user.email.$errors.length }"
         >
-        <input
-          type="email"
-          id="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="eksempel@eksempel.no"
-          v-model="v$.user.email.$model"
-          required
-        />
-        <!-- error message -->
-        <div v-for="(error, index) of v$.user.email.$errors" :key="index">
-          <div
-            class="text-red-600 text-sm"
-            v-show="showError"
-            id="emailErrorId"
-          >
-            {{ error.$message }}
+          <input
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+            type="email"
+            placeholder="Skriv inn din e-postadresse *"
+            v-model="v$.user.email.$model"
+            required
+          />
+          <!-- error message -->
+          <div v-for="(error, index) of v$.user.email.$errors" :key="index">
+            <div
+              class="text-red-600 text-sm"
+              v-show="showError"
+              id="emailErrorId"
+            >
+              {{ error.$message }}
+            </div>
           </div>
         </div>
+
+        <div
+          class="w-full mt-6"
+          :class="{ error: v$.user.password.$errors.length }"
+        >
+          <input
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+            type="password"
+            placeholder="Vennligst oppgi passordet ditt *"
+            v-model="v$.user.password.$model"
+            @keyup.enter="loginClicked"
+            required
+          />
+          <!-- error message -->
+          <div
+            class="text-red-600 text-sm"
+            v-for="(error, index) of v$.user.password.$errors"
+            :key="index"
+          >
+            <div
+              class="text-red-600 text-sm"
+              v-show="showError"
+              id="passwordErrorId"
+            >
+              {{ error.$message }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-8">
+          <router-link to="/resetPassword" class="text-primary-medium"
+            >Glemt passord?</router-link
+          >
+
+          <Button @click="loginClicked" :text="'Logg på'"></Button>
+        </div>
       </div>
     </div>
 
     <div
-      id="passwordField"
-      class="m-6"
-      :class="{ error: v$.user.password.$errors.length }"
+      class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"
     >
-      <label
-        for="password"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Passord</label
+      <router-link
+        to="/register"
+        class="mx-2 text-sm font-bold text-primary-medium dark:text-primary-light hover:underline"
+        >Opprette ny konto</router-link
       >
-      <input
-        type="password"
-        id="password"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        v-model="v$.user.password.$model"
-        required
-        @keyup.enter="loginClicked"
-      />
-      <!-- error message -->
-      <div
-        class="text-red"
-        v-for="(error, index) of v$.user.password.$errors"
-        :key="index"
-      >
-        <div
-          class="text-red-600 text-sm"
-          v-show="showError"
-          id="passwordErrorId"
-        >
-          {{ error.$message }}
-        </div>
-      </div>
     </div>
-
-    <div id="buttonsField" class="m-6">
-      <div class="align-items: flex-end; mb-6">
-        <div class="ml-3 text-sm">
-          <router-link
-            to="/resetPassword"
-            class="text-blue-600 flex justify-end"
-            >Glemt passord</router-link
-          >
-        </div>
-      </div>
-      <button
-        @click="loginClicked"
-        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+    <div class="flex items-center justify-center text-center bg-gray-50">
+      <label
+        class="mx-2 text-sm font-bold text-red-500 dark:text-primary-light hover:underline"
+        >{{ message }}</label
       >
-        Logg inn
-      </button>
-      <div class="align-items: flex-end; mb-6 mt-12">
-        <div class="text-sm">
-          <router-link to="register" class="text-blue-600 flex justify-center"
-            >Ny bruker</router-link
-          >
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <label>{{ message }}</label>
-      </div>
     </div>
   </div>
 </template>
@@ -101,10 +93,14 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
+import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
   name: "LoginForm.vue",
 
+  components: {
+    Button,
+  },
   setup() {
     return { v$: useVuelidate() };
   },
@@ -112,11 +108,11 @@ export default {
     return {
       user: {
         email: {
-          required,
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
           email: helpers.withMessage(`E-posten er ugyldig`, email),
         },
         password: {
-          required,
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
         },
       },
     };
@@ -138,9 +134,9 @@ export default {
     async loginClicked() {
       this.showError = true;
 
-      this.v$.user.email.$touch();
+      this.v$.user.$touch();
 
-      if (this.v$.user.email.$invalid) {
+      if (this.v$.user.$invalid) {
         console.log("Ugyldig, avslutter...");
         return;
       }
@@ -154,17 +150,12 @@ export default {
 
       if (loginResponse.isLoggedIn === false) {
         this.message = "Feil e-post/passord";
-        this.$store.commit("logout");
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
         await this.$router.push("/");
       } else {
         console.log("Something went wrong");
       }
-    },
-
-    validate() {
-      this.$refs.form.validate();
     },
   },
 };
