@@ -1,7 +1,11 @@
 <template>
   <div>
     <div>
-      <ImageCarousel :images="pictures"></ImageCarousel>
+      <div
+        v-bind:class="{'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center': noPicture}"
+      >
+        <ImageCarousel :images="pictures"></ImageCarousel>
+      </div>
     </div>
     <!-- Product info -->
     <div
@@ -98,6 +102,7 @@ export default {
         },
       ],
       pictures: [],
+      noPicture: true,
     };
   },
   components: {
@@ -108,6 +113,8 @@ export default {
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
       this.item = await getItem(id);
+      console.log(this.item);
+      console.log("This is the user id " + this.item.userID);
     },
     async getItemPictures() {
       let id = this.$router.currentRoute.value.params.id;
@@ -120,6 +127,7 @@ export default {
           };
           this.pictures.push(noImage);
       } else {
+        this.noPicture = false;
         for (let i = 0; i < this.images.length; i++) {
             let oneImage = {
                 src: this.images[i].picture,
