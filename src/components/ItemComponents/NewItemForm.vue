@@ -33,22 +33,22 @@
     <!-- Select category -->
     <div class="mb-6">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="selectCategoryLabel"
-        >Kategori</label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="selectCategoryLabel"
+      >Kategori</label
       >
       <select
-        v-model="v$.item.select.$model"
-        id="categories"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+          v-model="v$.item.select.$model"
+          id="categories"
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
           Velg en kategori
         </option>
         <option
-          v-for="category in categories"
-          :key="category"
-          class="text-gray-900 text-sm"
+            v-for="category in categories"
+            :key="category"
+            class="text-gray-900 text-sm"
         >
           {{ category }}
         </option>
@@ -56,9 +56,9 @@
 
       <!-- error message for select box -->
       <div
-        class="text-error"
-        v-for="(error, index) of v$.item.select.$errors"
-        :key="index"
+          class="text-error"
+          v-for="(error, index) of v$.item.select.$errors"
+          :key="index"
       >
         <div class="text-error text-sm">
           {{ error.$message }}
@@ -66,6 +66,7 @@
       </div>
     </div>
 
+    <!-- Grupper -->
     <div class="mb-6">
       <label
         class="block text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -92,29 +93,6 @@
       </div>
       <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
     </div>
-
-      <!-- error message for select box -->
-      <div
-          class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
-      >
-        <ul class="py-1" aria-labelledby="dropdownDefault">
-          <li>
-            <div class="form-check" v-for="group in groups" :key="group">
-              <input
-
-                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="checkbox"
-                  :value="group.communityId"
-                  @change="onChangeGroup($event)"
-              >
-              <label class="form-check-label inline-block text-gray-800">
-                {{ group.name }}
-              </label>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
 
     <!-- price -->
     <div class="mb-6 mt-4" :class="{ error: v$.item.price.$errors.length }">
