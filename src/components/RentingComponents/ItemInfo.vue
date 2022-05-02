@@ -64,7 +64,7 @@
               Total pris: {{ totPrice }} kr
             </p>
             <button
-              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-primary-medium rounded-md hover:bg-primary-light focus:outline-none focus:ring focus:ring-opacity-80"
             >
               <!-- This button should send you to the rent page -->
               Rent now
