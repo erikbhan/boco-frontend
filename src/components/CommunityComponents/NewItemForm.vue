@@ -206,7 +206,7 @@
     </div>
 
     <!-- Save item button -->
-    <div class="flex justify-center">
+    <div class="float-right">
       <Button :text="'Lagre'" @click="saveClicked" id="saveButton" />
     </div>
   </div>
