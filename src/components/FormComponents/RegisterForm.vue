@@ -2,11 +2,11 @@
   <div
     class="w-full max-w-md mx-auto mb-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
-    <h3
-      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    <div
+      class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
     >
-      Opprett ny bruker
-    </h3>
+      Opprett ny konto
+    </div>
 
     <form @submit.prevent>
       <div class="grid grid-cols-1 gap-6 mt-4">
@@ -157,7 +157,7 @@
       </div>
 
       <div class="flex justify-end mt-6">
-        <Button @click="submit" :text="'Lagre'"></Button>
+        <Button @click="submit" :text="'Opprett'"></Button>
       </div>
     </form>
   </div>
