@@ -1,7 +1,7 @@
 <template>
   <div v-if="loggedIn">
-    <div className="flex flex-row p-4 relative">
-      <p className="capitalize font-bold w-full">Mine felleskap</p>
+    <div class="flex flex-row p-4 relative">
+      <p class="capitalize font-bold w-full">Mine felleskap</p>
       <PlusIcon
         class="cursor-pointer max-h-6 max-w-6 float-right grow"
         @click="$router.push('/createNewGroup')"
@@ -9,16 +9,16 @@
         alt="Lag ett nytt felleskap"
       />
     </div>
-    <CommunityList :communities="myCommunities" :member="true"/>
+    <CommunityList :communities="myCommunities" :member="true" />
   </div>
-  <p className="capitalize font-bold w-full p-4">Offentlige felleskap</p>
-  <CommunityList :communities="publicCommunities" :member="false"/>
+  <p class="capitalize font-bold w-full p-4">Offentlige felleskap</p>
+  <CommunityList :communities="publicCommunities" :member="false" />
 </template>
 
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
-import {getMyGroups, getVisibleGroups} from "@/utils/apiutil";
-import {PlusIcon} from "@heroicons/vue/outline";
+import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
+import { PlusIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "HomeView",
