@@ -4,7 +4,7 @@
       <p class="capitalize font-bold w-full">Mine felleskap</p>
       <PlusIcon
         class="cursor-pointer max-h-6 max-w-6 float-right grow"
-        @click="$router.push('/createNewGroup')"
+        @click="$router.push('/newCommunity')"
         v-if="loggedIn"
         alt="Lag ett nytt felleskap"
       />

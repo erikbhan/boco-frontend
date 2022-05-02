@@ -65,7 +65,7 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/group/:id/memberlist",
+    path: "/community/:id/memberlist",
     name: "memberlist",
     component: () => import("../views/CommunityViews/MemberListView.vue"),
     beforeEnter: guardRoute,

@@ -15,7 +15,7 @@
         <PlusIcon
           class="m-6 cursor-pointer h-7"
           alt="Legg til"
-          @click="$router.push('/addNewItem')"
+          @click="$router.push('/newItem')"
         />
       </li>
       <li>
