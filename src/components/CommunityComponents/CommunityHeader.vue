@@ -1,8 +1,9 @@
 <template>
   <div class="flex items-center justify-between mx-4">
     <router-link
-    :to="'/community/' + community.communityId"
-    class="flex-1 min-w-0">
+      :to="'/community/' + community.communityId"
+      class="flex-1 min-w-0"
+    >
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate"
       >

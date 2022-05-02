@@ -1,21 +1,21 @@
 // route id param for pages that require routing
 // id = 1, user = test testesen
 export const route = {
-    params: {
-        id: 1
-    }
+  params: {
+    id: 1,
+  },
 };
 
 export const router = {
-push: jest.fn()
+  push: jest.fn(),
 };
 
 export const $route = {
-    params: {
-        id: 1
-    }
+  params: {
+    id: 1,
+  },
 };
 
 export const $router = {
-push: jest.fn()
+  push: jest.fn(),
 };
