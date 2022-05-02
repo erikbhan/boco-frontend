@@ -140,7 +140,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
       class="inline-flex rounded-md shadow-sm"
     >
       <div
-        class="text-red-500 uppercase text-center"
+        class="text-error uppercase text-center"
       >
          midlertidig fjernet 
       </div>
