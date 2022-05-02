@@ -2,21 +2,21 @@
   <div class="confirmationBox">
     <div class="rentTitle">
       <h1>
-       {{ title }}
+        {{ title }}
       </h1>
     </div>
-    
-    <div class = "fromTime">
-      <p>Fra: {{ from_time }}</p>
+
+    <div class="fromTime">
+      <p>Fra: {{ fromTime }}</p>
     </div>
-    <div class = "toTime">
-      <p>Til: {{ to_time }}</p>
+    <div class="toTime">
+      <p>Til: {{ toTime }}</p>
     </div>
-    <div class = "message">
+    <div class="message">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="descriptionLabel"
-        >Skriv en melding til utleier</label
+        >Skriv en melding til utleier:</label
       >
       <textarea
         id="description"
@@ -26,9 +26,9 @@
         required
       ></textarea>
     </div>
-    <colored-button class = "cancelButton" :text="'Tilbake'"></colored-button>
-    <div class = "confirmButton">
-    <colored-button @click="sendRent" :text="'Send'"></colored-button>
+    <button class="cancelButton">Tilbake</button>
+    <div class="confirmButton">
+      <colored-button @click="sendRent" :text="'Send'"></colored-button>
     </div>
   </div>
 </template>
@@ -44,8 +44,13 @@ export default {
   data() {
     return {
       title: this.newRentBox.title,
+      fromTime: this.newRentBox.fromTime,
+      toTime: this.newRentBox.toTime,
+      fromTimeMilliseconds: new Date(this.newRentBox.fromTime).getMilliseconds,
+      toTimeMilliseconds: new Date(this.newRentBox.toTime).getMilliseconds,
       message: "",
       price: this.newRentBox.price_per_day,
+
     };
   },
   props: {
@@ -57,7 +62,7 @@ export default {
       toTime: Date,
       pricePerDay: Number,
       listingId: Number,
-      isAccepted: Boolean
+      isAccepted: Boolean,
     },
   },
   methods: {
@@ -70,8 +75,8 @@ export default {
         listingId: this.newRentBox.listingId,
         renterId: this.newRentBox.renterId,
         isAccepted: false,
-        toTime: this.newRentBox.toTime,
-        fromTime: this.newRentBox.fromTime,
+        toTime: this.toTimeMilliseconds,
+        fromTime: this.fromTimeMilliseconds,
       };
       await postNewRent(rent);
       console.log(rent);
@@ -80,43 +85,50 @@ export default {
 };
 </script>
 
-<style>
-.confirmationBox{
+<style scoped>
+.confirmationBox {
+  border: 1px solid silver;
   margin-top: 60fr;
-  width: 70%;
+  padding: 10%;
+  width: 80%;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 1fr 1fr 3fr 1fr;
-  max-height: 90%;
+  grid-template-rows: 0.5fr 1.5fr 1fr 1fr 3fr 1fr;
+  /* max-height: 100%; */
+  margin-top: 10%;
 }
-.cancelButton{
-grid-column: 1/2;
-grid-row: 1/2;
+.cancelButton {
+  grid-column: 1/2;
+  grid-row: 1/2;
 }
-.rentTitle{
+.rentTitle {
   margin-top: 10%;
   text-align: center;
-  grid-column: 2/3;
-}
-.fromTime{
-  grid-row: 2/3;
   grid-column: 1/3;
-  display: block;
+  grid-row: 2/3;
+  font-weight: bold;
 }
-.toTime{
+.fromTime {
   grid-row: 3/4;
   grid-column: 1/3;
   display: block;
 }
-
-.message{
-  grid-column: 1/3;
+.toTime {
   grid-row: 4/5;
+  grid-column: 1/3;
+  display: block;
 }
-.confirmButton{
+
+.message {
   grid-column: 1/3;
   grid-row: 5/6;
+}
+.confirmButton {
+  grid-column: 1/3;
+  grid-row: 6/7;
   align-content: center;
+  margin: auto;
+  margin-top: 10px;
 }
 </style>
