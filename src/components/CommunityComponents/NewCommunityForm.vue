@@ -2,7 +2,7 @@
   <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
     <!-- Component heading -->
     <div
-      class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
       Opprett ny gruppe
     </div>
@@ -54,9 +54,9 @@
     <!-- Title -->
     <div class="mt-6" :class="{ error: v$.group.name.$errors.length }">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        id="titleLabel"
-        >Gruppenavn</label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="selectCategoryLabel"
+      >Gruppenavn</label
       >
       <input
         type="text"
@@ -81,8 +81,9 @@
     <!-- Place -->
     <div class="mt-6" :class="{ error: v$.group.place.$errors.length }">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >By/Sted</label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="selectCategoryLabel"
+      >By/Sted</label
       >
       <input
         type="text"
@@ -106,9 +107,9 @@
     <!-- Description -->
     <div class="mt-6" :class="{ error: v$.group.description.$errors.length }">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="descriptionLabel"
-        >Beskrivelse</label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="selectCategoryLabel"
+      >Beskrivelse</label
       >
       <textarea
         id="description"

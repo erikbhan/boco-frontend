@@ -1,7 +1,7 @@
 <template>
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
-      <p class="text-xl md:text-2xl text-gray-600 font-medium w-full">Mine grupper</p>
+      <div class="text-xl md:text-2xl text-gray-600 font-medium w-full">Mine grupper</div>
       <UserAddIcon
           class="cursor-pointer max-h-6 max-w-6 float-right grow"
           @click="$router.push('/newCommunity')"
