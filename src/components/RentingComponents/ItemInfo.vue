@@ -1,7 +1,14 @@
 <template>
   <div>
     <div>
-      <ImageCarousel :images="pictures"></ImageCarousel>
+      <div
+        v-bind:class="{
+          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center':
+            noPicture,
+        }"
+      >
+        <ImageCarousel :images="pictures"></ImageCarousel>
+      </div>
     </div>
     <!-- Product info -->
     <div
@@ -27,27 +34,10 @@
             </p>
           </div>
         </div>
-        <div class="mt-4">
-          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
-
-          <div>
-            <p class="text-sm text-gray-900">
-              (placeholder skal byttes ut med date-picker)
-            </p>
-          </div>
-        </div>
-        <div class="mt-10">
+        <div>
           <div class="mt-4 space-y-6">
             <p class="text-sm text-gray-600">{{ item.description }}</p>
           </div>
-        </div>
-        <div class="mt-6">
-          <!-- Add in method for displaying user card. Use item.userID on the method -->
-          (Placeholder) Add usercard here
-          <UserListItemCard
-            :admin="false"
-            :user="this.item.userID"
-          ></UserListItemCard>
         </div>
         <div>
           <div class="mt-4 space-y-6">
@@ -56,16 +46,28 @@
             </p>
           </div>
         </div>
-        <div class="mt-10">
-          <h3 class="text-base font-semibold text-gray-900">Totalprisen er</h3>
+        <div class="mt-2">
+          <UserListItemCard :user="userForId"></UserListItemCard>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
 
-          <div class="mt-2 space-y-2">
-            <p class="text-xl font-medium text-gray-900">
-              mye (Change with tot price from calc method)
+          <div>
+            <p class="text-sm text-gray-900">
+              <DatepickerRange @value="setDate" :messageOnDisplay="dateMessage"></DatepickerRange>
             </p>
-            <button>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="mt-2 space-y-2">
+            <p class="text-xl font-semibold text-gray-900">
+              Total pris: {{ totPrice }} kr
+            </p>
+            <button
+              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+            >
               <!-- This button should send you to the rent page -->
-              Rent page
+              Rent now
             </button>
           </div>
         </div>
@@ -77,8 +79,10 @@
 <script>
 import { getItem } from "@/utils/apiutil";
 import { getItemPictures } from "@/utils/apiutil";
+import { getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
+import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
 
 export default {
   name: "ItemInfo",
@@ -101,16 +105,24 @@ export default {
         },
       ],
       pictures: [],
+      noPicture: true,
+      userForId: Object,
+      rentingStartDate: null,
+      rentingEndDate: null,
+      totPrice: 0,
+      dateMessage: "Venligst velg dato for leieperioden",
     };
   },
   components: {
     ImageCarousel,
     UserListItemCard,
+    DatepickerRange,
   },
   methods: {
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
       this.item = await getItem(id);
+      this.totPrice = this.item.pricePerDay;
     },
     async getItemPictures() {
       let id = this.$router.currentRoute.value.params.id;
@@ -123,6 +135,7 @@ export default {
         };
         this.pictures.push(noImage);
       } else {
+        this.noPicture = false;
         for (let i = 0; i < this.images.length; i++) {
           let oneImage = {
             src: this.images[i].picture,
@@ -134,10 +147,27 @@ export default {
       }
       //TODO fixs so each image get a correct alt text.
     },
+    async getUser(userId) {
+      this.userForId = await getUser(userId);
+      console.log(this.userForId);
+    },
+    setDate(dateOfsomthing) {
+      this.rentingStartDate = dateOfsomthing.startDate;
+      this.rentingEndDate = dateOfsomthing.endDate;
+      console.log("This is the two dates " + this.rentingStartDate + " " + this.rentingEndDate);
+      this.calculateTotPrice();
+    },
+    calculateTotPrice() {
+      let amountOfDays = this.rentingEndDate - this.rentingStartDate;
+      amountOfDays = amountOfDays / 86400000;
+      console.log("This is the difference in days " + amountOfDays);
+      this.totPrice = this.item.pricePerDay * amountOfDays;
+    }
   },
   async beforeMount() {
     await this.getItemPictures();
-    this.getItem();
+    await this.getItem();
+    await this.getUser(this.item.userID);
   },
 };
 </script>
