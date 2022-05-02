@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import LargeProfileCard from "@/components/UserProfileComponents/LargeProfileCard.vue";
+import LargeProfileCard from "@/components/UserProfileComponents/UserProfile.vue";
 
 export default {
   components: {
