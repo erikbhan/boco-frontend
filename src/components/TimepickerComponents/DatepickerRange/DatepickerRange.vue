@@ -72,7 +72,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    messageOnDisplay: String || "Date Input (click to open)",
+    messageOnDisplay: String,
   },
   data() {
     return {

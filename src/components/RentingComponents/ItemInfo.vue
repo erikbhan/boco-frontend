@@ -21,6 +21,7 @@
           {{ item.title }}
         </h1>
       </div>
+      <!-- TODO make this component render elements differently depending on screen size -->
       <div
         class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
       >
@@ -58,7 +59,7 @@
             </p>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2 md:col-span-1">
           <div class="mt-2 space-y-2">
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
@@ -149,18 +150,15 @@ export default {
     },
     async getUser(userId) {
       this.userForId = await getUser(userId);
-      console.log(this.userForId);
     },
     setDate(dateOfsomthing) {
       this.rentingStartDate = dateOfsomthing.startDate;
       this.rentingEndDate = dateOfsomthing.endDate;
-      console.log("This is the two dates " + this.rentingStartDate + " " + this.rentingEndDate);
       this.calculateTotPrice();
     },
     calculateTotPrice() {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
       amountOfDays = amountOfDays / 86400000;
-      console.log("This is the difference in days " + amountOfDays);
       this.totPrice = this.item.pricePerDay * amountOfDays;
     }
   },
