@@ -84,7 +84,8 @@ const routes = [
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../views/NavigationViews/NotificationView.vue"),
+    component: () =>
+      import("../components/BaseComponents/NotificationsForm.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -93,10 +94,14 @@ const routes = [
     component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
   },
   {
-    path: "/groupHomePage",
+    path: "/community/:communityID",
     name: "GroupHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
-    beforeEnter: guardRoute,
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("../views/TestView.vue"),
   },
   {
     path: "/itempage/:id",

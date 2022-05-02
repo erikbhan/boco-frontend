@@ -47,7 +47,7 @@ export default {
     calculateTime() {
       //let time = this.message.from;
       // Calculate time when message was sent
-      let date = new Date(Date.now());
+      let date = new Date(this.message.timestamp);
       let hours = date.getHours();
       let minutes = "0" + date.getMinutes();
       let formattedTime = hours + ":" + minutes.substr(-2);

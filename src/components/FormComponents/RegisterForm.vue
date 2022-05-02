@@ -182,15 +182,15 @@ export default {
 
       const loginResponse = await doLogin(loginRequest);
 
-      if (loginResponse === "Failed login") {
+      if (loginResponse.isLoggedIn === false) {
         this.errorMessage = "Failed to log in with new user";
         this.$store.commit("logout");
-        this.$router.push("/login");
+        await this.$router.push("/login");
         return;
       }
 
-      this.$store.commit("saveToken", loginResponse);
-      this.$router.push("/");
+      this.$store.commit("saveToken", loginResponse.token);
+      await this.$router.push("/");
     },
     async sendRegisterRequest() {
       const registerInfo = {

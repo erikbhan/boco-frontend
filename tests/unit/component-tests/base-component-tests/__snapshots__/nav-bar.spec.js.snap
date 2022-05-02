@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar component renders correctly 1`] = `
+<nav
+  class="flex items-center justify-between bg-white h-14 border-1 border-b border-gray-300 border-solid sticky top-0 z-50"
+>
+  <div
+    class="logo"
+  >
+    <img
+      alt="BoCo logo"
+      class="m-1 ml-4 cursor-pointer h-12"
+      src=""
+    />
+  </div>
+  <ul
+    class="flex"
+  >
+    <li>
+      <img
+        alt="Legg til"
+        class="m-6 cursor-pointer h-7"
+        src=""
+      />
+    </li>
+    <li>
+      <img
+        alt="Meldinger"
+        class="m-6 cursor-pointer h-7"
+        src=""
+      />
+    </li>
+    <li>
+      <img
+        alt="Profil"
+        class="m-6 cursor-pointer h-7"
+        src=""
+      />
+    </li>
+  </ul>
+</nav>
+`;
