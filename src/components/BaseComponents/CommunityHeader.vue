@@ -108,7 +108,11 @@ export default {
       }
     },
     getIfUserInCommunity: async function(){
-      this.member = await GetIfUserAlreadyInCommunity(this.$router.currentRoute.value.params.communityID);
+      try{
+        this.member = await GetIfUserAlreadyInCommunity(this.$router.currentRoute.value.params.communityID);
+      } catch (error){
+        console.log(error);
+      }
     }
   },
   beforeMount() {
