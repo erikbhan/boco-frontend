@@ -1,7 +1,7 @@
 <template>
   <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny utleie</h3>
+    <div class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10">Opprett ny utleie</div>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -43,7 +43,7 @@
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
-          Select a category
+          Velg en kategori
         </option>
         <option
           v-for="category in categories"
@@ -70,6 +70,7 @@
     <div class="mb-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="selectCommunityLabel"
         >Gruppe</label
       >
       <select
@@ -77,7 +78,7 @@
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
-          Select a Group
+          Velg en gruppe
         </option>
         <option
           v-for="group in groups"
@@ -158,6 +159,7 @@
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="addressLabel"
         >Adresse</label
       >
       <input
