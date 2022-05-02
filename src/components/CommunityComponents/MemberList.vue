@@ -14,7 +14,7 @@
 <script>
 import UserListItemCard from "../UserProfileComponents/UserListItemCard.vue";
 import { GetMembersOfCommunity, GetCommunity } from "@/utils/apiutil";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
 
 export default {
   data() {

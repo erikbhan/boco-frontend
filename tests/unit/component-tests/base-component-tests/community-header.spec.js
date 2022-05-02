@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader.vue";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
 
 describe("CommunityHeader component", () => {
   let wrapper;
