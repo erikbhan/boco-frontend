@@ -1,21 +1,22 @@
 <template>
   <ul>
-    <li v-for="(group, index) in groupList" :key="index">
-      <group-list-item :group="group" />
+    <li v-for="community in communities" :key="community">
+      <CommunityListItem :community="community" :member="member" />
     </li>
   </ul>
 </template>
 
 <script>
-import GroupListItem from "@/components/CommunityComponents/CommunityListItem.vue";
+import CommunityListItem from "@/components/CommunityComponents/CommunityListItem.vue";
 
 export default {
-  name: "GroupList",
+  name: "CommunityList",
   props: {
-    groupList: Array,
+    communities: Array,
+    member: Boolean,
   },
   components: {
-    GroupListItem,
+    CommunityListItem,
   },
 };
 </script>

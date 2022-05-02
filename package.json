@@ -21,6 +21,7 @@
     "roboto-fontface": "*",
     "sockjs-client": "^1.6.0",
     "stompjs": "^2.3.3",
+    "tw-elements": "^1.0.0-alpha12",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuelidate": "^0.7.7",

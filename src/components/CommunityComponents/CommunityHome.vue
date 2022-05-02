@@ -34,7 +34,12 @@
       <div
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
       >
-        <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
+        <ItemCard
+          v-for="item in searchedItems"
+          :key="item"
+          :item="item"
+          @click="goToItemInfoPage(item.listingID)"
+        />
       </div>
     </div>
   </section>
@@ -66,11 +71,16 @@ export default {
       return filteredItems;
     },
   },
-
+  created() {
+    if (this.$store.state.user.token !== null) {
+      this.isLoggedIn = true;
+    }
+  },
   data() {
     return {
       items: [],
       item: {
+        listingID: 0,
         img: "",
         address: "",
         title: "",
@@ -91,6 +101,9 @@ export default {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
       this.items = await GetListingsInCommunity(this.communityID);
+    },
+    goToItemInfoPage(item) {
+      this.$router.push("/itempage/" + item);
     },
   },
   beforeMount() {
