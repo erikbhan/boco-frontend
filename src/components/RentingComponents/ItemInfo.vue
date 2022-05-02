@@ -44,7 +44,10 @@
         <div class="mt-6">
           <!-- Add in method for displaying user card. Use item.userID on the method -->
           (Placeholder) Add usercard here
-          <UserListItemCard :admin="false" :user="this.item.userID"></UserListItemCard>
+          <UserListItemCard
+            :admin="false"
+            :user="this.item.userID"
+          ></UserListItemCard>
         </div>
         <div>
           <div class="mt-4 space-y-6">
@@ -112,21 +115,21 @@ export default {
     async getItemPictures() {
       let id = this.$router.currentRoute.value.params.id;
       this.images = await getItemPictures(id);
-      
-      if(this.images.length < 1) {
-          let noImage = {
-              src: require('@/assets/default-product.png'),
-              alt: "No image found",
-          };
-          this.pictures.push(noImage);
+
+      if (this.images.length < 1) {
+        let noImage = {
+          src: require("@/assets/default-product.png"),
+          alt: "No image found",
+        };
+        this.pictures.push(noImage);
       } else {
         for (let i = 0; i < this.images.length; i++) {
-            let oneImage = {
-                src: this.images[i].picture,
-                //How do i make this accurate to the image?
-                alt: "An image",
-            };
-            this.pictures.push(oneImage);
+          let oneImage = {
+            src: this.images[i].picture,
+            //How do i make this accurate to the image?
+            alt: "An image",
+          };
+          this.pictures.push(oneImage);
         }
       }
       //TODO fixs so each image get a correct alt text.

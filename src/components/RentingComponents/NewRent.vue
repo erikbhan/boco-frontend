@@ -46,11 +46,10 @@ export default {
       title: this.newRentBox.title,
       fromTime: this.newRentBox.fromTime,
       toTime: this.newRentBox.toTime,
-      fromTimeMilliseconds: new Date(this.newRentBox.fromTime).getMilliseconds,
-      toTimeMilliseconds: new Date(this.newRentBox.toTime).getMilliseconds,
+      fromTimeMilliseconds: new Date(this.newRentBox.fromTime).valueOf(),
+      toTimeMilliseconds: new Date(this.newRentBox.toTime).valueOf(),
       message: "",
       price: this.newRentBox.price_per_day,
-
     };
   },
   props: {
@@ -71,13 +70,14 @@ export default {
     },
     sendRent: async function () {
       const rent = {
-        // message: this.message,
+        message: this.message,
         listingId: this.newRentBox.listingId,
         renterId: this.newRentBox.renterId,
         isAccepted: false,
         toTime: this.toTimeMilliseconds,
-        fromTime: this.fromTimeMilliseconds,
+        fromTime: this.fromTimeMilliseconds,  
       };
+      
       await postNewRent(rent);
       console.log(rent);
     },

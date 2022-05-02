@@ -103,7 +103,7 @@ const routes = [
     name: "newRent",
     component: () => import("../views/RentingViews/NewRentView.vue"),
   },
-    {
+  {
     beforeEnter: guardRoute,
     path: "/test",
     name: "test",
