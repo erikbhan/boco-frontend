@@ -1,6 +1,6 @@
 <template>
   <div>
-    <large-profile-card :isCurrentUser="true" class="align-top" />
+    <LargeProfileCard :isCurrentUser="true" class="md:mt-8" />
   </div>
 </template>
 

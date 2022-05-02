@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ItemCard from "@/components/CommunityComponents/ItemCard.vue";
+import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 
 describe("ItemCard component", () => {
   let wrapper;

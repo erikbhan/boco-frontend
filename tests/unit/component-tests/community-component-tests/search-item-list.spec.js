@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import SearchItemListComponent from "@/components/CommunityComponents/SearchItemList.vue";
+import SearchItemListComponent from "@/components/ItemComponents/SearchItemList.vue";
 
 describe("SearchItemListComponent elements rendering", () => {
   let wrapper;
