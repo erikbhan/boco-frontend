@@ -1,13 +1,13 @@
 <template>
   <div
-    class="min-w-full md:min-w-0 md:w-96 my-4 py-8 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    class="w-full max-w-xl m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
-    <div v-show="isCurrentUser" class="flex absolute justify-end px-4 pt-4">
+    <div v-show="isCurrentUser" class="float-right px-4 pt-4">
       <button
         id="dropdownDefault"
         data-dropdown-toggle="dropdown"
         @click="dropdown = !dropdown"
-        class="w-10 h-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+        class="w-10 h-10 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg float-right text-sm p-1.5"
         type="button"
       >
         <svg
@@ -27,7 +27,7 @@
         v-show="dropdown"
         class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
-        <ul class="py-1" aria-labelledby="dropdownDefault">
+        <ul class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl" aria-labelledby="dropdownDefault">
           <li>
             <router-link
               to=""
@@ -67,7 +67,7 @@
           <li>
             <router-link
               to=""
-              class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Slett bruker</router-link
             >
           </li>
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center pb-10">
+    <div class="flex flex-col items-center pb-10 mt-16 z-5">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
         src="../../assets/defaultUserProfileImage.jpg"

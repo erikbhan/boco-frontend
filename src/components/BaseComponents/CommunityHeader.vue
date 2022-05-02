@@ -28,9 +28,25 @@
       </div>
     </div>
     <div>
-      <span class="hidden sm:block">
-        <!-- Legg dette til i button: v-if="adminStatus" -->
+      <!-- If the user is not a member in the community, this button will show -->
+      <div v-if="!member">
+        <ColoredButton
+          v-if="!member"
+          :text="'Bli med'"
+          @click="joinCommunity(community.communityId)"
+          class="m-2"
+        />
 
+        <CustomFooterModal
+          @close="this.dialogOpen = false"
+          :visible="dialogOpen"
+          title="Kan ikke bli med"
+          message="Logg inn først for å bli med i en gruppe."
+        />
+      </div>
+
+      <!-- If the user is member of the community, this hamburger menu will show -->
+      <div v-if="member">
         <svg
           @click="toggle"
           xmlns="http://www.w3.org/2000/svg"
@@ -53,21 +69,32 @@
           :community-i-d="community.communityId"
         />
         <!-- class="absolute" -->
-      </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
+import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import {
+  JoinOpenCommunity,
+  GetIfUserAlreadyInCommunity,
+} from "@/utils/apiutil";
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
+
 export default {
   name: "CommunityHeader",
   components: {
     CommunityHamburger,
+    ColoredButton,
+    CustomFooterModal,
   },
   data() {
     return {
       hamburgerOpen: false,
+      dialogOpen: false,
+      member: true,
     };
   },
   props: {
@@ -82,6 +109,7 @@ export default {
     },
   },
   methods: {
+    //To open and close the hamburger menu
     toggle: function () {
       if (this.hamburgerOpen) {
         this.hamburgerOpen = false;
@@ -89,6 +117,26 @@ export default {
         this.hamburgerOpen = true;
       }
     },
+    joinCommunity: async function (id) {
+      const response = await JoinOpenCommunity(id);
+      if (response === "Login to join any community") {
+        this.dialogOpen = true;
+      } else {
+        window.location.reload();
+      }
+    },
+    getIfUserInCommunity: async function () {
+      try {
+        this.member = await GetIfUserAlreadyInCommunity(
+          this.$router.currentRoute.value.params.communityID
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  beforeMount() {
+    this.getIfUserInCommunity();
   },
 };
 </script>
