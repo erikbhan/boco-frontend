@@ -2,7 +2,7 @@
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
       <p class="capitalize font-bold w-full">Mine felleskap</p>
-      <PlusIcon
+      <UserAddIcon
         class="cursor-pointer max-h-6 max-w-6 float-right grow"
         @click="$router.push('/newCommunity')"
         v-if="loggedIn"
@@ -18,7 +18,7 @@
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
-import { PlusIcon } from "@heroicons/vue/outline";
+import { UserAddIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "HomeView",
@@ -31,7 +31,7 @@ export default {
   },
   components: {
     CommunityList,
-    PlusIcon,
+    UserAddIcon,
   },
   async created() {
     this.publicCommunities = await getVisibleGroups();
