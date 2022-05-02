@@ -1,8 +1,5 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/CommunityViews/CommunityView.vue";
-import LoginView from "../views/FormViews/LoginView.vue";
-import NewPasswordView from "../views/FormViews/NewPasswordView";
 
 /**
  * Guards routes. If token is null, no user is logged in and only the
@@ -21,7 +18,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: () => import("../views/CommunityViews/CommunityView.vue"),
   },
   {
     path: "/profile/:id",
@@ -37,27 +34,24 @@ const routes = [
   {
     path: "/messages",
     name: "messages",
-    component: () =>
-      import(
-        /* webpackChunkName: "register" */ "../views/ChatViews/ChatView.vue"
-      ),
+    component: () => import("../views/ChatViews/ChatView.vue"),
     beforeEnter: guardRoute,
   },
   {
     path: "/login",
     name: "login",
-    component: LoginView,
+    component: () => import("../views/FormViews/LoginView.vue"),
   },
   {
     path: "/newPassword",
     name: "newPassword",
-    component: NewPasswordView,
+    component: () => import("../views/FormViews/NewPasswordView"),
     beforeEnter: guardRoute,
   },
   {
     path: "/searchItemList",
     name: "searchItemList",
-    component: () => import("../views/CommunityViews/SearchItemListView.vue"),
+    component: () => import("../views/ItemViews/SearchItemListView.vue"),
   },
   {
     path: "/resetPassword",
@@ -65,20 +59,21 @@ const routes = [
     component: () => import("../views/FormViews/ResetPasswordView.vue"),
   },
   {
-    path: "/createNewGroup",
-    name: "createNewGroup",
+    path: "/newCommunity",
+    name: "newCommunity",
     component: () => import("../views/CommunityViews/NewCommunityView.vue"),
+    beforeEnter: guardRoute,
   },
   {
-    path: "/group/:id/memberlist",
+    path: "/community/:id/memberlist",
     name: "memberlist",
     component: () => import("../views/CommunityViews/MemberListView.vue"),
     beforeEnter: guardRoute,
   },
   {
-    path: "/addNewItem",
-    name: "addNewItem",
-    component: () => import("../views/CommunityViews/NewItemView.vue"),
+    path: "/newItem",
+    name: "newItem",
+    component: () => import("../views/ItemViews/NewItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -88,13 +83,14 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/user/:id/groups",
-    name: "myGroups",
+    path: "/user/:id/communities",
+    name: "myCommunities",
     component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
+    beforeEnter: guardRoute,
   },
   {
     path: "/community/:communityID",
-    name: "GroupHome",
+    name: "communityHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
   {

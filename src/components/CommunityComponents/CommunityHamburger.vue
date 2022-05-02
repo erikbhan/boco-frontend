@@ -6,21 +6,21 @@
     <ul class="py-1">
       <li id="newItem">
         <router-link
-          to="/addNewItem"
+          to="/newItem"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >Opprett Utleie</router-link
         >
       </li>
       <li id="getMembers">
         <router-link
-          :to="'/group/' + communityID + '/memberlist'"
+          :to="'/community/' + communityID + '/memberlist'"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >Se Medlemmer
         </router-link>
       </li>
       <li id="adminGroup">
         <router-link
-          :to="'/group/' + communityID + '/memberlist'"
+          :to="'/community/' + communityID + '/memberlist'"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >Administrer Gruppe</router-link
         >

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import ItemCard from "@/components/CommunityComponents/ItemCard";
+import ItemCard from "@/components/ItemComponents/ItemCard";
 import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
 import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
