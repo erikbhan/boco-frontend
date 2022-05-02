@@ -1,7 +1,10 @@
 <template>
   <div
-    class="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-8"
+      class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
+
+    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Endre passord</h3>
+
     <div
       id="firstPasswordField"
       :class="{ error: v$.user.password.$errors.length }"
@@ -14,7 +17,7 @@
       <input
         type="password"
         v-model="v$.user.password.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-light dark:focus:border-primary-light focus:ring-primary-light focus:outline-none focus:ring focus:ring-opacity-40"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
       />
       <!-- error message -->
       <div v-for="(error, index) of v$.user.password.$errors" :key="index">
@@ -44,7 +47,7 @@
       <input
         type="password"
         v-model="v$.user.rePassword.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-light dark:focus:border-primary-light focus:ring-primary-light focus:outline-none focus:ring focus:ring-opacity-40"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
       />
       <!-- error message -->
       <div v-for="(error, index) of v$.user.rePassword.$errors" :key="index">
@@ -59,25 +62,27 @@
     </div>
 
     <div id="buttonsField" class="mt-6">
-      <button
+      <Button
+          class="float-right"
         @click="setNewPassword"
-        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-      >
-        Endre passord
-      </button>
+        :text="'Sett ny passord'"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, minLength, sameAs } from "@vuelidate/validators";
+import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import { doNewPassword } from "@/utils/apiutil";
 import { mapState } from "vuex";
+import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
   name: "NewPasswordForm.vue",
 
+  components:{
+    Button,},
   setup() {
     return { v$: useVuelidate() };
   },
@@ -85,13 +90,12 @@ export default {
     return {
       user: {
         password: {
-          required,
-          minLength: minLength(8),
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
+          minLength: helpers.withMessage('Passordet må være minst 8 karakterer lang', minLength(8)),
         },
         rePassword: {
-          required,
-          minLength: minLength(8),
-          sameAs: sameAs(this.user.password),
+          sameAs: helpers.withMessage('Passordene må være like', sameAs(this.user.password)),
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
         },
       },
     };
@@ -129,7 +133,7 @@ export default {
 
       if (newPasswordResponse.newPasswordSet === true) {
         console.log("New password set");
-        await this.$router.push("/endre");
+        await this.$router.push("/");
       } else if (newPasswordResponse.newPasswordSet === false) {
         console.log("Couldn't set new password");
       } else {

@@ -1,5 +1,5 @@
 <template>
-  <div class="newPasswordPage">
+  <div class="h-screen grid md:mt-8">
     <NewPasswordForm></NewPasswordForm>
   </div>
 </template>
@@ -13,11 +13,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.newPasswordPage {
-  background-color: white;
-  height: 100%;
-  overflow: auto;
-}
-</style>

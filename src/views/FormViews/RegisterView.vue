@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen grid">
+  <div class="h-screen grid md:mt-8">
     <RegisterFormComponent />
   </div>
 </template>
