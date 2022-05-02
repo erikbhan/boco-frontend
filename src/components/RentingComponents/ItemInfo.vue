@@ -48,7 +48,7 @@
         <div class="mt-6">
           <!-- Add in method for displaying user card. Use item.userID on the method -->
           (Placeholder) Add usercard here
-          <UserListItemCard :admin="false" :user="this.item.userID"></UserListItemCard>
+          <UserListItemCard :user="userForId"></UserListItemCard>
         </div>
         <div>
           <div class="mt-4 space-y-6">
@@ -78,6 +78,7 @@
 <script>
 import { getItem } from "@/utils/apiutil";
 import { getItemPictures } from "@/utils/apiutil";
+import { getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 
@@ -103,6 +104,7 @@ export default {
       ],
       pictures: [],
       noPicture: true,
+      userForId: Object,
     };
   },
   components: {
@@ -139,10 +141,15 @@ export default {
       }
       //TODO fixs so each image get a correct alt text.
     },
+    async getUser(userId) {
+        this.userForId = await getUser(userId);
+        console.log(this.userForId);
+    }
   },
   async beforeMount() {
     await this.getItemPictures();
-    this.getItem();
+    await this.getItem();
+    await this.getUser(this.item.userID);
   },
 };
 </script>
