@@ -70,6 +70,7 @@
     <div class="mb-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="selectCommunityLabel"
         >Gruppe</label
       >
       <select
@@ -158,6 +159,7 @@
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="addressLabel"
         >Adresse</label
       >
       <input
