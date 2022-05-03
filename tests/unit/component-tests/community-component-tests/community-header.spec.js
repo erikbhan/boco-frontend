@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
-import { route, router, $route, $router } from "../../mock-router"
+import { route, router, $route, $router } from "../../mock-router";
 
 describe("CommunityHeader component", () => {
   let wrapper;
@@ -25,8 +25,8 @@ describe("CommunityHeader component", () => {
           router,
           $route,
           $router,
-        }
-      }
+        },
+      },
     });
   });
 

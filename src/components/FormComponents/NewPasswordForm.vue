@@ -1,9 +1,12 @@
 <template>
   <div
-      class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
-
-    <div class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Endre passord</div>
+    <div
+      class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Endre passord
+    </div>
 
     <div
       id="firstPasswordField"
@@ -63,7 +66,7 @@
 
     <div id="buttonsField" class="mt-6">
       <Button
-          class="float-right"
+        class="float-right"
         @click="setNewPassword"
         :text="'Sett ny passord'"
       />
@@ -81,8 +84,9 @@ import Button from "@/components/BaseComponents/ColoredButton";
 export default {
   name: "NewPasswordForm.vue",
 
-  components:{
-    Button,},
+  components: {
+    Button,
+  },
   setup() {
     return { v$: useVuelidate() };
   },
@@ -91,10 +95,16 @@ export default {
       user: {
         password: {
           required: helpers.withMessage(`Feltet må være utfylt`, required),
-          minLength: helpers.withMessage('Passordet må være minst 8 karakterer lang', minLength(8)),
+          minLength: helpers.withMessage(
+            "Passordet må være minst 8 karakterer lang",
+            minLength(8)
+          ),
         },
         rePassword: {
-          sameAs: helpers.withMessage('Passordene må være like', sameAs(this.user.password)),
+          sameAs: helpers.withMessage(
+            "Passordene må være like",
+            sameAs(this.user.password)
+          ),
           required: helpers.withMessage(`Feltet må være utfylt`, required),
         },
       },
@@ -124,12 +134,19 @@ export default {
         return;
       }
 
-      const newPasswordInfo = {
-        token: this.token,
-        newPassword: this.password,
-      };
+      const newPassword = this.user.password;
 
-      const newPasswordResponse = doNewPassword(newPasswordInfo);
+      const newPasswordResponse = await doNewPassword(newPassword);
+
+      if(newPasswordResponse != null) {
+        console.log("New password set");
+        this.$store.commit("saveToken", newPasswordResponse);
+        await this.$router.push("/");
+      } else {
+        console.log("Couldn't set new password");
+      }
+
+      /*
 
       if (newPasswordResponse.newPasswordSet === true) {
         console.log("New password set");
@@ -139,6 +156,8 @@ export default {
       } else {
         console.log("Something went wrong");
       }
+
+      */
     },
     validate() {
       this.$refs.form.validate();

@@ -84,15 +84,22 @@ export function getAverageRating(userid) {
       console.error(error);
     });
 }
-export function doNewPassword() {
-  //m
-  //add newPasswordInfo to input
-  const auth = { newPasswordSet: false };
-  //return axios
-  //.post(API_URL + "newPassword", newPasswordInfo)
-  //.then((response) => {auth.newPasswordSet = true;return auth;})
-  //.catch((error) => {console.log(error);return auth;});
-  return auth; //remove after axios is added
+export async function doNewPassword(password) {
+  let res = await axios({
+    method: 'put',
+    url: API_URL + "user/profile/password",
+    headers: tokenHeader(),
+    data: {
+      password: password,
+    }
+  })
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  return res.data; 
 }
 
 export function postNewItem(itemInfo) {
@@ -175,65 +182,64 @@ export async function GetListingsInCommunity(communityID) {
 }
 
 export async function GetMembersOfCommunity(communityID) {
-    return axios
-        .get(API_URL + "community/" + communityID + "/members", {
-            headers: tokenHeader(),
-        })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+  return axios
+    .get(API_URL + "community/" + communityID + "/members", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export function JoinOpenCommunity(communityId) {
+  if (tokenHeader().Authorization == "Bearer " + null) {
+    console.log("ikke logget på!");
+    return "Login to join any community";
+  }
 
-    if(tokenHeader().Authorization == "Bearer " + null){
-        console.log("ikke logget på!");
-        return "Login to join any community";
-    }
-
-    return axios
-        .post(API_URL + "communities/" + communityId + "/join", communityId, {
-            headers: tokenHeader(),
-        })
-        .then((response) => {
-            return response;
-        })
-        .catch((error) => {
-            console.log(error.response);
-            return error;
-        });
+  return axios
+    .post(API_URL + "communities/" + communityId + "/join", communityId, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
 }
 
 export async function GetIfUserAlreadyInCommunity(communityID) {
-    if(tokenHeader().Authorization == "Bearer " + null){
-        return false;
-    }
+  if (tokenHeader().Authorization == "Bearer " + null) {
+    return false;
+  }
 
-    return axios
-        .get(API_URL + "communities/" + communityID + "/user/status", {
-            headers: tokenHeader(),
-        })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            return error;
-        });
+  return axios
+    .get(API_URL + "communities/" + communityID + "/user/status", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
 }
 
 export async function LeaveCommunity(communityID) {
-    return axios
-        .patch(API_URL + "communities/" + communityID + "/leave", communityID, {
-            headers: tokenHeader(),
-        })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error.data);
-            return error;
-        });
+  return axios
+    .patch(API_URL + "communities/" + communityID + "/leave", communityID, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.data);
+      return error;
+    });
 }
