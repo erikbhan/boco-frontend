@@ -8,12 +8,20 @@
     <div class="flex justify-center p-2">
       <!-- If a user is not a member in the community, this button will show -->
       <ColoredButton
-        v-if="!member"
+        v-if="!member && community.visibility!==0"
         :text="'Bli med'"
         @click="goToJoin(community.communityId)"
         class="m-2"
       />
 
+        <ColoredButton
+        v-if="!member && community.visibility===0"
+        :text="'Spør om å bli med'"
+        @click="goToRequest(community.communityId)"
+        class="m-2"
+        />
+
+      
       <!-- If a user is member this button will show -->
       <ColoredButton
         v-if="member"
@@ -95,6 +103,9 @@ export default {
       } else {
         this.$router.push("/community/" + id);
       }
+    },
+    goToRequest(id){
+        this.$router.push("/community/" + id + "/private/join")
     },
     toggleDialog() {
       this.dialogOpen = !this.dialogOpen;

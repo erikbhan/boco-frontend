@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     color() {
-      console.log(this.userID);
+      //console.log(this.userID);
       return this?.message.from == this.userID
         ? "bg-gray-300"
         : "bg-primary-medium";
