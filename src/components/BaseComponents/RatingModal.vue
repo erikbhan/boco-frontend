@@ -11,7 +11,7 @@
         <div
             class="flex p-4 border-b rounded-t dark:border-gray-600"
         >
-          <h3 class="mr- text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ name }}
           </h3>
           <button
@@ -33,13 +33,13 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class=" p-6 space-y-6">
+        <div class="p-6 space-y-6">
           <p class="text-lg text-base leading-relaxed text-gray-500 dark:text-gray-400">
             {{ title }}
           </p>
         </div>
 
-        <div class="flex justify-center mt-4">
+        <div class="ml-6 mt-4">
           <p class=" text-base leading-relaxed text-gray-500 dark:text-gray-400" v-show="renterIsReceiverOfRating">
             Gi en vurdering til utleieren
           </p>
@@ -48,8 +48,8 @@
           </p>
         </div>
 
-        <div class="flex justify-center">
-          <textarea class="h-40 w-50 bg-gray-200 mb-4 ring-1 ring-gray-400 rounded-xl"/>
+        <div class= "flex justify-center px-4">
+          <textarea class="w-full h-40 bg-gray-200 mb-4 ring-1 ring-gray-400 rounded-xl"/>
         </div>
 
         <div class="flex items-center justify-center mb-8">
@@ -106,13 +106,7 @@ export default {
     return{
       score: 3,
       comment: "",
-      rating:[
-        "text-warn",
-          "text-warn",
-          "text-warn",
-          "text-gray-300",
-          "text-gray-300"
-      ],
+      rating:["text-warn", "text-warn", "text-warn", "text-gray-300", "text-gray-300"],
     };
   },
   props: {
