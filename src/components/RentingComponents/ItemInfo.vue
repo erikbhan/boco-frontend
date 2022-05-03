@@ -7,7 +7,7 @@
     <div>
       <div
         v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center':
+          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 h-[600px] w-auto lg:grid-cols-5 place-items-center':
             noPicture,
         }"
       >
@@ -25,6 +25,7 @@
           {{ item.title }}
         </h1>
       </div>
+      <!-- TODO make this component render elements differently depending on screen size -->
       <div
         class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8"
       >
@@ -54,21 +55,26 @@
           <UserListItemCard :user="userForId"></UserListItemCard>
         </div>
         <div class="mt-4">
-          <h3 class="text-base font-base text-gray-900">Ledige tidspunkter</h3>
+          <h3 class="text-base font-base text-gray-900">Tidspunkter</h3>
 
           <div>
             <p class="text-sm text-gray-900">
-              <DatepickerRange @value="setDate" :messageOnDisplay="dateMessage"></DatepickerRange>
+              <DatepickerRange
+                @value="setDate"
+                :messageOnDisplay="dateMessage"
+              ></DatepickerRange>
             </p>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2 md:col-span-1">
           <div class="mt-2 space-y-2">
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
-            <button @click="sendToConfirm"
-              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-primary-medium rounded-md hover:bg-primary-light focus:outline-none focus:ring focus:ring-opacity-80"
+            <button
+              class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-500 rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
+              v-bind:class="{ colorChange: allowForRent }"
+              @click="sendToConfirm"
             >
               <!-- This button should send you to the rent page -->
               Rent now
@@ -82,9 +88,7 @@
 
 <script>
 import NewRent from "@/components/RentingComponents/NewRent.vue"
-import { getItem } from "@/utils/apiutil";
-import { getItemPictures } from "@/utils/apiutil";
-import { getUser } from "@/utils/apiutil";
+import { getItem, getItemPictures, getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
@@ -125,7 +129,8 @@ export default {
       rentingStartDate: null,
       rentingEndDate: null,
       totPrice: 0,
-      dateMessage: "Vennligst velg dato for leieperioden",
+      dateMessage: "Venligst velg dato for leieperioden",
+      allowForRent: false,
     };
   },
   components: {
@@ -137,9 +142,7 @@ export default {
   methods: {
     sendToConfirm(){
       this.confirm = true;
-      console.log(this.item)
       this.createPushItem();
-      console.log(this.pushItem);
     },
     createPushItem(){
       this.pushItem.listingID = this.item.listingID;
@@ -177,22 +180,31 @@ export default {
       }
       //TODO fixs so each image get a correct alt text.
     },
-    async getUser(userID) {
-      this.userForId = await getUser(userID);
-      console.log(this.userForId);
+    async getUser(userId) {
+      this.userForId = await getUser(userId);
     },
     setDate(dateOfsomthing) {
-      this.rentingStartDate = dateOfsomthing.startDate;
-      this.rentingEndDate = dateOfsomthing.endDate;
-      console.log("This is the two dates " + this.rentingStartDate + " " + this.rentingEndDate);
-      this.calculateTotPrice();
+      if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
+        this.totPrice = this.item.pricePerDay;
+        this.allowForRent = false;
+      } else {
+        this.rentingStartDate = dateOfsomthing.startDate;
+        this.rentingEndDate = dateOfsomthing.endDate;
+        this.calculateTotPrice();
+        this.allowForRent = true;
+      }
     },
     calculateTotPrice() {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
       amountOfDays = amountOfDays / 86400000;
-      console.log("This is the difference in days " + amountOfDays);
       this.totPrice = this.item.pricePerDay * amountOfDays;
-    }
+    },
+    sendToConfirm() {
+      if (this.allowForRent) {
+        //TODO change this to a componet change
+        alert("Hei");
+      }
+    },
   },
   async beforeMount() {
     await this.getItemPictures();
@@ -202,4 +214,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.colorChange {
+  background-color: #004aad;
+}
+
+.colorChange:hover {
+  background-color: #306ec1;
+}
+</style>

@@ -1,5 +1,7 @@
 <template>
-  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
+  <div
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
+  >
     <!-- Component heading -->
     <div
       class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
@@ -171,12 +173,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center mt-10 float-right">
-      <Button
-          @click="saveClicked"
-          id="saveButton"
-          :text="'Lagre'"
-      >
-      </Button>
+      <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
 </template>
