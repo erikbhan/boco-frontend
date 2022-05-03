@@ -117,7 +117,7 @@ export default {
 
       //Variables connected to pagination
       currentPage: 0,
-      pageSize: 8,
+      pageSize: 12,
       visibleItems: [],
     };
   },
