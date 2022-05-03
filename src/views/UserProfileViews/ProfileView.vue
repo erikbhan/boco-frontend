@@ -1,11 +1,11 @@
 <template>
   <div>
-    <large-profile-card :isCurrentUser="true" class="align-top" />
+    <LargeProfileCard :isCurrentUser="true" class="md:mt-8" />
   </div>
 </template>
 
 <script>
-import LargeProfileCard from "@/components/UserProfileComponents/LargeProfileCard.vue";
+import LargeProfileCard from "@/components/UserProfileComponents/UserProfile.vue";
 
 export default {
   components: {

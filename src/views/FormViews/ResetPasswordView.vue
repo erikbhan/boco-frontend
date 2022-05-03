@@ -1,5 +1,5 @@
 <template>
-  <div class="resetPassword">
+  <div class="h-screen grid md:mt-8">
     <ResetPassword></ResetPassword>
   </div>
 </template>
@@ -13,11 +13,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.resetPassword {
-  background-color: white;
-  height: 100%;
-  overflow: auto;
-}
-</style>

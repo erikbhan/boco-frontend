@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader.vue";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
+import { route, router, $route, $router } from "../../mock-router"
 
 describe("CommunityHeader component", () => {
   let wrapper;
@@ -18,7 +19,19 @@ describe("CommunityHeader component", () => {
           picture: "String",
         },
       },
+      global: {
+        mocks: {
+          route,
+          router,
+          $route,
+          $router,
+        }
+      }
     });
+  });
+
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
   });
 
   it("is instantiated", () => {

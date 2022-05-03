@@ -1,5 +1,8 @@
 <template>
-  <div class="resetPassword">
+  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
+
+    <div class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Glemt passordet ditt?</div>
+
     <div
       id="emailField"
       class="m-6"
@@ -14,10 +17,11 @@
         <input
           type="email"
           id="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-medium focus:border-primary-medium block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-medium dark:focus:border-primary-medium"
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
           placeholder="eksempel@eksempel.no"
           v-model="v$.email.$model"
           required
+          @keyup.enter="sendHome"
         />
         <!-- error message -->
         <div v-for="(error, index) of v$.email.$errors" :key="index">
@@ -30,22 +34,27 @@
           </div>
         </div>
       </div>
+      <Button
+          class="float-right"
+          @click="sendHome"
+          :text="'Tilbakestill passord'"
+      />
     </div>
-    <button
-      @click="sendHome"
-      class="flex justify-center align-items: flex-end; text-white bg-primary-medium hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-medium dark:hover:bg-primary-dark dark:focus:ring-primary-dark"
-    >
-      Send e-post
-    </button>
+
   </div>
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
+import Button from "@/components/BaseComponents/ColoredButton";
+
 export default {
   name: "ResetPassword.vue",
 
+  components:{
+    Button,
+  },
   data() {
     return {
       showError: false,
@@ -58,7 +67,7 @@ export default {
   validations() {
     return {
       email: {
-        required,
+        required: helpers.withMessage('Feltet må være utfylt', required),
         email: helpers.withMessage(`E-posten er ugyldig`, email),
       },
     };

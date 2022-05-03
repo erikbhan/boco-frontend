@@ -2,14 +2,14 @@
 
 exports[`CreateNewGroup elements rendering renders correctly 1`] = `
 <div
-  class="w-full max-w-md m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl mt-[10%] p-4"
+  class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
 >
   <!-- Component heading -->
-  <h3
-    class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+  <div
+    class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
   >
      Opprett ny gruppe 
-  </h3>
+  </div>
   <!-- Radio boxes -->
   <div
     class="mt-6"
@@ -83,6 +83,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
   >
     <label
       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      id="positionLabel"
     >
       By/Sted
     </label>
@@ -148,15 +149,6 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
           Velg bilde
         &lt;/button&gt; -->
       <!-- Button for removing an image -->
-      <button
-        class="w-1/12 ml-5 text-white bg-white-500 font-medium rounded-lg text-sm"
-        style="display: none;"
-      >
-        <img
-          alt="Remove icon image"
-          src=""
-        />
-      </button>
     </div>
     <!-- Div box for showing all chosen images -->
     
@@ -164,7 +156,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
   </div>
   <!-- Save item button -->
   <div
-    class="flex justify-center mt-10"
+    class="flex justify-center mt-10 float-right"
   >
     <button-stub
       id="saveButton"
