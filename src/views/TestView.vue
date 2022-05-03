@@ -6,6 +6,9 @@
         :visible=show
         :name="'Test Testesnes'"
         :title="'Hammer '"
+        :renter-is-receiver-of-rating="true"
+        :rent-i-d="123"
+
     ></RatingModal>
   </div>
 </template>
