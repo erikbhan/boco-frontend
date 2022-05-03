@@ -354,7 +354,7 @@ export default {
 
         console.log(itemInfo);
 
-        /* const postRequest = */ await postNewItem(itemInfo);
+        const postRequest = await postNewItem(itemInfo);
 
         console.log("posted: " + postRequest);
 
