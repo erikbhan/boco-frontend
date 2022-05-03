@@ -106,7 +106,7 @@ export default {
       });
     },
     kickUserFromCommunity() {
-      CommunityAdminService.kickUserFromCommunity(
+      CommunityAdminService.removeUserFromCommunity(
         this.communityID,
         this.user.userId
       );
