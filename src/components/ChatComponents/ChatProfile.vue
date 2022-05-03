@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     selectUser() {
-      //console.log(this.conversation.recipient.userId);
+      console.log(this.conversation.recipient.userId);
       this.$emit("recipient", this.conversation.recipient.userId);
     },
   },

@@ -64,7 +64,7 @@ export default {
       this.selected = this.conversations.find(
         (conversation) => conversation.recipient.userId == userid
       ).recipient;
-      //console.log(this.selected);
+      console.log(this.selected);
     },
   },
   async created() {

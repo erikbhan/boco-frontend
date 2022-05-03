@@ -81,7 +81,7 @@ export default {
       this.$emit("back", this.type);
     },
     forward() {
-      //console.log(this.type);
+      console.log(this.type);
       this.$emit("forward", this.type);
     },
   },
