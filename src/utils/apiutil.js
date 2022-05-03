@@ -86,20 +86,20 @@ export function getAverageRating(userid) {
 }
 export async function doNewPassword(password) {
   let res = await axios({
-    method: 'put',
+    method: "put",
     url: API_URL + "user/profile/password",
     headers: tokenHeader(),
     data: {
       password: password,
-    }
+    },
   })
-  .then((response) => {
-    return response;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  return res.data; 
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return res.data;
 }
 
 export function postNewItem(itemInfo) {
@@ -121,6 +121,20 @@ export function postNewgroup(groupInfo) {
   return axios
     .post(API_URL + "communities/create", groupInfo, { headers: tokenHeader() })
     .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
+}
+export function postNewRent(rentInfo) {
+  return axios
+    .post(API_URL + "renting/renter/save", rentInfo, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -153,6 +167,33 @@ export function getVisibleGroups() {
     .catch((error) => {
       console.error(error);
     });
+}
+
+export function getItem(itemid) {
+  return axios
+    .get(API_URL + "listing/" + itemid, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export async function getItemPictures(itemid) {
+  let res = await axios
+    .get(API_URL + "listing/" + itemid + "/pictures", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return res;
 }
 
 export async function GetCommunity(communityID) {

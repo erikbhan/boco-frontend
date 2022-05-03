@@ -2,11 +2,11 @@
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
-    <div
-      class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
     >
       Endre passord
-    </div>
+    </h3>
 
     <div
       id="firstPasswordField"
@@ -138,7 +138,7 @@ export default {
 
       const newPasswordResponse = await doNewPassword(newPassword);
 
-      if(newPasswordResponse != null) {
+      if (newPasswordResponse != null) {
         console.log("New password set");
         this.$store.commit("saveToken", newPasswordResponse);
         await this.$router.push("/");
