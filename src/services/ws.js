@@ -22,7 +22,6 @@ const ws = (function () {
 
     if (data.status == "NEW_MESSAGE")
       fire("NEW_MESSAGE", JSON.parse(payload.body));
-
   };
 
   const onConnected = () => {
