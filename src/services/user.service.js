@@ -23,10 +23,10 @@ class UserService {
   }
 
   //TODO
-  getUserRatingAsOwner() {}
+  async getUserRatingAsOwner() {}
 
   //TODO
-  getUserRatingAsRenter() {}
+  async getUserRatingAsRenter() {}
 }
 
 export default new UserService();
