@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-5 py-4 mx-auto rounded-md">
+  <section class="w-full px-5 py-4 mx-auto rounded-md ">
     <CommunityHeader
       :admin-status="false"
       :community="community"
@@ -30,22 +30,26 @@
       />
     </div>
 
-    <!-- Item cards -->
-    <div class="absolute inset-x-0 px-6 py-3">
 
-      <!-- Shows items based on pagination -->
-      <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-        v-if="showItems">
-        <ItemCard  v-for="item in visibleItems" :key="item" :item="item" />
+    <div class="absolute inset-x-0 px-5 py-3">
+
+      <!-- ItemCards -->
+      <div class="flex items-center justify-center w-screen">
+        <!-- Shows items based on pagination -->
+        <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+            v-if="showItems">
+          <ItemCard  v-for="item in visibleItems" :key="item" :item="item" />
+        </div>
+
+        <!-- Shows items based on search field input -->
+        <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+            v-if="showSearchedItems">
+          <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
+        </div>
       </div>
 
-      <!-- Shows items based on search field input -->
-      <div
-          class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-          v-if="showSearchedItems">
-        <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
-      </div>
 
       <!-- pagination -->
       <div class="flex justify-center" v-if="showItems">
@@ -57,7 +61,6 @@
             class="mt-10"
         />
       </div>
-
     </div>
   </section>
 </template>
