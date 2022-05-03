@@ -295,6 +295,19 @@ export async function LeaveCommunity(communityID) {
     });
 }
 
+export async function GetUserListings() {
+  return axios
+    .get(API_URL + "listing/userListings", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export function postNewRating(ratingInfo) {
   return axios
     .post(API_URL + "rating/save", ratingInfo, {
@@ -304,6 +317,7 @@ export function postNewRating(ratingInfo) {
       return response;
     })
     .catch((error) => {
+      console.log(error.response);
       return error;
     });
 }
