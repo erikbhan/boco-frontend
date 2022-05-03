@@ -45,8 +45,6 @@ export default {
     // Double loop is bad; find a better way to do this
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
-        console.log(this.publicCommunities[i]);
-        console.log(this.myCommunities[j]);
         if (
           this.publicCommunities[i].communityId ===
           this.myCommunities[j].communityId

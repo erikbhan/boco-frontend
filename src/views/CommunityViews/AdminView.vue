@@ -13,8 +13,16 @@
       {{ tab }}
     </button>
   </div>
-  <MemberList :requests ='false' :buttons="['chat', 'kick']" v-if="currentTab === 0" />
-  <MemberList :requests ='true' :buttons="['accept', 'reject']" v-if="currentTab === 1" />
+  <MemberList
+    :requests="false"
+    :buttons="['chat', 'kick']"
+    v-if="currentTab === 0"
+  />
+  <MemberList
+    :requests="true"
+    :buttons="['accept', 'reject']"
+    v-if="currentTab === 1"
+  />
   <CommunitySettings v-if="currentTab === 2" />
 </template>
 
