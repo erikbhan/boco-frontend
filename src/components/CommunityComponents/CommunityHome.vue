@@ -1,10 +1,6 @@
 <template>
-  <section class="w-full px-5 py-4 mx-auto rounded-md ">
-    <CommunityHeader
-      :admin-status="false"
-      :community="community"
-      class="mb-5"
-    />
+  <section class="w-full px-5 py-4 mx-auto rounded-md">
+    <CommunityHeader :admin="false" class="mb-5" />
 
     <!-- Search field -->
     <div class="relative" id="searchComponent">
@@ -30,35 +26,44 @@
       />
     </div>
 
-
     <div class="absolute inset-x-0 px-5 py-3">
-
       <!-- ItemCards -->
       <div class="flex items-center justify-center w-screen">
         <!-- Shows items based on pagination -->
         <div
-            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
-            v-if="showItems">
-          <ItemCard  v-for="item in visibleItems" :key="item" :item="item" @click="goToItemInfoPage(item.listingID)" />
+          class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+          v-if="showItems"
+        >
+          <ItemCard
+            v-for="item in visibleItems"
+            :key="item"
+            :item="item"
+            @click="goToItemInfoPage(item.listingID)"
+          />
         </div>
 
         <!-- Shows items based on search field input -->
         <div
-            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-            v-if="showSearchedItems">
-          <ItemCard v-for="item in searchedItems" :key="item" :item="item" @click="goToItemInfoPage(item.listingID)" />
+          class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+          v-if="showSearchedItems"
+        >
+          <ItemCard
+            v-for="item in searchedItems"
+            :key="item"
+            :item="item"
+            @click="goToItemInfoPage(item.listingID)"
+          />
         </div>
       </div>
-
 
       <!-- pagination -->
       <div class="flex justify-center" v-if="showItems">
         <PaginationTemplate
-            v-bind:items="items"
-            v-on:page:update="updatePage"
-            v-bind:currentPage="currentPage"
-            v-bind:pageSize="pageSize"
-            class="mt-10"
+          v-bind:items="items"
+          v-on:page:update="updatePage"
+          v-bind:currentPage="currentPage"
+          v-bind:pageSize="pageSize"
+          class="mt-10"
         />
       </div>
     </div>
@@ -77,13 +82,11 @@ import {
 } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
-
   components: {
     CommunityHeader,
     ItemCard,
     PaginationTemplate,
   },
-
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -127,9 +130,8 @@ export default {
     };
   },
   methods: {
-    getCommunityFromAPI: async function () {
-      this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
+    async getCommunityFromAPI() {
+      this.communityID = this.$route.params.communityID;
       this.community = await GetCommunity(this.communityID);
     },
     getListingsOfCommunityFromAPI: async function () {
@@ -150,13 +152,12 @@ export default {
       let res = await getItemPictures(itemid);
       return res;
     },
-    searchWritten: function (){
+    searchWritten: function () {
       //This method triggers when search input field is changed
-      if(this.search.length > 0){
+      if (this.search.length > 0) {
         this.showItems = false;
         this.showSearchedItems = true;
-      }
-      else{
+      } else {
         this.showItems = true;
         this.showSearchedItems = false;
       }
@@ -168,11 +169,14 @@ export default {
       this.updateVisibleTodos();
     },
     updateVisibleTodos() {
-      this.visibleItems = this.items.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+      this.visibleItems = this.items.slice(
+        this.currentPage * this.pageSize,
+        this.currentPage * this.pageSize + this.pageSize
+      );
 
       // if we have 0 visible items, go back a page
       if (this.visibleItems.length === 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage -1);
+        this.updatePage(this.currentPage - 1);
       }
     },
   },

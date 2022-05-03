@@ -137,7 +137,7 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        console.log("Ugyldig, avslutter...");
+        //console.log("Ugyldig, avslutter...");
         return;
       }
 
@@ -154,7 +154,7 @@ export default {
         this.$store.commit("saveToken", loginResponse.token);
         await this.$router.push("/");
       } else {
-        console.log("Something went wrong");
+        //console.log("Something went wrong");
       }
     },
   },

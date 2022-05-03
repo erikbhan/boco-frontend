@@ -23,7 +23,7 @@ export function registerUser(registerInfo) {
     .post(API_URL + "register", {
       email: registerInfo.email,
       firstName: registerInfo.firstName,
-      lastname: registerInfo.lastname,
+      lastName: registerInfo.lastname,
       password: registerInfo.password,
       address: registerInfo.address,
     })
@@ -108,7 +108,7 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -134,7 +134,7 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -197,7 +197,7 @@ export async function getItemPictures(itemid) {
 }
 
 export async function GetCommunity(communityID) {
-  return axios
+  return await axios
     .get(API_URL + "community/" + communityID, {
       headers: tokenHeader(),
     })
@@ -222,6 +222,8 @@ export async function GetListingsInCommunity(communityID) {
     });
 }
 
+
+
 export async function GetMembersOfCommunity(communityID) {
   return axios
     .get(API_URL + "community/" + communityID + "/members", {
@@ -235,9 +237,22 @@ export async function GetMembersOfCommunity(communityID) {
     });
 }
 
+export async function GetMemberRequestsOfCommunity(communityID) {
+  return axios
+    .get(API_URL + "communities/" + communityID + "/requests", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    console.log("ikke logget på!");
+    //console.log("ikke logget på!");
     return "Login to join any community";
   }
 
@@ -283,4 +298,19 @@ export async function LeaveCommunity(communityID) {
       console.log(error.data);
       return error;
     });
+}
+
+export function postNewRating(ratingInfo) {
+  return axios
+      .post(API_URL + "rating/save", ratingInfo, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        console.log("poster: " + response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.response);
+        return error;
+      });
 }
