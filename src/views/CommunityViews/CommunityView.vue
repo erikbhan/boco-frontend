@@ -138,6 +138,7 @@ export default {
         this.updatePageMyCommunities(this.currentPageMyCommunities -1);
       }
     },
+    //Triggers when search field input is changed
     searchWritten: function (){
       //This method triggers when search input field is changed
       if(this.search.length > 0){
