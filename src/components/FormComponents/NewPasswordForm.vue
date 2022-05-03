@@ -134,12 +134,19 @@ export default {
         return;
       }
 
-      const newPasswordInfo = {
-        token: this.token,
-        newPassword: this.password,
-      };
+      const newPassword = this.user.password;
 
-      const newPasswordResponse = doNewPassword(newPasswordInfo);
+      const newPasswordResponse = await doNewPassword(newPassword);
+
+      if (newPasswordResponse != null) {
+        console.log("New password set");
+        this.$store.commit("saveToken", newPasswordResponse);
+        await this.$router.push("/");
+      } else {
+        console.log("Couldn't set new password");
+      }
+
+      /*
 
       if (newPasswordResponse.newPasswordSet === true) {
         console.log("New password set");
@@ -149,6 +156,8 @@ export default {
       } else {
         console.log("Something went wrong");
       }
+
+      */
     },
     validate() {
       this.$refs.form.validate();
