@@ -1,26 +1,23 @@
 import { shallowMount } from "@vue/test-utils";
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger.vue";
-import { route, router, $route, $router } from "../../mock-router";
+import {
+  route,
+  router,
+  $route,
+  $router,
+  store,
+  $store,
+} from "../../mock-router";
 
 describe("CommunityHamburger elements rendering", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallowMount(CommunityHamburger, {
-      //passing prop to component
-      props: {
-        adminStatus: true,
-        community: {
-          communityId: 1,
-          name: "String",
-          description: "String",
-          visibility: 0,
-          location: "String",
-          picture: "String",
-        },
-      },
       global: {
         mocks: {
+          store,
+          $store,
           route,
           router,
           $route,
