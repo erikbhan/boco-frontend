@@ -226,8 +226,6 @@ export async function GetListingsInCommunity(communityID) {
     });
 }
 
-
-
 export async function GetMembersOfCommunity(communityID) {
   return axios
     .get(API_URL + "community/" + communityID + "/members", {

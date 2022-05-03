@@ -100,7 +100,7 @@
     </div>
     <div class="flex items-center justify-center text-center bg-gray-50">
       <label
-        class="mx-2 text-sm font-bold text-red-500 dark:text-primary-light hover:underline"
+        class="mx-2 text-sm font-bold text-error-medium dark:text-primary-light hover:underline"
         >{{ message }}</label
       >
     </div>
