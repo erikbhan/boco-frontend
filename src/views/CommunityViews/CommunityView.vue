@@ -42,7 +42,8 @@ export default {
     if (!this.loggedIn) return;
 
     this.myCommunities = await getMyGroups();
-
+  },
+  mounted() {
     // Double loop is bad; find a better way to do this
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
