@@ -1,5 +1,7 @@
 <template>
-  <div />
+  <div >
+  
+  </div>
 </template>
 
 <script>
@@ -9,7 +11,8 @@ export default {
       show: false,
     };
   },
-  components: {},
+  components: {
+  },
   methods: {
     toggleModal() {
       this.show = !this.show;

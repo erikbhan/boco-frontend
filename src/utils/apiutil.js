@@ -313,3 +313,17 @@ export async function GetUserListings() {
     });
 }
 
+export function postNewRating(ratingInfo) {
+  return axios
+      .post(API_URL + "rating/save", ratingInfo, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        console.log("poster: " + response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.response);
+        return error;
+      });
+}
