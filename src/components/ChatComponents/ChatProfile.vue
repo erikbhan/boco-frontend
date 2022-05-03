@@ -52,8 +52,13 @@ export default {
   },
   methods: {
     selectUser() {
+<<<<<<< HEAD
       console.log(this.conversation?.recipient.userId);
       this.$emit("recipient", this.conversation?.recipient.userId);
+=======
+      //console.log(this.conversation.recipient.userId);
+      this.$emit("recipient", this.conversation.recipient.userId);
+>>>>>>> 3fd875332a013afe5b731aa96a2e2c2ce2351891
     },
   },
   created() {

@@ -130,25 +130,34 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        console.log("Invalid, exiting...");
+        //console.log("Invalid, exiting...");
         return;
       }
 
-      const newPasswordInfo = {
-        token: this.token,
-        newPassword: this.password,
-      };
+      const newPassword = this.user.password;
 
-      const newPasswordResponse = doNewPassword(newPasswordInfo);
+      const newPasswordResponse = await doNewPassword(newPassword);
+
+      if (newPasswordResponse != null) {
+        console.log("New password set");
+        this.$store.commit("saveToken", newPasswordResponse);
+        await this.$router.push("/");
+      } else {
+        console.log("Couldn't set new password");
+      }
+
+      /*
 
       if (newPasswordResponse.newPasswordSet === true) {
-        console.log("New password set");
+        //console.log("New password set");
         await this.$router.push("/");
       } else if (newPasswordResponse.newPasswordSet === false) {
-        console.log("Couldn't set new password");
+        //console.log("Couldn't set new password");
       } else {
-        console.log("Something went wrong");
+        //console.log("Something went wrong");
       }
+
+      */
     },
     validate() {
       this.$refs.form.validate();

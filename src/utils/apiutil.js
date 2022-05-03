@@ -23,7 +23,7 @@ export function registerUser(registerInfo) {
     .post(API_URL + "register", {
       email: registerInfo.email,
       firstName: registerInfo.firstName,
-      lastname: registerInfo.lastname,
+      lastName: registerInfo.lastname,
       password: registerInfo.password,
       address: registerInfo.address,
     })
@@ -84,15 +84,22 @@ export function getAverageRating(userid) {
       console.error(error);
     });
 }
-export function doNewPassword() {
-  //m
-  //add newPasswordInfo to input
-  const auth = { newPasswordSet: false };
-  //return axios
-  //.post(API_URL + "newPassword", newPasswordInfo)
-  //.then((response) => {auth.newPasswordSet = true;return auth;})
-  //.catch((error) => {console.log(error);return auth;});
-  return auth; //remove after axios is added
+export async function doNewPassword(password) {
+  let res = await axios({
+    method: "put",
+    url: API_URL + "user/profile/password",
+    headers: tokenHeader(),
+    data: {
+      password: password,
+    },
+  })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return res.data;
 }
 
 export function postNewItem(itemInfo) {
@@ -101,7 +108,7 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -127,7 +134,7 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -190,7 +197,7 @@ export async function getItemPictures(itemid) {
 }
 
 export async function GetCommunity(communityID) {
-  return axios
+  return await axios
     .get(API_URL + "community/" + communityID, {
       headers: tokenHeader(),
     })
@@ -215,6 +222,8 @@ export async function GetListingsInCommunity(communityID) {
     });
 }
 
+
+
 export async function GetMembersOfCommunity(communityID) {
   return axios
     .get(API_URL + "community/" + communityID + "/members", {
@@ -228,9 +237,22 @@ export async function GetMembersOfCommunity(communityID) {
     });
 }
 
+export async function GetMemberRequestsOfCommunity(communityID) {
+  return axios
+    .get(API_URL + "communities/" + communityID + "/requests", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    console.log("ikke logget på!");
+    //console.log("ikke logget på!");
     return "Login to join any community";
   }
 
