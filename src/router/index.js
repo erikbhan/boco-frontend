@@ -100,7 +100,7 @@ const routes = [
     component: () => import("../views/TestView.vue"),
   },
   {
-    path: "/group/:communityID/admin",
+    path: "/community/:communityID/admin",
     name: "CommunityAdminView",
     component: () => import("@/views/CommunityViews/AdminView.vue"),
     beforeEnter: guardRoute,
