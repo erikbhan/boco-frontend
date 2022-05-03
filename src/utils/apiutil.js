@@ -284,3 +284,17 @@ export async function LeaveCommunity(communityID) {
       return error;
     });
 }
+
+export async function GetUserListings() {
+  return axios
+    .get(API_URL + "listing/userListings", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+

@@ -1,12 +1,9 @@
 <template>
-  <section class="w-full px-5 py-4 mx-auto rounded-md">
-    <CommunityHeader
-      :admin-status="false"
-      :community="community"
-      class="mb-5"
-    />
-
-    <!-- Search field -->
+  <div id = "headline" class = "text-xl md:text-2xl text-gray-600 font-medium w-full">
+      Dine gjenstander
+  </div>
+  <!-- Search field -->
+   <!-- Search field -->
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -42,7 +39,6 @@
             v-for="item in visibleItems"
             :key="item"
             :item="item"
-            @click="goToItemInfoPage(item.listingID)"
           />
         </div>
 
@@ -55,11 +51,9 @@
             v-for="item in searchedItems"
             :key="item"
             :item="item"
-            @click="goToItemInfoPage(item.listingID)"
           />
         </div>
       </div>
-
       <!-- pagination -->
       <div class="flex justify-center" v-if="showItems">
         <PaginationTemplate
@@ -71,28 +65,37 @@
         />
       </div>
     </div>
-  </section>
 </template>
-
 <script>
-import ItemCard from "@/components/ItemComponents/ItemCard";
-import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
+import { GetUserListings, getItemPictures } from "@/utils/apiutil";
+import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 
-import {
-  GetCommunity,
-  GetListingsInCommunity,
-  getItemPictures,
-} from "@/utils/apiutil";
 export default {
-  name: "SearchItemListComponent",
-
+  name: "UserItems",
   components: {
-    CommunityHeader,
     ItemCard,
-    PaginationTemplate,
+    PaginationTemplate
   },
-
+  data() {
+    return {
+      items: [],
+      item: {
+        listingID: 0,
+        img: "",
+        address: "",
+        title: "",
+        pricePerDay: 0,
+      },
+      showItems: true,
+      showSearchedItems: false,
+        search: "",
+      //Variables connected to pagination
+      currentPage: 0,
+      pageSize: 12,
+      visibleItems: [],
+    };
+  },
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -107,44 +110,9 @@ export default {
       return filteredItems;
     },
   },
-  created() {
-    if (this.$store.state.user.token !== null) {
-      this.isLoggedIn = true;
-    }
-  },
-  data() {
-    return {
-      items: [],
-      item: {
-        listingID: 0,
-        img: "",
-        address: "",
-        title: "",
-        pricePerDay: 0,
-      },
-      
-      communityID: -1,
-      community: {},
-
-      showItems: true,
-      showSearchedItems: false,
-
-      //Variables connected to pagination
-      currentPage: 0,
-      pageSize: 12,
-      visibleItems: [],
-    };
-  },
   methods: {
-    getCommunityFromAPI: async function () {
-      this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
-      this.community = await GetCommunity(this.communityID);
-    },
-    getListingsOfCommunityFromAPI: async function () {
-      this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
-      this.items = await GetListingsInCommunity(this.communityID);
+    getUserListingsFromAPI: async function () {
+      this.items = await GetUserListings();
       for (var i = 0; i < this.items.length; i++) {
         let images = await getItemPictures(this.items[i].listingID);
         if (images.length > 0) {
@@ -152,25 +120,7 @@ export default {
         }
       }
     },
-    goToItemInfoPage(item) {
-      this.$router.push("/itempage/" + item);
-    },
-    getItemPictures: async function (itemid) {
-      let res = await getItemPictures(itemid);
-      return res;
-    },
-    searchWritten: function () {
-      //This method triggers when search input field is changed
-      if (this.search.length > 0) {
-        this.showItems = false;
-        this.showSearchedItems = true;
-      } else {
-        this.showItems = true;
-        this.showSearchedItems = false;
-      }
-    },
-
-    //Pagination
+      //Pagination
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
       this.updateVisibleTodos();
@@ -186,11 +136,30 @@ export default {
         this.updatePage(this.currentPage - 1);
       }
     },
+    searchWritten: function () {
+      //This method triggers when search input field is changed
+      if (this.search.length > 0) {
+        this.showItems = false;
+        this.showSearchedItems = true;
+      } else {
+        this.showItems = true;
+        this.showSearchedItems = false;
+      }
+    },
   },
   async beforeMount() {
-    await this.getCommunityFromAPI(); //To get the id of the community before mounting the view
-    await this.getListingsOfCommunityFromAPI();
+    await this.getUserListingsFromAPI();
     this.updateVisibleTodos();
+
   },
 };
 </script>
+
+<style>
+#headline {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  
+}
+</style>
