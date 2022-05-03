@@ -299,3 +299,31 @@ export async function LeaveCommunity(communityID) {
       return error;
     });
 }
+
+export async function GetUserListings() {
+  return axios
+    .get(API_URL + "listing/userListings", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export function postNewRating(ratingInfo) {
+  return axios
+      .post(API_URL + "rating/save", ratingInfo, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        console.log("poster: " + response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.response);
+        return error;
+      });
+}
