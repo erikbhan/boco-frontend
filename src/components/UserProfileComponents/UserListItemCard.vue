@@ -63,6 +63,8 @@
 import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
 import UserService from "@/services/user.service";
+import CommunityAdminService from "@/services/community-admin.service";
+
 import {
   ChatIcon,
   CheckCircleIcon,
@@ -75,6 +77,7 @@ export default {
   data() {
     return {
       rating: -1.0,
+      communityID: -1,
     };
   },
   components: {
@@ -102,12 +105,28 @@ export default {
         params: { userId: this.user.userId },
       });
     },
-    kickUserFromCommunity() {},
-    acceptMemberRequest() {},
-    rejectMemberRequest() {},
+    kickUserFromCommunity() {
+      CommunityAdminService.kickUserFromCommunity(
+        this.communityID,
+        this.user.userId
+      );
+    },
+    acceptMemberRequest() {
+      CommunityAdminService.acceptUserIntoCommunity(
+        this.communityID,
+        this.user.userId
+      );
+    },
+    rejectMemberRequest() {
+      CommunityAdminService.rejectUserFromCommunity(
+        this.communityID,
+        this.user.userId
+      );
+    },
   },
   async created() {
     this.rating = await UserService.getUserRatingAverage(this.user.userId);
+    this.communityID = this.$route.params.communityID;
   },
 };
 </script>
