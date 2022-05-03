@@ -1,21 +1,21 @@
-import {mount} from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import Pagination from "@/components/BaseComponents/PaginationTemplate.vue";
 
 describe("PaginationTemplate", () => {
-    let wrapper;
+  let wrapper;
 
-    beforeEach(() => {
-        wrapper = mount(Pagination, {
-            //passing prop to component
-            props: {
-                items: [],
-                currentPage: 0,
-                pageSize: 4,
-            },
-        });
+  beforeEach(() => {
+    wrapper = mount(Pagination, {
+      //passing prop to component
+      props: {
+        items: [],
+        currentPage: 0,
+        pageSize: 4,
+      },
     });
+  });
 
-    it("is instantiated", () => {
-        expect(wrapper.exists()).toBeTruthy();
-    });
+  it("is instantiated", () => {
+    expect(wrapper.exists()).toBeTruthy();
+  });
 });

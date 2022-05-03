@@ -116,7 +116,7 @@ export default {
         title: "",
         pricePerDay: 0,
       },
-      
+
       communityID: -1,
       community: {},
 

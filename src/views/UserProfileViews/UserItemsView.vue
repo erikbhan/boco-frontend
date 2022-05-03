@@ -3,16 +3,13 @@
 </template>
 
 <script>
-import UserItems from "@/components/UserProfileComponents/UserItems.vue"
+import UserItems from "@/components/UserProfileComponents/UserItems.vue";
 export default {
-    name: "UserItemsView",
-    components:{
-        UserItems
-    }
-
-}
+  name: "UserItemsView",
+  components: {
+    UserItems,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
