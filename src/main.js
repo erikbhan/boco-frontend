@@ -5,4 +5,4 @@ import store from "./store";
 import ws from "./services/ws";
 
 createApp(App).use(router).use(store).mount("#app");
-//console.log("WS", ws.test);
+console.log("WS", ws.test);

@@ -6,7 +6,7 @@
     <div
       class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
-      Bli med i: {{gruppenavn}}
+      Bli med i: {{community.name}}
     </div>
 
 
@@ -49,6 +49,7 @@ import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
 import Button from "@/components/BaseComponents/ColoredButton";
+import {GetCommunity} from "@/utils/apiutil";
 
 export default {
   name: "CommunityRequestForm.vue",
@@ -78,10 +79,9 @@ export default {
   },
   data() {
     return {
-      group: {
         description: "",
         communityId: null,
-      },
+        community: {},
     };
   },
   computed: {
@@ -91,6 +91,16 @@ export default {
     async saveClicked() {
       await axios.post(process.env.VUE_APP_BASEURL+ `community/${this.communityId}/private/join`);
     },
+     getCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
+        console.log("Dette er community id =" + this.communityID)
+      this.community = await GetCommunity(this.communityID);
+      console.log(this.community)
+    }
+  },
+   async created() {
+    await this.getCommunityFromAPI(); //To get the id of the community before mounting the view
   },
 };
 </script>
