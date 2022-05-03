@@ -51,7 +51,10 @@
           </div>
         </div>
         <div class="mt-2">
-          <UserListItemCard :user="userForId"></UserListItemCard>
+          <UserListItemCard
+            :buttons="['chat']"
+            :user="userForId"
+          ></UserListItemCard>
         </div>
         <div class="mt-4">
           <h3 class="text-base font-base text-gray-900">Tidspunkter</h3>
