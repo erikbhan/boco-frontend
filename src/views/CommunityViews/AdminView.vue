@@ -1,6 +1,8 @@
 <template>
   <CommunityHeader :admin="true" class="mb-5" />
-  <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-auto">
+  <div
+    class="flex border-b border-gray-200 dark:border-gray-700 overflow-y-hidden"
+  >
     <button
       v-for="(tab, index) in tabs"
       :key="tab"
