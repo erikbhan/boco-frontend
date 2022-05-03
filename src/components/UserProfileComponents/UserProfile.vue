@@ -27,7 +27,10 @@
         v-show="dropdown"
         class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
       >
-        <ul class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl" aria-labelledby="dropdownDefault">
+        <ul
+          class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
+          aria-labelledby="dropdownDefault"
+        >
           <li>
             <router-link
               to=""
@@ -37,7 +40,7 @@
           </li>
           <li>
             <router-link
-              :to="'/user/' + id + '/groups'"
+              :to="'/user/' + id + '/communites'"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Mine grupper
             </router-link>

@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import ItemCard from "@/components/CommunityComponents/ItemCard";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
+import ItemCard from "@/components/ItemComponents/ItemCard";
 import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
