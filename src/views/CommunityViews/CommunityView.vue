@@ -158,10 +158,17 @@ export default {
 
     this.myCommunities = await getMyGroups();
 
-    // Remove all of the user's communities from the public communities arrays
-    this.publicCommunities = this.publicCommunities.filter(
-        (val) => !this.myCommunities.includes(val)
-    );
+    // Loops through both arrays and removes myCommunities from public
+    for (var i = 0; i < this.publicCommunities.length; i++) {
+      for (var j = 0; j < this.myCommunities.length; j++) {
+        if (
+            this.publicCommunities[i].communityId ===
+            this.myCommunities[j].communityId
+        ) {
+          this.publicCommunities.splice(i, 1);
+        }
+      }
+    }
 
     this.updateVisibleCommunities();
   }
