@@ -12,41 +12,41 @@
     <!-- Radio boxes -->
     <div class="mt-6">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          id="radioBoxLabel"
-      >Synlighet</label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="radioBoxLabel"
+        >Synlighet</label
       >
       <div class="form-check">
         <input
-            class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioOpen"
-            value="Åpen"
-            @change="checkRadioButton($event)"
-            checked
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioOpen"
+          value="Åpen"
+          @change="checkRadioButton($event)"
+          checked
         />
         <label
-            class="form-check-label inline-block text-gray-800"
-            for="flexRadioOpen"
-            id="radioBoxOpenLabel"
+          class="form-check-label inline-block text-gray-800"
+          for="flexRadioOpen"
+          id="radioBoxOpenLabel"
         >
           Åpen
         </label>
       </div>
       <div class="form-check">
         <input
-            class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioPrivate"
-            value="Privat"
-            @change="checkRadioButton($event)"
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioPrivate"
+          value="Privat"
+          @change="checkRadioButton($event)"
         />
         <label
-            class="form-check-label inline-block text-gray-800"
-            for="flexRadioPrivate"
-            id="radioBoxPrivateLabel"
+          class="form-check-label inline-block text-gray-800"
+          for="flexRadioPrivate"
+          id="radioBoxPrivateLabel"
         >
           Privat
         </label>
@@ -56,23 +56,23 @@
     <!-- Title -->
     <div class="mt-6" :class="{ error: v$.group.name.$errors.length }">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          id="titleLabel"
-      >Gruppenavn</label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="titleLabel"
+        >Gruppenavn</label
       >
       <input
-          type="text"
-          id="title"
-          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-          v-model="v$.group.name.$model"
-          required
+        type="text"
+        id="title"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+        v-model="v$.group.name.$model"
+        required
       />
 
       <!-- error message for title-->
       <div
-          class="text-error"
-          v-for="(error, index) of v$.group.name.$errors"
-          :key="index"
+        class="text-error"
+        v-for="(error, index) of v$.group.name.$errors"
+        :key="index"
       >
         <div class="text-error text-sm">
           {{ error.$message }}
@@ -83,22 +83,22 @@
     <!-- Place -->
     <div class="mt-6" :class="{ error: v$.group.place.$errors.length }">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          id="positionLabel"
-      >By/Sted</label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="positionLabel"
+        >By/Sted</label
       >
       <input
-          type="text"
-          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-          v-model="v$.group.place.$model"
-          required
+        type="text"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+        v-model="v$.group.place.$model"
+        required
       />
 
       <!-- error message for place-->
       <div
-          class="text-error"
-          v-for="(error, index) of v$.group.place.$errors"
-          :key="index"
+        class="text-error"
+        v-for="(error, index) of v$.group.place.$errors"
+        :key="index"
       >
         <div class="text-error text-sm">
           {{ error.$message }}
@@ -109,23 +109,23 @@
     <!-- Description -->
     <div class="mt-6" :class="{ error: v$.group.description.$errors.length }">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-          id="descriptionLabel"
-      >Beskrivelse</label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="descriptionLabel"
+        >Beskrivelse</label
       >
       <textarea
-          id="description"
-          rows="4"
-          v-model="v$.group.description.$model"
-          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-          required
+        id="description"
+        rows="4"
+        v-model="v$.group.description.$model"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+        required
       ></textarea>
 
       <!-- error message for description -->
       <div
-          class="text-error"
-          v-for="(error, index) of v$.group.description.$errors"
-          :key="index"
+        class="text-error"
+        v-for="(error, index) of v$.group.description.$errors"
+        :key="index"
       >
         <div class="text-error text-sm">
           {{ error.$message }}
@@ -136,19 +136,19 @@
     <!-- Images -->
     <div class="mt-6">
       <label
-          class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
-          id="imageLabel"
+        class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
+        id="imageLabel"
       >
         Bilde
       </label>
 
       <input
-          type="file"
-          ref="file"
-          style="display: none"
-          @change="addImage"
-          multiple
-          accept="image/png, image/jpeg"
+        type="file"
+        ref="file"
+        style="display: none"
+        @change="addImage"
+        multiple
+        accept="image/png, image/jpeg"
       />
 
       <!-- Button for adding an image -->
@@ -173,12 +173,7 @@
 
     <!-- Save item button -->
     <div class="flex justify-center mt-10 float-right">
-      <Button
-          @click="saveClicked"
-          id="saveButton"
-          :text="'Lagre'"
-      >
-      </Button>
+      <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
 </template>
@@ -204,32 +199,32 @@ export default {
       group: {
         name: {
           required: helpers.withMessage(
-              () => "Navnt kan ikke være tom",
-              required
+            () => "Navnt kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
-              () => `Navnet kan være på max 50 tegn`,
-              maxLength(50)
+            () => `Navnet kan være på max 50 tegn`,
+            maxLength(50)
           ),
         },
         place: {
           required: helpers.withMessage(
-              () => "Stedsnavn kan ikke være tom",
-              required
+            () => "Stedsnavn kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
-              () => `Stednavn kan være på max 50 tegn`,
-              maxLength(50)
+            () => `Stednavn kan være på max 50 tegn`,
+            maxLength(50)
           ),
         },
         description: {
           required: helpers.withMessage(
-              () => "Beskrivelsen kan ikke være tom",
-              required
+            () => "Beskrivelsen kan ikke være tom",
+            required
           ),
           max: helpers.withMessage(
-              () => `Beskrivelsen kan inneholde max 200 tegn`,
-              maxLength(200)
+            () => `Beskrivelsen kan inneholde max 200 tegn`,
+            maxLength(200)
           ),
         },
       },

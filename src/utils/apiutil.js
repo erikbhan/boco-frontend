@@ -224,15 +224,15 @@ export async function GetIfUserAlreadyInCommunity(communityID) {
 }
 
 export async function LeaveCommunity(communityID) {
-    return axios
-        .patch(API_URL + "communities/" + communityID + "/leave", communityID, {
-            headers: tokenHeader(),
-        })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error.data);
-            return error;
-        });
+  return axios
+    .patch(API_URL + "communities/" + communityID + "/leave", communityID, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.data);
+      return error;
+    });
 }

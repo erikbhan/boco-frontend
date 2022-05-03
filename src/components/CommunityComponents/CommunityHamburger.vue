@@ -38,7 +38,6 @@
 </template>
 
 <script>
-
 import { LeaveCommunity } from "@/utils/apiutil";
 
 export default {
@@ -47,18 +46,18 @@ export default {
     communityID: Number,
     admin: Boolean,
   },
-  data(){
-    return{
+  data() {
+    return {
       id: -1,
-    }
+    };
   },
 
-  methods:{
-    leaveCommunity: async function(){
+  methods: {
+    leaveCommunity: async function () {
       this.id = await this.$router.currentRoute.value.params.communityID;
       await LeaveCommunity(this.id);
-      this.$router.push('/');
-    }
-  }
+      this.$router.push("/");
+    },
+  },
 };
 </script>
