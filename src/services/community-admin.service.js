@@ -46,7 +46,10 @@ class CommunityAdminService {
       API_URL + "communities/" + communityID + "/kick",
       null,
       {
-        params: { userId: userID },
+        headers: tokenHeader(),
+        params: {
+          userId: userID,
+        },
       }
     );
   }
