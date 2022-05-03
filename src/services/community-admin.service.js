@@ -42,9 +42,13 @@ class CommunityAdminService {
    * @returns TODO
    */
   async removeUserFromCommunity(communityID, userID) {
-    return await axios.patch(API_URL + "communities/" + communityID + "/kick", {
-      params: { userId: userID },
-    });
+    return await axios.patch(
+      API_URL + "communities/" + communityID + "/kick",
+      null,
+      {
+        params: { userId: userID },
+      }
+    );
   }
 
   /**
