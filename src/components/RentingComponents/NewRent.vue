@@ -28,16 +28,16 @@
         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-200 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         required
       ></textarea>
-    </div>
+    </div >
     <button id="cancelButton" @click="cancelRent" class="text-primary-medium">
       Tilbake
     </button>
-    <div>
-      <colored-button id="confirmButton" @click="sendRent" :text="'Send'"></colored-button>
+    <div id="confirm">
+      <colored-button  id="confirmButton" @click="sendRent" :text="'Send'"></colored-button>
     </div>
   </div>
   <div>
-    <notification-modal id="confirmationNotification"
+    <notification-modal 
       @click="routeToHome"
       :visible="confirmed"
       :title="'Vellykket'"
@@ -160,7 +160,9 @@ export default {
       };
 
       await postNewRent(rent);
+      this.$router.push("/");
       this.confirmed = true;
+
     },
   },
 };
@@ -208,7 +210,7 @@ export default {
   grid-column: 1/3;
   grid-row: 6/7;
 }
-#confirmButton {
+#confirm {
   grid-column: 1/3;
   grid-row: 7/8;
   align-content: center;

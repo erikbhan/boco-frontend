@@ -34,10 +34,6 @@ describe("Confirm and send a rent request", () => {
         });
     });
 
-    it("renders correctly", () => {
-        expect(wrapper.element).toMatchSnapshot();
-    });
-
     it("Is instansiated", () => {
         expect(wrapper.exists()).toBeTruthy();
     });
@@ -48,11 +44,4 @@ describe("Confirm and send a rent request", () => {
         expect(wrapper.find("#toTime").text()).toMatch("23. September 2022");
         expect(wrapper.find("#price").text()).toEqual("Totaltpris: 200 kr");
     });
-
-    it("Check if routed", async() => {
-        await wrapper.find("#confirmButton").trigger('click')
-        await wrapper.find("#confirmationNotification").trigger('click');
-        expect(router.push).toBeCalledTimes(1);
-    }
-    );
 });
