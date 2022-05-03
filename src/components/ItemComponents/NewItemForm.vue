@@ -3,11 +3,7 @@
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
     <!-- Component heading -->
-    <h3
-      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
-    >
-      Opprett ny utleie
-    </h3>
+    <div class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10">Opprett ny utleie</div>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -39,22 +35,22 @@
     <!-- Select category -->
     <div class="mb-6">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="selectCategoryLabel"
-        >Kategori</label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="selectCategoryLabel"
+      >Kategori</label
       >
       <select
-        v-model="v$.item.select.$model"
-        id="categories"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
+          v-model="v$.item.select.$model"
+          id="categories"
+          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
-          Select a category
+          Velg en kategori
         </option>
         <option
-          v-for="category in categories"
-          :key="category"
-          class="text-gray-900 text-sm"
+            v-for="category in categories"
+            :key="category"
+            class="text-gray-900 text-sm"
         >
           {{ category }}
         </option>
@@ -62,9 +58,9 @@
 
       <!-- error message for select box -->
       <div
-        class="text-error"
-        v-for="(error, index) of v$.item.select.$errors"
-        :key="index"
+          class="text-error"
+          v-for="(error, index) of v$.item.select.$errors"
+          :key="index"
       >
         <div class="text-error text-sm">
           {{ error.$message }}
@@ -72,42 +68,36 @@
       </div>
     </div>
 
-    <!-- Select Group -->
+    <!-- Grupper -->
     <div class="mb-6">
       <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        >Gruppe</label
-      >
-      <select
-        v-model="v$.item.selectGroup.$model"
-        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-      >
-        <option class="text-gray-400" value="" disabled selected>
-          Select a Group
-        </option>
-        <option
-          v-for="group in groups"
-          :key="group"
-          class="text-gray-900 text-sm"
-        >
-          {{ group }}
-        </option>
-      </select>
-
-      <!-- error message for select box -->
+        class="block text-sm font-medium text-gray-900 dark:text-gray-400"
+        >Grupper</label>
       <div
-        class="text-error"
-        v-for="(error, index) of v$.item.selectGroup.$errors"
-        :key="index"
+          class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
       >
-        <div class="text-error text-sm">
-          {{ error.$message }}
-        </div>
+        <ul class="py-1" aria-labelledby="dropdownDefault">
+          <li>
+            <div class="form-check" v-for="group in groups" :key="group">
+              <input
+
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  :value="group.communityId"
+                  @change="onChangeGroup($event)"
+              >
+              <label class="form-check-label inline-block text-gray-800">
+                {{ group.name }}
+              </label>
+            </div>
+          </li>
+        </ul>
       </div>
+      <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
     </div>
 
     <!-- price -->
-    <div class="mb-6" :class="{ error: v$.item.price.$errors.length }">
+    <div class="mb-6 mt-4" :class="{ error: v$.item.price.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="priceLabel"
@@ -164,6 +154,7 @@
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="addressLabel"
         >Adresse</label
       >
       <input
@@ -221,7 +212,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
-import { postNewItem } from "@/utils/apiutil";
+import { postNewItem, getMyGroups } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
@@ -280,9 +271,6 @@ export default {
         select: {
           required: helpers.withMessage(() => `Velg en kategori`, required),
         },
-        selectGroup: {
-          required: helpers.withMessage(() => `Velg en gruppe`, required),
-        },
         address: {
           required: helpers.withMessage(
             () => "Addressen kan ikke være tom",
@@ -309,11 +297,13 @@ export default {
         type: "",
         images: [],
         userId: -1,
-        selectGroup: null,
+        selectedGroupId: -1,
+        selectedGroups: [],
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
-      groups: [4040, 4041],
+      groups: [],
+      groupErrorMessage: '',
     };
   },
   methods: {
@@ -321,7 +311,10 @@ export default {
       console.log("sjekker validering");
 
       this.v$.item.$touch();
-      if (this.v$.item.$invalid) {
+      if (this.v$.item.$invalid || this.item.selectedGroups.length === 0) {
+        if(this.item.selectedGroups.length === 0){
+          this.groupErrorMessage = "Velg gruppe/grupper";
+        }
         console.log("Invalid, avslutter...");
         return false;
       }
@@ -344,7 +337,7 @@ export default {
         console.log("Addressen: " + this.item.address);
         console.log("Pris: " + this.item.price);
         console.log("bilder: " + this.item.images);
-        console.log("gruppe: " + this.item.selectGroup);
+        console.log("gruppe: " + this.item.selectedGroups);
 
         const itemInfo = {
           title: this.item.title,
@@ -353,7 +346,7 @@ export default {
           address: this.item.address,
           userID: this.item.userId,
           categoryNames: [],
-          communityIDs: [this.item.selectGroup],
+          communityIDs: this.item.selectedGroups,
         };
 
         console.log(itemInfo);
@@ -361,20 +354,49 @@ export default {
         const postRequest = await postNewItem(itemInfo);
 
         console.log("posted: " + postRequest);
+
+        this.$router.push('/');
       }
     },
 
     checkUser: async function () {
       let user = parseUserFromToken(this.$store.state.user.token);
       this.item.userId = parseInt(user.accountId);
-      console.log("id: " + this.item.userId);
     },
 
     addImage: function (event) {
       console.log(event.target.files);
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
-      console.log("antall bilder: " + this.item.images.length);
+    },
+
+    getGroups: async function(){
+      this.groups = await getMyGroups();
+    },
+
+    onChangeGroup: function(e){
+      this.selectedGroupId = e.target.value;
+      let alreadyInGroupList = false;
+      console.log("selected clicked");
+
+      for (let i = 0; i <= this.item.selectedGroups.length; i++) {
+        if (this.selectedGroupId == this.item.selectedGroups[i]) {
+          const index = this.item.selectedGroups.indexOf(this.selectedGroupId);
+          if (index > -1) {
+            this.item.selectedGroups.splice(index, 1);
+          }
+          alreadyInGroupList = true;
+        }
+      }
+
+      if(!alreadyInGroupList){
+        this.item.selectedGroups.push(this.selectedGroupId);
+        this.groupErrorMessage = "";
+      }
+
     },
   },
+  beforeMount() {
+    this.getGroups();
+  }
 };
 </script>

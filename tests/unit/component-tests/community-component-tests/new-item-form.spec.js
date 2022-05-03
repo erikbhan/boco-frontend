@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import NewItemForm from "@/components/CommunityComponents/NewItemForm.vue";
+import NewItemForm from "@/components/ItemComponents/NewItemForm.vue";
 
 describe("NewItemForm component", () => {
   let wrapper;
