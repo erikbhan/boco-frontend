@@ -237,6 +237,19 @@ export async function GetMembersOfCommunity(communityID) {
     });
 }
 
+export async function GetMemberRequestsOfCommunity(communityID) {
+  return axios
+    .get(API_URL + "communities/" + communityID + "/requests", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
     //console.log("ikke logget på!");

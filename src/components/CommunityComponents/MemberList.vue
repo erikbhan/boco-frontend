@@ -10,6 +10,7 @@
 <script>
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import CommunityService from "@/services/community.service";
+import {GetMemberRequestsOfCommunity} from "@/utils/apiutil";
 
 export default {
   name: "MemberList",
@@ -18,6 +19,7 @@ export default {
   },
   props: {
     buttons: Array,
+    requests: Boolean,
   },
   data() {
     return {
@@ -30,9 +32,14 @@ export default {
   },
   async created() {
     this.loading = true;
-    this.members = await CommunityService.getCommunityMembers(
+    if(this.requests){
+       this.members = await GetMemberRequestsOfCommunity(
       this.$route.params.communityID
     );
+    } else {
+    this.members = await CommunityService.getCommunityMembers(
+      this.$route.params.communityID 
+    );}
     this.loading = false;
   },
 };
