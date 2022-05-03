@@ -30,16 +30,25 @@
       <div
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
       >
-        <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
+        <ItemCard
+          v-for="item in searchedItems"
+          :key="item"
+          :item="item"
+          @click="goToItemInfoPage(item.listingID)"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
 import ItemCard from "@/components/ItemComponents/ItemCard";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
-import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
+import {
+  GetCommunity,
+  GetListingsInCommunity,
+  getItemPictures,
+} from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
   components: {
@@ -69,6 +78,7 @@ export default {
     return {
       items: [],
       item: {
+        listingID: 0,
         img: "",
         address: "",
         title: "",
@@ -89,6 +99,20 @@ export default {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
       this.items = await GetListingsInCommunity(this.communityID);
+      for (var i = 0; i < this.items.length; i++) {
+        let images = await getItemPictures(this.items[i].listingID);
+        console.log(images);
+        if (images.length > 0) {
+          this.items[i].img = images[0].picture;
+        }
+      }
+    },
+    goToItemInfoPage(item) {
+      this.$router.push("/itempage/" + item);
+    },
+    getItemPictures: async function (itemid) {
+      let res = await getItemPictures(itemid);
+      return res;
     },
   },
   beforeMount() {

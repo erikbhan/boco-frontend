@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import UserListItemCard from "../UserProfileComponents/UserListItemCard.vue";
+import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import { GetMembersOfCommunity } from "@/utils/apiutil";
 
 export default {
