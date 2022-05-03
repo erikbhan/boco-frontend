@@ -29,23 +29,29 @@
         required
       ></textarea>
     </div>
-    <button id="cancelButton" class="text-primary-medium">Tilbake</button>
+    <button id="cancelButton" @click="cancelRent" class="text-primary-medium">Tilbake</button>
     <div id="confirmButton">
       <colored-button @click="sendRent" :text="'Send'"></colored-button>
     </div>
+  </div>
+  <div>
+    <notification-modal @click="routeToHome" :visible="confirmed" :title="'Vellykket'" :message="'Forespørsel sendt!'"> </notification-modal>
   </div>
 </template>
 
 <script>
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 import { postNewRent } from "@/utils/apiutil";
+import NotificationModal from "@/components/BaseComponents/NotificationModal.vue"
 export default {
   name: "NewRent",
   components: {
     ColoredButton,
+    NotificationModal
   },
   data() {
     return {
+      confirmed: false,
       title: this.newRentBox.title,
       fromTime: this.newRentBox.fromTime,
       fromTimeString: "",
@@ -64,7 +70,7 @@ export default {
       description: String,
       fromTime: Date,
       toTime: Date,
-      listingId: Number,
+      listingID: Number,
       isAccepted: Boolean,
       price: Number,
     },
@@ -75,11 +81,16 @@ export default {
   },
 
   methods: {
+    //Converts Date-object to a more readable string
     convertDates(date) {
+      //Copies the chosen date
       const dateCopy = new Date(date);
+      //Gets the day part of date (1-31)
       const dateDate = dateCopy.getDate();
+      //Gets the month of the date (1-12)
       const dateMonth = dateCopy.getMonth();
       let monthString = "";
+      //Gives the month the proper name
       switch (dateMonth) {
         case 1:
           monthString = "Januar";
@@ -121,17 +132,21 @@ export default {
           monthString = "Noe feil";
           break;
       }
+      //Gets the year of the date
       const dateYear = dateCopy.getFullYear();
       return dateDate + ". " + monthString + " " + dateYear;
     },
     cancelRent() {
-      console.log;
+      this.$router.go(0);
+    },
+    routeToHome(){
+      this.$router.push("/")
     },
     sendRent: async function () {
-      const rent = {
+      const rent = {  
+        renterId: 0,
         message: this.message,
-        listingId: this.newRentBox.listingId,
-        renterId: this.newRentBox.renterId,
+        listingId: this.newRentBox.listingID,
         isAccepted: false,
         toTime: this.toTimeMilliseconds,
         fromTime: this.fromTimeMilliseconds,
@@ -139,6 +154,7 @@ export default {
 
       await postNewRent(rent);
       console.log(rent);
+      this.confirmed = true;
     },
   },
 };

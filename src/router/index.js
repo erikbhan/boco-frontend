@@ -99,11 +99,6 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
   {
-    path: "/newRent",
-    name: "newRent",
-    component: () => import("../views/RentingViews/NewRentView.vue"),
-  },
-  {
     beforeEnter: guardRoute,
     path: "/test",
     name: "test",
@@ -114,6 +109,14 @@ const routes = [
     name: "ItemInfo",
     component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
   },
+
+  {
+    path: "/itempage/:id/confirm",
+    name: "RentConfirm",
+    props:true,
+    component: () => import("../views/RentingViews/ConfirmRentView.vue"),
+
+  }
 ];
 
 const router = createRouter({

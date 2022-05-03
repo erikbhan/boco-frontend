@@ -1,5 +1,9 @@
 <template>
   <div>
+   <new-rent v-if="confirm" :newRentBox="pushItem">
+   </new-rent>
+  </div>
+  <div v-if="!confirm">
     <div>
       <div
         v-bind:class="{
@@ -63,7 +67,7 @@
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
-            <button
+            <button @click="sendToConfirm"
               class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-primary-medium rounded-md hover:bg-primary-light focus:outline-none focus:ring focus:ring-opacity-80"
             >
               <!-- This button should send you to the rent page -->
@@ -77,6 +81,7 @@
 </template>
 
 <script>
+import NewRent from "@/components/RentingComponents/NewRent.vue"
 import { getItem } from "@/utils/apiutil";
 import { getItemPictures } from "@/utils/apiutil";
 import { getUser } from "@/utils/apiutil";
@@ -88,15 +93,25 @@ export default {
   name: "ItemInfo",
   data() {
     return {
+      confirm: false,
       item: {
         listingID: 0,
         title: "",
         description: "",
         pricePerDay: 0,
+        price: this.totPrice,
         address: "",
         userID: 0,
         categoryNames: [],
         communityIDs: [],
+        
+      },
+      pushItem:{
+        listingID: 157,
+        title: "Heii",
+        price: 56,
+        fromTime: "",
+        toTime: "",
       },
       images: [
         {
@@ -110,18 +125,33 @@ export default {
       rentingStartDate: null,
       rentingEndDate: null,
       totPrice: 0,
-      dateMessage: "Venligst velg dato for leieperioden",
+      dateMessage: "Vennligst velg dato for leieperioden",
     };
   },
   components: {
     ImageCarousel,
     UserListItemCard,
     DatepickerRange,
+    NewRent
   },
   methods: {
+    sendToConfirm(){
+      this.confirm = true;
+      console.log(this.item)
+      this.createPushItem();
+      console.log(this.pushItem);
+    },
+    createPushItem(){
+      this.pushItem.listingID = this.item.listingID;
+      this.pushItem.fromTime = this.rentingStartDate;
+      this.pushItem.toTime = this.rentingEndDate;
+      this.pushItem.title = this.item.title;
+      this.pushItem.price = this.totPrice;
+    },
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
       this.item = await getItem(id);
+      this.item.listingID = id;
       this.totPrice = this.item.pricePerDay;
     },
     async getItemPictures() {
@@ -147,8 +177,8 @@ export default {
       }
       //TODO fixs so each image get a correct alt text.
     },
-    async getUser(userId) {
-      this.userForId = await getUser(userId);
+    async getUser(userID) {
+      this.userForId = await getUser(userID);
       console.log(this.userForId);
     },
     setDate(dateOfsomthing) {

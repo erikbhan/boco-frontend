@@ -275,10 +275,10 @@ export default {
   @apply font-bold py-2 px-4 rounded;
 }
 .btn-blue {
-  @apply bg-blue-500 text-white;
+  @apply bg-primary-light text-white;
 }
 .btn-blue:hover {
-  @apply bg-blue-700;
+  @apply bg-primary-medium;
 }
 .btn-gray:hover {
   @apply bg-gray-300;
