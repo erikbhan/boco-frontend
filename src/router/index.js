@@ -21,6 +21,11 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityView.vue"),
   },
   {
+    path: "/help",
+    name: "help",
+    component: () => import("../views/HelpView.vue"),
+  },
+  {
     path: "/profile/:id",
     name: "profile",
     component: () => import("../views/UserProfileViews/ProfileView.vue"),
