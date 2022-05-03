@@ -32,12 +32,12 @@
     <button id="cancelButton" @click="cancelRent" class="text-primary-medium">
       Tilbake
     </button>
-    <div id="confirmButton">
-      <colored-button @click="sendRent" :text="'Send'"></colored-button>
+    <div>
+      <colored-button id="confirmButton" @click="sendRent" :text="'Send'"></colored-button>
     </div>
   </div>
   <div>
-    <notification-modal
+    <notification-modal id="confirmationNotification"
       @click="routeToHome"
       :visible="confirmed"
       :title="'Vellykket'"
@@ -75,7 +75,6 @@ export default {
     newRentBox: {
       renterId: Number,
       title: String,
-      description: String,
       fromTime: Date,
       toTime: Date,
       listingID: Number,
@@ -100,40 +99,40 @@ export default {
       let monthString = "";
       //Gives the month the proper name
       switch (dateMonth) {
-        case 1:
+        case 0:
           monthString = "Januar";
           break;
-        case 2:
+        case 1:
           monthString = "Februar";
           break;
-        case 3:
+        case 2:
           monthString = "Mars";
           break;
-        case 4:
+        case 3:
           monthString = "April";
           break;
-        case 5:
+        case 4:
           monthString = "Mai";
           break;
-        case 6:
+        case 5:
           monthString = "Juni";
           break;
-        case 7:
+        case 6:
           monthString = "Juli";
           break;
-        case 8:
+        case 7:
           monthString = "August";
           break;
-        case 9:
+        case 8:
           monthString = "September";
           break;
-        case 10:
+        case 9:
           monthString = "Oktober";
           break;
-        case 11:
+        case 10:
           monthString = "November";
           break;
-        case 12:
+        case 11:
           monthString = "Desember";
           break;
         default:
