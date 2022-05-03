@@ -110,6 +110,8 @@ export default {
         this.communityID,
         this.user.userId
       );
+      //Find a better way to do this
+      window.location.reload();
     },
     acceptMemberRequest() {
       CommunityAdminService.acceptUserIntoCommunity(
