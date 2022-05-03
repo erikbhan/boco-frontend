@@ -1,22 +1,40 @@
 <template>
-  <div v-bind:class="'w-full break-words flex ' + side()">
+  <div v-bind:class="'blob-container ' + this.side()">
     <div
-      style="max-width: 70%"
       v-bind:class="
-        this.color() + ' rounded px-5 py-2 my-2 relative ' + this.textColor()
+        this.color() + ' message-container ' +this.textColor()
       "
     >
-      <span class="block"
-        >{{ this.message.content }} {{ this.message.from }}</span
+      <span class="message"
+        >{{ this.message.content }}</span
       >
-      <span class="block text-xs text-right">{{ this.calculateTime() }}</span>
+      <span class="">{{ this.calculateTime() }}</span>
     </div>
   </div>
 </template>
 
+<style scoped>
+  .blob-container {
+    display: flex;
+    max-width: 100%;
+  }
+
+  .message {
+    word-break: break-word;
+    display: block;
+  }
+
+  .message-container {
+    border-radius: 10px;
+    max-width: 70%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem; 
+  }
+</style>
 <script>
 import { parseCurrentUser } from "@/utils/token-utils";
-
+//block text-xs text-right
 export default {
   props: {
     message: Object,
