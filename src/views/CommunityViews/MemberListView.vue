@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
 import MemberList from "@/components/CommunityComponents/MemberList.vue";
 
 export default {

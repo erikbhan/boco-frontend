@@ -21,7 +21,7 @@
 <script>
 import MemberList from "@/components/CommunityComponents/MemberList.vue";
 import CommunitySettings from "@/components/CommunityComponents/CommunitySettings.vue";
-import CommunityHeader from "@/components/BaseComponents/CommunityHeader.vue";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
 
 export default {
   name: "CommunityAdminView",
