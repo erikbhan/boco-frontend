@@ -79,7 +79,8 @@ const routes = [
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../components/BaseComponents/NotificationsForm.vue"),
+    component: () =>
+      import("../components/BaseComponents/NotificationsForm.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -94,10 +95,24 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
   {
+    beforeEnter: guardRoute,
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
   },
+  {
+    path: "/itempage/:id",
+    name: "ItemInfo",
+    component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
+  },
+
+  {
+    path: "/itempage/:id/confirm",
+    name: "RentConfirm",
+    props:true,
+    component: () => import("../views/RentingViews/ConfirmRentView.vue"),
+
+  }
 ];
 
 const router = createRouter({
