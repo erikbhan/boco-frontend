@@ -1,6 +1,10 @@
 module.exports = {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
+  ],
   theme: {
     colors: {
       white: "#fff",
@@ -26,10 +30,22 @@ module.exports = {
         light: "#653273",
         dark: "#731050",
       },
-      error: "#E23636",
-      warn: "#EDB95E",
-      success: "#82DD55",
+      error: {
+        light: "#EF4444",
+        medium: "#DC2626",
+        dark: "#B91C1C",
+      },
+      warn: {
+        light: "#FDE047",
+        medium: "#FACC15",
+        dark: "#EAB308",
+      },
+      success: {
+        light: "#22C55E",
+        medium: "#16A34A",
+        dark: "#15803D",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tw-elements/dist/plugin")],
 };

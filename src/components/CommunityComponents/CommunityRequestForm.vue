@@ -6,7 +6,7 @@
     <div
       class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
-      Bli med i gruppe: {{gruppenavn}}
+      Bli med i: {{gruppenavn}}
     </div>
 
 
@@ -15,7 +15,7 @@
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="descriptionLabel"
-        >Melding</label
+        > Melding til administrator av gruppa: </label
       >
       <textarea
         id="description"
@@ -45,9 +45,9 @@
 </template>
 
 <script>
+import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
-import { postNewgroup } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
@@ -79,44 +79,17 @@ export default {
   data() {
     return {
       group: {
-        name: "",
         description: "",
-        images: [],
-        radio: null,
-        place: "",
-        visibility: 1,
+        communityId: null,
       },
-      imageThere: false,
     };
   },
   computed: {
   },
   methods: {
-    checkValidation: function () {
-      this.v$.group.$touch();
-      if (this.v$.group.$invalid) {
-        return false;
-      }
-      return true;
-    },
 
     async saveClicked() {
-      if (this.checkValidation()) {
-        const groupInfo = {
-          name: this.group.name,
-          description: this.group.description,
-          visibility: this.group.visibility,
-          location: this.group.place,
-          picture: "",
-        };
-
-        await postNewgroup(groupInfo);
-      }
-    },
-
-    addImage: function (event) {
-      this.group.images.push(URL.createObjectURL(event.target.files[0]));
-      this.imageThere = true;
+      await axios.post(process.env.VUE_APP_BASEURL+ `community/${this.communityId}/private/join`);
     },
   },
 };
