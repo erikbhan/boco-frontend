@@ -1,17 +1,20 @@
 <template>
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
-      <p class="capitalize font-bold w-full">Mine felleskap</p>
+      <div class="text-xl md:text-2xl text-gray-600 font-medium w-full">
+        Mine grupper
+      </div>
       <UserAddIcon
         class="cursor-pointer max-h-6 max-w-6 float-right grow"
         @click="$router.push('/newCommunity')"
-        v-if="loggedIn"
-        alt="Lag ett nytt felleskap"
+        alt="Opprett ny gruppe"
       />
     </div>
     <CommunityList :communities="myCommunities" :member="true" />
   </div>
-  <p class="capitalize font-bold w-full p-4">Offentlige felleskap</p>
+  <p class="text-xl md:text-2xl text-gray-600 font-medium w-full p-4">
+    Offentlige grupper
+  </p>
   <CommunityList :communities="publicCommunities" :member="false" />
 </template>
 

@@ -1,11 +1,13 @@
 <template>
-  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full">
+  <div
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full"
+  >
     <div class="px-6 py-4 mt-4">
-      <h3
-        class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      <div
+        class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
       >
         Logg på
-      </h3>
+      </div>
 
       <div>
         <div

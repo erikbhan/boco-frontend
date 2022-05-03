@@ -2,7 +2,6 @@
   <div class="h-screen grid md:mt-8">
     <NewCommunity />
   </div>
-
 </template>
 
 <script>

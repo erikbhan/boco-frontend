@@ -1,7 +1,13 @@
 <template>
-  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
+  <div
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
+  >
     <!-- Component heading -->
-    <h3 class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Opprett ny utleie</h3>
+    <h3
+      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+    >
+      Opprett ny utleie
+    </h3>
 
     <!-- Title -->
     <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
@@ -43,7 +49,7 @@
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
         <option class="text-gray-400" value="" disabled selected>
-          Select a category
+          Velg en kategori
         </option>
         <option
           v-for="category in categories"
@@ -66,24 +72,23 @@
       </div>
     </div>
 
-    <!-- Select Group -->
+    <!-- Grupper -->
     <div class="mb-6">
-      <label
-        class="block text-sm font-medium text-gray-900 dark:text-gray-400"
-        >Grupper</label>
+      <label class="block text-sm font-medium text-gray-900 dark:text-gray-400"
+        >Grupper</label
+      >
       <div
-          class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
+        class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
             <div class="form-check" v-for="group in groups" :key="group">
               <input
-
-                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="checkbox"
-                  :value="group.communityId"
-                  @change="onChangeGroup($event)"
-              >
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                :value="group.communityId"
+                @change="onChangeGroup($event)"
+              />
               <label class="form-check-label inline-block text-gray-800">
                 {{ group.name }}
               </label>
@@ -152,6 +157,7 @@
     <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        id="addressLabel"
         >Adresse</label
       >
       <input
@@ -300,7 +306,7 @@ export default {
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
       groups: [],
-      groupErrorMessage: '',
+      groupErrorMessage: "",
     };
   },
   methods: {
@@ -309,7 +315,7 @@ export default {
 
       this.v$.item.$touch();
       if (this.v$.item.$invalid || this.item.selectedGroups.length === 0) {
-        if(this.item.selectedGroups.length === 0){
+        if (this.item.selectedGroups.length === 0) {
           this.groupErrorMessage = "Velg gruppe/grupper";
         }
         console.log("Invalid, avslutter...");
@@ -352,7 +358,7 @@ export default {
 
         console.log("posted: " + postRequest);
 
-        this.$router.push('/');
+        this.$router.push("/");
       }
     },
 
@@ -366,11 +372,11 @@ export default {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
     },
 
-    getGroups: async function(){
+    getGroups: async function () {
       this.groups = await getMyGroups();
     },
 
-    onChangeGroup: function(e){
+    onChangeGroup: function (e) {
       this.selectedGroupId = e.target.value;
       let alreadyInGroupList = false;
       console.log("selected clicked");
@@ -385,15 +391,14 @@ export default {
         }
       }
 
-      if(!alreadyInGroupList){
+      if (!alreadyInGroupList) {
         this.item.selectedGroups.push(this.selectedGroupId);
         this.groupErrorMessage = "";
       }
-
     },
   },
   beforeMount() {
     this.getGroups();
-  }
+  },
 };
 </script>
