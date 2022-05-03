@@ -90,9 +90,8 @@ export default {
     };
   },
   methods: {
-    getCommunityFromAPI: async function () {
-      this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
+    async getCommunityFromAPI() {
+      this.communityID = this.$route.params.communityID;
       this.community = await GetCommunity(this.communityID);
     },
     getListingsOfCommunityFromAPI: async function () {
