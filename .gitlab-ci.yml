@@ -48,6 +48,7 @@ deploy-backend:
     - apt install --assume-yes openssh-client
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVERUSER@$SERVERIP "sudo /bin/systemctl restart cleanfront.service"
     - rsync --archive --rsync-path=/usr/bin/rsync --delete --exclude='.git' -e "ssh -i $ID_RSA -o StrictHostKeyChecking=no -l gutta -p 22" . $SERVERIP:./app/frontend
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVERUSER@$SERVERIP "npm install"
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVERUSER@$SERVERIP "sudo /bin/systemctl restart frontend.service"
   only:
     - deploy
