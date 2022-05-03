@@ -130,7 +130,7 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        console.log("Invalid, exiting...");
+        //console.log("Invalid, exiting...");
         return;
       }
 
@@ -142,12 +142,12 @@ export default {
       const newPasswordResponse = doNewPassword(newPasswordInfo);
 
       if (newPasswordResponse.newPasswordSet === true) {
-        console.log("New password set");
+        //console.log("New password set");
         await this.$router.push("/");
       } else if (newPasswordResponse.newPasswordSet === false) {
-        console.log("Couldn't set new password");
+        //console.log("Couldn't set new password");
       } else {
-        console.log("Something went wrong");
+        //console.log("Something went wrong");
       }
     },
     validate() {

@@ -60,7 +60,9 @@ export default {
     },
   },
   mounted() {
-    this.admin = CommunityAdminService.isUserAdmin();
+    this.admin = CommunityAdminService.isUserAdmin(
+      this.$route.params.communityID
+    );
   },
 };
 </script>

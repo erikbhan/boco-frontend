@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     deleteCommunity() {
-      console.log("DELETED");
+      //console.log("DELETED");
       // AdminService.deleteCommunity(this.$route.params.communityID);
     },
   },

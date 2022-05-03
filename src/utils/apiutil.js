@@ -91,7 +91,7 @@ export function doNewPassword() {
   //return axios
   //.post(API_URL + "newPassword", newPasswordInfo)
   //.then((response) => {auth.newPasswordSet = true;return auth;})
-  //.catch((error) => {console.log(error);return auth;});
+  //.catch((error) => {//console.log(error);return auth;});
   return auth; //remove after axios is added
 }
 
@@ -101,7 +101,7 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -127,7 +127,7 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
+      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -230,7 +230,7 @@ export async function GetMembersOfCommunity(communityID) {
 
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    console.log("ikke logget på!");
+    //console.log("ikke logget på!");
     return "Login to join any community";
   }
 
