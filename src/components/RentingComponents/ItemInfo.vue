@@ -141,8 +141,10 @@ export default {
   },
   methods: {
     sendToConfirm(){
+      if (this.allowForRent) {
       this.confirm = true;
       this.createPushItem();
+      }
     },
     createPushItem(){
       this.pushItem.listingID = this.item.listingID;
@@ -198,12 +200,6 @@ export default {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
       amountOfDays = amountOfDays / 86400000;
       this.totPrice = this.item.pricePerDay * amountOfDays;
-    },
-    sendToConfirm() {
-      if (this.allowForRent) {
-        //TODO change this to a componet change
-        alert("Hei");
-      }
     },
   },
   async beforeMount() {

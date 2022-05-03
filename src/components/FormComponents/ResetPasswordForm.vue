@@ -1,9 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4">
-
-    <div class="text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8">Glemt passordet ditt?</div>
-=======
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
@@ -12,7 +7,6 @@
     >
       Glemt passordet ditt?
     </h3>
->>>>>>> b2d672f737c091606c38e81d3ba3e42b5de37d00
 
     <div
       id="emailField"
