@@ -22,19 +22,39 @@
         class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
         placeholder="Search"
         v-model="search"
+        @change="searchWritten"
       />
     </div>
 
-    <!-- Item cards -->
-    <div class="absolute inset-x-0 px-6 py-3">
-      <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-      >
-        <ItemCard
-          v-for="item in searchedItems"
-          :key="item"
-          :item="item"
-          @click="goToItemInfoPage(item.listingID)"
+
+    <div class="absolute inset-x-0 px-5 py-3">
+
+      <!-- ItemCards -->
+      <div class="flex items-center justify-center w-screen">
+        <!-- Shows items based on pagination -->
+        <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+            v-if="showItems">
+          <ItemCard  v-for="item in visibleItems" :key="item" :item="item" @click="goToItemInfoPage(item.listingID)" />
+        </div>
+
+        <!-- Shows items based on search field input -->
+        <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+            v-if="showSearchedItems">
+          <ItemCard v-for="item in searchedItems" :key="item" :item="item" @click="goToItemInfoPage(item.listingID)" />
+        </div>
+      </div>
+
+
+      <!-- pagination -->
+      <div class="flex justify-center" v-if="showItems">
+        <PaginationTemplate
+            v-bind:items="items"
+            v-on:page:update="updatePage"
+            v-bind:currentPage="currentPage"
+            v-bind:pageSize="pageSize"
+            class="mt-10"
         />
       </div>
     </div>
@@ -42,8 +62,10 @@
 </template>
 
 <script>
-import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
 import ItemCard from "@/components/ItemComponents/ItemCard";
+import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
+import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+
 import {
   GetCommunity,
   GetListingsInCommunity,
@@ -54,6 +76,7 @@ export default {
   components: {
     CommunityHeader,
     ItemCard,
+    PaginationTemplate,
   },
   computed: {
     searchedItems() {
@@ -87,6 +110,14 @@ export default {
       search: "",
       communityID: -1,
       community: {},
+
+      showItems: true,
+      showSearchedItems: false,
+
+      //Variables connected to pagination
+      currentPage: 0,
+      pageSize: 12,
+      visibleItems: [],
     };
   },
   methods: {
@@ -113,10 +144,36 @@ export default {
       let res = await getItemPictures(itemid);
       return res;
     },
+    searchWritten: function (){
+      //This method triggers when search input field is changed
+      if(this.search.length > 0){
+        this.showItems = false;
+        this.showSearchedItems = true;
+      }
+      else{
+        this.showItems = true;
+        this.showSearchedItems = false;
+      }
+    },
+
+    //Pagination
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleTodos();
+    },
+    updateVisibleTodos() {
+      this.visibleItems = this.items.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+
+      // if we have 0 visible items, go back a page
+      if (this.visibleItems.length === 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage -1);
+      }
+    },
   },
-  beforeMount() {
-    this.getCommunityFromAPI(); //To get the id of the community before mounting the view
-    this.getListingsOfCommunityFromAPI();
+  async beforeMount() {
+    await this.getCommunityFromAPI(); //To get the id of the community before mounting the view
+    await this.getListingsOfCommunityFromAPI();
+    this.updateVisibleTodos();
   },
 };
 </script>
