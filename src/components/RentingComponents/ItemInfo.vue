@@ -3,7 +3,7 @@
     <div>
       <div
         v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center':
+          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 h-[600px] w-auto lg:grid-cols-5 place-items-center':
             noPicture,
         }"
       >
@@ -55,7 +55,10 @@
 
           <div>
             <p class="text-sm text-gray-900">
-              <DatepickerRange @value="setDate" :messageOnDisplay="dateMessage"></DatepickerRange>
+              <DatepickerRange
+                @value="setDate"
+                :messageOnDisplay="dateMessage"
+              ></DatepickerRange>
             </p>
           </div>
         </div>
@@ -80,9 +83,7 @@
 </template>
 
 <script>
-import { getItem } from "@/utils/apiutil";
-import { getItemPictures } from "@/utils/apiutil";
-import { getUser } from "@/utils/apiutil";
+import { getItem, getItemPictures, getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
@@ -155,7 +156,7 @@ export default {
       this.userForId = await getUser(userId);
     },
     setDate(dateOfsomthing) {
-      if(dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
+      if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
         this.totPrice = this.item.pricePerDay;
         this.allowForRent = false;
       } else {
@@ -171,7 +172,7 @@ export default {
       this.totPrice = this.item.pricePerDay * amountOfDays;
     },
     sendToConfirm() {
-      if(this.allowForRent) {
+      if (this.allowForRent) {
         //TODO change this to a componet change
         alert("Hei");
       }
@@ -191,6 +192,6 @@ export default {
 }
 
 .colorChange:hover {
-  background-color: #306EC1;
+  background-color: #306ec1;
 }
 </style>

@@ -48,7 +48,11 @@
 <script>
 import ItemCard from "@/components/ItemComponents/ItemCard";
 import CommunityHeader from "@/components/BaseComponents/CommunityHeader";
-import { GetCommunity, GetListingsInCommunity } from "@/utils/apiutil";
+import {
+  GetCommunity,
+  GetListingsInCommunity,
+  getItemPictures,
+} from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
 
@@ -101,9 +105,20 @@ export default {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
       this.items = await GetListingsInCommunity(this.communityID);
+      for (var i = 0; i < this.items.length; i++) {
+        let images = await getItemPictures(this.items[i].listingID);
+        console.log(images);
+        if(images.length > 0) {
+          this.items[i].img = images[0].picture;
+        }
+      }
     },
     goToItemInfoPage(item) {
       this.$router.push("/itempage/" + item);
+    },
+    getItemPictures: async function (itemid) {
+      let res = await getItemPictures(itemid);
+      return res;
     },
   },
   beforeMount() {
