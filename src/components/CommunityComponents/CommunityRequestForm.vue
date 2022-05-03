@@ -10,25 +10,25 @@
     </div>
 
 
-    <!-- Description -->
-    <div class="mt-6" :class="{ error: v$.description.$errors.length }">
+    <!-- message -->
+    <div class="mt-6" :class="{ error: v$.message.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        id="descriptionLabel"
+        id="messageLabel"
         > Melding til administrator av gruppa: </label
       >
       <textarea
-        id="description"
+        id="message"
         rows="4"
-        v-model="description"
+        v-model="message"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
-      <!-- error message for description -->
+      <!-- error message for message -->
       <div
         class="text-error"
-        v-for="(error, index) of v$.description.$errors"
+        v-for="(error, index) of v$.message.$errors"
         :key="index"
       >
         <div class="text-error text-sm">
@@ -64,7 +64,7 @@ export default {
 
   validations() {
     return {
-        description: {
+        message: {
           required: helpers.withMessage(
             () => "Meldingen kan ikke være tom",
             required
@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-        description: "",
+        message: "",
         communityId: null,
         community: {},
     };
@@ -92,7 +92,7 @@ export default {
         this.communityID = await this.$router.currentRoute.value.params
         .communityID;
 
-      await axios.post(process.env.VUE_APP_BASEURL+ `communities/${this.communityID}/private/join`, {message: this.description, }, {headers: tokenHeader()} );
+      await axios.post(process.env.VUE_APP_BASEURL+ `communities/${this.communityID}/private/join`, {message: this.message, }, {headers: tokenHeader()} );
     },
      getCommunityFromAPI: async function () {
       this.communityID = await this.$router.currentRoute.value.params
