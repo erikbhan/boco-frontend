@@ -79,7 +79,8 @@ const routes = [
   {
     path: "/notifications",
     name: "notifications",
-    component: () => import("../components/BaseComponents/NotificationsForm.vue"),
+    component: () =>
+      import("../components/BaseComponents/NotificationsForm.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -92,6 +93,11 @@ const routes = [
     path: "/community/:communityID",
     name: "communityHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
+  },
+  {
+    path: "/community/:communityID/private/join",
+    name: "communityRequest",
+    component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
   },
   {
     path: "/test",

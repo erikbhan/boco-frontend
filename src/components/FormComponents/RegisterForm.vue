@@ -3,7 +3,8 @@
     class="w-full max-w-md mx-auto mb-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
     <div
-      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8" id="registerLabel"
+      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      id="registerLabel"
     >
       Opprett ny konto
     </div>

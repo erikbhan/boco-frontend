@@ -1,8 +1,7 @@
 <template>
   <div class="h-screen grid md:mt-8">
-    <AddNewItem/>
+    <AddNewItem />
   </div>
-
 </template>
 
 <script>
