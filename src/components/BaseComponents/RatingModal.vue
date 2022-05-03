@@ -9,9 +9,9 @@
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <!-- Modal header -->
         <div
-            class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600"
+            class="flex p-4 border-b rounded-t dark:border-gray-600"
         >
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 class="mr- text-xl font-semibold text-gray-900 dark:text-white">
             {{ name }}
           </h3>
           <button
@@ -33,47 +33,59 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class="p-6 space-y-6">
-          <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+        <div class=" p-6 space-y-6">
+          <p class="text-lg text-base leading-relaxed text-gray-500 dark:text-gray-400">
             {{ title }}
           </p>
         </div>
-        <div class="p-6 space-y-6" >
-          <p class="flex justify-center text-base leading-relaxed text-gray-500 dark:text-gray-400" v-show="renterIsReceiverOfRating">
-            Gi en rating til utleieren
+
+        <div class="flex justify-center mt-4">
+          <p class=" text-base leading-relaxed text-gray-500 dark:text-gray-400" v-show="renterIsReceiverOfRating">
+            Gi en vurdering til utleieren
           </p>
           <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400" v-show="!renterIsReceiverOfRating">
-            Gi en rating til leieren
+            Gi en vurdering til leietakeren
           </p>
         </div>
 
-        <div class="flex items-center justify-center m-8">
-          <svg class="w-5 h-5 text-warn cursor-pointer" :class="rating[0]" @click="setRating(1)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <div class="flex justify-center">
+          <textarea class="h-40 w-50 bg-gray-200 mb-4 ring-1 ring-gray-400 rounded-xl"/>
+        </div>
+
+        <div class="flex items-center justify-center mb-8">
+          <svg class="w-10 h-10 text-warn cursor-pointer" :class="rating[0]" @click="setRating(1)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
             </path>
           </svg>
-          <svg class="w-5 h-5 text-warn cursor-pointer" :class="rating[1]" @click="setRating(2)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-10 h-10 text-warn cursor-pointer" :class="rating[1]" @click="setRating(2)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
             </path>
           </svg>
-          <svg class="w-5 h-5 text-warn cursor-pointer" :class="rating[2]" @click="setRating(3)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-10 h-10 text-warn cursor-pointer" :class="rating[2]" @click="setRating(3)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
             </path>
           </svg>
-          <svg class="w-5 h-5 text-warn cursor-pointer" :class="rating[3]" @click="setRating(4)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-10 h-10 text-warn cursor-pointer" :class="rating[3]" @click="setRating(4)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
             </path>
           </svg>
-          <svg class="w-5 h-5 cursor-pointer" :class="rating[4]" @click="setRating(5)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-10 h-10 text-warn cursor-pointer" :class="rating[4]" @click="setRating(5)" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
             </path>
           </svg>
         </div>
+
+        <div class="flex justify-center mb-4">
+          <Button
+          :text="'Send en vurdering'"
+          @click="sendRating"></Button>
+        </div>
+
         <!-- Modal footer -->
         <div class="rounded-b border-t border-gray-200 dark:border-gray-600">
           <!-- Slot: Add any html you want here -->
@@ -85,6 +97,9 @@
 </template>
 
 <script>
+import Button from "@/components/BaseComponents/ColoredButton";
+import { postNewRating} from "@/utils/apiutil";
+
 export default {
   name: "RatingModal",
   data(){
@@ -108,10 +123,14 @@ export default {
     renterIsReceiverOfRating: Boolean,
 
   },
+
+  components: {
+    Button,
+  },
   methods: {
     setRating(ratingNumber){
       this.score = ratingNumber;
-      for(let i = 0; i < 6; i++ ){
+      for(let i = 0; i < 5; i++ ){
         if(i < ratingNumber) {
           this.rating[i] = "text-warn"
         }
@@ -122,6 +141,22 @@ export default {
     },
     close() {
       this.$emit("close");
+    },
+    async sendRating(){
+
+      const ratingInfo = {
+        score: this.score,
+        comment: this.comment,
+        renterIsReceiverOfRating: this.renterIsReceiverOfRating,
+        rentID: this.rentID
+      }
+
+      const postResponse = await postNewRating(ratingInfo);
+
+      console.log("posted: " + postResponse);
+
+      this.$router.push("/");
+
     },
   },
 };
