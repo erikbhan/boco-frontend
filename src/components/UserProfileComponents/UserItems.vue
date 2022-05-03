@@ -3,7 +3,6 @@
       Dine gjenstander
   </div>
   <!-- Search field -->
-   <!-- Search field -->
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
