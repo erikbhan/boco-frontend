@@ -1,6 +1,8 @@
 <template>
   <div class="mt-5">
-    <div class="w-4/5 rounded bg-gray-200">
+    <div
+      class="w-4/5 rounded bg-gray-200 h-full overflow-hidden display:inline-block correct-size"
+    >
       <img
         class="w-full"
         :src="item.img || require('../../assets/default-product.png')"
