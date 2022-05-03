@@ -21,6 +21,7 @@
         v-bind:key="i"
         :message="message"
       ></ChatMessage>
+      <rental-message></rental-message>
     </div>
     <div
       class="
@@ -70,6 +71,7 @@
 import ChatMessage from "./ChatMessage.vue";
 import axios from "axios";
 import ws from "@/services/ws";
+import RentalMessage from "./RentalMessage.vue";
 export default {
   props: {
     openHamburger: { type: Function },
@@ -79,7 +81,6 @@ export default {
   },
   data() {
     return {
-      src: "https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=900x900",
       messages: [],
       canScroll: true,
       scrollBehavior: "",
@@ -88,6 +89,7 @@ export default {
   },
   components: {
     ChatMessage,
+    RentalMessage
   },
   computed: {
     name() {
@@ -96,6 +98,9 @@ export default {
         ? this.recipient.firstName + " " + this.recipient.lastName
         : "N/A";
     },
+    src() {
+        return this.recipient?.picture
+    }
   },
   methods: {
     openHamburgerMethod() {

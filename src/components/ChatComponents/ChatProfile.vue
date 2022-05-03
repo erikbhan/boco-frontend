@@ -5,7 +5,7 @@
   >
     <img
       class="h-10 w-10 rounded-full object-cover"
-      src="https://www.mintface.xyz/content/images/2021/08/QmTndiF423kjdXsNzsip1QQkBQqDuzDhJnGuJAXtv4XXiZ-1.png"
+      :src="src"
       :alt="{ name }"
     />
     <div class="w-full pb-2">
@@ -49,6 +49,9 @@ export default {
     lastMessageTime() {
       return "5 min";
     },
+    src() {
+      return this.conversation.recipient.picture || "N/A";
+    }
   },
   methods: {
     selectUser() {
