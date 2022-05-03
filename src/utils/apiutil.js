@@ -13,7 +13,7 @@ export function doLogin(loginRequest) {
       return auth;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return auth;
     });
 }
@@ -30,7 +30,7 @@ export function registerUser(registerInfo) {
     .then((response) => {
       return response;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 }
 
 export async function getUser(userid) {
@@ -97,7 +97,7 @@ export async function doNewPassword(password) {
       return response;
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   return res.data;
 }
@@ -108,11 +108,10 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -124,7 +123,7 @@ export function postNewgroup(groupInfo) {
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -134,11 +133,10 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -222,8 +220,6 @@ export async function GetListingsInCommunity(communityID) {
     });
 }
 
-
-
 export async function GetMembersOfCommunity(communityID) {
   return axios
     .get(API_URL + "community/" + communityID + "/members", {
@@ -252,7 +248,6 @@ export async function GetMemberRequestsOfCommunity(communityID) {
 
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    //console.log("ikke logget på!");
     return "Login to join any community";
   }
 
@@ -264,7 +259,7 @@ export function JoinOpenCommunity(communityId) {
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -295,7 +290,7 @@ export async function LeaveCommunity(communityID) {
       return response.data;
     })
     .catch((error) => {
-      console.log(error.data);
+      console.error(error.data);
       return error;
     });
 }
@@ -315,15 +310,14 @@ export async function GetUserListings() {
 
 export function postNewRating(ratingInfo) {
   return axios
-      .post(API_URL + "rating/save", ratingInfo, {
-        headers: tokenHeader(),
-      })
-      .then((response) => {
-        console.log("poster: " + response.data);
-        return response;
-      })
-      .catch((error) => {
-        console.log(error.response);
-        return error;
-      });
+    .post(API_URL + "rating/save", ratingInfo, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
 }
