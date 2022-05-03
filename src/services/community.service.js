@@ -4,9 +4,9 @@ import axios from "axios";
 const API_URL = process.env.VUE_APP_BASEURL;
 
 class CommunityService {
-  async getCommunity(communityId) {
+  async getCommunity(communityID) {
     return await axios
-      .get(API_URL + "community/" + communityId, {
+      .get(API_URL + "community/" + communityID, {
         headers: tokenHeader(),
       })
       .then((response) => {
@@ -28,9 +28,9 @@ class CommunityService {
       });
   }
 
-  async getCommunityMembers(communityId) {
+  async getCommunityMembers(communityID) {
     return await axios
-      .get(API_URL + "community/" + communityId + "/members", {
+      .get(API_URL + "community/" + communityID + "/members", {
         headers: tokenHeader(),
       })
       .then((response) => {
