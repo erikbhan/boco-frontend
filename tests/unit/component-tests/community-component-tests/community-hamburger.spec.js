@@ -1,13 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger.vue";
-import {
-  route,
-  router,
-  $route,
-  $router,
-  store,
-  $store,
-} from "../../mock-router";
+import { route, router, $route, $router } from "../../mock-router";
+import { store, $store } from "../../mock-store";
 
 describe("CommunityHamburger elements rendering", () => {
   let wrapper;
