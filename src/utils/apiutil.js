@@ -233,6 +233,19 @@ export async function GetMembersOfCommunity(communityID) {
     });
 }
 
+export async function GetMemberRequestsOfCommunity(communityID) {
+  return axios
+    .get(API_URL + "communities/" + communityID + "/requests", {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
     return "Login to join any community";
@@ -280,4 +293,19 @@ export async function LeaveCommunity(communityID) {
       console.error(error.data);
       return error;
     });
+}
+
+export function postNewRating(ratingInfo) {
+  return axios
+      .post(API_URL + "rating/save", ratingInfo, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        console.log("poster: " + response.data);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.response);
+        return error;
+      });
 }
