@@ -10,7 +10,7 @@ class UserService {
       .then((res) => {
         return res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   async getUserRatingAverage(userId) {
@@ -19,7 +19,7 @@ class UserService {
       .then((res) => {
         return res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   //TODO
