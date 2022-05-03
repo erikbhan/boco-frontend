@@ -3,6 +3,7 @@ image: node:16
 stages:
 #  - setup
   - test
+  - deploy
 
 #variables:
 #  npm_config_cache: "$CI_PROJECT_DIR/.npm"
@@ -36,6 +37,20 @@ test:
     - npm ci
     - npm run lint
     - npm run test:unit
+
+deploy-backend:
+  image: ubuntu:latest
+  stage: deploy
+  script:
+    - chmod og= $ID_RSA
+    - apt update
+    - apt install --assume-yes rsync
+    - apt install --assume-yes openssh-client
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVERUSER@$SERVERIP "sudo /bin/systemctl restart cleanfront.service"
+    - rsync --archive --rsync-path=/usr/bin/rsync --delete --exclude='.git' -e "ssh -i $ID_RSA -o StrictHostKeyChecking=no -l gutta -p 22" . $SERVERIP:./app/frontend
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVERUSER@$SERVERIP "sudo /bin/systemctl restart frontend.service"
+  only:
+    - deploy
 
 #unit_test:
 #  stage: test
