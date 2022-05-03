@@ -39,25 +39,28 @@
 
 <script>
 import { LeaveCommunity } from "@/utils/apiutil";
+import CommunityAdminService from "@/services/community-admin.service";
 
 export default {
   name: "CommunityHamburger",
   props: {
     communityID: Number,
-    admin: Boolean,
   },
   data() {
     return {
       id: -1,
+      admin: false,
     };
   },
-
   methods: {
     leaveCommunity: async function () {
       this.id = await this.$router.currentRoute.value.params.communityID;
       await LeaveCommunity(this.id);
       this.$router.push("/");
     },
+  },
+  mounted() {
+    this.admin = CommunityAdminService.isUserAdmin();
   },
 };
 </script>
