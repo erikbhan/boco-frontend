@@ -29,25 +29,33 @@
         required
       ></textarea>
     </div>
-    <button id="cancelButton" @click="cancelRent" class="text-primary-medium">Tilbake</button>
+    <button id="cancelButton" @click="cancelRent" class="text-primary-medium">
+      Tilbake
+    </button>
     <div id="confirmButton">
       <colored-button @click="sendRent" :text="'Send'"></colored-button>
     </div>
   </div>
   <div>
-    <notification-modal @click="routeToHome" :visible="confirmed" :title="'Vellykket'" :message="'Forespørsel sendt!'"> </notification-modal>
+    <notification-modal
+      @click="routeToHome"
+      :visible="confirmed"
+      :title="'Vellykket'"
+      :message="'Forespørsel sendt!'"
+    >
+    </notification-modal>
   </div>
 </template>
 
 <script>
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 import { postNewRent } from "@/utils/apiutil";
-import NotificationModal from "@/components/BaseComponents/NotificationModal.vue"
+import NotificationModal from "@/components/BaseComponents/NotificationModal.vue";
 export default {
   name: "NewRent",
   components: {
     ColoredButton,
-    NotificationModal
+    NotificationModal,
   },
   data() {
     return {
@@ -139,11 +147,11 @@ export default {
     cancelRent() {
       this.$router.go(0);
     },
-    routeToHome(){
-      this.$router.push("/")
+    routeToHome() {
+      this.$router.push("/");
     },
     sendRent: async function () {
-      const rent = {  
+      const rent = {
         renterId: 0,
         message: this.message,
         listingId: this.newRentBox.listingID,

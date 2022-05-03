@@ -105,14 +105,6 @@ const routes = [
     name: "ItemInfo",
     component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
   },
-
-  {
-    path: "/itempage/:id/confirm",
-    name: "RentConfirm",
-    props:true,
-    component: () => import("../views/RentingViews/ConfirmRentView.vue"),
-
-  }
 ];
 
 const router = createRouter({

@@ -1,7 +1,6 @@
 <template>
   <div>
-   <new-rent v-if="confirm" :newRentBox="pushItem">
-   </new-rent>
+    <new-rent v-if="confirm" :newRentBox="pushItem"> </new-rent>
   </div>
   <div v-if="!confirm">
     <div>
@@ -87,7 +86,7 @@
 </template>
 
 <script>
-import NewRent from "@/components/RentingComponents/NewRent.vue"
+import NewRent from "@/components/RentingComponents/NewRent.vue";
 import { getItem, getItemPictures, getUser } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
@@ -108,9 +107,8 @@ export default {
         userID: 0,
         categoryNames: [],
         communityIDs: [],
-        
       },
-      pushItem:{
+      pushItem: {
         listingID: 157,
         title: "Heii",
         price: 56,
@@ -137,16 +135,16 @@ export default {
     ImageCarousel,
     UserListItemCard,
     DatepickerRange,
-    NewRent
+    NewRent,
   },
   methods: {
-    sendToConfirm(){
+    sendToConfirm() {
       if (this.allowForRent) {
-      this.confirm = true;
-      this.createPushItem();
+        this.confirm = true;
+        this.createPushItem();
       }
     },
-    createPushItem(){
+    createPushItem() {
       this.pushItem.listingID = this.item.listingID;
       this.pushItem.fromTime = this.rentingStartDate;
       this.pushItem.toTime = this.rentingEndDate;
