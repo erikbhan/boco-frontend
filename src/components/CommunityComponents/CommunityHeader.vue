@@ -127,8 +127,6 @@ export default {
         this.$route.params.communityID
       );
       for (let i = 0; i < members.length; i++) {
-        console.log(members[i].userId + " vs " + this.userid);
-        console.log(members[i].userId == this.userid);
         if (members[i].userId == this.userid) {
           this.member = true;
           return;

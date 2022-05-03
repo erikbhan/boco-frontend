@@ -17,18 +17,15 @@ const ws = (function () {
   const onMessageReceived = (payload) => {
     const data = JSON.parse(payload.body);
 
-    console.log("New message!");
     // Fire message event
     fire("MESSAGE", JSON.parse(payload.body));
 
     if (data.status == "NEW_MESSAGE")
       fire("NEW_MESSAGE", JSON.parse(payload.body));
 
-    console.log("Received message: " + payload);
   };
 
   const onConnected = () => {
-    console.log("Websocket Connected");
     stompClient.subscribe(
       "/user/" + parseCurrentUser().accountId + "/queue/messages",
       onMessageReceived
@@ -57,7 +54,6 @@ const ws = (function () {
       }
     },
     sendMessage: ({ sender, recipient /* , status */ }) => {
-      //if (status) console.log(status);
       stompClient.send(
         "/app/chat",
         {},

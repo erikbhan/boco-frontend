@@ -53,9 +53,7 @@ export default {
     async loadProfile() {
       if (this.$store.state.user.token !== null) {
         let user = parseUserFromToken(this.$store.state.user.token);
-        console.log(user);
         let id = user.accountId;
-        console.log(id);
         await this.$router.push("/profile/" + id);
       } else {
         await this.$router.push("/login");

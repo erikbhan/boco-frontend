@@ -97,7 +97,7 @@ export async function doNewPassword(password) {
       return response;
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   return res.data;
 }
@@ -108,7 +108,6 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -134,7 +133,6 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
@@ -237,7 +235,6 @@ export async function GetMembersOfCommunity(communityID) {
 
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    console.log("ikke logget på!");
     return "Login to join any community";
   }
 
