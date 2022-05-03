@@ -23,7 +23,7 @@ export function registerUser(registerInfo) {
     .post(API_URL + "register", {
       email: registerInfo.email,
       firstName: registerInfo.firstName,
-      lastname: registerInfo.lastname,
+      lastName: registerInfo.lastname,
       password: registerInfo.password,
       address: registerInfo.address,
     })
