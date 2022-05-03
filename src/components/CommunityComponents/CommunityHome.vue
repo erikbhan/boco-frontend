@@ -1,10 +1,6 @@
 <template>
   <section class="w-full px-5 py-4 mx-auto rounded-md">
-    <CommunityHeader
-      :admin-status="false"
-      :community="community"
-      class="mb-5"
-    />
+    <CommunityHeader :admin="false" class="mb-5" />
 
     <!-- Search field -->
     <div class="relative" id="searchComponent">
@@ -86,13 +82,11 @@ import {
 } from "@/utils/apiutil";
 export default {
   name: "SearchItemListComponent",
-
   components: {
     CommunityHeader,
     ItemCard,
     PaginationTemplate,
   },
-
   computed: {
     searchedItems() {
       let filteredItems = [];
@@ -136,9 +130,8 @@ export default {
     };
   },
   methods: {
-    getCommunityFromAPI: async function () {
-      this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
+    async getCommunityFromAPI() {
+      this.communityID = this.$route.params.communityID;
       this.community = await GetCommunity(this.communityID);
     },
     getListingsOfCommunityFromAPI: async function () {
