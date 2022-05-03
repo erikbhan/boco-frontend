@@ -138,7 +138,6 @@ export default {
       this.items = await GetListingsInCommunity(this.communityID);
       for (var i = 0; i < this.items.length; i++) {
         let images = await getItemPictures(this.items[i].listingID);
-        console.log(images);
         if (images.length > 0) {
           this.items[i].img = images[0].picture;
         }
