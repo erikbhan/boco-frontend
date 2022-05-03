@@ -43,18 +43,16 @@ import CommunityAdminService from "@/services/community-admin.service";
 
 export default {
   name: "CommunityHamburger",
-  props: {
-    communityID: Number,
-  },
   data() {
     return {
       id: -1,
       admin: false,
+      communityID: -1,
     };
   },
   methods: {
     leaveCommunity: async function () {
-      this.id = await this.$router.currentRoute.value.params.communityID;
+      this.id = this.$route.params.communityID;
       await LeaveCommunity(this.id);
       this.$router.push("/");
     },
@@ -63,6 +61,9 @@ export default {
     this.admin = CommunityAdminService.isUserAdmin(
       this.$route.params.communityID
     );
+  },
+  created() {
+    this.communityID = this.$route.params.communityID;
   },
 };
 </script>

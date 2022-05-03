@@ -1,5 +1,7 @@
 <template>
-  <div class="flex items-center justify-between mx-4">
+  <!-- TODO PUT A LOADER HERE -->
+  <div v-if="loading">LASTER...</div>
+  <div v-else class="flex items-center justify-between mx-4">
     <router-link
       :to="'/community/' + community.communityId"
       class="flex-1 min-w-0"
@@ -83,9 +85,10 @@ import CommunityHamburger from "@/components/CommunityComponents/CommunityHambur
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
 import CommunityService from "@/services/community.service";
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
+import { parseCurrentUser } from "@/utils/token-utils";
 import {
   JoinOpenCommunity,
-  GetIfUserAlreadyInCommunity,
+  // GetIfUserAlreadyInCommunity,
 } from "@/utils/apiutil";
 
 export default {
@@ -95,12 +98,18 @@ export default {
     ColoredButton,
     CustomFooterModal,
   },
+  computed: {
+    userid() {
+      return parseCurrentUser().accountId;
+    },
+  },
   data() {
     return {
       hamburgerOpen: false,
       dialogOpen: false,
-      member: true,
+      member: false,
       community: {},
+      loading: true,
     };
   },
   props: {
@@ -110,6 +119,20 @@ export default {
     toggleHamburgerMenu() {
       this.hamburgerOpen = !this.hamburgerOpen;
     },
+    async load() {
+      this.community = await CommunityService.getCommunity(
+        this.$route.params.communityID
+      );
+      let members = await CommunityService.getCommunityMembers(
+        this.$route.params.communityID
+      );
+      for (let mem in members) {
+        if (mem === this.userid) {
+          this.member = true;
+          return;
+        }
+      }
+    },
     joinCommunity: async function (id) {
       const response = await JoinOpenCommunity(id);
       if (response === "Login to join any community") {
@@ -118,23 +141,13 @@ export default {
         window.location.reload();
       }
     },
-    getIfUserInCommunity: async function () {
-      try {
-        this.member = await GetIfUserAlreadyInCommunity(
-          this.$router.currentRoute.value.params.communityID
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
   },
-  beforeMount() {
-    this.getIfUserInCommunity();
-  },
-  async mounted() {
-    this.community = await CommunityService.getCommunity(
-      this.$route.params.communityID
-    );
+  // beforeMount() {
+  //   this.getIfUserInCommunity();
+  // },
+  async created() {
+    await this.load();
+    this.loading = false;
   },
 };
 </script>

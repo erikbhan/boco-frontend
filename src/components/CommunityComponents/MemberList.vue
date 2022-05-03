@@ -1,5 +1,6 @@
 <template>
-  <ul>
+  <div v-if="loading">LASTER...</div>
+  <ul v-else>
     <li v-for="member in members" :key="member.userId">
       <UserListItemCard :buttons="buttons" :user="member" />
     </li>
@@ -8,7 +9,7 @@
 
 <script>
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
-import { GetMembersOfCommunity } from "@/utils/apiutil";
+import CommunityService from "@/services/community.service";
 
 export default {
   name: "MemberList",
@@ -21,10 +22,18 @@ export default {
   data() {
     return {
       members: [],
+      loading: false,
     };
   },
+  methods: {
+    async load() {},
+  },
   async created() {
-    this.members = await GetMembersOfCommunity(this.$route.params.communityID);
+    this.loading = true;
+    this.members = await CommunityService.getCommunityMembers(
+      this.$route.params.communityID
+    );
+    this.loading = false;
   },
 };
 </script>
