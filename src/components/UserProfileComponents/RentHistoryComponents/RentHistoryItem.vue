@@ -1,25 +1,17 @@
 <template>
-  <div class="mt-5">
-    <div class="w-4/5 rounded bg-gray-200">
-      <img
-        class="w-full"
-        :src="listing.img || require('../assets/default-product.png')"
-        alt="Item image"
-      />
-      <div class="p-1 m-1">
-        <p class="font-bold text-sm" id="title">{{ listing.title }}</p>
-        <p class="text-gray-700 text-xs" id="price">{{ price }} kr</p>
-        <div>Leid til:</div>
-        <router-link :to="{ path: '/' + historyItem.rentedBy.id }">
-          {{ renter }}
+  <div
+    class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50"
+  >
+    <p class="font-bold mx-4" id="title">
+      {{ historyItem.listing.title }}
+    </p>
+    <div class="flex flex-row items-center">
+      <div class="flex flex-col px-4 flex-1">
+        <router-link :to="{ path: '/profile/' + user.accountId }">
+          Leid til: {{ user.firstName }} {{ user.lastName }}
         </router-link>
-        <div>Leid fra:</div>
-        <router-link
-          :to="{ path: '/' + historyItem.rentedFrom.id }"
-          class="text-left pa-2"
-        >
-          {{ owner }}
-        </router-link>
+      </div>
+      <div class="flex flex-col flex-1">
         <div>
           Fra:
           {{ this.getDateString(historyItem.fromTime, isMultipleDays) }}
@@ -28,23 +20,40 @@
           Til: {{ this.getDateString(historyItem.toTime, isMultipleDays) }}
         </div>
       </div>
+      <colored-button :text="'Vurder'" class="px-4 flex-1" />
     </div>
   </div>
 </template>
 
 <script>
-import { parseCurrentUser } from '@/utils/token-utils';
+import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
+import { getUser } from "@/utils/apiutil";
+import { parseCurrentUser } from "@/utils/token-utils";
 
 export default {
   name: "RentHistoryItem",
+  components: {
+    ColoredButton,
+  },
+  data() {
+    return {
+      user: {},
+    };
+  },
   props: {
     historyItem: {
       rentId: Number,
-      fromTime: Date,
-      toTime: Date,
-      listingId: Number,
+      fromTime: Number,
+      toTime: Number,
+      isAccepted: Boolean,
+      listing: {
+        listingID: Number,
+        title: String,
+        pricePerDay: Number,
+        address: String,
+        userID: Number,
+      },
       renterId: Number,
-      accepted: Boolean,
     },
   },
   computed: {
@@ -52,7 +61,7 @@ export default {
       return parseCurrentUser();
     },
     isMultipleDays() {
-      if (this.agreement.toTime - this.agreement.fromTime < 86400000) {
+      if (this.historyItem.toTime - this.historyItem.fromTime < 86400000) {
         return false;
       }
       return true;
@@ -60,31 +69,39 @@ export default {
     price() {
       if (this.isMultipleDays) {
         let numDays = Math.round(
-          (this.agreement.toTime - this.agreement.fromTime) / 86400000
+          (this.historyItem.toTime - this.historyItem.fromTime) / 86400000
         );
-        return this.listing.pricePerDay * numDays;
+        return this.historyItem.listing.pricePerDay * numDays;
       }
-      return this.listing.pricePerDay;
-    },
-    isRenter(historyItem) {
-      return historyItem.renterId == currentUserId;
+      return this.historyItem.listing.pricePerDay;
     },
   },
   methods: {
-    getDateString(date, isMultipleDays) {
+    getDateString(milliseconds) {
       let today = new Date();
+      let date = new Date(milliseconds);
       let dateString = date.getDate() + "." + date.getMonth();
 
       if (date.getFullYear() != today.getFullYear()) {
         dateString += "." + date.getFullYear();
       }
-
-      if (isMultipleDays) {
-        return dateString;
-      }
-
-      dateString += " " + date.getHours() + ":" + date.getMinutes();
+      return dateString;
     },
+    async getUser(historyItem) {
+      if (this.isCurrentUser(historyItem.renterId)) {
+        this.user = await getUser(historyItem.listing.userID);
+      }
+      if (this.isCurrentUser(historyItem.listing.userID)) {
+        this.user = await getUser(historyItem.renterId);
+      }
+    },
+    isCurrentUser(id) {
+      return id == this.currentUser.accountId;
+    },
+  },
+  beforeMount() {
+    this.getUser(this.historyItem);
+    console.log(this.user);
   },
 };
 </script>

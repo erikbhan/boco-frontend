@@ -27,6 +27,12 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/profile/rent/history",
+    name: "history",
+    component: () => import("../views/UserProfileViews/RentHistoryView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/register",
     name: "register",
     component: () => import("../views/FormViews/RegisterView.vue"),
