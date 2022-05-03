@@ -153,7 +153,6 @@ export default {
       };
 
       await postNewRent(rent);
-      console.log(rent);
       this.confirmed = true;
     },
   },
