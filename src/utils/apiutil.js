@@ -325,3 +325,18 @@ export function postNewRating(ratingInfo) {
       return error;
     });
 }
+
+export function postNewImageCommunity(image) {
+  return axios
+      .post(API_URL + "images", image, {
+        headers: {...tokenHeader(), "Content-Type": "image/png"},
+      })
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+}
