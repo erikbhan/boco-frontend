@@ -21,6 +21,7 @@
         </div>
       </div>
       <colored-button
+          v-if="!isRated"
         :text="'Vurder'"
         class="px-4 flex-1"
         @click="
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       user: {},
-      isRated: false,
+      isRated: true,
     };
   },
   props: {
@@ -116,6 +117,7 @@ export default {
       this.user = await userService.getUserFromId(this.historyItem.renterId);
     }
     this.isRated = await userService.isRated(this.historyItem.rentId);
+
   },
 };
 </script>
