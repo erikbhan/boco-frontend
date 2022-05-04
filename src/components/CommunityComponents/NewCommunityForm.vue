@@ -299,13 +299,13 @@
     </div>
   </div>
 
-  <img :src="group.image" class="w-1/2 inline" alt="Bilde av gjenstanden" />
+  <!--<img :src="group.image" class="w-1/2 inline" alt="Bilde av gjenstanden" />-->
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
-import { postNewgroup, postNewImageCommunity, GetImage } from "@/utils/apiutil";
+import { postNewgroup, postNewImageCommunity } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
@@ -366,8 +366,8 @@ export default {
         image: "",
       },
       imageThere: false,
-      formData: null,
-      currentImage: undefined,
+      imageId: -1,
+      imageStringURL: "",
     };
   },
   computed: {
@@ -409,10 +409,10 @@ export default {
           description: this.group.description,
           visibility: this.group.visibility,
           location: this.group.place,
-          picture: "",
+          picture: this.group.image,
         };
 
-        console.log(this.group.images);
+        console.log(this.group.image);
 
         await postNewgroup(groupInfo);
       }
@@ -421,19 +421,22 @@ export default {
     addImage: async function (event) {
       this.group.images.push(URL.createObjectURL(event.target.files[0]));
 
+      var that = this;
       let image = event.target.files[0];
       let fileReader = new FileReader();
       fileReader.onloadend = async function () {
         const res = fileReader.result;
-        await postNewImageCommunity(res);
-        this.imageThere = true;
+        const id = await postNewImageCommunity(res);
+
+        const API_URL = process.env.VUE_APP_BASEURL;
+        console.log(id);
+        console.log(API_URL + "images/" + id);
+        that.group.image = API_URL + "images/" + id;
+
       };
       fileReader.readAsArrayBuffer(image);
+      this.imageThere = true;
     },
-  },
-  async beforeMount() {
-    this.group.image = await GetImage(42);
-    //console.log(array);
   },
 };
 </script>

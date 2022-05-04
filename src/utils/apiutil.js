@@ -329,25 +329,10 @@ export function postNewImageCommunity(image) {
       })
       .then((response) => {
         console.log(response.data);
-        return response;
+        return response.data;
       })
       .catch((error) => {
         console.log(error);
         return error;
-      });
-}
-
-
-export async function GetImage(id) {
-  return axios
-      .get(API_URL + "images/" + id, {
-        headers: tokenHeader(),
-      })
-      .then((response) => {
-        console.log(response);
-        return response.data;
-      })
-      .catch((error) => {
-        console.error(error);
       });
 }
