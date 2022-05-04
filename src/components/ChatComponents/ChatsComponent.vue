@@ -89,7 +89,7 @@ export default {
     this.conversations = await conResponse.json();
 
     ws.on("NEW_MESSAGE", () => {
-      this.reloadMessages();
+      //this.reloadMessages();
     }, "chats");
     this.recipientID = (this.$route.query?.userID || null)
     if(!this.recipientID) this.hambugerDisplay = "block";
