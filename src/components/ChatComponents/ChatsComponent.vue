@@ -84,10 +84,13 @@ export default {
   
     ws.on("NEW_MESSAGE", () => {
       this.reloadMessages();
-    });
+    }, "chats");
     this.recipientID = (this.$route.query?.userID || null)
     if(!this.recipientID) this.hambugerDisplay = "block";
   },
+  unmounted() {
+    ws.end("NEW_MESSAGE", "chats");
+  }
 };
 </script>
 <style scoped>
