@@ -117,6 +117,11 @@ const routes = [
     component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
     beforeEnter: guardRoute,
   },
+  {
+    path: "/user/userItems",
+    name: "UserItems",
+    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+  },
 ];
 
 const router = createRouter({

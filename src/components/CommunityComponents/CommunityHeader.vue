@@ -123,11 +123,11 @@ export default {
       this.community = await CommunityService.getCommunity(
         this.$route.params.communityID
       );
-      let members = await CommunityService.getCommunityMembers(
+      const members = await CommunityService.getCommunityMembers(
         this.$route.params.communityID
       );
-      for (let mem in members) {
-        if (mem === this.userid) {
+      for (let i = 0; i < members.length; i++) {
+        if (members[i].userId == this.userid) {
           this.member = true;
           return;
         }

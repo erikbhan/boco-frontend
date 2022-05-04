@@ -100,9 +100,7 @@ export default {
     getCommunityFromAPI: async function () {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
-      console.log("Dette er community id =" + this.communityID);
       this.community = await GetCommunity(this.communityID);
-      console.log(this.community);
     },
   },
   async created() {

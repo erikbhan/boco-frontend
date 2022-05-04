@@ -168,7 +168,6 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        //console.log("Invalid, exiting...");
         return;
       }
 
