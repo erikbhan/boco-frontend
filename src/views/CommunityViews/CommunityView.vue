@@ -6,7 +6,7 @@
         Mine grupper
       </div>
       <UserAddIcon
-        class="cursor-pointer max-h-6 max-w-6 float-right grow"
+        class="cursor-pointer max-h-6 max-w-6 float-right grow text-primary-dark"
         @click="$router.push('/newCommunity')"
         alt="Opprett ny gruppe"
       />
