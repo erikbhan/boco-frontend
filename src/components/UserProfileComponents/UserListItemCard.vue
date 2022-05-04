@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
+import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
 import UserService from "@/services/user.service";
 import CommunityAdminService from "@/services/community-admin.service";

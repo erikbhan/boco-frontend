@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
+import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
 import { getUser, getAverageRating } from "@/utils/apiutil";
 
