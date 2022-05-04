@@ -183,7 +183,7 @@ export default {
         this.message = "";
         this.$store.commit("saveToken", newPasswordResponse.token);
         await this.$router.push("/");
-      } else  if (!newPasswordResponse.correctPassword){
+      } else if (!newPasswordResponse.correctPassword) {
         //The old password was not correct
         this.message = "Det gamle passordet stemmer ikke for denne brukeren";
       } else {
