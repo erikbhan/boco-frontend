@@ -32,15 +32,9 @@
   <!-- Search field -->
   <div class="relative mt-1 mx-2" id="searchComponent">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-      <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-      </svg>
+      <div class="w-5 h-5 text-gray-400">
+        <SearchIcon />
+      </div>
     </span>
 
     <input
@@ -75,7 +69,7 @@
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
-import { UserAddIcon } from "@heroicons/vue/outline";
+import { UserAddIcon, SearchIcon } from "@heroicons/vue/outline";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 
 export default {
@@ -102,6 +96,7 @@ export default {
     CommunityList,
     UserAddIcon,
     PaginationTemplate,
+    SearchIcon,
   },
   computed: {
     searchPublicCommunities() {
@@ -152,26 +147,21 @@ export default {
         this.updatePageMyCommunities(this.currentPageMyCommunities - 1);
       }
     },
-    //Triggers when search field input is changed
-    searchWritten: function () {
+    searchWritten() {
       //This method triggers when search input field is changed
-      if (this.search.length > 0) {
-        this.showPaginated = false;
-        this.showSearched = true;
-      } else {
-        this.showPaginated = true;
-        this.showSearched = false;
-      }
+      this.showPaginated = this.search.length < 1;
+      this.showSearched = this.search.length > 0;
+    },
+    async load() {
+      this.publicCommunities = await getVisibleGroups();
+      this.loggedIn = this.$store.state.user.token !== null;
+      if (!this.loggedIn) return;
+      this.myCommunities = await getMyGroups();
     },
   },
-  async beforeMount() {
-    this.publicCommunities = await getVisibleGroups();
-    this.loggedIn = this.$store.state.user.token !== null;
-    if (!this.loggedIn) return;
-    this.myCommunities = await getMyGroups();
-
-    // Double loop is bad; find a better way to do this
-    // Loops through both arrays and removes myCommunities from public
+  async mounted() {
+    await this.load();
+    //Double loop not bad :)
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
         if (
