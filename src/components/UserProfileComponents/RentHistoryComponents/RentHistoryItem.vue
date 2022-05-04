@@ -20,15 +20,27 @@
           Til: {{ this.getDateString(historyItem.toTime, isMultipleDays) }}
         </div>
       </div>
-      <colored-button :text="'Vurder'" class="px-4 flex-1" />
+      <colored-button
+        :text="'Vurder'"
+        class="px-4 flex-1"
+        @click="
+          $emit('rate', {
+            show: true,
+            name: user.firstName + ' ' + user.lastName,
+            title: historyItem.listing.title,
+            rentID: historyItem.rentId,
+            renterIsReceiverOfRating: !currentUserIsRenter,
+          })
+        "
+      />
     </div>
   </div>
 </template>
 
 <script>
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
-import { getUser } from "@/utils/apiutil";
 import { parseCurrentUser } from "@/utils/token-utils";
+import userService from "@/services/user.service";
 
 export default {
   name: "RentHistoryItem",
@@ -38,6 +50,7 @@ export default {
   data() {
     return {
       user: {},
+      isRated: false,
     };
   },
   props: {
@@ -75,6 +88,9 @@ export default {
       }
       return this.historyItem.listing.pricePerDay;
     },
+    currentUserIsRenter() {
+      return this.isCurrentUser(this.historyItem.renterId);
+    },
   },
   methods: {
     getDateString(milliseconds) {
@@ -87,21 +103,19 @@ export default {
       }
       return dateString;
     },
-    async getUser(historyItem) {
-      if (this.isCurrentUser(historyItem.renterId)) {
-        this.user = await getUser(historyItem.listing.userID);
-      }
-      if (this.isCurrentUser(historyItem.listing.userID)) {
-        this.user = await getUser(historyItem.renterId);
-      }
-    },
     isCurrentUser(id) {
       return id == this.currentUser.accountId;
     },
   },
-  beforeMount() {
-    this.getUser(this.historyItem);
-    console.log(this.user);
+  async beforeCreate() {
+    if (this.currentUserIsRenter) {
+      this.user = await userService.getUserFromId(
+        this.historyItem.listing.userID
+      );
+    } else {
+      this.user = await userService.getUserFromId(this.historyItem.renterId);
+    }
+    this.isRated = await userService.isRated(this.historyItem.rentId);
   },
 };
 </script>

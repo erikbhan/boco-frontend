@@ -1,24 +1,45 @@
 <template>
+  <rating-modal
+    :visible="modal.show"
+    :name="modal.name"
+    :title="modal.title"
+    :rentID="modal.rentID"
+    :renterIsReceiverOfRating="modal.renterIsReceiverOfRating"
+    @close="modal.show = false"
+    @reload="this.$forceUpdate()"
+  />
   <ul>
     <li v-for="historyItem in fullHistory" :key="historyItem.rentId">
-      <rent-history-item :historyItem="historyItem" />
+      <rent-history-item
+        :historyItem="historyItem"
+        @rate="(modal) => openModal(modal)"
+      />
     </li>
   </ul>
 </template>
 
 <script>
 import RentHistoryItem from "@/components/UserProfileComponents/RentHistoryComponents/RentHistoryItem.vue";
-import UserService from "@/services/user.service"
+import RatingModal from "@/components/UserProfileComponents/RatingComponents/RatingModal.vue";
+import UserService from "@/services/user.service";
 
 export default {
   components: {
     RentHistoryItem,
+    RatingModal,
   },
   data() {
     return {
       renterHistory: [],
       ownerHistory: [],
-    }
+      modal: {
+        show: false,
+        name: "",
+        title: "",
+        rentID: -1,
+        renterIsReceiverOfRating: false,
+      },
+    };
   },
   computed: {
     fullHistory() {
@@ -37,15 +58,18 @@ export default {
       fullHistory.sort(compareHistoryItems);
       return fullHistory;
     },
+    hasNoHistory() {
+      return this.renterHistory.length == 0 && this.ownerHistory.length == 0;
+    },
   },
   methods: {
-    getHistories() {
-      this.renterHistory = UserService.getRenterHistory();
-      this.ownerHistory = UserService.getOwnerHistory();
-    }
+    openModal(modal) {
+      this.modal = modal;
+    },
   },
-  beforeMount() {
-    this.getHistories()
+  async beforeCreate() {
+    this.renterHistory = await UserService.getRenterHistory();
+    this.ownerHistory = await UserService.getOwnerHistory();
   },
 };
 </script>
