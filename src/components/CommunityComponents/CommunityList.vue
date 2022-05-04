@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="community in communities" :key="community">
-      <CommunityListItem :community="community" :member="member" />
+      <CommunityListItem :community="community" :member="member" class="border-black" />
     </li>
   </ul>
 </template>
