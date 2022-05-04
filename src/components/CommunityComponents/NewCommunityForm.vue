@@ -153,14 +153,14 @@
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <div class="text-error uppercase text-center">midlertidig fjernet</div>
-        <!-- <button
+        <!--<div class="text-error uppercase text-center">Midlertidig fjernet</div> -->
+        <button
           @click="$refs.file.click()"
           class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
-        </button> -->
+        </button>
 
         <!-- Button for removing an image -->
       </div>
@@ -176,12 +176,14 @@
       <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
+
+  <img :src="group.image" class="w-1/2 inline" alt="Bilde av gjenstanden" />
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
-import { postNewgroup } from "@/utils/apiutil";
+import { postNewgroup, postNewImageCommunity, GetImage } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
@@ -239,8 +241,11 @@ export default {
         radio: null,
         place: "",
         visibility: 1,
+        image: "",
       },
       imageThere: false,
+      formData: null,
+      currentImage: undefined,
     };
   },
   computed: {
@@ -276,6 +281,7 @@ export default {
 
     async saveClicked() {
       if (this.checkValidation()) {
+        //this.group.image = "https://image.shutterstock.com/image-photo/distribution-delivery-concept-global-business-600w-1650964204.jpg";
         const groupInfo = {
           name: this.group.name,
           description: this.group.description,
@@ -284,14 +290,30 @@ export default {
           picture: "",
         };
 
+        console.log(this.group.images);
+
         await postNewgroup(groupInfo);
       }
     },
 
-    addImage: function (event) {
+    addImage: async function (event) {
       this.group.images.push(URL.createObjectURL(event.target.files[0]));
+
+      let image = event.target.files[0];
+      console.log(image);
+      /**const buffer = await image.arrayBuffer();
+      let byteArray = new Int8Array(buffer);
+      console.log(byteArray)*/
+
+
+      await postNewImageCommunity(image);
       this.imageThere = true;
     },
   },
+  async beforeMount() {
+    this.group.image = await GetImage(42);
+    //console.log(array);
+
+  }
 };
 </script>
