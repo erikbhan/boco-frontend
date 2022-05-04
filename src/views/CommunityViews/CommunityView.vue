@@ -1,6 +1,6 @@
 <template>
   <!-- My communities, with pagination -->
-  <div>
+  <div class="h-screen">
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
       <div class="text-xl md:text-2xl text-primary-light font-medium w-full">
@@ -67,7 +67,6 @@
   </div>
     <FooterBar></FooterBar>
   </div>
-
 </template>
 
 <script>
