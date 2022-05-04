@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="headline"
-    class="text-xl md:text-2xl text-gray-600 font-medium w-full"
-  >
+  <div id="headline" class="text-xl md:text-2xl text-primary-light font-medium">
     Dine gjenstander
   </div>
   <!-- Search field -->

@@ -85,21 +85,25 @@ export function getAverageRating(userid) {
     });
 }
 export async function doNewPassword(password) {
+  const auth = { correctPassword: false, token: "" };
   let res = await axios({
     method: "put",
-    url: API_URL + "user/profile/password",
+    url: API_URL + "user/password/change",
     headers: tokenHeader(),
     data: {
       password: password,
     },
   })
     .then((response) => {
-      return response;
+      auth.correctPassword = true;
+      auth.token = response.data;
+      return auth;
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
+      return auth;
     });
-  return res.data;
+  return res;
 }
 
 export function postNewItem(itemInfo) {
