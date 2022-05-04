@@ -28,19 +28,34 @@
       @change="searchWritten"
     />
   </div>
-  <button @click="deleteItem">Slett</button>
   <div class="absolute inset-x-0 px-5 py-3">
     <!-- ItemCards -->
     <div class="flex items-center justify-center w-screen">
       <!-- Shows items based on pagination -->
       <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full" 
+        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
         v-if="showItems"
       >
-      <div id="item" v-for="item in visibleItems" :key="item">
-        <ItemCard class = "w-fit h-fit" @click="deleteItem(item.listingID)" :item="item" />
-        <button @click="deleteItem(item.listingID)" class="absolute"> {{ item.listingID }}</button>
-      </div>
+        <div id="item" v-for="item in visibleItems" :key="item">
+          <ItemCard
+            class="w-fit h-fit"
+            :item="item"
+          />
+          <button @click="goToDeleteItem(item.listingID)" class="absolute">
+            Slett
+          </button>
+        </div>
+        <custom-footer-modal
+          :visible="readyToDelete"
+          :title="'Sikker på at du vil slette annonsen?'"
+        >
+          <div class="#deleteButtons">
+            <colored-button id="#cancelDeleteButton" :text="'Avbryt'" @click="cancelDelete" class="bg-gray-500"></colored-button>
+
+            <colored-button id="confirmDeleteButton" @click="deleteItem" class="absolute" :text="'Slett'">
+            </colored-button>
+          </div>
+        </custom-footer-modal>
       </div>
 
       <!-- Shows items based on search field input -->
@@ -65,15 +80,20 @@
 </template>
 <script>
 import { GetUserListings, getItemPictures } from "@/utils/apiutil";
+import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
+
 import UserService from "@/services/user.service";
 import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue";
 
 export default {
   name: "UserItems",
   components: {
     ItemCard,
     PaginationTemplate,
+    CustomFooterModal,
+    ColoredButton,
   },
   data() {
     return {
@@ -85,6 +105,7 @@ export default {
         title: "",
         pricePerDay: 0,
       },
+      chosenItem: null,
       showItems: true,
       showSearchedItems: false,
       search: "",
@@ -92,6 +113,7 @@ export default {
       currentPage: 0,
       pageSize: 12,
       visibleItems: [],
+      readyToDelete: false,
     };
   },
   computed: {
@@ -118,6 +140,9 @@ export default {
         }
       }
     },
+    cancelDelete(){
+      this.readyToDelete = false;
+    },
     //Pagination
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -134,8 +159,12 @@ export default {
         this.updatePage(this.currentPage - 1);
       }
     },
-    async deleteItem(listingId){
-      await UserService.setListingToDeleted(listingId)
+    goToDeleteItem(item) {
+      this.chosenItem = item;
+      this.readyToDelete = true;
+    },
+    async deleteItem(){
+      await UserService.setListingToDeleted(this.chosenItem);
       this.$router.go(0)
     },
     searchWritten: function () {
@@ -162,11 +191,15 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
-#item{
+#deleteButtons{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+#cancelDeleteButton{
+  grid-column: 1/2;
+}
+#confirmDeleteButton{
+  grid-column: 2/3;
 }
 
 </style>
