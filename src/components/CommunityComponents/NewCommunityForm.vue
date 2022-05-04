@@ -1,28 +1,10 @@
 <template>
   <div
-    class="
-      md:ring-1
-      ring-gray-300
-      rounded-xl
-      overflow-hidden
-      mx-auto
-      mb-auto
-      max-w-md
-      w-full
-      p-4
-    "
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
     <!-- Component heading -->
     <div
-      class="
-        text-xl
-        md:text-2xl
-        font-medium
-        text-center text-gray-600
-        dark:text-gray-200
-        mt-4
-        mb-10
-      "
+      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
       Opprett ny gruppe
     </div>
@@ -36,25 +18,7 @@
       >
       <div class="form-check">
         <input
-          class="
-            form-check-input
-            appearance-none
-            rounded-full
-            h-4
-            w-4
-            border border-gray-300
-            bg-white
-            checked:bg-primary-medium checked:border-primary-medium
-            focus:outline-none
-            transition
-            duration-200
-            mt-1
-            align-top
-            bg-no-repeat bg-center bg-contain
-            float-left
-            mr-2
-            cursor-pointer
-          "
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioOpen"
@@ -72,25 +36,7 @@
       </div>
       <div class="form-check">
         <input
-          class="
-            form-check-input
-            appearance-none
-            rounded-full
-            h-4
-            w-4
-            border border-gray-300
-            bg-white
-            checked:bg-primary-medium checked:border-primary-medium
-            focus:outline-none
-            transition
-            duration-200
-            mt-1
-            align-top
-            bg-no-repeat bg-center bg-contain
-            float-left
-            mr-2
-            cursor-pointer
-          "
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioPrivate"
@@ -117,25 +63,7 @@
       <input
         type="text"
         id="title"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.name.$model"
         required
       />
@@ -161,25 +89,7 @@
       >
       <input
         type="text"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.place.$model"
         required
       />
@@ -207,25 +117,7 @@
         id="description"
         rows="4"
         v-model="v$.group.description.$model"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
@@ -264,21 +156,7 @@
         <!--<div class="text-error uppercase text-center">Midlertidig fjernet</div> -->
         <button
           @click="$refs.file.click()"
-          class="
-            text-black
-            bg-gray-200
-            hover:bg-grey-800
-            focus:ring-4 focus:outline-none focus:ring-grey-300
-            font-medium
-            rounded-lg
-            text-sm
-            sm:w-auto
-            px-5
-            py-2.5
-            text-center
-            dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800
-            disabled:opacity-50
-          "
+          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
@@ -432,7 +310,6 @@ export default {
         console.log(id);
         console.log(API_URL + "images/" + id);
         that.group.image = API_URL + "images/" + id;
-
       };
       fileReader.readAsArrayBuffer(image);
       this.imageThere = true;
