@@ -1,5 +1,6 @@
 <template>
   <!-- My communities, with pagination -->
+  <div>
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
       <div class="text-xl md:text-2xl text-primary-light font-medium w-full">
@@ -64,6 +65,9 @@
       class="my-4"
     />
   </div>
+    <FooterBar></FooterBar>
+  </div>
+
 </template>
 
 <script>
@@ -71,6 +75,7 @@ import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import { UserAddIcon, SearchIcon } from "@heroicons/vue/outline";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 import CommunityService from "@/services/community.service";
+import FooterBar from "@/components/BaseComponents/FooterBar";
 
 export default {
   name: "HomeView",
@@ -97,6 +102,7 @@ export default {
     UserAddIcon,
     PaginationTemplate,
     SearchIcon,
+    FooterBar,
   },
   computed: {
     searchPublicCommunities() {
