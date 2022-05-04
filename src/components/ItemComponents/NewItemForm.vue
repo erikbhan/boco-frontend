@@ -4,7 +4,7 @@
   >
     <!-- Component heading -->
     <h3
-      class="text-xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-8"
+      class="text-xl font-medium text-center text-primary-light mt-4 mb-8"
     >
       Opprett ny utleie
     </h3>

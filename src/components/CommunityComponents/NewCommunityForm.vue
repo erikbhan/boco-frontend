@@ -4,7 +4,7 @@
   >
     <!-- Component heading -->
     <div
-      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
+      class="text-xl md:text-2xl font-medium text-center text-primary-light mt-4 mb-10"
     >
       Opprett ny gruppe
     </div>
