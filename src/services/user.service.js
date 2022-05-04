@@ -27,16 +27,45 @@ class UserService {
             .catch((err) => console.error(err));
     }
 
-    async getUserRatingAsOwner(userId) {
-        return await axios
-            .get(API_URL + "rating/" + userId + "/average/owner", {
-                headers: tokenHeader(),
-            })
-            .then((res) => {
-                return res.data;
-            })
-            .catch((err) => console.error(err))
-    }
+  async getRenterHistory() {
+    return await axios
+      .get(API_URL + "user/profile/rent/history", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+        return [];
+      });
+  }
+
+  async getOwnerHistory() {
+    return await axios
+      .get(API_URL + "user/profile/rent/history/owner", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  async isRated(rentID) {
+    return await axios
+      .get(API_URL + "rating/" + rentID + "/israted", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
     async getUserRatingAsRenter(userId) {
         return await axios
@@ -48,6 +77,17 @@ class UserService {
             })
             .catch((err) => console.error(err))
     }
+
+  async getUserRatingAsOwner(userId) {
+    return await axios
+        .get(API_URL + "rating/" + userId + "/average/owner", {
+          headers: tokenHeader(),
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => console.error(err))
+  }
 }
     export
     default
