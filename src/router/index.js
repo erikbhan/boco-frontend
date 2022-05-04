@@ -38,6 +38,12 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/profile/communities",
+    name: "myCommunities",
+    component: () => import("../views/UserProfileViews/MyCommunitiesView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/register",
     name: "register",
     component: () => import("../views/FormViews/RegisterView.vue"),
@@ -92,12 +98,6 @@ const routes = [
     name: "notifications",
     component: () =>
       import("../components/BaseComponents/NotificationsForm.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
-    path: "/user/:id/communities",
-    name: "myCommunities",
-    component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
     beforeEnter: guardRoute,
   },
   {

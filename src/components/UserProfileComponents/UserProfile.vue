@@ -40,7 +40,7 @@
           </li>
           <li>
             <router-link
-              :to="'/user/' + id + '/communites'"
+              :to="'/profile/communities'"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Mine grupper
             </router-link>
@@ -88,7 +88,7 @@
         {{ user.firstName }} {{ user.lastName }}
       </h5>
       <div>
-        <rating-component :rating="renterRating" :ratingType="'Leietaker'"/>
+        <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
         <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
       </div>
 
@@ -106,8 +106,8 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
-import { getUser} from "@/utils/apiutil";
-import UserService from "@/services/user.service"
+import { getUser } from "@/utils/apiutil";
+import UserService from "@/services/user.service";
 
 export default {
   name: "LargeProfileCard",
@@ -137,12 +137,12 @@ export default {
       }
       this.user = await getUser(this.id);
       let ratingAsOwner = await UserService.getUserRatingAsOwner(this.id);
-      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id)
+      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id);
 
       if (ratingAsOwner >= 0 && ratingAsOwner <= 5) {
         this.ownerRating = ratingAsOwner;
       }
-      if (ratingAsRenter >= 0 && ratingAsRenter <= 5){
+      if (ratingAsRenter >= 0 && ratingAsRenter <= 5) {
         this.renterRating = ratingAsRenter;
       }
     },
