@@ -7,7 +7,7 @@
     </p>
     <div class="flex flex-row items-center">
       <div class="flex flex-col px-4 flex-1">
-        <router-link :to="{ path: '/profile/' + user.accountId }">
+        <router-link :to="{ path: '/profile/' + user.userId }">
           Leid til: {{ user.firstName }} {{ user.lastName }}
         </router-link>
       </div>
