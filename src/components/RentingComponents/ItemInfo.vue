@@ -10,7 +10,7 @@
             noPicture,
         }"
       >
-        <ImageCarousel :images="pictures" ></ImageCarousel>
+        <ImageCarousel :images="pictures"></ImageCarousel>
       </div>
     </div>
     <!-- Product info -->
