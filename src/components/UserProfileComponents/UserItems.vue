@@ -28,16 +28,19 @@
       @change="searchWritten"
     />
   </div>
-
+  <button @click="deleteItem">Slett</button>
   <div class="absolute inset-x-0 px-5 py-3">
     <!-- ItemCards -->
     <div class="flex items-center justify-center w-screen">
       <!-- Shows items based on pagination -->
       <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full" 
         v-if="showItems"
       >
-        <ItemCard v-for="item in visibleItems" :key="item" :item="item" />
+      <div id="item" v-for="item in visibleItems" :key="item">
+        <ItemCard class = "w-fit h-fit" @click="deleteItem(item.listingID)" :item="item" />
+        <button @click="deleteItem(item.listingID)" class="absolute"> {{ item.listingID }}</button>
+      </div>
       </div>
 
       <!-- Shows items based on search field input -->
@@ -62,6 +65,7 @@
 </template>
 <script>
 import { GetUserListings, getItemPictures } from "@/utils/apiutil";
+import UserService from "@/services/user.service";
 import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 
@@ -130,6 +134,10 @@ export default {
         this.updatePage(this.currentPage - 1);
       }
     },
+    async deleteItem(listingId){
+      await UserService.setListingToDeleted(listingId)
+      this.$router.go(0)
+    },
     searchWritten: function () {
       //This method triggers when search input field is changed
       if (this.search.length > 0) {
@@ -154,4 +162,11 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+#item{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
 </style>

@@ -27,6 +27,15 @@ class UserService {
       .catch((err) => console.error(err));
   }
 
+  async setListingToDeleted(listingId){
+    return await axios
+    .put(API_URL + "listing/" + listingId,{
+      headers: tokenHeader(),
+    }).then((res) => {
+      return res.data
+    })
+    .catch((err) => console.error(err))
+  }
   //TODO
   async getUserRatingAsOwner() {}
 
