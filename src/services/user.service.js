@@ -6,7 +6,7 @@ const API_URL = process.env.VUE_APP_BASEURL;
 class UserService {
   async getUserFromId(userId) {
     return await axios
-      .get(API_URL + "/users/" + userId + "/profile", {
+      .get(API_URL + "users/" + userId + "/profile", {
         headers: tokenHeader(),
       })
       .then((res) => {
@@ -33,25 +33,43 @@ class UserService {
   async getUserRatingAsRenter() {}
 
   async getRenterHistory() {
-      return await axios
-      .get(API_URL + "user/profile/rent/history/all", {
+    return await axios
+      .get(API_URL + "user/profile/rent/history", {
         headers: tokenHeader(),
       })
       .then((res) => {
         return res.data;
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        return [];
+      });
   }
 
   async getOwnerHistory() {
     return await axios
-    .get(API_URL + "user/profile/rent/history/owner/all", {
+      .get(API_URL + "user/profile/rent/history/owner", {
         headers: tokenHeader(),
       })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => console.error(err));
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  async isRated(rentID) {
+    return await axios
+      .get(API_URL + "rating/" + rentID + "/israted", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
 

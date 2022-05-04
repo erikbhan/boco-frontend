@@ -7,10 +7,9 @@ export default {
   data() {
     return {
       show: false,
-    }
+    };
   },
-  components: {
-  },
+  components: {},
   methods: {
     toggleModal() {
       this.show = !this.show;
