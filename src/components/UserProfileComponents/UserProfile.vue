@@ -81,7 +81,7 @@
     <div class="flex flex-col items-center pb-10 mt-16 z-5">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
-        src="../../assets/defaultUserProfileImage.jpg"
+        :src="getProfilePicture"
         alt="Profile picture"
       />
       <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
@@ -107,6 +107,7 @@
 import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
 import { getUser, getAverageRating } from "@/utils/apiutil";
+import UserService from "@/services/user.service.js";
 
 export default {
   name: "LargeProfileCard",
@@ -119,10 +120,21 @@ export default {
       renterRating: -1,
       ownerRating: -1,
       dropdown: false,
+      profileImage: {
+        src: require("../../assets/defaultUserProfileImage.jpg"),
+      },
     };
   },
   components: {
     RatingComponent,
+  },
+  computed: {
+    getProfilePicture() {
+      if (this.user.picture !== "" && this.user.picture != null) {
+        return this.user.picture;
+      }
+      return this.profileImage.src;
+    },
   },
   methods: {
     async getUser() {
@@ -132,6 +144,7 @@ export default {
       if (this.id === this.currentUser.accountId) {
         this.isCurrentUser = true;
         this.user = this.currentUser;
+        this.user = await UserService.getUserFromId(this.user.accountId);
         return;
       }
       this.user = await getUser(this.id);
@@ -140,12 +153,6 @@ export default {
         this.renterRating = rating;
         this.ownerRating = rating;
       }
-    },
-    getProfilePicture() {
-      if (this.user.picture !== "") {
-        return this.user.picture;
-      }
-      return "../assets/defaultUserProfileImage.jpg";
     },
     logout() {
       this.$store.commit("logout");

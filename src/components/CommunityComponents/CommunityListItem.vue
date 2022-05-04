@@ -49,8 +49,9 @@
     @click="toggleDialog()"
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
-    <div class="h-10 w-10 flex flex-col justify-center items-center mr-4">
-      <UserGroupIcon v-if="!community.image" alt="Felleskapets bilde" />
+    <div class="h-10 w-10 hover:h-14 hover:w-14 flex flex-col justify-center items-center mr-4">
+      <UserGroupIcon v-if="!community.picture" alt="Felleskapets bilde" class="h-10 w-10" />
+      <img v-else :src="community.picture" alt="Fellsekaps bilde" class="rounded-md h-[41px]" />
       <!-- TODO: USE COMMUNITY IMAGE <img alt="Felleskapets bilde" src="@/assets/group.png" /> -->
     </div>
     <div class="flex-1 pl-1 overflow-hidden">

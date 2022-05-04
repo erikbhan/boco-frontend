@@ -6,11 +6,11 @@
     <div>
       <div
         v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 h-[600px] w-auto lg:grid-cols-5 place-items-center':
+          'w-auto place-items-center':
             noPicture,
         }"
       >
-        <ImageCarousel :images="pictures"></ImageCarousel>
+        <ImageCarousel :images="pictures" ></ImageCarousel>
       </div>
     </div>
     <!-- Product info -->

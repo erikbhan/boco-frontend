@@ -5,7 +5,7 @@
     <!-- User image -->
     <div class="h-10 w-10 flex flex-col justify-center items-center mr-4">
       <router-link :to="'/profile/' + user.userId">
-        <img alt="Profilbilde" src="../../assets/defaultUserProfileImage.jpg" />
+        <img alt="Profilbilde" :src="getProfilePicture" />
       </router-link>
     </div>
 
@@ -78,6 +78,9 @@ export default {
     return {
       rating: -1.0,
       communityID: -1,
+      profileImage: {
+        src: require("../../assets/defaultUserProfileImage.jpg"),
+      },
     };
   },
   components: {
@@ -92,13 +95,15 @@ export default {
     user: Object,
     buttons: Array,
   },
-  methods: {
+  computed: {
     getProfilePicture() {
-      if (this.user.picture != "") {
+      if (this.user.picture !== "" && this.user.picture != null) {
         return this.user.picture;
       }
-      return "@/assets/defaultUserProfileImage.jpg";
+      return this.profileImage.src;
     },
+  },
+  methods: {
     openChatWithUser() {
       this.$router.push({
         name: "messages",
