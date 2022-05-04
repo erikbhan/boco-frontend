@@ -16,14 +16,24 @@
         </svg>
       </span>
 
-      <input
-        type="text"
-        id="searchInput"
-        class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
-        placeholder="Search"
-        v-model="search"
-        @change="searchWritten"
-      />
+      <div class="w-full flex inline-block">
+        <input
+            type="text"
+            id="searchInput"
+            class="w-4/5 py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
+            placeholder="Search"
+            v-model="search"
+            @change="searchWritten"
+        />
+        <div>
+          <ColoredButton
+              :text="'Filter'"
+              @click="OpenFilter()"
+              class="m-2 w-1/5"
+          />
+        </div>
+      </div>
+
     </div>
 
     <div class="absolute inset-x-0 px-5 py-3">
@@ -74,6 +84,7 @@
 import ItemCard from "@/components/ItemComponents/ItemCard";
 import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 
 import {
   GetCommunity,
@@ -86,6 +97,7 @@ export default {
     CommunityHeader,
     ItemCard,
     PaginationTemplate,
+    ColoredButton,
   },
   computed: {
     searchedItems() {
@@ -119,6 +131,7 @@ export default {
 
       communityID: -1,
       community: {},
+      filterDialog: false,
 
       showItems: true,
       showSearchedItems: false,
@@ -161,6 +174,11 @@ export default {
         this.showItems = true;
         this.showSearchedItems = false;
       }
+    },
+
+    OpenFilter: function (){
+      this.filterDialog = true;
+      console.log(this.filterDialog);
     },
 
     //Pagination
