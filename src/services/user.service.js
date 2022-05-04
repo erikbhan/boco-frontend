@@ -48,9 +48,8 @@ class UserService {
             })
             .catch((err) => console.error(err))
     }
-
+}
     export
     default
     new
     UserService();
-}
