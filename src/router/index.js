@@ -70,7 +70,7 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/community/:id/memberlist",
+    path: "/community/:communityID/memberlist",
     name: "memberlist",
     component: () => import("../views/CommunityViews/MemberListView.vue"),
     beforeEnter: guardRoute,
@@ -100,15 +100,32 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
   },
   {
+    path: "/community/:communityID/private/join",
+    name: "communityRequest",
+    component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
+  },
+  {
     beforeEnter: guardRoute,
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
   },
   {
+    path: "/community/:communityID/admin",
+    name: "CommunityAdminView",
+    component: () => import("@/views/CommunityViews/AdminView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/itempage/:id",
     name: "ItemInfo",
     component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/user/userItems",
+    name: "UserItems",
+    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
   },
 ];
 

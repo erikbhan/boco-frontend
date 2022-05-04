@@ -13,21 +13,21 @@
     <ul class="flex">
       <li>
         <PlusIcon
-          class="m-6 cursor-pointer h-7"
+          class="m-6 cursor-pointer h-7 text-primary-medium"
           alt="Legg til"
           @click="$router.push('/newItem')"
         />
       </li>
       <li>
         <ChatAlt2Icon
-          class="m-6 cursor-pointer h-7"
+          class="m-6 cursor-pointer h-7 text-primary-medium"
           alt="Meldinger"
           @click="$router.push('/messages')"
         />
       </li>
       <li>
         <UserCircleIcon
-          class="m-6 cursor-pointer h-7"
+          class="m-6 cursor-pointer h-7 text-primary-medium"
           alt="Profil"
           @click="loadProfile"
         />
@@ -53,9 +53,7 @@ export default {
     async loadProfile() {
       if (this.$store.state.user.token !== null) {
         let user = parseUserFromToken(this.$store.state.user.token);
-        console.log(user);
         let id = user.accountId;
-        console.log(id);
         await this.$router.push("/profile/" + id);
       } else {
         await this.$router.push("/login");

@@ -137,7 +137,6 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        console.log("Ugyldig, avslutter...");
         return;
       }
 
@@ -153,8 +152,6 @@ export default {
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
         await this.$router.push("/");
-      } else {
-        console.log("Something went wrong");
       }
     },
   },

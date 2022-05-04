@@ -1,50 +1,47 @@
 <template>
-  <CommunityHeader
-    :admin-status="false"
-    :community="community"
-    class="mb-5 mt-5"
-  />
-  <ul>
-    <li v-for="member in memberlist" :key="member.userId">
-      <user-list-item-card :admin="admin" :user="member" />
+  <div v-if="loading">LASTER...</div>
+  <ul v-else>
+    <li v-for="member in members" :key="member.userId">
+      <UserListItemCard :buttons="buttons" :user="member" />
     </li>
   </ul>
 </template>
 
 <script>
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
-import { GetMembersOfCommunity, GetCommunity } from "@/utils/apiutil";
-import CommunityHeader from "@/components/CommunityComponents/CommunityHeader.vue";
+import CommunityService from "@/services/community.service";
+import { GetMemberRequestsOfCommunity } from "@/utils/apiutil";
 
 export default {
-  data() {
-    return {
-      memberlist: [],
-      community: {},
-    };
-  },
+  name: "MemberList",
   components: {
-    CommunityHeader,
     UserListItemCard,
   },
   props: {
-    admin: Boolean,
+    buttons: Array,
+    requests: Boolean,
+  },
+  data() {
+    return {
+      members: [],
+      loading: false,
+    };
   },
   methods: {
-    getAllMembersOfCommunity: async function () {
-      this.memberlist = await GetMembersOfCommunity(
-        this.$router.currentRoute.value.params.id
-      );
-    },
-    getCommunity: async function () {
-      this.community = await GetCommunity(
-        this.$router.currentRoute.value.params.id
-      );
-    },
+    async load() {},
   },
-  beforeMount() {
-    this.getAllMembersOfCommunity();
-    this.getCommunity();
+  async created() {
+    this.loading = true;
+    if (this.requests) {
+      this.members = await GetMemberRequestsOfCommunity(
+        this.$route.params.communityID
+      );
+    } else {
+      this.members = await CommunityService.getCommunityMembers(
+        this.$route.params.communityID
+      );
+    }
+    this.loading = false;
   },
 };
 </script>
