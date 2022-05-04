@@ -88,7 +88,7 @@
         {{ user.firstName }} {{ user.lastName }}
       </h5>
       <div>
-        <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
+        <rating-component :rating="renterRating" :ratingType="'Leietaker'"/>
         <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
       </div>
 

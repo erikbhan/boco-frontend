@@ -47,7 +47,7 @@ export default {
   methods: {
     getFill(i) {
       if (i <= this.rating) {
-        return "w-5 h-5 text-warn";
+        return "w-5 h-5 text-warn-medium";
       }
       return "w-5 h-5 text-gray-300 dark:text-gray-500";
     },
