@@ -32,11 +32,18 @@
               class="m-2 w-fit"
           />
         </div>
-        <FilterComponent
-            class=" bg-white"
-            v-if="filterDialog"
-            v-on:filter="saveFilter"
-        />
+        <CustomFooterModal
+            @close="this.filterDialog = false"
+            :visible="filterDialog"
+            title="Filter"
+            message="Velg Filter"
+        >
+          <FilterComponent
+              class=" bg-white"
+              v-on:filter="saveFilter"
+          />
+        </CustomFooterModal>
+
       </div>
     </div>
 
@@ -90,6 +97,7 @@ import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 import FilterComponent from "@/components/BaseComponents/FilterComponent";
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 
 import {
   GetCommunity,
@@ -104,6 +112,7 @@ export default {
     PaginationTemplate,
     ColoredButton,
     FilterComponent,
+    CustomFooterModal,
   },
   computed: {
     searchedItems() {
@@ -196,6 +205,13 @@ export default {
     saveFilter(radio){
       this.selectedFilter = radio;
       console.log(this.selectedFilter);
+      if(this.selectedFilter === "Tittel: A - Å"){
+        this.sortAlfabetical();
+      }
+      this.filterDialog = false;
+    },
+    sortAlfabetical: function (){
+      this.items.sort();
     },
 
     //Pagination

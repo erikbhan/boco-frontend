@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="form-check" v-for="filter in filters" :key="filter">
+    <div class="form-check flex justify-center" v-for="filter in filters" :key="filter">
       <input
           class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
@@ -9,16 +9,19 @@
           @change="checkRadioButton($event)"
       />
       <label
-          class="form-check-label inline-block text-gray-800"
+          class="form-check-label text-gray-800"
       >
         {{ filter}}
       </label>
     </div>
-    <ColoredButton
-      :text="'Lagre'"
-      @click="saveFilter()"
-      class="m-2 w-fit"
-    />
+    <div class="flex justify-center">
+      <ColoredButton
+          :text="'Lagre'"
+          @click="saveFilter()"
+          class="m-2"
+      />
+    </div>
+
   </div>
 
 </template>
