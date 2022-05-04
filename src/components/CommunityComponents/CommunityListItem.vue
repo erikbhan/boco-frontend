@@ -51,11 +51,9 @@
   >
     <div v-if="!community.picture" class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2">
       <UserGroupIcon alt="Felleskapets bilde" class="h-10 w-10" />
-      <!-- TODO: USE COMMUNITY IMAGE <img alt="Felleskapets bilde" src="@/assets/group.png" /> -->
     </div>
     <div v-else class="h-3 w-14 flex flex-col justify-center items-center ml-2 mt-4 mb-4 mr-2">
       <img :src="community.picture" alt="Fellsekaps bilde" class="rounded-md" />
-      <!-- TODO: USE COMMUNITY IMAGE <img alt="Felleskapets bilde" src="@/assets/group.png" /> -->
     </div>
     <div class="flex-1 pl-1 overflow-hidden">
       <div class="font-medium dark:text-white truncate">
