@@ -9,8 +9,9 @@
           :key="i"
           @recipient="selectUser"
         ></ChatProfile>
-        <div class="button">
-          <colored-button text="Ny Samtale"></colored-button>
+        <!-- If no conversatiosn show no conversations found -->
+        <div v-if="conversations.length === 0" class="no-conversations">
+          <p>Ingen samtaler</p>
         </div>
       </div>
       <div class="current-chat">
@@ -25,7 +26,6 @@ import ChatProfile from './ChatProfile.vue';
 import ChatComponent from './ChatComponent.vue';
 import { parseCurrentUser } from "@/utils/token-utils";
 import ws from "@/services/ws";
-import ColoredButton from '../BaseComponents/ColoredButton.vue';
 
 export default {
   props: {
@@ -49,7 +49,7 @@ export default {
       recipientID: null
     };
   },
-  components: { ChatProfile, ChatComponent, ColoredButton},
+  components: { ChatProfile, ChatComponent},
   computed: {
     userid() {
       return parseCurrentUser().accountId;
@@ -106,6 +106,15 @@ export default {
     height: 100%;
     width: 100%;
 }
+
+  .no-conversations {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+  }
 
 .nothing-selected p {
     font-size: 2rem;

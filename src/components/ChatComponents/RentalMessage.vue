@@ -27,15 +27,48 @@
 
 <script>
 export default {
+    props: {
+        rent: {
+            type: Object,
+            default () {
+                return {
+                    createdAd: 0,
+                    fromTime: 0,
+                    isAccepted: false,
+                    listingId: 0,
+                    message: "",
+                    rentId: 0,
+                    renterId: 0,
+                    toTime: 0
+                }
+            }
+        },
+    },
     data() {
         return {
-            img: 'https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80',
-            extra: 'hello',
-            to: '',
-            from: '',
-            price: '200'
+
         }
-    }
+    },
+    computed: {
+        img() {
+            return 'https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80'//this.rent.listing.imageUrl;
+        },
+        from() {
+            // take ms and turn into date and return date
+            return new Date(this.rent.fromTime).toLocaleDateString();
+        },
+        to() {
+            return new Date(this.rent.toTime).toLocaleDateString();
+        },
+        price() {
+            // Calculate price from price * days
+            return this.rent.listing.pricePerDay * Math.ceil((this.rent.toTime - this.rent.fromTime) / (1000 * 60 * 60 * 24));
+        },
+        extra() {
+            return this.rent.message || "Ingen Melding";
+        }
+    },
+
 }
 </script>
 

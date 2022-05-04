@@ -20,7 +20,7 @@
             v-for="(message, i) in messages"
             v-bind:key="i"
         >
-            <rental-message v-if="message?.createdAt"></rental-message>
+            <rental-message v-if="message?.createdAt" :rent="message"></rental-message>
             <ChatMessage
                 v-else
                 :message="message"
@@ -176,7 +176,6 @@ export default {
         }
       );
       this.rents = await response.json();
-      console.log("rents", this.rents);
     },
     async getRecipient() {
       const token = this.$store.state.user.token;
@@ -196,6 +195,8 @@ export default {
   },
   watch: {
     async 'recipientID'() {
+        this.rents = [];
+        this.msgs = [];
       await this.reloadMessages();
       await this.getRecipient();
       await this.reloadRents();
