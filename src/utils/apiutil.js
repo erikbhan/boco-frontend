@@ -324,8 +324,8 @@ export function postNewRating(ratingInfo) {
 
 export function postNewImageCommunity(image) {
   return axios
-      .post(API_URL + "images", image, {
-        headers: tokenHeader(),
+      .post(API_URL + "images", {body: image}, {
+        headers: {...tokenHeader(), "Content-Type": "image/png"},
       })
       .then((response) => {
         console.log(response.data);
