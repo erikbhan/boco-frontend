@@ -13,7 +13,7 @@ export function doLogin(loginRequest) {
       return auth;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return auth;
     });
 }
@@ -30,7 +30,7 @@ export function registerUser(registerInfo) {
     .then((response) => {
       return response;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 }
 
 export async function getUser(userid) {
@@ -85,21 +85,25 @@ export function getAverageRating(userid) {
     });
 }
 export async function doNewPassword(password) {
+  const auth = { correctPassword: false, token: "" };
   let res = await axios({
     method: "put",
-    url: API_URL + "user/profile/password",
+    url: API_URL + "user/password/change",
     headers: tokenHeader(),
     data: {
       password: password,
     },
   })
     .then((response) => {
-      return response;
+      auth.correctPassword = true;
+      auth.token = response.data;
+      return auth;
     })
     .catch((error) => {
       console.log(error);
+      return auth;
     });
-  return res.data;
+  return res;
 }
 
 export function postNewItem(itemInfo) {
@@ -108,11 +112,10 @@ export function postNewItem(itemInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -124,7 +127,7 @@ export function postNewgroup(groupInfo) {
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -134,11 +137,10 @@ export function postNewRent(rentInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      //console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -250,7 +252,6 @@ export async function GetMemberRequestsOfCommunity(communityID) {
 
 export function JoinOpenCommunity(communityId) {
   if (tokenHeader().Authorization == "Bearer " + null) {
-    //console.log("ikke logget på!");
     return "Login to join any community";
   }
 
@@ -262,7 +263,7 @@ export function JoinOpenCommunity(communityId) {
       return response;
     })
     .catch((error) => {
-      console.log(error.response);
+      console.error(error.response);
       return error;
     });
 }
@@ -293,7 +294,7 @@ export async function LeaveCommunity(communityID) {
       return response.data;
     })
     .catch((error) => {
-      console.log(error.data);
+      console.error(error.data);
       return error;
     });
 }
@@ -317,11 +318,25 @@ export function postNewRating(ratingInfo) {
       headers: tokenHeader(),
     })
     .then((response) => {
-      console.log("poster: " + response.data);
       return response;
     })
     .catch((error) => {
       console.log(error.response);
       return error;
     });
+}
+
+export function postNewImageCommunity(image) {
+  return axios
+      .post(API_URL + "images", image, {
+        headers: {...tokenHeader(), "Content-Type": "image/png"},
+      })
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
 }

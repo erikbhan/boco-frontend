@@ -40,14 +40,14 @@
           </li>
           <li>
             <router-link
-              :to="'/user/' + id + '/communites'"
+              :to="'/profile/communities'"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Mine grupper
             </router-link>
           </li>
           <li>
             <router-link
-              to=""
+              to="/profile/history"
               class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Leiehistorikk</router-link
             >
@@ -70,7 +70,7 @@
           <li>
             <router-link
               to=""
-              class="block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block py-2 px-4 text-sm text-error-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Slett bruker</router-link
             >
           </li>
@@ -81,7 +81,7 @@
     <div class="flex flex-col items-center pb-10 mt-16 z-5">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
-        src="../../assets/defaultUserProfileImage.jpg"
+        :src="getProfilePicture"
         alt="Profile picture"
       />
       <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
@@ -104,9 +104,10 @@
 </template>
 
 <script>
-import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
+import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
-import { getUser, getAverageRating } from "@/utils/apiutil";
+import { getUser } from "@/utils/apiutil";
+import UserService from "@/services/user.service";
 
 export default {
   name: "LargeProfileCard",
@@ -119,10 +120,21 @@ export default {
       renterRating: -1,
       ownerRating: -1,
       dropdown: false,
+      profileImage: {
+        src: require("../../assets/defaultUserProfileImage.jpg"),
+      },
     };
   },
   components: {
     RatingComponent,
+  },
+  computed: {
+    getProfilePicture() {
+      if (this.user.picture !== "" && this.user.picture != null) {
+        return this.user.picture;
+      }
+      return this.profileImage.src;
+    },
   },
   methods: {
     async getUser() {
@@ -132,20 +144,19 @@ export default {
       if (this.id === this.currentUser.accountId) {
         this.isCurrentUser = true;
         this.user = this.currentUser;
+        this.user = await UserService.getUserFromId(this.user.accountId);
         return;
       }
       this.user = await getUser(this.id);
-      let rating = await getAverageRating(this.id);
-      if (rating >= 0 && rating <= 5) {
-        this.renterRating = rating;
-        this.ownerRating = rating;
+      let ratingAsOwner = await UserService.getUserRatingAsOwner(this.id);
+      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id);
+
+      if (ratingAsOwner >= 0 && ratingAsOwner <= 5) {
+        this.ownerRating = ratingAsOwner;
       }
-    },
-    getProfilePicture() {
-      if (this.user.picture !== "") {
-        return this.user.picture;
+      if (ratingAsRenter >= 0 && ratingAsRenter <= 5) {
+        this.renterRating = ratingAsRenter;
       }
-      return "../assets/defaultUserProfileImage.jpg";
     },
     logout() {
       this.$store.commit("logout");

@@ -57,8 +57,8 @@ export default {
       this.$router.push("/");
     },
   },
-  mounted() {
-    this.admin = CommunityAdminService.isUserAdmin(
+  async mounted() {
+    this.admin = await CommunityAdminService.isUserAdmin(
       this.$route.params.communityID
     );
   },
