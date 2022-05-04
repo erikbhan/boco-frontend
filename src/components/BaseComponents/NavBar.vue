@@ -84,6 +84,7 @@ export default {
   },
   created() {
     ws.on('NEW_MESSAGE', () => {
+      if(this.$router.currentRoute.value.name == 'messages') return;
       this.newMessages += 1;
     }, "header");
   }
