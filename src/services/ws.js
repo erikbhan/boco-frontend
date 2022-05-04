@@ -11,6 +11,7 @@ const ws = (function () {
 
   const fire = function (event, data) {
     if (handlers[event]) {
+      
       // for each object in object fire event
       for(const key in handlers[event]) {
         handlers[event][key](data);
@@ -23,7 +24,6 @@ const ws = (function () {
 
     // Fire message event
     fire("MESSAGE", JSON.parse(payload.body));
-
     if (data.status == "NEW_MESSAGE")
       fire("NEW_MESSAGE", JSON.parse(payload.body));
   };
