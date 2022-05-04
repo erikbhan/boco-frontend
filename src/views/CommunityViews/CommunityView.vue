@@ -68,9 +68,9 @@
 
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
-import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
 import { UserAddIcon, SearchIcon } from "@heroicons/vue/outline";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+import CommunityService from "@/services/community.service";
 
 export default {
   name: "HomeView",
@@ -153,10 +153,10 @@ export default {
       this.showSearched = this.search.length > 0;
     },
     async load() {
-      this.publicCommunities = await getVisibleGroups();
+      this.publicCommunities = await CommunityService.getAllCommunities();
       this.loggedIn = this.$store.state.user.token !== null;
       if (!this.loggedIn) return;
-      this.myCommunities = await getMyGroups();
+      this.myCommunities = await CommunityService.getUserCommunities();
     },
   },
   async mounted() {

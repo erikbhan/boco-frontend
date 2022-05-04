@@ -17,9 +17,24 @@ class CommunityService {
       });
   }
 
-  async getPublicCommunities() {
+  async getAllCommunities() {
     return await axios
-      .get(API_URL + "communities")
+      .get(API_URL + "communities", {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  async getUserCommunities() {
+    return await axios
+      .get(API_URL + "user/communities", {
+        headers: tokenHeader(),
+      })
       .then((response) => {
         return response.data;
       })
