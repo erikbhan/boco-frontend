@@ -26,22 +26,6 @@
             :blockedDaysRange="blockedDaysRange"
           ></calendar-component>
         </div>
-        <div class="split"></div>
-        <div>
-          <month-selector
-            @back="back"
-            type="monghM"
-            @forward="forward('monghM')"
-            :month="monghM"
-          ></month-selector>
-          <calendar-component
-            :month="monghM"
-            :start="startDate"
-            :end="endDate"
-            @selectDate="selectDate"
-            :blockedDaysRange="blockedDaysRange"
-          ></calendar-component>
-        </div>
       </div>
       <div class="footer">
         <p v-if="error" class="error">{{ errorMessage }}</p>
