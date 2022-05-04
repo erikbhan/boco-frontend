@@ -31,7 +31,7 @@
     </li>
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        Rating ikke tilgjengelig
+        Ingen vurderinger
       </p>
     </li>
   </ul>
