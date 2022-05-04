@@ -44,10 +44,10 @@ export default {
   computed: {
     fullHistory() {
       function compareHistoryItems(itemA, itemB) {
-        if (itemA.fromTime < itemB.fromTime) {
+        if (itemA.fromTime > itemB.fromTime) {
           return -1;
         }
-        if (itemA.fromTime > itemB.fromTime) {
+        if (itemA.fromTime < itemB.fromTime) {
           return 1;
         }
         return 0;
