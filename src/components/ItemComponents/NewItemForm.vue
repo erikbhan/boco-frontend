@@ -311,37 +311,19 @@ export default {
   },
   methods: {
     checkValidation: function () {
-      console.log("sjekker validering");
-
       this.v$.item.$touch();
       if (this.v$.item.$invalid || this.item.selectedGroups.length === 0) {
         if (this.item.selectedGroups.length === 0) {
           this.groupErrorMessage = "Velg gruppe/grupper";
         }
-        console.log("Invalid, avslutter...");
         return false;
       }
-
-      console.log("validert!");
       return true;
     },
 
     async saveClicked() {
-      console.log("Attempting to save item");
-
       if (this.checkValidation()) {
-        console.log("validert, videre...");
-
         this.checkUser();
-
-        console.log("Tittel: " + this.item.title);
-        console.log("Kategori: " + this.item.select);
-        console.log("Beskrivelse: " + this.item.description);
-        console.log("Addressen: " + this.item.address);
-        console.log("Pris: " + this.item.price);
-        console.log("bilder: " + this.item.images);
-        console.log("gruppe: " + this.item.selectedGroups);
-
         const itemInfo = {
           title: this.item.title,
           description: this.item.description,
@@ -351,12 +333,7 @@ export default {
           categoryNames: [],
           communityIDs: this.item.selectedGroups,
         };
-
-        console.log(itemInfo);
-
-        const postRequest = await postNewItem(itemInfo);
-
-        console.log("posted: " + postRequest);
+        await postNewItem(itemInfo);
 
         this.$router.push("/");
       }
@@ -368,7 +345,6 @@ export default {
     },
 
     addImage: function (event) {
-      console.log(event.target.files);
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
     },
 
@@ -379,7 +355,6 @@ export default {
     onChangeGroup: function (e) {
       this.selectedGroupId = e.target.value;
       let alreadyInGroupList = false;
-      console.log("selected clicked");
 
       for (let i = 0; i <= this.item.selectedGroups.length; i++) {
         if (this.selectedGroupId == this.item.selectedGroups[i]) {

@@ -83,7 +83,6 @@ export default {
       this.v$.email.$touch();
 
       if (this.v$.email.$invalid) {
-        console.log("Ugyldig, avslutter...");
         return;
       } else {
         this.$router.push("/");

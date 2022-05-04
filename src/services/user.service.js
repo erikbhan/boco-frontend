@@ -6,7 +6,9 @@ const API_URL = process.env.VUE_APP_BASEURL;
 class UserService {
   async getUserFromId(userId) {
     return await axios
-      .get(API_URL + "/users/" + userId + "/profile")
+      .get(API_URL + "/users/" + userId + "/profile", {
+        headers: tokenHeader(),
+      })
       .then((res) => {
         return res.data;
       })
@@ -15,7 +17,9 @@ class UserService {
 
   async getUserRatingAverage(userId) {
     return await axios
-      .get(API_URL + "rating/" + userId + "/average")
+      .get(API_URL + "rating/" + userId + "/average", {
+        headers: tokenHeader(),
+      })
       .then((res) => {
         return res.data;
       })
@@ -48,7 +52,7 @@ class UserService {
       return res.data;
     })
     .catch((err) => console.error(err));
-}
+  }
 }
 
 export default new UserService();

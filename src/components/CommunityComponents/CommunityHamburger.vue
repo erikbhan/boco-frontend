@@ -18,9 +18,9 @@
           >Se Medlemmer
         </router-link>
       </li>
-      <li id="adminGroup">
+      <li id="adminGroup" v-if="admin">
         <router-link
-          :to="'/community/' + communityID + '/memberlist'"
+          :to="'/community/' + communityID + '/admin'"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >Administrer Gruppe</router-link
         >
@@ -39,24 +39,31 @@
 
 <script>
 import { LeaveCommunity } from "@/utils/apiutil";
+import CommunityAdminService from "@/services/community-admin.service";
 
 export default {
   name: "CommunityHamburger",
-  props: {
-    communityID: Number,
-  },
   data() {
     return {
       id: -1,
+      admin: false,
+      communityID: -1,
     };
   },
-
   methods: {
     leaveCommunity: async function () {
-      this.id = await this.$router.currentRoute.value.params.communityID;
+      this.id = this.$route.params.communityID;
       await LeaveCommunity(this.id);
       this.$router.push("/");
     },
+  },
+  async mounted() {
+    this.admin = await CommunityAdminService.isUserAdmin(
+      this.$route.params.communityID
+    );
+  },
+  created() {
+    this.communityID = this.$route.params.communityID;
   },
 };
 </script>

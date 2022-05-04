@@ -1,5 +1,7 @@
 <template>
-  <div class="flex items-center justify-between mx-4">
+  <!-- TODO PUT A LOADER HERE -->
+  <div v-if="loading">LASTER...</div>
+  <div v-else class="flex items-center justify-between mx-4">
     <router-link
       :to="'/community/' + community.communityId"
       class="flex-1 min-w-0"
@@ -51,7 +53,7 @@
       <!-- If the user is member of the community, this hamburger menu will show -->
       <div v-if="member">
         <svg
-          @click="toggle"
+          @click="toggleHamburgerMenu()"
           xmlns="http://www.w3.org/2000/svg"
           class="w-9 h-9 cursor-pointer"
           fill="none"
@@ -70,6 +72,7 @@
           v-if="hamburgerOpen"
           class="origin-top-right absolute right-0"
           :community-i-d="community.communityId"
+          :admin="admin"
         />
         <!-- class="absolute" -->
       </div>
@@ -80,11 +83,13 @@
 <script>
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import CommunityService from "@/services/community.service";
+import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
+import { parseCurrentUser } from "@/utils/token-utils";
 import {
   JoinOpenCommunity,
-  GetIfUserAlreadyInCommunity,
+  // GetIfUserAlreadyInCommunity,
 } from "@/utils/apiutil";
-import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 
 export default {
   name: "CommunityHeader",
@@ -93,31 +98,39 @@ export default {
     ColoredButton,
     CustomFooterModal,
   },
+  computed: {
+    userid() {
+      return parseCurrentUser().accountId;
+    },
+  },
   data() {
     return {
       hamburgerOpen: false,
       dialogOpen: false,
-      member: true,
+      member: false,
+      community: {},
+      loading: true,
     };
   },
   props: {
-    adminStatus: Boolean,
-    community: {
-      communityId: Number,
-      name: String,
-      description: String,
-      visibility: Number,
-      location: String,
-      picture: String,
-    },
+    admin: Boolean,
   },
   methods: {
-    //To open and close the hamburger menu
-    toggle: function () {
-      if (this.hamburgerOpen) {
-        this.hamburgerOpen = false;
-      } else {
-        this.hamburgerOpen = true;
+    toggleHamburgerMenu() {
+      this.hamburgerOpen = !this.hamburgerOpen;
+    },
+    async load() {
+      this.community = await CommunityService.getCommunity(
+        this.$route.params.communityID
+      );
+      const members = await CommunityService.getCommunityMembers(
+        this.$route.params.communityID
+      );
+      for (let i = 0; i < members.length; i++) {
+        if (members[i].userId == this.userid) {
+          this.member = true;
+          return;
+        }
       }
     },
     joinCommunity: async function (id) {
@@ -128,18 +141,13 @@ export default {
         window.location.reload();
       }
     },
-    getIfUserInCommunity: async function () {
-      try {
-        this.member = await GetIfUserAlreadyInCommunity(
-          this.$router.currentRoute.value.params.communityID
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
   },
-  beforeMount() {
-    this.getIfUserInCommunity();
+  // beforeMount() {
+  //   this.getIfUserInCommunity();
+  // },
+  async created() {
+    await this.load();
+    this.loading = false;
   },
 };
 </script>
