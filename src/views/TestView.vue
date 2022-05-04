@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ChatsComponent from '@/components/ChatComponents/ChatsComponent.vue';
+import ChatsComponent from "@/components/ChatComponents/ChatsComponent.vue";
 export default {
   components: {
     ChatsComponent,
