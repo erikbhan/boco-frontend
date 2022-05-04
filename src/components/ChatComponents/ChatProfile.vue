@@ -73,8 +73,10 @@ export default {
       }
     },
     src() {
-      return this.conversation.recipient.picture ? this.conversation.recipient.picture : require("@/assets/defaultUserProfileImage.jpg");
-    }
+      return this.conversation.recipient.picture
+        ? this.conversation.recipient.picture
+        : require("@/assets/defaultUserProfileImage.jpg");
+    },
   },
   methods: {
     selectUser() {
@@ -83,6 +85,6 @@ export default {
   },
   created() {
     console.log("convesation", this.conversation);
-  }
+  },
 };
 </script>

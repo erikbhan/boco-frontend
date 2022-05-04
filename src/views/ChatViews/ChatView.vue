@@ -3,19 +3,15 @@
 </template>
 
 <script>
-import ChatsComponent from '@/components/ChatComponents/ChatsComponent.vue';
+import ChatsComponent from "@/components/ChatComponents/ChatsComponent.vue";
 export default {
   components: {
     ChatsComponent,
   },
   data() {
-    return {
-    };
+    return {};
   },
 };
-
 </script>
 
-<style>
-
-</style>
+<style></style>

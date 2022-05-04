@@ -6,17 +6,17 @@
     <div
       class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
-      Bli med i: {{community.name}}
+      Bli med i: {{ community.name }}
     </div>
-
 
     <!-- message -->
     <div class="mt-6" :class="{ error: v$.message.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="messageLabel"
-        > Melding til administrator av gruppa: </label
       >
+        Melding til administrator av gruppa:
+      </label>
       <textarea
         id="message"
         rows="4"
@@ -49,8 +49,8 @@ import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
 import Button from "@/components/BaseComponents/ColoredButton";
-import {tokenHeader}  from "@/utils/token-utils";
-import {GetCommunity} from "@/utils/apiutil";
+import { tokenHeader } from "@/utils/token-utils";
+import { GetCommunity } from "@/utils/apiutil";
 
 export default {
   name: "CommunityRequestForm.vue",
@@ -64,45 +64,48 @@ export default {
 
   validations() {
     return {
-        message: {
-          required: helpers.withMessage(
-            () => "Meldingen kan ikke være tom",
-            required
-          ),
-          max: helpers.withMessage(
-            () => `Meldingen kan inneholde max 200 tegn`,
-            maxLength(200)
-          ),
-        },
-
+      message: {
+        required: helpers.withMessage(
+          () => "Meldingen kan ikke være tom",
+          required
+        ),
+        max: helpers.withMessage(
+          () => `Meldingen kan inneholde max 200 tegn`,
+          maxLength(200)
+        ),
+      },
     };
   },
   data() {
     return {
-        message: "",
-        communityId: null,
-        community: {},
+      message: "",
+      communityId: null,
+      community: {},
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     //TODO fix so that community id is set (not null)
     async saveClicked() {
-        this.communityID = await this.$router.currentRoute.value.params
-        .communityID;
-
-      await axios.post(process.env.VUE_APP_BASEURL+ `communities/${this.communityID}/private/join`, {message: this.message, }, {headers: tokenHeader()} );
-    },
-     getCommunityFromAPI: async function () {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
-        console.log("Dette er community id =" + this.communityID)
+
+      await axios.post(
+        process.env.VUE_APP_BASEURL +
+          `communities/${this.communityID}/private/join`,
+        { message: this.message },
+        { headers: tokenHeader() }
+      );
+    },
+    getCommunityFromAPI: async function () {
+      this.communityID = await this.$router.currentRoute.value.params
+        .communityID;
+      console.log("Dette er community id =" + this.communityID);
       this.community = await GetCommunity(this.communityID);
-      console.log(this.community)
-    }
+      console.log(this.community);
+    },
   },
-   async created() {
+  async created() {
     await this.getCommunityFromAPI(); //To get the id of the community before mounting the view
   },
 };

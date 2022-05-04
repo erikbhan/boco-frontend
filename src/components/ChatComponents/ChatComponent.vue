@@ -16,48 +16,27 @@
       <div></div>
     </div>
     <div v-if="recipient" class="conversation">
-        <div
-            v-for="(message, i) in messages"
-            v-bind:key="i"
-        >
-            <rental-message v-if="message?.createdAt" :rent="message"></rental-message>
-            <ChatMessage
-                v-else
-                :message="message"
-            ></ChatMessage>
-
-        </div>
+      <div v-for="(message, i) in messages" v-bind:key="i">
+        <rental-message
+          v-if="message?.createdAt"
+          :rent="message"
+        ></rental-message>
+        <ChatMessage v-else :message="message"></ChatMessage>
+      </div>
     </div>
     <div v-else class="conversation">
-        <div class="not-found">
-            <p>USER NOT FOUND</p>
-        </div>
+      <div class="not-found">
+        <p>USER NOT FOUND</p>
+      </div>
     </div>
     <div
-      class="
-        flex
-        items-center
-        justify-between
-        w-full
-        p-3
-        border-t border-gray-300
-      "
+      class="flex items-center justify-between w-full p-3 border-t border-gray-300"
     >
       <input
         v-on:keyup.enter="sendMessage"
         type="text"
         placeholder="Message"
-        class="
-          block
-          w-full
-          py-2
-          pl-4
-          mx-3
-          bg-gray-100
-          rounded-full
-          outline-none
-          focus:text-gray-700
-        "
+        class="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
         name="message"
         v-model="message"
       />
@@ -95,12 +74,12 @@ export default {
       scrollBehavior: "",
       recipient: null,
       rents: [],
-      msgs: []
+      msgs: [],
     };
   },
   components: {
     ChatMessage,
-    RentalMessage
+    RentalMessage,
   },
   computed: {
     name() {
@@ -109,14 +88,17 @@ export default {
         : "N/A";
     },
     src() {
-        return this.recipient?.picture || require("@/assets/defaultUserProfileImage.jpg");
+      return (
+        this.recipient?.picture ||
+        require("@/assets/defaultUserProfileImage.jpg")
+      );
     },
-    messages () {
-        let arr = [...this.msgs, ...this.rents].sort((a, b) => {
-            return (a?.createdAt || a.timestamp) - (b?.createdAt || b.timestamp);
-        });
-        return arr;
-    }
+    messages() {
+      let arr = [...this.msgs, ...this.rents].sort((a, b) => {
+        return (a?.createdAt || a.timestamp) - (b?.createdAt || b.timestamp);
+      });
+      return arr;
+    },
   },
   methods: {
     openHamburgerMethod() {
@@ -127,7 +109,7 @@ export default {
       container.scrollTop = container.scrollHeight;
     },
     async sendMessage() {
-      if (!this.recipient ||this.message == null || this.message == "") return;
+      if (!this.recipient || this.message == null || this.message == "") return;
       this.canScroll = true;
       const token = this.$store.state.user.token;
       await axios.post(
@@ -164,7 +146,7 @@ export default {
       this.msgs = await response.json();
     },
     async reloadRents() {
-    const token = this.$store.state.user.token;
+      const token = this.$store.state.user.token;
       const response = await fetch(
         `${process.env.VUE_APP_BASEURL}renting/user/${this.recipientID}/all`,
         {
@@ -194,9 +176,9 @@ export default {
     },
   },
   watch: {
-    async 'recipientID'() {
-        this.rents = [];
-        this.msgs = [];
+    async recipientID() {
+      this.rents = [];
+      this.msgs = [];
       await this.reloadMessages();
       await this.getRecipient();
       await this.reloadRents();
@@ -228,17 +210,17 @@ export default {
 }
 
 .not-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .not-found p {
-    font-size: 2rem;
-    font-weight: bold;
+  font-size: 2rem;
+  font-weight: bold;
 }
 .conversation {
   height: 100%;

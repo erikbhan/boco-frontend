@@ -222,8 +222,6 @@ export async function GetListingsInCommunity(communityID) {
     });
 }
 
-
-
 export async function GetMembersOfCommunity(communityID) {
   return axios
     .get(API_URL + "community/" + communityID + "/members", {
@@ -315,15 +313,15 @@ export async function GetUserListings() {
 
 export function postNewRating(ratingInfo) {
   return axios
-      .post(API_URL + "rating/save", ratingInfo, {
-        headers: tokenHeader(),
-      })
-      .then((response) => {
-        console.log("poster: " + response.data);
-        return response;
-      })
-      .catch((error) => {
-        console.log(error.response);
-        return error;
-      });
+    .post(API_URL + "rating/save", ratingInfo, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      console.log("poster: " + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error;
+    });
 }
