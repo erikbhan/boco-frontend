@@ -5,7 +5,7 @@
   >
     <img
       class="h-10 w-10 rounded-full object-cover"
-      :src="src"
+      :src="src || 'S../../assets/defaultUserProfileImage.jpg'"
       :alt="{ name }"
     />
     <div class="w-full pb-2">
@@ -50,7 +50,7 @@ export default {
       return "5 min";
     },
     src() {
-      return this.conversation.recipient.picture || "N/A";
+      return this.conversation.recipient.picture ? this.conversation.recipient.picture : require("@/assets/defaultUserProfileImage.jpg");
     }
   },
   methods: {

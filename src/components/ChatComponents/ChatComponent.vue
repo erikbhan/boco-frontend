@@ -15,13 +15,23 @@
       </div>
       <div></div>
     </div>
-    <div class="conversation">
-      <ChatMessage
-        v-for="(message, i) in messages"
-        v-bind:key="i"
-        :message="message"
-      ></ChatMessage>
-      <rental-message></rental-message>
+    <div v-if="recipient" class="conversation">
+        <div
+            v-for="(message, i) in messages"
+            v-bind:key="i"
+        >
+            <rental-message v-if="message?.createdAt"></rental-message>
+            <ChatMessage
+                v-else
+                :message="message"
+            ></ChatMessage>
+
+        </div>
+    </div>
+    <div v-else class="conversation">
+        <div class="not-found">
+            <p>USER NOT FOUND</p>
+        </div>
     </div>
     <div
       class="
@@ -81,10 +91,11 @@ export default {
   },
   data() {
     return {
-      messages: [],
       canScroll: true,
       scrollBehavior: "",
       recipient: null,
+      rents: [],
+      msgs: []
     };
   },
   components: {
@@ -93,13 +104,18 @@ export default {
   },
   computed: {
     name() {
-      console.log(this.recipient);
       return this.recipient
         ? this.recipient.firstName + " " + this.recipient.lastName
         : "N/A";
     },
     src() {
-        return this.recipient?.picture
+        return this.recipient?.picture || require("@/assets/defaultUserProfileImage.jpg");
+    },
+    messages () {
+        let arr = [...this.msgs, ...this.rents].sort((a, b) => {
+            return (a?.createdAt || a.timestamp) - (b?.createdAt || b.timestamp);
+        });
+        return arr;
     }
   },
   methods: {
@@ -111,7 +127,7 @@ export default {
       container.scrollTop = container.scrollHeight;
     },
     async sendMessage() {
-      if (this.message == null || this.message == "") return;
+      if (!this.recipient ||this.message == null || this.message == "") return;
       this.canScroll = true;
       const token = this.$store.state.user.token;
       await axios.post(
@@ -145,7 +161,22 @@ export default {
           },
         }
       );
-      this.messages = await response.json();
+      this.msgs = await response.json();
+    },
+    async reloadRents() {
+    const token = this.$store.state.user.token;
+      const response = await fetch(
+        `${process.env.VUE_APP_BASEURL}renting/user/${this.recipientID}/all`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      this.rents = await response.json();
+      console.log("rents", this.rents);
     },
     async getRecipient() {
       const token = this.$store.state.user.token;
@@ -164,14 +195,16 @@ export default {
     },
   },
   watch: {
-    async recipientID() {
+    async 'recipientID'() {
       await this.reloadMessages();
       await this.getRecipient();
+      await this.reloadRents();
     },
   },
   async created() {
     await this.reloadMessages();
     await this.getRecipient();
+    await this.reloadRents();
   },
   updated() {
     if (this.canScroll) this.scroll();
@@ -193,6 +226,19 @@ export default {
   width: auto;
 }
 
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.not-found p {
+    font-size: 2rem;
+    font-weight: bold;
+}
 .conversation {
   height: 100%;
   width: 100%;

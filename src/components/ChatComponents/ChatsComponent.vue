@@ -14,8 +14,8 @@
         </div>
       </div>
       <div class="current-chat">
-        <ChatComponent @openHamburger="openHamburger" v-if="recipient" :recipientID="recipient"></ChatComponent>
-        <div v-else><p>NOTHING HERE :)</p></div>
+        <ChatComponent @openHamburger="openHamburger" v-if="recipientID" :recipientID="recipientID"></ChatComponent>
+        <div v-else class="nothing-selected"><p>Select a user to start a chat</p></div>
       </div>
     </div>
 </template>
@@ -23,8 +23,6 @@
 <script>
 import ChatProfile from './ChatProfile.vue';
 import ChatComponent from './ChatComponent.vue';
-//import ChatMessage from "./ChatMessage.vue";
-import axios from "axios";
 import { parseCurrentUser } from "@/utils/token-utils";
 import ws from "@/services/ws";
 import ColoredButton from '../BaseComponents/ColoredButton.vue';
@@ -33,6 +31,12 @@ export default {
   props: {
 
   },
+  watch:{
+    '$route' () {
+      const newVal =  this.$route.query?.userID || null;
+      this.recipientID = newVal;
+    }
+  },
   data: () => {
     return {
       messages: [],
@@ -40,9 +44,9 @@ export default {
       recipient: null,
       hambuger: "none",
       conversations: [
-
       ],
-      hambugerDisplay: "none"
+      hambugerDisplay: "none",
+      recipientID: null
     };
   },
   components: { ChatProfile, ChatComponent, ColoredButton},
@@ -50,21 +54,14 @@ export default {
     userid() {
       return parseCurrentUser().accountId;
     },
-    recipientID() {
-      return this.recipient.userId;
-    },
     name() {
       return this.recipient.firstName + " " + this.recipient.lastName;
     },
   },
   methods: {
     selectUser(recipientID) {
-      this.hambugerDisplay = "none"
-      this.recipient = this.conversations.find(
-        (conversation) => conversation.recipient.userId == recipientID
-      )?.recipient.userId;
-
-      console.log("New recipient", this.recipient)
+      this.hambugerDisplay = "none";
+      this.$router.push({path: 'messages', query: {userID: recipientID}})
     },
     openHamburger() {
       this.hambugerDisplay = "block"
@@ -72,46 +69,9 @@ export default {
     calculateSide(from) {
       return from == this.userid ? "end" : "start";
     },
-    async sendMessage() {
-      const token = this.$store.state.user.token;
-      await axios.post(
-        process.env.VUE_APP_BASEURL +
-          `chats/users/${this.recipientID}/messages`,
-        {
-          message: this.message,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      this.message = "";
-      ws.sendMessage({
-        sender: parseInt(this.userid),
-        recipient: this.recipientID,
-      });
-      this.reloadMessages();
-    },
-    async reloadMessages() {
-      const token = this.$store.state.user.token;
-      const response = await fetch(
-        `${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      this.messages = await response.json();
-    },
   },
   async created() {
     const token = this.$store.state.user.token;
-
     // Get all conversations from api with /chats/users
     const conResponse = await fetch(`${process.env.VUE_APP_BASEURL}chats/users`, {
       method: "GET",
@@ -125,6 +85,8 @@ export default {
     ws.on("NEW_MESSAGE", () => {
       this.reloadMessages();
     });
+    this.recipientID = (this.$route.query?.userID || null)
+    if(!this.recipientID) this.hambugerDisplay = "block";
   },
 };
 </script>
@@ -135,6 +97,21 @@ export default {
     width: 100%;
     height: min(100vh - 3.5rem);
   }
+
+.nothing-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.nothing-selected p {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
 
   .current-chat {
     width: 100%;
