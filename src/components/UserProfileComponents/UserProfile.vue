@@ -106,7 +106,8 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
-import { getUser, getAverageRating } from "@/utils/apiutil";
+import { getUser} from "@/utils/apiutil";
+import UserService from "@/services/user.service"
 
 export default {
   name: "LargeProfileCard",
@@ -135,10 +136,14 @@ export default {
         return;
       }
       this.user = await getUser(this.id);
-      let rating = await getAverageRating(this.id);
-      if (rating >= 0 && rating <= 5) {
-        this.renterRating = rating;
-        this.ownerRating = rating;
+      let ratingAsOwner = await UserService.getUserRatingAsOwner(this.id);
+      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id)
+
+      if (ratingAsOwner >= 0 && ratingAsOwner <= 5) {
+        this.ownerRating = ratingAsOwner;
+      }
+      if (ratingAsRenter >= 0 && ratingAsRenter <= 5){
+        this.renterRating = ratingAsRenter;
       }
     },
     getProfilePicture() {
