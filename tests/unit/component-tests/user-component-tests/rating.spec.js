@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import Rating from "@/components/UserProfileComponents/Rating.vue";
+import Rating from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 
 describe("Rating component", () => {
   let wrapper;

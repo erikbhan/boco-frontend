@@ -2,7 +2,7 @@
   <!-- My communities, with pagination -->
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
-      <div class="text-xl md:text-2xl text-gray-600 font-medium w-full">
+      <div class="text-xl md:text-2xl text-primary-light font-medium w-full">
         Mine grupper
       </div>
       <UserAddIcon
@@ -20,13 +20,13 @@
         v-on:page:update="updatePageMyCommunities"
         v-bind:currentPage="currentPageMyCommunities"
         v-bind:pageSize="pageSizeMyCommunities"
-        class="mt-10 mb-5"
+        class="mt-4"
       />
     </div>
   </div>
 
   <!-- Public communities, with search and pagination -->
-  <p class="text-xl md:text-2xl text-gray-600 font-medium w-full p-4">
+  <p class="text-xl md:text-2xl text-primary-light font-medium w-full p-4">
     Offentlige grupper
   </p>
   <!-- Search field -->
@@ -61,7 +61,7 @@
       v-on:page:update="updatePagePublicCommunities"
       v-bind:currentPage="currentPagePublicCommunities"
       v-bind:pageSize="pageSizePublicCommunities"
-      class="mt-10 mb-5"
+      class="my-4"
     />
   </div>
 </template>

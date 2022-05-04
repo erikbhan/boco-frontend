@@ -21,9 +21,26 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityView.vue"),
   },
   {
+    path: "/help",
+    name: "help",
+    component: () => import("../views/HelpView.vue"),
+  },
+  {
     path: "/profile/:id",
     name: "profile",
     component: () => import("../views/UserProfileViews/ProfileView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/profile/history",
+    name: "history",
+    component: () => import("../views/UserProfileViews/RentHistoryView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/profile/communities",
+    name: "myCommunities",
+    component: () => import("../views/UserProfileViews/MyCommunitiesView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -81,12 +98,6 @@ const routes = [
     name: "notifications",
     component: () =>
       import("../components/BaseComponents/NotificationsForm.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
-    path: "/user/:id/communities",
-    name: "myCommunities",
-    component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
     beforeEnter: guardRoute,
   },
   {
