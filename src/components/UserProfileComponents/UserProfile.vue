@@ -70,7 +70,7 @@
           <li>
             <router-link
               to=""
-              class="block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block py-2 px-4 text-sm text-error-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Slett bruker</router-link
             >
           </li>
@@ -88,7 +88,7 @@
         {{ user.firstName }} {{ user.lastName }}
       </h5>
       <div>
-        <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
+        <rating-component :rating="renterRating" :ratingType="'Leietaker'"/>
         <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
       </div>
 
@@ -106,7 +106,8 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/Rating.vue";
 import { parseCurrentUser } from "@/utils/token-utils";
-import { getUser, getAverageRating } from "@/utils/apiutil";
+import { getUser} from "@/utils/apiutil";
+import UserService from "@/services/user.service"
 
 export default {
   name: "LargeProfileCard",
@@ -135,10 +136,14 @@ export default {
         return;
       }
       this.user = await getUser(this.id);
-      let rating = await getAverageRating(this.id);
-      if (rating >= 0 && rating <= 5) {
-        this.renterRating = rating;
-        this.ownerRating = rating;
+      let ratingAsOwner = await UserService.getUserRatingAsOwner(this.id);
+      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id)
+
+      if (ratingAsOwner >= 0 && ratingAsOwner <= 5) {
+        this.ownerRating = ratingAsOwner;
+      }
+      if (ratingAsRenter >= 0 && ratingAsRenter <= 5){
+        this.renterRating = ratingAsRenter;
       }
     },
     getProfilePicture() {

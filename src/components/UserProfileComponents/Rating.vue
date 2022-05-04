@@ -31,7 +31,7 @@
     </li>
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        Rating ikke tilgjengelig
+        Ingen vurderinger
       </p>
     </li>
   </ul>
@@ -47,7 +47,7 @@ export default {
   methods: {
     getFill(i) {
       if (i <= this.rating) {
-        return "w-5 h-5 text-warn";
+        return "w-5 h-5 text-warn-medium";
       }
       return "w-5 h-5 text-gray-300 dark:text-gray-500";
     },

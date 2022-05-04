@@ -21,7 +21,8 @@ class CommunityAdminService {
   async acceptUserIntoCommunity(communityID, userID) {
     return await axios.post(
       API_URL + "communities/" + communityID + "/requests",
-      { params: { userId: userID } }
+      null,
+      { headers: tokenHeader(), params: { userId: userID } }
     );
   }
 
@@ -29,9 +30,8 @@ class CommunityAdminService {
   async rejectUserFromCommunity(communityID, userID) {
     return await axios.patch(
       API_URL + "communitites/" + communityID + "/requests/reject",
-      {
-        params: { userId: userID },
-      }
+      null,
+      { headers: tokenHeader(), params: { userId: userID } }
     );
   }
 
