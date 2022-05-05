@@ -10,12 +10,24 @@ const mutations = {
   saveToken(state, token) {
     state.token = token;
   },
-  addAdmin(state, communityID) {
-    state.adminList.push(communityID);
+  addAdminList(state, communityIDArray) {
+    if (!Array.isArray(communityIDArray)) return;
+    if (communityIDArray.length === 0) return;
+    for (let i = 0; i < communityIDArray.length; i++) {
+      if (isNaN(communityIDArray[i])) continue;
+      state.adminList.push(communityIDArray[i]);
+    }
+  },
+};
+
+const getters = {
+  isAdminInCommunity: (state) => (communityID) => {
+    return state.adminList.includes(communityID);
   },
 };
 
 export default {
   state,
   mutations,
+  getters,
 };
