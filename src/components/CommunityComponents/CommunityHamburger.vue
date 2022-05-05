@@ -28,7 +28,7 @@
       <li id="leaveGroup" v-if="!admin">
         <div
           class="cursor-pointer block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          @click="leaveCommunity"
+          @click="this.$emit('openLeaveCommunityDialog')"
         >
           Forlat Gruppe
         </div>
@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { LeaveCommunity } from "@/utils/apiutil";
-
 export default {
   name: "CommunityHamburger",
   data() {
@@ -48,13 +46,6 @@ export default {
       admin: false,
       communityID: -1,
     };
-  },
-  methods: {
-    leaveCommunity: async function () {
-      this.id = this.$route.params.communityID;
-      await LeaveCommunity(this.id);
-      this.$router.push("/");
-    },
   },
   created() {
     this.communityID = this.$route.params.communityID;
