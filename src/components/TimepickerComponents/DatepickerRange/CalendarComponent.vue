@@ -98,7 +98,11 @@ export default {
             start.getMonth() <= this.monthDate.getMonth() &&
             end.getMonth() >= this.monthDate.getMonth()
           ) {
-            if (
+            if(start.getMonth() === this.monthDate.getMonth() && end.getMonth() === this.monthDate.getMonth()) {
+              for(let i = start.getDate(); i <= end.getDate(); i++) {
+                blockedDays.push(i);
+              }
+            } else if (
               start.getMonth() < this.monthDate.getMonth() &&
               end.getMonth() > this.monthDate.getMonth()
             ) {
@@ -119,6 +123,7 @@ export default {
             }
           }
         } else {
+          console.log("WHAt WHAT!")
           // check that day is in this month
           const day = new Date(blockedDay[0]);
           if (day.getMonth() !== this.monthDate.getMonth()) return;
