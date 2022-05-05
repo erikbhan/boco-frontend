@@ -33,7 +33,7 @@
           />
         </div>
 
-        <div class="absolute inset-x-0 px-5 py-3">
+        <div class="absolute inset-x-0">
           <!-- ItemCards -->
           <div class="flex items-center justify-center w-screen">
             <!-- Shows items based on pagination -->
