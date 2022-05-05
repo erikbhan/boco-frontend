@@ -324,9 +324,6 @@ export default {
       if (this.checkValidation()) {
         this.checkUser();
 
-        //Not sure works
-        console.log(this.item.imagesToSend);
-
         const itemInfo = {
           title: this.item.title,
           description: this.item.description,
@@ -338,7 +335,6 @@ export default {
         };
         await postNewItem(itemInfo);
 
-        //Not sure it will work
         await PostImagesArrayToListing(this.item.imagesToSend);
 
         this.$router.push("/");
