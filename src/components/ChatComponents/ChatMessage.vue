@@ -66,14 +66,7 @@ export default {
         If message was sent this year show month and day of the month (MM DD) (Jan 13)
         If message was sent more than a year ago show year with date (MMM DD YYYY) (Jan 13 2020)
       */
-      const date = new Date(this.message.timestamp);
-      const now = new Date();
-      const diff = now.getTime() - date.getTime();
-      const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-      const diffWeeks = Math.ceil(diff / (1000 * 3600 * 24 * 7));
-      const diffMonths = Math.ceil(diff / (1000 * 3600 * 24 * 30));
-      const diffYears = Math.ceil(diff / (1000 * 3600 * 24 * 365));
-      
+
       return "13:00"
     },
   },
