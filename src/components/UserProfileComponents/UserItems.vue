@@ -250,6 +250,7 @@ export default {
       }
     },
     goToDeleteItem(item) {
+      console.log("Halllllo: " + item)
       this.chosenItem = item;
       this.readyToDelete = true;
     },
@@ -282,14 +283,5 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* #deleteButtons{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-#cancelDeleteButton{
-  grid-column: 1/2;
-}
-#confirmDeleteButton{
-  grid-column: 2/3;
-} */
+
 </style>
