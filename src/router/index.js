@@ -123,15 +123,15 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/user/userItems",
-    name: "UserItems",
-    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+    path: "/item/:id/edit",
+    name: "editItem",
+    component: () => import("../views/ItemViews/EditItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
-    path: "/user/userItems/:id/edit",
+    path: "/user/userItems",
     name: "UserItems",
-    component: () => import("../views/ItemViews/EditItemView.vue"),
+    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
     beforeEnter: guardRoute,
   },
   // Make sure it's your last route definition
