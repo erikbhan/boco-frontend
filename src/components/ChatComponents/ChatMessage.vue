@@ -34,9 +34,7 @@ export default {
     message: Object,
   },
   data() {
-    return {
-      abc: "abcde",
-    };
+    return {};
   },
   computed: {
     userID() {
