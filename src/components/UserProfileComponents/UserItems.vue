@@ -33,15 +33,15 @@
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
         v-if="showItems"
       >
-        <div id="item" v-for="item in visibleItems" :key="item">
-          <ItemCard class="w-fit h-fit" :item="item" />
+        <div class="cardContainer" id="item" v-for="item in visibleItems" :key="item">
+          <ItemCard class="ItemCard w-fit h-fit" :item="item" />
 
-          <TripleDotButton @click="item.toggle = !item.toggle">
+          <TripleDotButton class="DotButton" @click="item.toggle = !item.toggle">
           </TripleDotButton>
 
           <div
             v-show="item.toggle"
-            class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
           >
             <ul
               class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
@@ -97,12 +97,13 @@
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
         v-if="showSearchedItems"
       >
-        <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
-        <TripleDotButton @click="item.toggle = !item.toggle"> </TripleDotButton>
+      <div class="cardContainer" v-for="item in searchedItems" :key="item">
+        <ItemCard class="ItemCard" :item="item" />
+        <TripleDotButton class="DotButton" @click="item.toggle = !item.toggle"> </TripleDotButton>
 
         <div
           v-show="item.toggle"
-          class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+          class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
         >
           <ul
             class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
@@ -126,6 +127,7 @@
             </li>
           </ul>
         </div>
+      </div>
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -282,6 +284,17 @@ export default {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.cardContainer{
+  position: relative;
+}
+.DotButton{
+  position: absolute;
+  right: 40px;
+  bottom: 10px
+}
+.options{
+  position: absolute;
 }
 
 </style>
