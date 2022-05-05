@@ -175,6 +175,7 @@ import {
   helpers,
 } from "@vuelidate/validators";
 import Button from "@/components/BaseComponents/ColoredButton";
+import UserService from "@/services/user.service";
 
 // const isEmailTaken = (value) =>
 // fetch(`/api/unique/${value}`).then((r) => r.json()); // check the email in the server
@@ -263,8 +264,10 @@ export default {
         await this.$router.push("/login");
         return;
       }
-
+      UserService.addAdminsToState();
       this.$store.commit("saveToken", loginResponse.token);
+      const adminList = await UserService.getAdminList();
+      this.$store.commit("addAdminList", adminList);
       await this.$router.push("/");
     },
     async sendRegisterRequest() {
