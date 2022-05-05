@@ -210,7 +210,6 @@ exports[`NewItemForm component renders correctly 1`] = `
     </label>
     <input
       accept="image/png"
-      multiple=""
       style="display: none;"
       type="file"
     />
