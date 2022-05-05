@@ -175,7 +175,7 @@ export default {
     },
     async deleteUser(){
       await UserService.deleteUser();
-      this.$store.commit("logout");
+      this.logout()
     },
   },
   beforeMount() {
