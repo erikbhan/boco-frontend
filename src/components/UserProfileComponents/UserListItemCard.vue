@@ -107,7 +107,7 @@ export default {
     openChatWithUser() {
       this.$router.push({
         name: "messages",
-        params: { userId: this.user.userId },
+        query: { userID: this.user.userId },
       });
     },
     kickUserFromCommunity() {
