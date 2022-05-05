@@ -187,7 +187,7 @@
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder
+        Bilder (bildene må være .png)
       </label>
 
       <input
@@ -196,7 +196,7 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
@@ -216,7 +216,12 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
-import { postNewItem, getMyGroups } from "@/utils/apiutil";
+import {
+  postNewItem,
+  getMyGroups,
+  postNewImageCommunity,
+  PostImagesArrayToListing,
+} from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
@@ -303,6 +308,7 @@ export default {
         userId: -1,
         selectedGroupId: -1,
         selectedGroups: [],
+        imagesToSend: [],
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
@@ -325,6 +331,7 @@ export default {
     async saveClicked() {
       if (this.checkValidation()) {
         this.checkUser();
+
         const itemInfo = {
           title: this.item.title,
           description: this.item.description,
@@ -336,6 +343,8 @@ export default {
         };
         await postNewItem(itemInfo);
 
+        await PostImagesArrayToListing(this.item.imagesToSend);
+
         this.$router.push("/");
       }
     },
@@ -345,8 +354,20 @@ export default {
       this.item.userId = parseInt(user.accountId);
     },
 
-    addImage: function (event) {
+    addImage: async function (event) {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
+
+      var that = this;
+      let image = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onloadend = async function () {
+        const res = fileReader.result;
+        const id = await postNewImageCommunity(res);
+
+        const API_URL = process.env.VUE_APP_BASEURL;
+        that.item.imagesToSend.push(API_URL + "images/" + id);
+      };
+      fileReader.readAsArrayBuffer(image);
     },
 
     getGroups: async function () {

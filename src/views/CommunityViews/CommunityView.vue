@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-if="loading" class="flex place-content-center p-8">
+    <div v-if="loading" class="flex place-content-center p-8 min-h-screen">
       <LoaderSpinner />
     </div>
-    <div v-else>
+    <div v-else class="min-h-screen">
       <!-- My communities, with pagination -->
       <div v-if="loggedIn">
         <div class="flex flex-row p-4 relative">
           <div
-            class="text-xl md:text-2xl text-primary-light font-medium w-full"
+            class="text-xl md:text-2xl text-primary-medium font-medium w-full"
           >
             Mine grupper
           </div>
@@ -33,7 +33,7 @@
       </div>
 
       <!-- Public communities, with search and pagination -->
-      <p class="text-xl md:text-2xl text-primary-light font-medium w-full p-4">
+      <p class="text-xl md:text-2xl text-primary-medium font-medium w-full p-4">
         Offentlige grupper
       </p>
       <!-- Search field -->

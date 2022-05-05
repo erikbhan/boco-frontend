@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import RegisterFormComponent from "@/components/FormComponents/RegisterForm";
+import RegisterFormComponent from "@/components/UserAuthComponents/RegisterForm";
 
 describe("RegisterFormComponent", () => {
   let wrapper;
