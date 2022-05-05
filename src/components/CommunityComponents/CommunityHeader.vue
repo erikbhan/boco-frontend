@@ -126,13 +126,15 @@ export default {
       this.community = await CommunityService.getCommunity(
         this.$route.params.communityID
       );
-      const members = await CommunityService.getCommunityMembers(
-        this.$route.params.communityID
-      );
-      for (let i = 0; i < members.length; i++) {
-        if (members[i].userId == this.userid) {
-          this.member = true;
-          return;
+      if (this.$store.state.user.token !== null) {
+        const members = await CommunityService.getCommunityMembers(
+          this.$route.params.communityID
+        );
+        for (let i = 0; i < members.length; i++) {
+          if (members[i].userId == this.userid) {
+            this.member = true;
+            return;
+          }
         }
       }
     },
