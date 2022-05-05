@@ -63,7 +63,7 @@ export default {
   name: "NavBar.vue",
   data() {
     return {
-      newMessages: 111,
+      newMessages: 0,
     };
   },
   computed: {
