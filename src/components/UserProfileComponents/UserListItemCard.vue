@@ -5,7 +5,7 @@
     <!-- User image -->
     <div class="h-10 w-10 flex flex-col justify-center items-center mr-4">
       <router-link :to="'/profile/' + user.userId">
-        <img alt="Profilbilde" src="../../assets/defaultUserProfileImage.jpg" />
+        <img alt="Profilbilde" :src="getProfilePicture" />
       </router-link>
     </div>
 
@@ -18,7 +18,7 @@
 
     <!-- User rating -->
     <div class="hidden md:block flex-auto">
-      <RatingComponent :rating="rating" :ratingType="'Gjennomsnitts rating'" />
+      <RatingComponent :rating="rating" :ratingType="'Vurderinger'" />
     </div>
 
     <!-- Buttons -->
@@ -78,6 +78,9 @@ export default {
     return {
       rating: -1.0,
       communityID: -1,
+      profileImage: {
+        src: require("../../assets/defaultUserProfileImage.jpg"),
+      },
     };
   },
   components: {
@@ -92,17 +95,19 @@ export default {
     user: Object,
     buttons: Array,
   },
-  methods: {
+  computed: {
     getProfilePicture() {
-      if (this.user.picture != "") {
+      if (this.user.picture !== "" && this.user.picture != null) {
         return this.user.picture;
       }
-      return "@/assets/defaultUserProfileImage.jpg";
+      return this.profileImage.src;
     },
+  },
+  methods: {
     openChatWithUser() {
       this.$router.push({
         name: "messages",
-        params: { userId: this.user.userId },
+        query: { userID: this.user.userId },
       });
     },
     kickUserFromCommunity() {
@@ -127,7 +132,13 @@ export default {
     },
   },
   async created() {
-    this.rating = await UserService.getUserRatingAverage(this.user.userId);
+    const maybeRating = await UserService.getUserRatingAverage(
+      this.user.userId
+    );
+    if (isNaN(maybeRating)) this.rating = NaN;
+    else this.rating = maybeRating;
+    if (this.rating > 5) this.rating = 5;
+    if (this.rating < 1) this.rating = 1;
     this.communityID = this.$route.params.communityID;
   },
 };

@@ -3,9 +3,7 @@
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
     <!-- Component heading -->
-    <h3
-      class="text-xl font-medium text-center text-primary-light mt-4 mb-8"
-    >
+    <h3 class="text-xl font-medium text-center text-primary-light mt-4 mb-8">
       Opprett ny utleie
     </h3>
 
@@ -26,11 +24,11 @@
 
       <!-- error message for title-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.item.title.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -62,11 +60,11 @@
 
       <!-- error message for select box -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.item.select.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -96,7 +94,10 @@
           </li>
         </ul>
       </div>
-      <label class="text-error text-sm block">{{ groupErrorMessage }}</label>
+      <!-- Error message for community -->
+      <label class="text-error-medium text-sm block">{{
+        groupErrorMessage
+      }}</label>
     </div>
 
     <!-- price -->
@@ -116,11 +117,11 @@
 
       <!-- error message for price -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.item.price.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -143,11 +144,11 @@
 
       <!-- error message for description -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.item.description.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -170,11 +171,11 @@
 
       <!-- error message for address-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.item.address.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -186,7 +187,7 @@
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder
+        Bilder (bildene må være .png)
       </label>
 
       <input
@@ -195,7 +196,7 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
@@ -215,7 +216,12 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
-import { postNewItem, getMyGroups } from "@/utils/apiutil";
+import {
+  postNewItem,
+  getMyGroups,
+  postNewImageCommunity,
+  PostImagesArrayToListing,
+} from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
@@ -302,6 +308,7 @@ export default {
         userId: -1,
         selectedGroupId: -1,
         selectedGroups: [],
+        imagesToSend: [],
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
@@ -324,6 +331,7 @@ export default {
     async saveClicked() {
       if (this.checkValidation()) {
         this.checkUser();
+
         const itemInfo = {
           title: this.item.title,
           description: this.item.description,
@@ -335,6 +343,8 @@ export default {
         };
         await postNewItem(itemInfo);
 
+        await PostImagesArrayToListing(this.item.imagesToSend);
+
         this.$router.push("/");
       }
     },
@@ -344,8 +354,20 @@ export default {
       this.item.userId = parseInt(user.accountId);
     },
 
-    addImage: function (event) {
+    addImage: async function (event) {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
+
+      var that = this;
+      let image = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onloadend = async function () {
+        const res = fileReader.result;
+        const id = await postNewImageCommunity(res);
+
+        const API_URL = process.env.VUE_APP_BASEURL;
+        that.item.imagesToSend.push(API_URL + "images/" + id);
+      };
+      fileReader.readAsArrayBuffer(image);
     },
 
     getGroups: async function () {

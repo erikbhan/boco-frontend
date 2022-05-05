@@ -1,5 +1,6 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
+import NotFound from "@/views/NotFound.vue";
 
 /**
  * Guards routes. If token is null, no user is logged in and only the
@@ -38,9 +39,15 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/profile/communities",
+    name: "myCommunities",
+    component: () => import("../views/UserProfileViews/MyCommunitiesView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/register",
     name: "register",
-    component: () => import("../views/FormViews/RegisterView.vue"),
+    component: () => import("../views/UserAuthViews/RegisterView.vue"),
   },
   {
     path: "/messages",
@@ -51,12 +58,12 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/FormViews/LoginView.vue"),
+    component: () => import("../views/UserAuthViews/LoginView.vue"),
   },
   {
     path: "/newPassword",
     name: "newPassword",
-    component: () => import("../views/FormViews/NewPasswordView"),
+    component: () => import("../views/UserAuthViews/NewPasswordView"),
     beforeEnter: guardRoute,
   },
   {
@@ -67,7 +74,7 @@ const routes = [
   {
     path: "/resetPassword",
     name: "resetPassword",
-    component: () => import("../views/FormViews/ResetPasswordView.vue"),
+    component: () => import("../views/UserAuthViews/ResetPasswordView.vue"),
   },
   {
     path: "/newCommunity",
@@ -85,19 +92,6 @@ const routes = [
     path: "/newItem",
     name: "newItem",
     component: () => import("../views/ItemViews/NewItemView.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
-    path: "/notifications",
-    name: "notifications",
-    component: () =>
-      import("../components/BaseComponents/NotificationsForm.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
-    path: "/user/:id/communities",
-    name: "myCommunities",
-    component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -140,11 +134,18 @@ const routes = [
     component: () => import("../views/ItemViews/EditItemView.vue"),
     beforeEnter: guardRoute,
   },
+  // Make sure it's your last route definition
+  { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.resolve({
+  name: "not-found",
+  params: { pathMatch: ["not", "found"] },
+}).href;
 
 export default router;

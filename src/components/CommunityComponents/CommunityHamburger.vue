@@ -27,7 +27,7 @@
       </li>
       <li id="leaveGroup">
         <div
-          class="cursor-pointer block py-2 px-4 text-sm text-error hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          class="cursor-pointer block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           @click="leaveCommunity"
         >
           Forlat Gruppe

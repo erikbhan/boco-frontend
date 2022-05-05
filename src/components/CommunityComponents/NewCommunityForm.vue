@@ -4,7 +4,7 @@
   >
     <!-- Component heading -->
     <div
-      class="text-xl md:text-2xl font-medium text-center text-primary-light mt-4 mb-10"
+      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
       Opprett ny gruppe
     </div>
@@ -70,11 +70,11 @@
 
       <!-- error message for title-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.name.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -96,11 +96,11 @@
 
       <!-- error message for place-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.place.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -123,11 +123,11 @@
 
       <!-- error message for description -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.description.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -136,10 +136,10 @@
     <!-- Images -->
     <div class="mt-6">
       <label
-        class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilde
+        Bilde (bildet må være .png)
       </label>
 
       <input
@@ -148,21 +148,19 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <!-- Button for adding an image -->
       <div class="inline-flex rounded-md shadow-sm">
-        <div class="text-error uppercase text-center">midlertidig fjernet</div>
-        <!-- <button
+        <!--<div class="text-error uppercase text-center">Midlertidig fjernet</div> -->
+        <button
           @click="$refs.file.click()"
           class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
-        </button> -->
-
-        <!-- Button for removing an image -->
+        </button>
       </div>
 
       <!-- Div box for showing all chosen images -->
@@ -181,7 +179,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, maxLength } from "@vuelidate/validators";
-import { postNewgroup } from "@/utils/apiutil";
+import { postNewgroup, postNewImageCommunity } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 export default {
@@ -199,7 +197,7 @@ export default {
       group: {
         name: {
           required: helpers.withMessage(
-            () => "Navnt kan ikke være tom",
+            () => "Navn kan ikke være tom",
             required
           ),
           max: helpers.withMessage(
@@ -239,6 +237,7 @@ export default {
         radio: null,
         place: "",
         visibility: 1,
+        image: "",
       },
       imageThere: false,
     };
@@ -253,10 +252,6 @@ export default {
     },
   },
   methods: {
-    removeImage: function () {
-      this.group.images.pop();
-      this.imageThere = false;
-    },
     checkRadioButton: function (event) {
       this.group.radio = event.target.value;
 
@@ -281,15 +276,32 @@ export default {
           description: this.group.description,
           visibility: this.group.visibility,
           location: this.group.place,
-          picture: "",
+          picture: this.group.image,
         };
 
-        await postNewgroup(groupInfo);
+        console.log(this.group.image);
+
+        const respone = await postNewgroup(groupInfo);
+        if (respone.status === 200 || respone.status === 201) {
+          this.$router.push({ path: "/", replace: true });
+        }
       }
     },
 
-    addImage: function (event) {
+    addImage: async function (event) {
       this.group.images.push(URL.createObjectURL(event.target.files[0]));
+
+      var that = this;
+      let image = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onloadend = async function () {
+        const res = fileReader.result;
+        const id = await postNewImageCommunity(res);
+
+        const API_URL = process.env.VUE_APP_BASEURL;
+        that.group.image = API_URL + "images/" + id;
+      };
+      fileReader.readAsArrayBuffer(image);
       this.imageThere = true;
     },
   },

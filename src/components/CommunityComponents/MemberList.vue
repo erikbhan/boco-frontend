@@ -1,6 +1,5 @@
 <template>
-  <div v-if="loading">LASTER...</div>
-  <ul v-else>
+  <ul>
     <li v-for="member in members" :key="member.userId">
       <UserListItemCard :buttons="buttons" :user="member" />
     </li>

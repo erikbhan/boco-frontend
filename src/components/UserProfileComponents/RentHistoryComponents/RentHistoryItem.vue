@@ -21,7 +21,7 @@
         </div>
       </div>
       <colored-button
-          v-if="!isRated"
+        v-if="!isRated"
         :text="'Vurder'"
         class="px-4 flex-1"
         @click="
@@ -97,7 +97,7 @@ export default {
     getDateString(milliseconds) {
       let today = new Date();
       let date = new Date(milliseconds);
-      let dateString = date.getDate() + "." + (date.getMonth()+1);
+      let dateString = date.getDate() + "." + (date.getMonth() + 1);
 
       if (date.getFullYear() != today.getFullYear()) {
         dateString += "." + date.getFullYear();
@@ -117,7 +117,6 @@ export default {
       this.user = await userService.getUserFromId(this.historyItem.renterId);
     }
     this.isRated = await userService.isRated(this.historyItem.rentId);
-
   },
 };
 </script>

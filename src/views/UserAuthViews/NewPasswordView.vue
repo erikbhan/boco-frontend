@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import NewPasswordForm from "@/components/FormComponents/NewPasswordForm";
+import NewPasswordForm from "@/components/UserAuthComponents/NewPasswordForm";
 export default {
   name: "NewPasswordView.vue",
   components: {

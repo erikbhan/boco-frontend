@@ -2,9 +2,7 @@
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
-    <h3
-      class="text-xl font-medium text-center text-primary-light mt-4 mb-8"
-    >
+    <h3 class="text-xl font-medium text-center text-primary-light mt-4 mb-8">
       Glemt passordet ditt?
     </h3>
 
@@ -31,7 +29,7 @@
         <!-- error message -->
         <div v-for="(error, index) of v$.email.$errors" :key="index">
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-show="showError"
             id="emailErrorId"
           >
