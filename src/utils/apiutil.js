@@ -343,14 +343,14 @@ export function postNewImageCommunity(image) {
 
 export function PostImagesArrayToListing(imagesArray) {
   return axios
-      .post(API_URL + "listing/pictures", imagesArray, {
-        headers: tokenHeader(),
-      })
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        console.error(error.response);
-        return error;
-      });
+    .post(API_URL + "listing/pictures", imagesArray, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.error(error.response);
+      return error;
+    });
 }
