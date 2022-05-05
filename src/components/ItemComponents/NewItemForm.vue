@@ -373,7 +373,7 @@ export default {
       fileReader.onloadend = async function () {
         const res = fileReader.result;
         const id = await postNewImageCommunity(res);
-        console.log(id);
+        
         const API_URL = process.env.VUE_APP_BASEURL;
         that.item.imagesToSend.push(API_URL + "images/" + id);
         that.item.images.push(API_URL + "images/" + id)

@@ -289,7 +289,6 @@ export default {
   async beforeMount() {
     await this.getUserListingsFromAPI();
     this.updateVisibleTodos();
-    console.log("hei");
   },
 };
 </script>
