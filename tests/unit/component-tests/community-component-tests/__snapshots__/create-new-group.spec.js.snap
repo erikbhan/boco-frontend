@@ -121,13 +121,13 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
     class="mt-6"
   >
     <label
-      class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
       id="imageLabel"
     >
-       Bilde 
+       Bilde (bildet må være .png) 
     </label>
     <input
-      accept="image/png, image/jpeg"
+      accept="image/png"
       multiple=""
       style="display: none;"
       type="file"

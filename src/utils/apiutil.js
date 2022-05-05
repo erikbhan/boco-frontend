@@ -332,7 +332,6 @@ export function postNewImageCommunity(image) {
       headers: { ...tokenHeader(), "Content-Type": "image/png" },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {

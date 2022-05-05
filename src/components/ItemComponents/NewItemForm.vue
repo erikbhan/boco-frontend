@@ -187,7 +187,7 @@
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder
+        Bilder (bildene må være .png)
       </label>
 
       <input
@@ -196,7 +196,7 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
@@ -354,7 +354,6 @@ export default {
       this.item.userId = parseInt(user.accountId);
     },
 
-    //Not sure this method works
     addImage: async function (event) {
       this.item.images.push(URL.createObjectURL(event.target.files[0]));
 
@@ -366,10 +365,6 @@ export default {
         const id = await postNewImageCommunity(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        console.log(id);
-        console.log(API_URL + "images/" + id);
-
-        //Not sure if this will work
         that.item.imagesToSend.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);

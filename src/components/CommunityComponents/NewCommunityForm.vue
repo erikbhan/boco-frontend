@@ -136,10 +136,10 @@
     <!-- Images -->
     <div class="mt-6">
       <label
-        class="block mb-2 text-xl font-medium text-gray-900 dark:text-gray-400"
-        id="imageLabel"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+          id="imageLabel"
       >
-        Bilde
+        Bilde (bildet må være .png)
       </label>
 
       <input
@@ -148,7 +148,7 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <!-- Button for adding an image -->
