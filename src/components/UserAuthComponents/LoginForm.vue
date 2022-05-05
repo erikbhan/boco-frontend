@@ -94,6 +94,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import { doLogin } from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
+import UserService from "@/services/user.service";
 
 export default {
   name: "LoginForm.vue",
@@ -151,6 +152,8 @@ export default {
         this.message = "Feil e-post/passord";
       } else if (loginResponse.isLoggedIn === true) {
         this.$store.commit("saveToken", loginResponse.token);
+        const adminList = await UserService.getAdminList();
+        this.$store.commit("addAdminList", adminList);
         await this.$router.push("/");
       }
     },

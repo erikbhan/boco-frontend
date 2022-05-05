@@ -15,6 +15,12 @@ function guardRoute(to, from, next) {
   }
 }
 
+function isAdmin(to, from, next) {
+  if (store.state.user.adminList.includes(parseInt(from.params.communityID)))
+    next();
+  else next("/");
+}
+
 const routes = [
   {
     path: "/",
@@ -114,7 +120,7 @@ const routes = [
     path: "/community/:communityID/admin",
     name: "CommunityAdminView",
     component: () => import("@/views/CommunityViews/AdminView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: isAdmin,
   },
   {
     path: "/itempage/:id",

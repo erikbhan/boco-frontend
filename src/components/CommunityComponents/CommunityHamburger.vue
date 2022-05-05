@@ -39,7 +39,6 @@
 
 <script>
 import { LeaveCommunity } from "@/utils/apiutil";
-import CommunityAdminService from "@/services/community-admin.service";
 
 export default {
   name: "CommunityHamburger",
@@ -57,13 +56,12 @@ export default {
       this.$router.push("/");
     },
   },
-  async mounted() {
-    this.admin = await CommunityAdminService.isUserAdmin(
-      this.$route.params.communityID
-    );
-  },
   created() {
     this.communityID = this.$route.params.communityID;
+    if (!Array.isArray(this.$store.state.user.adminList)) return;
+    this.admin = this.$store.state.user.adminList.includes(
+      parseInt(this.communityID)
+    );
   },
 };
 </script>
