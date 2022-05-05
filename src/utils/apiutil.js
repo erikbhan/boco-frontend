@@ -1,13 +1,13 @@
 import axios from "axios";
 import { tokenHeader } from "./token-utils";
 import UserService from "@/services/user.service";
-import { isArray } from "core-js/core/array";
 
 const API_URL = process.env.VUE_APP_BASEURL;
 
 async function addAdmins() {
   const adminList = await UserService.getAdminList();
-  if (!isArray(adminList)) return [];
+  console.log(adminList);
+  if (!Array.isArray(adminList)) return [];
 
   for (let i = 0; i < adminList.length; i++) {
     this.$store.commit("addAdmin", adminList[i]);
