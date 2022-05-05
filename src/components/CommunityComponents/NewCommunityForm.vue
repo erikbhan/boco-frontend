@@ -319,7 +319,7 @@ export default {
       group: {
         name: {
           required: helpers.withMessage(
-            () => "Navnt kan ikke være tom",
+            () => "Navn kan ikke være tom",
             required
           ),
           max: helpers.withMessage(
