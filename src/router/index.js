@@ -132,6 +132,13 @@ const routes = [
     path: "/user/userItems",
     name: "UserItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/user/userItems/:id/edit",
+    name: "UserItems",
+    component: () => import("../views/ItemViews/EditItemView.vue"),
+    beforeEnter: guardRoute,
   },
 ];
 
