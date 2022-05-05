@@ -171,8 +171,8 @@ export default {
       this.show = !this.show;
     },
     async deleteUser(){
-      const deleteResponse = await UserService.deleteUser();
-      alert(deleteResponse.data);
+      await UserService.deleteUser();
+      this.$store.commit("logout");
     },
   },
   beforeMount() {
