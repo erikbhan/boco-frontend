@@ -360,10 +360,6 @@ export default {
         const id = await postNewImageCommunity(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        console.log(id);
-        console.log(API_URL + "images/" + id);
-
-        //Not sure if this will work
         that.item.imagesToSend.push(API_URL + "images/" + id);
 
       };
