@@ -40,6 +40,19 @@ class ListingService {
         console.error(error);
       });
   }
+
+  postNewItem(itemInfo) {
+    return axios
+      .post(API_URL + "listing", itemInfo, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
+  }
 }
 
 export default new ListingService();
