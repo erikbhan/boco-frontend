@@ -142,11 +142,11 @@
 
       <!-- error message for title-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.name.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -186,11 +186,11 @@
 
       <!-- error message for place-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.place.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -231,11 +231,11 @@
 
       <!-- error message for description -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.description.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -283,8 +283,6 @@
         >
           Velg bilde
         </button>
-
-        <!-- Button for removing an image -->
       </div>
 
       <!-- Div box for showing all chosen images -->
@@ -298,8 +296,6 @@
       <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
-
-  <!--<img :src="group.image" class="w-1/2 inline" alt="Bilde av gjenstanden" />-->
 </template>
 
 <script>
@@ -366,8 +362,6 @@ export default {
         image: "",
       },
       imageThere: false,
-      imageId: -1,
-      imageStringURL: "",
     };
   },
   computed: {
@@ -380,10 +374,6 @@ export default {
     },
   },
   methods: {
-    removeImage: function () {
-      this.group.images.pop();
-      this.imageThere = false;
-    },
     checkRadioButton: function (event) {
       this.group.radio = event.target.value;
 
@@ -403,7 +393,6 @@ export default {
 
     async saveClicked() {
       if (this.checkValidation()) {
-        //this.group.image = "https://image.shutterstock.com/image-photo/distribution-delivery-concept-global-business-600w-1650964204.jpg";
         const groupInfo = {
           name: this.group.name,
           description: this.group.description,
@@ -411,8 +400,6 @@ export default {
           location: this.group.place,
           picture: this.group.image,
         };
-
-        console.log(this.group.image);
 
         await postNewgroup(groupInfo);
       }
@@ -429,8 +416,6 @@ export default {
         const id = await postNewImageCommunity(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        console.log(id);
-        console.log(API_URL + "images/" + id);
         that.group.image = API_URL + "images/" + id;
 
       };
