@@ -86,6 +86,8 @@ export default {
 
 <style scoped>
 .message {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
   display: flex;
   flex-direction: column;
   width: 100%;
