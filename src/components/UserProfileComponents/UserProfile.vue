@@ -2,8 +2,11 @@
   <div
     class="w-full max-w-xl m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
-    <DeleteUserModal :visible="show" @close="this.show = false"
-    @deleteUser="deleteUser"/>
+    <DeleteUserModal
+      :visible="show"
+      @close="this.show = false"
+      @deleteUser="deleteUser"
+    />
     <div v-show="isCurrentUser" class="float-right px-4 pt-4">
       <button
         id="dropdownDefault"
@@ -70,9 +73,10 @@
             >
           </li>
           <li>
-            <div class="block py-2 px-4 text-sm text-error-dark cursor-pointer"
-            @click="toggleModal"
-                 >
+            <div
+              class="block py-2 px-4 text-sm text-error-dark cursor-pointer"
+              @click="toggleModal"
+            >
               Slett bruker
             </div>
           </li>
@@ -173,9 +177,9 @@ export default {
     toggleModal() {
       this.show = !this.show;
     },
-    async deleteUser(){
+    async deleteUser() {
       await UserService.deleteUser();
-      this.logout()
+      this.logout();
     },
   },
   beforeMount() {

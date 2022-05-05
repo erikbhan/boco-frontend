@@ -66,7 +66,11 @@
             >Glemt passord?</router-link
           >
 
-          <Button @click="loginClicked" :text="'Logg på'"></Button>
+          <Button
+            class="login"
+            @click="loginClicked"
+            :text="'Logg på'"
+          ></Button>
         </div>
       </div>
     </div>
