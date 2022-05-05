@@ -55,6 +55,15 @@ class CommunityService {
         console.error(error);
       });
   }
+
+  async leaveCommunity(communityID) {
+    return await axios.patch(
+      API_URL + "/communities/" + communityID + "/leave",
+      {
+        headers: tokenHeader(),
+      }
+    );
+  }
 }
 
 export default new CommunityService();
