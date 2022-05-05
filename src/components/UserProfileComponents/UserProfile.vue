@@ -90,7 +90,6 @@
       <div>
         <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
         <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
-        <div>{{ adminList }}</div>
       </div>
 
       <div v-show="!isCurrentUser" class="flex mt-4 space-x-3 lg:mt-6">
