@@ -100,5 +100,15 @@ class UserService {
       })
       .catch((err) => console.error(err));
   }
+
+  async deleteUser(){
+    return await axios
+    .delete(API_URL + "user/delete",{
+     headers: tokenHeader()})
+     .then((res) => {
+       return res.data;
+     })
+     .catch((err) => console.log(err))
+  }
 }
 export default new UserService();

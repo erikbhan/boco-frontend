@@ -43,10 +43,10 @@
     </div>
 
     <notification-modal
-        @click="routeToHome"
-        :visible="sendRequestClicked"
-        :title="'Vellykket'"
-        :message="'Forespørsel sendt!'"
+      @click="routeToHome"
+      :visible="sendRequestClicked"
+      :title="'Vellykket'"
+      :message="'Forespørsel sendt!'"
     >
     </notification-modal>
   </div>
