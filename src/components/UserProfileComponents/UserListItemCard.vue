@@ -137,6 +137,8 @@ export default {
     );
     if (isNaN(maybeRating)) this.rating = NaN;
     else this.rating = maybeRating;
+    if (this.rating > 5) this.rating = 5;
+    if (this.rating < 1) this.rating = 1;
     this.communityID = this.$route.params.communityID;
   },
 };
