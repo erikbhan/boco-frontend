@@ -1,13 +1,15 @@
 <template>
   <div class="mt-5">
     <div
-      class="w-4/5 rounded bg-gray-200 h-full overflow-hidden display:inline-block correct-size"
+      class="w-[80%] h-full rounded bg-gray-200 overflow-hidden display:inline-block correct-size"
     >
-      <img
-        class="h-3/4"
+      <div class="relative h-0 pb-[66%]">
+        <img
+        class="w-full h-full absolute inset-0"
         :src="item.img || require('../../assets/default-product.png')"
         alt="Item image"
       />
+      </div>
       <div class="p-1 m-1 bottom-0">
         <p class="text-gray-700 text-xs font-bold" id="adress">
           {{ item.address }}
