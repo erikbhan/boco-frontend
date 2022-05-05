@@ -6,18 +6,23 @@ describe("UserItems component", () => {
 
     beforeEach(() => {
         wrapper = mount(UserItems, {
-            props: {
-                ItemCard: {
-                    item: {
-                        listingID: 1,
-                        img: "",
-                        address: "Veien",
-                        title: "Matboks",
-                        pricePerDay: 50,
-                        toggle: false,
-                    }
+            data() {
+                return {
+                    items: [
+                        {
+                            listingID: 1,
+                            img: "",
+                            address: "Veien",
+                            title: "Matboks",
+                            pricePerDay: 50,
+                            toggle: false,
+                        }
+                    ]
                 }
             }
+
+
+
         });
     });
 
@@ -29,9 +34,11 @@ describe("UserItems component", () => {
         expect(wrapper.exists()).toBeTruthy();
     });
 
-    it("Check information", () => {
-        const byID = wrapper.find("#ItemCardPage");
-        expect(byID.item.title.)
+    it("Check headline", () => {
+        expect(wrapper.find("#headline").text()).toMatch("Mine gjenstander");
+    });
+    it("Check Itemcard title", () =>{
+        expect(wrapper.findAll("ItemCard").length).toBe(1)
     })
 
 });
