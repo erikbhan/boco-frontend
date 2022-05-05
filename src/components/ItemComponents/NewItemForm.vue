@@ -202,7 +202,8 @@
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in item.images" :key="image" class="m-2">
-        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" /> <!-- @click="removeImage(image)" -->
+        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
+        <!-- @click="removeImage(image)" -->
       </div>
     </div>
 
@@ -373,10 +374,10 @@ export default {
       fileReader.onloadend = async function () {
         const res = fileReader.result;
         const id = await postNewImageCommunity(res);
-        
+
         const API_URL = process.env.VUE_APP_BASEURL;
         that.item.imagesToSend.push(API_URL + "images/" + id);
-        that.item.images.push(API_URL + "images/" + id)
+        that.item.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -413,7 +414,6 @@ export default {
         }
       }
       this.item.images = newImages;
-
     },
   },
   beforeMount() {

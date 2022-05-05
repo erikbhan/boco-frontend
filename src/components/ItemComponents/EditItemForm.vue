@@ -383,7 +383,8 @@ export default {
 
       for (let i = 0; i <= this.updatedItem.selectedCommunities.length; i++) {
         if (
-          this.updatedItem.selectedCommunityId == this.updatedItem.selectedCommunities[i]
+          this.updatedItem.selectedCommunityId ==
+          this.updatedItem.selectedCommunities[i]
         ) {
           const index = this.updatedItem.selectedCommunities.indexOf(
             this.updatedItem.selectedCommunityId
@@ -396,7 +397,9 @@ export default {
       }
 
       if (!alreadyInGroupList) {
-        this.updatedItem.selectedCommunities.push(this.updatedItem.selectedCommunityId);
+        this.updatedItem.selectedCommunities.push(
+          this.updatedItem.selectedCommunityId
+        );
         this.communityErrorMessage = "";
       }
     },
