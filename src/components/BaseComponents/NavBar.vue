@@ -11,14 +11,22 @@
       />
     </div>
     <ul class="flex justify-between">
-      <li class="cursor-pointer" @click="$router.push('/newItem')">
+      <li
+        class="cursor-pointer"
+        v-if="this.$store.state.user.token !== null"
+        @click="$router.push('/newItem')"
+      >
         <PlusIcon
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Legg til"
         />
         <a class="hidden md:block mt-7 text-sm float-right">Legg til</a>
       </li>
-      <li class="cursor-pointer" @click="loadMessages">
+      <li
+        class="cursor-pointer"
+        v-if="this.$store.state.user.token !== null"
+        @click="loadMessages"
+      >
         <div class="notification-container">
           <ChatAlt2Icon
             class="m-6 md:mr-2 h-7 text-primary-medium float-left"
@@ -33,7 +41,14 @@
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Profil"
         />
-        <a class="hidden md:block mr-4 mt-7 text-sm float-right">Profil</a>
+        <a
+          v-if="this.$store.state.user.token !== null"
+          class="hidden md:block mr-4 mt-7 text-sm float-right"
+          >Profil</a
+        >
+        <a v-else class="hidden md:block mr-4 mt-7 text-sm float-right"
+          >Logg inn</a
+        >
       </li>
     </ul>
   </nav>
