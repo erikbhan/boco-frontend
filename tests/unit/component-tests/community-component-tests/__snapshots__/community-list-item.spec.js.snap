@@ -22,7 +22,7 @@ exports[`CommunityListItem component renders correctly 1`] = `
       class="flex-1 pl-1 overflow-hidden"
     >
       <div
-        class="font-medium dark:text-white truncate"
+        class="font-medium text-gray-800 dark:text-white truncate"
       >
         string
       </div>

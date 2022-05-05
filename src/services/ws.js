@@ -12,9 +12,8 @@ const ws = (function () {
 
   const fire = function (event, data) {
     if (handlers[event]) {
-      
       // for each object in object fire event
-      for(const key in handlers[event]) {
+      for (const key in handlers[event]) {
         handlers[event][key](data);
       }
     }
@@ -45,9 +44,9 @@ const ws = (function () {
   return {
     on: function (event, callback, id = "none") {
       // Generate random id
-      if(!handlers[event]) {
-        handlers[event] = {}
-      };
+      if (!handlers[event]) {
+        handlers[event] = {};
+      }
       handlers[event][id] = callback;
     },
     fire: fire,
