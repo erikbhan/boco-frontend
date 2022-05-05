@@ -95,7 +95,9 @@
         </ul>
       </div>
       <!-- Error message for community -->
-      <label class="text-error-medium text-sm block">{{ groupErrorMessage }}</label>
+      <label class="text-error-medium text-sm block">{{
+        groupErrorMessage
+      }}</label>
     </div>
 
     <!-- price -->

@@ -7,7 +7,7 @@ describe("CommunityList component", () => {
   beforeEach(() => {
     wrapper = mount(CommunityList, {
       props: {
-        groupList: [
+        communities: [
           {
             communityId: 0,
             name: "string",
