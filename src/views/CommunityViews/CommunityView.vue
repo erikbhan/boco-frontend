@@ -8,7 +8,7 @@
       <div v-if="loggedIn">
         <div class="flex flex-row p-4 relative">
           <div
-            class="text-xl md:text-2xl text-primary-light font-medium w-full"
+            class="text-xl md:text-2xl text-primary-medium font-medium w-full"
           >
             Mine grupper
           </div>
@@ -33,7 +33,7 @@
       </div>
 
       <!-- Public communities, with search and pagination -->
-      <p class="text-xl md:text-2xl text-primary-light font-medium w-full p-4">
+      <p class="text-xl md:text-2xl text-primary-medium font-medium w-full p-4">
         Offentlige grupper
       </p>
       <!-- Search field -->

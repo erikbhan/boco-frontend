@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="conversations">
-      <h1>Samtaler:</h1>
+      <h1>Meldinger</h1>
       <hr />
       <ChatProfile
         v-for="(conversation, i) in conversations"

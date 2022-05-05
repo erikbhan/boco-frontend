@@ -18,20 +18,14 @@
         />
         <a class="hidden md:block mt-7 text-sm float-right">Legg til</a>
       </li>
-      <li>
+      <li class="cursor-pointer" @click="loadMessages">
         <div class="notification-container">
           <ChatAlt2Icon
-            class="m-6 cursor-pointer h-7"
+            class="m-6 md:mr-2 h-7 text-primary-medium float-left"
             alt="Meldinger"
-            @click="loadMessages()"
           />
-          <p
-            @click="loadMessages()"
-            class="notification"
-            v-if="newMessages > 0"
-          >
-            {{ notifications }}
-          </p>
+          <p class="notification" v-if="newMessages > 0">{{ notifications }}</p>
+          <a class="hidden md:block mt-7 text-sm float-right">Meldinger</a>
         </div>
       </li>
       <li class="cursor-pointer" @click="loadProfile">

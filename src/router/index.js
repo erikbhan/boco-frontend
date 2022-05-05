@@ -47,7 +47,7 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () => import("../views/FormViews/RegisterView.vue"),
+    component: () => import("../views/UserAuthViews/RegisterView.vue"),
   },
   {
     path: "/messages",
@@ -58,12 +58,12 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/FormViews/LoginView.vue"),
+    component: () => import("../views/UserAuthViews/LoginView.vue"),
   },
   {
     path: "/newPassword",
     name: "newPassword",
-    component: () => import("../views/FormViews/NewPasswordView"),
+    component: () => import("../views/UserAuthViews/NewPasswordView"),
     beforeEnter: guardRoute,
   },
   {
@@ -74,7 +74,7 @@ const routes = [
   {
     path: "/resetPassword",
     name: "resetPassword",
-    component: () => import("../views/FormViews/ResetPasswordView.vue"),
+    component: () => import("../views/UserAuthViews/ResetPasswordView.vue"),
   },
   {
     path: "/newCommunity",
@@ -92,13 +92,6 @@ const routes = [
     path: "/newItem",
     name: "newItem",
     component: () => import("../views/ItemViews/NewItemView.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
-    path: "/notifications",
-    name: "notifications",
-    component: () =>
-      import("../components/BaseComponents/NotificationsForm.vue"),
     beforeEnter: guardRoute,
   },
   {
