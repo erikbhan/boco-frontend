@@ -1,5 +1,8 @@
 <template>
-  <ul>
+  <p v-if="!communities.length" class="flex place-content-center text-gray-400">
+    Ingen grupper
+  </p>
+  <ul v-else>
     <li v-for="community in communities" :key="community">
       <CommunityListItem
         :community="community"
