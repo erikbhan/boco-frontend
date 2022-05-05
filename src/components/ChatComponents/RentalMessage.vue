@@ -23,10 +23,10 @@
       <button class="button red" @click="reject">Avslå</button>
     </div>
     <div class="" v-if="rent.isAccepted">
-      <h1 class="green">Godtatt</h1>
+      <h1 class="approved">Godtatt</h1>
     </div>
     <div class="" v-if="rent.deleted">
-      <h1 class="red">Avslått</h1>
+      <h1 class="declined">Avslått</h1>
     </div>
   </div>
 </template>
@@ -108,6 +108,20 @@ export default {
 
 .text h1 {
   text-decoration: underline;
+}
+
+.approved {
+  color: darkgreen;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.declined {
+  color: darkred;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem;
 }
 
 @media (max-width: 1200px) {
