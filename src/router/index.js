@@ -103,9 +103,9 @@ const routes = [
     path: "/community/:communityID/private/join",
     name: "communityRequest",
     component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
+    beforeEnter: guardRoute,
   },
   {
-    beforeEnter: guardRoute,
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
