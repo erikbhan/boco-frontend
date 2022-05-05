@@ -20,14 +20,7 @@ const mutations = {
   },
 };
 
-const getters = {
-  isAdminInCommunity: (state) => (communityID) => {
-    return state.adminList.includes(communityID);
-  },
-};
-
 export default {
   state,
   mutations,
-  getters,
 };
