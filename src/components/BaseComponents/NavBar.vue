@@ -11,27 +11,21 @@
       />
     </div>
     <ul class="flex justify-between">
-      <li class="cursor-pointer"
-          @click="$router.push('/newItem')"
-      >
+      <li class="cursor-pointer" @click="$router.push('/newItem')">
         <PlusIcon
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Legg til"
         />
         <a class="hidden md:block mt-7 text-sm float-right">Legg til</a>
       </li>
-      <li class="cursor-pointer"
-          @click="$router.push('/messages')"
-      >
+      <li class="cursor-pointer" @click="$router.push('/messages')">
         <ChatAlt2Icon
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Meldinger"
         />
         <a class="hidden md:block mt-7 text-sm float-right">Meldinger</a>
       </li>
-      <li class="cursor-pointer"
-          @click="loadProfile"
-      >
+      <li class="cursor-pointer" @click="loadProfile">
         <UserCircleIcon
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Profil"
