@@ -18,7 +18,6 @@
 
       <input
         type="text"
-        id="searchInput"
         class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
         placeholder="Search"
         v-model="search"
@@ -81,7 +80,7 @@ import {
   getItemPictures,
 } from "@/utils/apiutil";
 export default {
-  name: "SearchItemListComponent",
+  name: "CommunityHome",
   components: {
     CommunityHeader,
     ItemCard,
@@ -108,6 +107,7 @@ export default {
   },
   data() {
     return {
+      search: "",
       items: [],
       item: {
         listingID: 0,
