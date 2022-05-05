@@ -273,7 +273,7 @@ export default {
     },
     async deleteItem() {
       await UserService.setListingToDeleted(this.chosenItem);
-      this.$router.go(0);
+      // this.$router.go(0);
     },
     searchWritten: function () {
       //This method triggers when search input field is changed

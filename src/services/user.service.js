@@ -1,4 +1,3 @@
-// import { tokenHeader } from "@/utils/token-utils";
 import { tokenHeader } from "@/utils/token-utils";
 import axios from "axios";
 
@@ -28,14 +27,17 @@ class UserService {
   }
 
   async setListingToDeleted(listingId) {
+    console.log(tokenHeader());
     return await axios
       .put(API_URL + "listing/" + listingId, {
-        headers: tokenHeader(),
+        headers: {Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaX…5vIn0.4GOdg2HsKb5ubJjkO674gQRO4C0RSIsHa4X-MI2ftHg'},
       })
       .then((res) => {
         return res.data;
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+      console.error(err);
+    })
   }
 
   async getRenterHistory() {
