@@ -1,18 +1,7 @@
 import axios from "axios";
 import { tokenHeader } from "./token-utils";
-import UserService from "@/services/user.service";
 
 const API_URL = process.env.VUE_APP_BASEURL;
-
-async function addAdmins() {
-  const adminList = await UserService.getAdminList();
-  console.log(adminList);
-  if (!Array.isArray(adminList)) return [];
-
-  for (let i = 0; i < adminList.length; i++) {
-    this.$store.commit("addAdmin", adminList[i]);
-  }
-}
 
 export function doLogin(loginRequest) {
   const auth = { isLoggedIn: false, token: "" };
@@ -21,7 +10,6 @@ export function doLogin(loginRequest) {
     .then((response) => {
       auth.isLoggedIn = true;
       auth.token = response.data;
-      addAdmins();
       return auth;
     })
     .catch((error) => {
