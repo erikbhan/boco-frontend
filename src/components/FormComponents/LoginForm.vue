@@ -24,7 +24,7 @@
           <!-- error message -->
           <div v-for="(error, index) of v$.user.email.$errors" :key="index">
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="emailErrorId"
             >
@@ -47,12 +47,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.user.password.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="passwordErrorId"
             >
@@ -82,7 +82,7 @@
     </div>
     <div class="flex items-center justify-center text-center bg-gray-50">
       <label
-        class="mx-2 text-sm font-bold text-red-500 dark:text-primary-light hover:underline"
+        class="mx-2 text-sm font-bold text-error-medium dark:text-primary-light hover:underline"
         >{{ message }}</label
       >
     </div>
