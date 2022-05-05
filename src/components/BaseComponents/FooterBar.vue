@@ -1,5 +1,5 @@
 <template>
-  <footer class=" bg-white dark:bg-gray-800 sm:flex-row border-1 border-t border-b border-gray-600 h-10 inset-x-0 bottom-0">
+  <footer class="w-full bg-white dark:bg-gray-800 sm:flex-row border-1 border-t border-b border-gray-600 h-10">
 
     <p class="float-left text-xs my-3 ml-4">© BoCo 2022 - All rights reserved</p>
     <QuestionMarkCircleIcon
