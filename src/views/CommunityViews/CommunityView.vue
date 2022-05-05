@@ -162,12 +162,11 @@ export default {
   async mounted() {
     await this.load();
     //Double loop not bad :)
+    console.log(this.publicCommunities);
+    console.log(this.myCommunities);
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
-        if (
-          this.publicCommunities[i].communityId ===
-          this.myCommunities[j].communityId
-        ) {
+        if (this.publicCommunities[i].communityId === this.myCommunities[j].communityId) {
           this.publicCommunities.splice(i, 1);
         }
       }
