@@ -25,7 +25,7 @@
           >Administrer Gruppe</router-link
         >
       </li>
-      <li id="leaveGroup">
+      <li id="leaveGroup" v-if="!admin">
         <div
           class="cursor-pointer block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           @click="leaveCommunity"
