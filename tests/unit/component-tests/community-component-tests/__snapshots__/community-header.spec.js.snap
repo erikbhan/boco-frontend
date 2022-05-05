@@ -3,24 +3,31 @@
 exports[`CommunityHeader component renders correctly 1`] = `
 <div
   adminstatus="true"
-  class="flex place-content-center mx-4"
   community="[object Object]"
 >
+  
+  <!-- Main modal -->
+  <!--v-if-->
+  
   <div
-    class="loadingio-spinner-bean-eater-o5tefvffeqm"
+    class="flex place-content-center mx-4"
   >
     <div
-      class="ldio-sweozsnwol"
+      class="loadingio-spinner-bean-eater-o5tefvffeqm"
     >
-      <div>
-        <div />
-        <div />
-        <div />
-      </div>
-      <div>
-        <div />
-        <div />
-        <div />
+      <div
+        class="ldio-sweozsnwol"
+      >
+        <div>
+          <div />
+          <div />
+          <div />
+        </div>
+        <div>
+          <div />
+          <div />
+          <div />
+        </div>
       </div>
     </div>
   </div>
