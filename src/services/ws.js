@@ -6,29 +6,29 @@ import { parseCurrentUser } from "@/utils/token-utils";
 // Events fired by websocket, MESSAGE
 const ws = (function () {
   // Object of all injected functions that the client may want
+  // These functions will be in a object
   const handlers = {};
 
   const fire = function (event, data) {
     if (handlers[event]) {
-      handlers[event](data);
+      
+      // for each object in object fire event
+      for(const key in handlers[event]) {
+        handlers[event][key](data);
+      }
     }
   };
 
   const onMessageReceived = (payload) => {
     const data = JSON.parse(payload.body);
 
-    //console.log("New message!");
     // Fire message event
     fire("MESSAGE", JSON.parse(payload.body));
-
     if (data.status == "NEW_MESSAGE")
       fire("NEW_MESSAGE", JSON.parse(payload.body));
-
-    //console.log("Received message: " + payload);
   };
 
   const onConnected = () => {
-    //console.log("Websocket Connected");
     stompClient.subscribe(
       "/user/" + parseCurrentUser().accountId + "/queue/messages",
       onMessageReceived
@@ -42,22 +42,25 @@ const ws = (function () {
   stompClient.connect({}, onConnected, onError);
 
   return {
-    on: function (event, callback) {
-      handlers[event] = callback;
+    on: function (event, callback, id = "none") {
+      // Generate random id
+      if(!handlers[event]) {
+        handlers[event] = {}
+      };
+      handlers[event][id] = callback;
     },
     fire: fire,
-    isActive: function (event) {
-      return !!handlers[event];
+    isActive: function (event, id = "none") {
+      return !!handlers[event]?.[id];
     },
-    end: function (event) {
+    end: function (event, id = "none") {
       if (handlers[event]) {
-        delete handlers[event];
+        delete handlers[event][id];
       } else {
         throw new Error("No handler for event: " + event);
       }
     },
     sendMessage: ({ sender, recipient /* , status */ }) => {
-      //if (status) console.log(status);
       stompClient.send(
         "/app/chat",
         {},

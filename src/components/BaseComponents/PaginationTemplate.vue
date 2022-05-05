@@ -2,7 +2,7 @@
   <div v-if="totalPages() > 0">
     <span
       v-if="showPreviousLink()"
-      class="cursor-pointer inline-flex items-center p-2 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+      class="cursor-pointer inline-flex items-center p-2 text-sm font-medium text-primary-light bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
       @click="updatePage(currentPage - 1)"
     >
       Forrige
@@ -10,7 +10,7 @@
     <label class="mx-2">{{ currentPage + 1 }} av {{ totalPages() }}</label>
     <span
       v-if="showNextLink()"
-      class="cursor-pointer inline-flex items-center p-2 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+      class="cursor-pointer inline-flex items-center p-2 text-sm font-medium text-primary-light bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
       @click="updatePage(currentPage + 1)"
     >
       Neste

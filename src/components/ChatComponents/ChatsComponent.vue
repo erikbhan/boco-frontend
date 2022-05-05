@@ -72,27 +72,32 @@ export default {
     calculateSide(from) {
       return from == this.userid ? "end" : "start";
     },
+    async fetchChats() {
+      const token = this.$store.state.user.token;
+      // Get all conversations from api with /chats/users
+      const conResponse = await fetch(
+        `${process.env.VUE_APP_BASEURL}chats/users`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ); // add error handling
+      this.conversations = await conResponse.json();
+    },
   },
   async created() {
-    const token = this.$store.state.user.token;
-    // Get all conversations from api with /chats/users
-    const conResponse = await fetch(
-      `${process.env.VUE_APP_BASEURL}chats/users`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ); // add error handling
-    this.conversations = await conResponse.json();
-
-    ws.on("NEW_MESSAGE", () => {
-      this.reloadMessages();
-    });
+    await this.fetchChats();
+    ws.on("NEW_MESSAGE",async () => { 
+      await this.fetchChats()
+      }, "chats");
     this.recipientID = this.$route.query?.userID || null;
     if (!this.recipientID) this.hambugerDisplay = "block";
+  },
+  unmounted() {
+    ws.end("NEW_MESSAGE", "chats");
   },
 };
 </script>

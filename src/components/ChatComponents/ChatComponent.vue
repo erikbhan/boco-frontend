@@ -108,6 +108,20 @@ export default {
       let container = this.$el.querySelector(".conversation");
       container.scrollTop = container.scrollHeight;
     },
+    async reloadMessages() {
+      const token = this.$store.state.user.token;
+      const response = await fetch(
+        `${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      this.msgs = await response.json();
+    },
     async sendMessage() {
       if (!this.recipient || this.message == null || this.message == "") return;
       this.canScroll = true;
@@ -129,21 +143,7 @@ export default {
         sender: parseInt(this.userid),
         recipient: this.recipientID,
       });
-      this.reloadMessages();
-    },
-    async reloadMessages() {
-      const token = this.$store.state.user.token;
-      const response = await fetch(
-        `${process.env.VUE_APP_BASEURL}chats/users/${this.recipientID}/messages`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      this.msgs = await response.json();
+      await this.reloadMessages();
     },
     async reloadRents() {
       const token = this.$store.state.user.token;
@@ -188,12 +188,19 @@ export default {
     await this.reloadMessages();
     await this.getRecipient();
     await this.reloadRents();
+
+    ws.on("NEW_MESSAGE", () => {
+      this.reloadMessages();
+    }, "chat");
   },
   updated() {
     if (this.canScroll) this.scroll();
     this.canScroll = false;
     this.scrollBehavior = "smooth";
   },
+  unmounted() {
+    ws.end("NEW_MESSAGE", "chat");
+  }
 };
 </script>
 

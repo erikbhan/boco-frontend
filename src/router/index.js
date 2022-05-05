@@ -1,5 +1,6 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
+import NotFound from "@/views/NotFound.vue";
 
 /**
  * Guards routes. If token is null, no user is logged in and only the
@@ -21,9 +22,26 @@ const routes = [
     component: () => import("../views/CommunityViews/CommunityView.vue"),
   },
   {
+    path: "/help",
+    name: "help",
+    component: () => import("../views/HelpView.vue"),
+  },
+  {
     path: "/profile/:id",
     name: "profile",
     component: () => import("../views/UserProfileViews/ProfileView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/profile/history",
+    name: "history",
+    component: () => import("../views/UserProfileViews/RentHistoryView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
+    path: "/profile/communities",
+    name: "myCommunities",
+    component: () => import("../views/UserProfileViews/MyCommunitiesView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -84,12 +102,6 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/user/:id/communities",
-    name: "myCommunities",
-    component: () => import("../views/CommunityViews/MyCommunitiesView.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
     path: "/community/:communityID",
     name: "communityHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
@@ -122,11 +134,18 @@ const routes = [
     name: "UserItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
   },
+  // Make sure it's your last route definition
+  { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.resolve({
+  name: "not-found",
+  params: { pathMatch: ["not", "found"] },
+}).href;
 
 export default router;

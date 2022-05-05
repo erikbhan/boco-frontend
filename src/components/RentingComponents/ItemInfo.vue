@@ -51,7 +51,10 @@
           </div>
         </div>
         <div class="mt-2">
-          <UserListItemCard :user="userForId"></UserListItemCard>
+          <UserListItemCard
+            :buttons="['chat']"
+            :user="userForId"
+          ></UserListItemCard>
         </div>
         <div class="mt-4">
           <h3 class="text-base font-base text-gray-900">Tidspunkter</h3>
@@ -87,10 +90,11 @@
 
 <script>
 import NewRent from "@/components/RentingComponents/NewRent.vue";
-import { getItem, getItemPictures, getUser } from "@/utils/apiutil";
+import { getItem, getItemPictures } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
+import UserService from "@/services/user.service";
 
 export default {
   name: "ItemInfo",
@@ -123,7 +127,7 @@ export default {
       ],
       pictures: [],
       noPicture: true,
-      userForId: Object,
+      userForId: {},
       rentingStartDate: null,
       rentingEndDate: null,
       totPrice: 0,
@@ -181,7 +185,7 @@ export default {
       //TODO fixs so each image get a correct alt text.
     },
     async getUser(userId) {
-      this.userForId = await getUser(userId);
+      this.userForId = await UserService.getUserFromId(userId);
     },
     setDate(dateOfsomthing) {
       if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {

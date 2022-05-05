@@ -2,11 +2,11 @@
   <!-- My communities, with pagination -->
   <div v-if="loggedIn">
     <div class="flex flex-row p-4 relative">
-      <div class="text-xl md:text-2xl text-gray-600 font-medium w-full">
+      <div class="text-xl md:text-2xl text-primary-light font-medium w-full">
         Mine grupper
       </div>
       <UserAddIcon
-        class="cursor-pointer max-h-6 max-w-6 float-right grow"
+        class="cursor-pointer max-h-6 max-w-6 float-right grow text-primary-dark"
         @click="$router.push('/newCommunity')"
         alt="Opprett ny gruppe"
       />
@@ -20,27 +20,21 @@
         v-on:page:update="updatePageMyCommunities"
         v-bind:currentPage="currentPageMyCommunities"
         v-bind:pageSize="pageSizeMyCommunities"
-        class="mt-10 mb-5"
+        class="mt-4"
       />
     </div>
   </div>
 
   <!-- Public communities, with search and pagination -->
-  <p class="text-xl md:text-2xl text-gray-600 font-medium w-full p-4">
+  <p class="text-xl md:text-2xl text-primary-light font-medium w-full p-4">
     Offentlige grupper
   </p>
   <!-- Search field -->
   <div class="relative mt-1 mx-2" id="searchComponent">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-      <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-      </svg>
+      <div class="w-5 h-5 text-gray-400">
+        <SearchIcon />
+      </div>
     </span>
 
     <input
@@ -67,16 +61,16 @@
       v-on:page:update="updatePagePublicCommunities"
       v-bind:currentPage="currentPagePublicCommunities"
       v-bind:pageSize="pageSizePublicCommunities"
-      class="mt-10 mb-5"
+      class="my-4"
     />
   </div>
 </template>
 
 <script>
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
-import { getMyGroups, getVisibleGroups } from "@/utils/apiutil";
-import { UserAddIcon } from "@heroicons/vue/outline";
+import { UserAddIcon, SearchIcon } from "@heroicons/vue/outline";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+import CommunityService from "@/services/community.service";
 
 export default {
   name: "HomeView",
@@ -102,6 +96,7 @@ export default {
     CommunityList,
     UserAddIcon,
     PaginationTemplate,
+    SearchIcon,
   },
   computed: {
     searchPublicCommunities() {
@@ -152,26 +147,21 @@ export default {
         this.updatePageMyCommunities(this.currentPageMyCommunities - 1);
       }
     },
-    //Triggers when search field input is changed
-    searchWritten: function () {
+    searchWritten() {
       //This method triggers when search input field is changed
-      if (this.search.length > 0) {
-        this.showPaginated = false;
-        this.showSearched = true;
-      } else {
-        this.showPaginated = true;
-        this.showSearched = false;
-      }
+      this.showPaginated = this.search.length < 1;
+      this.showSearched = this.search.length > 0;
+    },
+    async load() {
+      this.publicCommunities = await CommunityService.getAllCommunities();
+      this.loggedIn = this.$store.state.user.token !== null;
+      if (!this.loggedIn) return;
+      this.myCommunities = await CommunityService.getUserCommunities();
     },
   },
-  async beforeMount() {
-    this.publicCommunities = await getVisibleGroups();
-    this.loggedIn = this.$store.state.user.token !== null;
-    if (!this.loggedIn) return;
-
-    this.myCommunities = await getMyGroups();
-
-    // Loops through both arrays and removes myCommunities from public
+  async mounted() {
+    await this.load();
+    //Double loop not bad :)
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
         if (

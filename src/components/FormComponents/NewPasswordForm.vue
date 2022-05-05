@@ -9,7 +9,34 @@
     </h3>
 
     <div
+      id="oldPasswordField"
+      :class="{ error: v$.user.oldPassword.$errors.length }"
+    >
+      <label
+        for="oldPassword"
+        class="block text-sm text-gray-800 dark:text-gray-200"
+        >Gammelt passord</label
+      >
+      <input
+        type="password"
+        v-model="v$.user.oldPassword.$model"
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+      />
+      <!-- error message -->
+      <div v-for="(error, index) of v$.user.oldPassword.$errors" :key="index">
+        <div
+          class="text-red-600 text-sm"
+          v-show="showError"
+          id="oldPasswordErrorId"
+        >
+          {{ error.$message }}
+        </div>
+      </div>
+    </div>
+
+    <div
       id="firstPasswordField"
+      class="mt-4"
       :class="{ error: v$.user.password.$errors.length }"
     >
       <label
@@ -71,6 +98,12 @@
         :text="'Sett ny passord'"
       />
     </div>
+    <div class="flex items-center justify-center text-center bg-gray-50">
+      <label
+        class="mx-2 text-sm font-bold text-error-medium dark:text-primary-light hover:underline"
+        >{{ message }}</label
+      >
+    </div>
   </div>
 </template>
 
@@ -93,6 +126,9 @@ export default {
   validations() {
     return {
       user: {
+        oldPassword: {
+          required: helpers.withMessage(`Feltet må være utfylt`, required),
+        },
         password: {
           required: helpers.withMessage(`Feltet må være utfylt`, required),
           minLength: helpers.withMessage(
@@ -112,7 +148,9 @@ export default {
   },
   data() {
     return {
+      message: "",
       user: {
+        oldPassword: "",
         password: "",
         rePassword: "",
       },
@@ -130,34 +168,28 @@ export default {
       this.v$.user.$touch();
 
       if (this.v$.user.$invalid) {
-        //console.log("Invalid, exiting...");
         return;
       }
 
-      const newPassword = this.user.password;
+      const newPassword = {
+        newPassword: this.user.password,
+        oldPassword: this.user.oldPassword,
+      };
 
       const newPasswordResponse = await doNewPassword(newPassword);
 
-      if (newPasswordResponse != null) {
-        console.log("New password set");
-        this.$store.commit("saveToken", newPasswordResponse);
+      if (newPasswordResponse.correctPassword) {
+        //New password was set
+        this.message = "";
+        this.$store.commit("saveToken", newPasswordResponse.token);
         await this.$router.push("/");
+      } else if (!newPasswordResponse.correctPassword) {
+        //The old password was not correct
+        this.message = "Det gamle passordet stemmer ikke for denne brukeren";
       } else {
-        console.log("Couldn't set new password");
+        //Ops something went wrong
+        this.message = "Ops noe gikk galt";
       }
-
-      /*
-
-      if (newPasswordResponse.newPasswordSet === true) {
-        //console.log("New password set");
-        await this.$router.push("/");
-      } else if (newPasswordResponse.newPasswordSet === false) {
-        //console.log("Couldn't set new password");
-      } else {
-        //console.log("Something went wrong");
-      }
-
-      */
     },
     validate() {
       this.$refs.form.validate();
