@@ -1,6 +1,15 @@
 import { shallowMount } from "@vue/test-utils";
-import LoginForm from "@/components/FormComponents/LoginForm.vue";
+import LoginForm from "@/components/UserAuthComponents/LoginForm.vue";
 
+jest.mock("@/services/user.service", () => {
+    return {
+        getAdminList: () => {
+            return new Promise((resolve) => {
+                resolve([]);
+            });
+        }
+    };
+});
 jest.mock('@/utils/apiutil', () => {
     return {
         doLogin: () => {
@@ -21,7 +30,7 @@ describe("LoginForm component", () => {
     const mockStore = {
         commit: jest.fn()
     }
-    
+
     beforeEach(() => {
         wrapper = shallowMount(LoginForm, {
             global: {
@@ -34,7 +43,7 @@ describe("LoginForm component", () => {
     });
 
     it("Check valid login", async () => {
-            
+
         // Verify that the error message is empty
         expect(wrapper.vm.message).toBe("");
         const field = wrapper.findAll("input")[0];
@@ -46,9 +55,9 @@ describe("LoginForm component", () => {
         const button = wrapper.find(".login");
         button.trigger("click");
 
-        // wait a tick
+        // wait for two ticks
         await wrapper.vm.$nextTick();
-        
+        await wrapper.vm.$nextTick();
         // Check that the error message is not empty
         expect(mockRouter.push).toBeCalledTimes(1);
     })

@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import LoginForm from "@/components/FormComponents/LoginForm.vue";
+import LoginForm from "@/components/UserAuthComponents/LoginForm.vue";
 
 jest.mock('@/utils/apiutil', () => {
     return {
