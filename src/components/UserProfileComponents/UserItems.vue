@@ -37,25 +37,62 @@
         v-if="showItems"
       >
         <div id="item" v-for="item in visibleItems" :key="item">
-          <ItemCard
-            class="w-fit h-fit"
-            :item="item"
-          />
-          <button @click="goToDeleteItem(item.listingID)" class="absolute">
-            Slett
-          </button>
+          <ItemCard class="w-fit h-fit" :item="item" />
+
+          <TripleDotButton @click="item.toggle = !item.toggle">
+          </TripleDotButton>
+
+          <div
+            v-show="item.toggle"
+            class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+          >
+            <ul
+              class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
+              aria-labelledby="dropdownDefault"
+            >
+              <li>
+                <button
+                  to="/user/userItems"
+                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Rediger gjenstand
+                </button>
+              </li>
+              <li>
+                <button
+                  @click="goToDeleteItem(item.listingID)"
+                  class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Slett gjenstand
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-        <custom-footer-modal
+
+        <CustomFooterModal
+          @close="this.readyToDelete = false"
           :visible="readyToDelete"
           :title="'Sikker på at du vil slette annonsen?'"
+          :message="''"
         >
-          <div class="#deleteButtons">
-            <colored-button id="#cancelDeleteButton" :text="'Avbryt'" @click="cancelDelete" class="bg-gray-500"></colored-button>
+          <div class="flex justify-center p-2">
+            <ColoredButton
+              id="#cancelDeleteButton"
+              :text="'Avbryt'"
+              @click="cancelDelete"
+              class="bg-gray-500 m-2"
+            ></ColoredButton>
 
-            <colored-button id="confirmDeleteButton" @click="deleteItem" class="absolute" :text="'Slett'">
-            </colored-button>
+            <ColoredButton
+              id="confirmDeleteButton"
+              @click="deleteItem"
+              :text="'Slett'"
+              class="m-2 bg-error-medium"
+            >
+            </ColoredButton>
           </div>
-        </custom-footer-modal>
+        </CustomFooterModal>
       </div>
 
       <!-- Shows items based on search field input -->
@@ -64,6 +101,57 @@
         v-if="showSearchedItems"
       >
         <ItemCard v-for="item in searchedItems" :key="item" :item="item" />
+        <TripleDotButton @click="item.toggle = !item.toggle"> </TripleDotButton>
+
+        <div
+          v-show="item.toggle"
+          class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+        >
+          <ul
+            class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
+            aria-labelledby="dropdownDefault"
+          >
+            <li>
+              <button
+                to="/user/userItems"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                Rediger gjenstand
+              </button>
+            </li>
+            <li>
+              <button
+                @click="goToDeleteItem(item.listingID)"
+                class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                Slett gjenstand
+              </button>
+            </li>
+          </ul>
+        </div>
+        <CustomFooterModal
+          @close="this.readyToDelete = false"
+          :visible="readyToDelete"
+          :title="'Sikker på at du vil slette annonsen?'"
+          :message="''"
+        >
+          <div class="flex justify-center p-2">
+            <ColoredButton
+              id="#cancelDeleteButton"
+              :text="'Avbryt'"
+              @click="cancelDelete"
+              class="bg-gray-500 m-2"
+            ></ColoredButton>
+
+            <ColoredButton
+              id="confirmDeleteButton"
+              @click="deleteItem"
+              :text="'Slett'"
+              class="m-2 bg-error-medium"
+            >
+            </ColoredButton>
+          </div>
+        </CustomFooterModal>
       </div>
     </div>
     <!-- pagination -->
@@ -79,6 +167,7 @@
   </div>
 </template>
 <script>
+import TripleDotButton from "@/components/BaseComponents/TripleDotButton.vue";
 import { GetUserListings, getItemPictures } from "@/utils/apiutil";
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
 
@@ -91,6 +180,7 @@ export default {
   name: "UserItems",
   components: {
     ItemCard,
+    TripleDotButton,
     PaginationTemplate,
     CustomFooterModal,
     ColoredButton,
@@ -104,16 +194,18 @@ export default {
         address: "",
         title: "",
         pricePerDay: 0,
+        toggle: false,
       },
       chosenItem: null,
       showItems: true,
       showSearchedItems: false,
       search: "",
+      readyToDelete: false,
+      dropdown: false,
       //Variables connected to pagination
       currentPage: 0,
       pageSize: 12,
       visibleItems: [],
-      readyToDelete: false,
     };
   },
   computed: {
@@ -134,13 +226,14 @@ export default {
     getUserListingsFromAPI: async function () {
       this.items = await GetUserListings();
       for (var i = 0; i < this.items.length; i++) {
+        this.items[i].toggle = false;
         let images = await getItemPictures(this.items[i].listingID);
         if (images.length > 0) {
           this.items[i].img = images[0].picture;
         }
       }
     },
-    cancelDelete(){
+    cancelDelete() {
       this.readyToDelete = false;
     },
     //Pagination
@@ -163,9 +256,10 @@ export default {
       this.chosenItem = item;
       this.readyToDelete = true;
     },
-    async deleteItem(){
+    async deleteItem() {
+      console.log("HEI " + this.chosenItem);
       await UserService.setListingToDeleted(this.chosenItem);
-      this.$router.go(0)
+      // this.$router.go(0);
     },
     searchWritten: function () {
       //This method triggers when search input field is changed
@@ -191,7 +285,7 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-#deleteButtons{
+/* #deleteButtons{
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -200,6 +294,5 @@ export default {
 }
 #confirmDeleteButton{
   grid-column: 2/3;
-}
-
+} */
 </style>

@@ -37,9 +37,8 @@ class UserService {
       })
       .catch((err) => console.error(err));
   }
-        
-  
-        async getRenterHistory() {
+
+  async getRenterHistory() {
     return await axios
       .get(API_URL + "user/profile/rent/history", {
         headers: tokenHeader(),
@@ -79,26 +78,26 @@ class UserService {
       });
   }
 
-    async getUserRatingAsRenter(userId) {
-        return await axios
-            .get(API_URL + "rating/" + userId + "/average/renter", {
-                headers: tokenHeader(),
-            })
-            .then((res) => {
-                return res.data;
-            })
-            .catch((err) => console.error(err))
-    }
+  async getUserRatingAsRenter(userId) {
+    return await axios
+      .get(API_URL + "rating/" + userId + "/average/renter", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => console.error(err));
+  }
 
   async getUserRatingAsOwner(userId) {
     return await axios
-        .get(API_URL + "rating/" + userId + "/average/owner", {
-          headers: tokenHeader(),
-        })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => console.error(err))
+      .get(API_URL + "rating/" + userId + "/average/owner", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => console.error(err));
   }
 }
 export default new UserService();
