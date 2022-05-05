@@ -1,5 +1,6 @@
 const state = {
   token: null,
+  adminList: [],
 };
 
 const mutations = {
@@ -8,6 +9,9 @@ const mutations = {
   },
   saveToken(state, token) {
     state.token = token;
+  },
+  addAdmin(state, communityID) {
+    state.adminList.push(communityID);
   },
 };
 
