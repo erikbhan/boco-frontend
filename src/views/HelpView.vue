@@ -3,10 +3,14 @@
     <div id="contact" class="grid place-items-center w-full">
       <div class="lg:mb-0 text-gray-700 w-full">
         <div class="mx-4">
-          <h2 class="flex justify-center text-primary-dark mb-6 uppercase font-bold text-2xl mt-4">
+          <h2
+            class="flex justify-center text-primary-dark mb-6 uppercase font-bold text-2xl mt-4"
+          >
             Kontakt oss
           </h2>
-          <p class="flex justify-center mx-auto text-gray-500 leading-relaxed mb-12 max-w-md mt-8">
+          <p
+            class="flex justify-center mx-auto text-gray-500 leading-relaxed mb-12 max-w-md mt-8"
+          >
             {{ contact.description }}
           </p>
         </div>

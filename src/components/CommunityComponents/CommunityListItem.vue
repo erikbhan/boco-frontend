@@ -54,7 +54,10 @@
         v-if="!community.picture"
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
-        <UserGroupIcon alt="Felleskapets bilde" class="h-10 w-10 text-primary-dark" />
+        <UserGroupIcon
+          alt="Felleskapets bilde"
+          class="h-10 w-10 text-primary-dark"
+        />
       </div>
       <div
         v-else

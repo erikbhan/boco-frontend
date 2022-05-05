@@ -136,8 +136,8 @@
     <!-- Images -->
     <div class="mt-6">
       <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-          id="imageLabel"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+        id="imageLabel"
       >
         Bilde (bildet må være .png)
       </label>
