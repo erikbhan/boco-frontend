@@ -29,7 +29,7 @@ class UserService {
   async setListingToDeleted(listingId) {
     console.log(tokenHeader());
     return await axios
-      .put(API_URL + "listing/" + listingId, null, {
+      .delete(API_URL + "listing/" + listingId, {
         headers: tokenHeader()
       })
       .then((res) => {
