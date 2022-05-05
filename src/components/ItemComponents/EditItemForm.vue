@@ -195,7 +195,6 @@
     </div>
 
     <!-- Images -->
-    <!--
     <div>
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -209,30 +208,29 @@
         ref="file"
         style="display: none"
         @change="addImage"
-        multiple
         accept="image/png"
       />
 
-      <Button :text="'Velg bilde'" @click="$refs.file.click()" />
+      <ColoredButton :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in updatedItem.images" :key="image" class="m-2">
-        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
+        <form-image-display :image="image" @remove="removeImage(image)" />
       </div>
     </div>
-    -->
 
     <!-- Save item button -->
     <div class="float-right">
-      <Button :text="'Lagre'" @click="saveClicked" id="saveButton" />
+      <ColoredButton :text="'Lagre'" @click="saveClicked" id="saveButton" />
     </div>
   </div>
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import Button from "@/components/BaseComponents/ColoredButton";
+import ColoredButton from "@/components/BaseComponents/ColoredButton";
 import ListingService from "@/services/listing.service";
 import CommunityService from "@/services/community.service";
+import ImageService from "@/services/image.service";
 import { parseCurrentUser } from "@/utils/token-utils";
 
 import {
@@ -247,7 +245,7 @@ export default {
   name: "EditNewItem",
 
   components: {
-    Button,
+    ColoredButton,
   },
 
   setup() {
@@ -368,12 +366,23 @@ export default {
           communityIDs: this.updatedItem.selectedCommunities,
         };
         await ListingService.putItem(itemInfo);
+        await ImageService.putListingImages(this.images);
         this.$router.push("/itempage/" + this.initialItem.listingID);
       }
     },
 
-    addImage(event) {
-      this.updatedItem.images.push(URL.createObjectURL(event.target.files[0]));
+    async addImage(event) {
+      var that = this;
+      let image = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onloadend = async function () {
+        const res = fileReader.result;
+        const id = await ImageService.postNewImage(res);
+
+        const API_URL = process.env.VUE_APP_BASEURL;
+        that.item.images.push(API_URL + "images/" + id);
+      };
+      fileReader.readAsArrayBuffer(image);
     },
 
     onChangeCommunity(e) {
@@ -415,6 +424,15 @@ export default {
         }
       }
       return false;
+    },
+    removeImage(image) {
+      let newImages = [];
+      for (let i in this.item.images) {
+        if (this.item.images[i] != image) {
+          newImages.push(this.item.images[i]);
+        }
+      }
+      this.item.images = newImages;
     },
   },
 

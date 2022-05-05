@@ -195,21 +195,19 @@
         ref="file"
         style="display: none"
         @change="addImage"
-        multiple
         accept="image/png"
       />
 
-      <Button :text="'Velg bilde'" @click="$refs.file.click()" />
+      <colored-button :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in item.images" :key="image" class="m-2">
-        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
-        <!-- @click="removeImage(image)" -->
+        <form-image-display :image="image" @remove="removeImage(image)" />
       </div>
     </div>
 
     <!-- Save item button -->
     <div class="float-right">
-      <Button :text="'Lagre'" @click="saveClicked" id="saveButton" />
+      <colored-button :text="'Lagre'" @click="saveClicked" id="saveButton" />
     </div>
   </div>
 </template>
@@ -217,13 +215,11 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
-import {
-  postNewItem,
-  getMyGroups,
-  postNewImageCommunity,
-  PostImagesArrayToListing,
-} from "@/utils/apiutil";
-import Button from "@/components/BaseComponents/ColoredButton";
+import ListingService from "@/services/listing.service";
+import CommunityService from "@/services/community.service";
+import ImageService from "@/services/image.service";
+import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import FormImageDisplay from "@/components/BaseComponents/FormImageDisplay.vue";
 
 import {
   required,
@@ -237,7 +233,8 @@ export default {
   name: "AddNewItem",
 
   components: {
-    Button,
+    ColoredButton,
+    FormImageDisplay,
   },
 
   setup() {
@@ -309,7 +306,6 @@ export default {
         userId: -1,
         selectedGroupId: -1,
         selectedGroups: [],
-        imagesToSend: [],
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: [
@@ -354,9 +350,9 @@ export default {
           categoryNames: [this.item.select],
           communityIDs: this.item.selectedGroups,
         };
-        await postNewItem(itemInfo);
+        await ListingService.postNewItem(itemInfo);
 
-        await PostImagesArrayToListing(this.item.imagesToSend);
+        await ImageService.PostImagesArrayToListing(this.item.images);
 
         this.$router.push("/");
       }
@@ -373,17 +369,12 @@ export default {
       let fileReader = new FileReader();
       fileReader.onloadend = async function () {
         const res = fileReader.result;
-        const id = await postNewImageCommunity(res);
+        const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.item.imagesToSend.push(API_URL + "images/" + id);
         that.item.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
-    },
-
-    getGroups: async function () {
-      this.groups = await getMyGroups();
     },
 
     onChangeGroup: function (e) {
@@ -416,8 +407,8 @@ export default {
       this.item.images = newImages;
     },
   },
-  beforeMount() {
-    this.getGroups();
+  async beforeMount() {
+    this.groups = await CommunityService.getUserCommunities();
   },
 };
 </script>
