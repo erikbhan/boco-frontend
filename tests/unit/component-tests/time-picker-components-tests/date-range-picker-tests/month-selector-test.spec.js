@@ -34,7 +34,6 @@ describe("MonthSelector tests", () => {
     expect(wrapper.findAll(".button").length).toBe(2);
 
     const buttons = wrapper.findAll(".button");
-    console.log(buttons[0].html());
     // Check that the first button goes a month back
     await buttons[0].trigger("click");
     expect(wrapper.emitted()).toHaveProperty("back");

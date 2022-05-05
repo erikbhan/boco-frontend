@@ -342,7 +342,6 @@ export default {
 
   methods: {
     checkValidation() {
-      console.log(this.updatedItem);
       this.v$.updatedItem.$touch();
       if (
         this.v$.updatedItem.$invalid ||
@@ -423,8 +422,6 @@ export default {
     let itemID = await this.$router.currentRoute.value.params.id;
     let item = await ListingService.getItem(itemID);
 
-    console.log(item);
-
     // Check if user is the owner of the item
     let userID = await parseCurrentUser().userId;
     if (item.userID == userID) {
@@ -459,7 +456,6 @@ export default {
       selectedCommunityId: 0,
       selectedCommunities: initialCommunities,
     };
-    console.log(this.images);
   },
 };
 </script>
