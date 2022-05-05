@@ -29,8 +29,8 @@ class UserService {
   async setListingToDeleted(listingId) {
     console.log(tokenHeader());
     return await axios
-      .put(API_URL + "listing/" + listingId, {
-        headers: {Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaX…5vIn0.4GOdg2HsKb5ubJjkO674gQRO4C0RSIsHa4X-MI2ftHg'},
+      .put(API_URL + "listing/" + listingId, null, {
+        headers: tokenHeader()
       })
       .then((res) => {
         return res.data;
