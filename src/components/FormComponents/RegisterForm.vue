@@ -21,12 +21,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.email.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="emailErrorId"
             >
@@ -45,12 +45,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.password.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="passwordErrorId"
             >
@@ -69,12 +69,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.confirmPassword.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="confirmPasswordErrorId"
             >
@@ -94,12 +94,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.firstName.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="firstNameErrorId"
             >
@@ -118,12 +118,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.lastName.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="lastNameErrorId"
             >
@@ -142,12 +142,12 @@
           />
           <!-- error message -->
           <div
-            class="text-red-600 text-sm"
+            class="text-error-medium text-sm"
             v-for="(error, index) of v$.address.$errors"
             :key="index"
           >
             <div
-              class="text-red-600 text-sm"
+              class="text-error-medium text-sm"
               v-show="showError"
               id="addressErrorId"
             >
