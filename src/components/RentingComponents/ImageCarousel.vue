@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     setButtons() {
-      return this.images.length>1;
+      return this.images.length > 1;
     },
   },
 };
