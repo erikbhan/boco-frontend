@@ -140,6 +140,9 @@ export default {
       }
       return this.profileImage.src;
     },
+    adminList() {
+      return this.$store.state.user.adminList;
+    },
   },
   methods: {
     async getUser() {
