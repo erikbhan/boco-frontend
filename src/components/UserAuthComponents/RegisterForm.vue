@@ -264,7 +264,6 @@ export default {
         await this.$router.push("/login");
         return;
       }
-      UserService.addAdminsToState();
       this.$store.commit("saveToken", loginResponse.token);
       const adminList = await UserService.getAdminList();
       this.$store.commit("addAdminList", adminList);
