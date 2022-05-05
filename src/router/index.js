@@ -109,9 +109,9 @@ const routes = [
     path: "/community/:communityID/private/join",
     name: "communityRequest",
     component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
+    beforeEnter: guardRoute,
   },
   {
-    beforeEnter: guardRoute,
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
@@ -129,9 +129,16 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/item/:id/edit",
+    name: "editItem",
+    component: () => import("../views/ItemViews/EditItemView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/user/userItems",
     name: "UserItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+    beforeEnter: guardRoute,
   },
   // Make sure it's your last route definition
   { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
