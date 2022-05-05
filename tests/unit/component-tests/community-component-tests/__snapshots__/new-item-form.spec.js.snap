@@ -100,8 +100,9 @@ exports[`NewItemForm component renders correctly 1`] = `
         </li>
       </ul>
     </div>
+    <!-- Error message for community -->
     <label
-      class="text-error text-sm block"
+      class="text-error-medium text-sm block"
     />
   </div>
   <!-- price -->
