@@ -279,7 +279,12 @@ export default {
           picture: this.group.image,
         };
 
-        await postNewgroup(groupInfo);
+        console.log(this.group.image);
+
+        const respone = await postNewgroup(groupInfo);
+        if (respone.status === 200 || respone.status === 201) {
+          this.$router.push({ path: "/", replace: true });
+        }
       }
     },
 

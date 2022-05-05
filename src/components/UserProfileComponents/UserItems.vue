@@ -33,7 +33,12 @@
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
         v-if="showItems"
       >
-        <div class="cardContainer" id="item" v-for="item in visibleItems" :key="item">
+        <div
+          class="cardContainer"
+          id="item"
+          v-for="item in visibleItems"
+          :key="item"
+        >
           <ItemCard class="ItemCard w-fit h-fit" :item="item" />
 
           <TripleDotButton class="DotButton" @click="openDotMenu(item)">
@@ -97,37 +102,38 @@
         class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
         v-if="showSearchedItems"
       >
-      <div class="cardContainer" v-for="item in searchedItems" :key="item">
-        <ItemCard class="ItemCard" :item="item" />
-        <TripleDotButton class="DotButton" @click="openDotMenu(item)"> </TripleDotButton>
+        <div class="cardContainer" v-for="item in searchedItems" :key="item">
+          <ItemCard class="ItemCard" :item="item" />
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
+          </TripleDotButton>
 
-        <div
-          v-show="item.toggle"
-          class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
-        >
-          <ul
-            class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
-            aria-labelledby="dropdownDefault"
+          <div
+            v-show="item.toggle"
+            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
           >
-            <li>
-              <button
-                to="/user/userItems"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >
-                Rediger gjenstand
-              </button>
-            </li>
-            <li>
-              <button
-                @click="goToDeleteItem(item.listingID)"
-                class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >
-                Slett gjenstand
-              </button>
-            </li>
-          </ul>
+            <ul
+              class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
+              aria-labelledby="dropdownDefault"
+            >
+              <li>
+                <button
+                  to="/user/userItems"
+                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Rediger gjenstand
+                </button>
+              </li>
+              <li>
+                <button
+                  @click="goToDeleteItem(item.listingID)"
+                  class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Slett gjenstand
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -222,14 +228,13 @@ export default {
     },
   },
   methods: {
-    openDotMenu(item){
-      if(item.toggle == false){ 
-        for(var i = 0; i<this.visibleItems.length; i++){
+    openDotMenu(item) {
+      if (item.toggle == false) {
+        for (var i = 0; i < this.visibleItems.length; i++) {
           this.visibleItems[i].toggle = false;
-      }
+        }
         item.toggle = true;
-      }
-      else{
+      } else {
         item.toggle = false;
       }
     },
@@ -263,7 +268,7 @@ export default {
       }
     },
     goToDeleteItem(item) {
-      console.log("Halllllo: " + item)
+      console.log("Halllllo: " + item);
       this.chosenItem = item;
       this.readyToDelete = true;
     },
@@ -297,16 +302,15 @@ export default {
   margin-bottom: 10px;
   margin-left: 20px;
 }
-.cardContainer{
+.cardContainer {
   position: relative;
 }
-.DotButton{
+.DotButton {
   position: absolute;
   right: 40px;
-  bottom: 10px
+  bottom: 10px;
 }
-.options{
+.options {
   position: absolute;
 }
-
 </style>
