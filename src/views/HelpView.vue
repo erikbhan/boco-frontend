@@ -18,8 +18,8 @@
           </div>
           <div class="">
             <h4 class="font-bold text-gray-800 text-xl mb-1">Lokaler</h4>
-            <p>{{ contact.address }},</p>
-            <p>{{ contact.city }},</p>
+            <p>{{ contact.address }}</p>
+            <p>{{ contact.city }}</p>
             <p>{{ contact.country }}</p>
           </div>
         </div>
@@ -28,7 +28,7 @@
             <MailIcon class="w-14 h-14 text-primary-dark rounded mr-4" />
           </div>
           <div class="">
-            <h4 class="font-bold text-gray-800 text-xl mb-1">Epost Addresse</h4>
+            <h4 class="font-bold text-gray-800 text-xl mb-1">E-postadresse</h4>
             <p>{{ contact.email }}</p>
           </div>
         </div>
@@ -38,7 +38,7 @@
       <div
         class="mx-auto text-center px-4 text-2xl text-primary-dark font-semibold"
       >
-        Frequently Asked Questions
+        Ofte stilte spørsmål
       </div>
       <div
         class="mt-8 mx-auto max-w-screen-sm lg:max-w-screen-lg flex flex-col lg:grid lg:grid-cols-2"
@@ -49,7 +49,7 @@
               id="question-and-answer"
               class="select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group"
             >
-              <dt id="question">
+              <dt id="question" @click="toggle(faqItem)">
                 <div class="flex justify-between text-gray-800">
                   <div class="font-bold">
                     {{ faqItem.question }}
@@ -93,7 +93,7 @@ export default {
       contact: {
         description:
           "BoCo (Borrow Community) er et norsk selskap som tilbyr en plattform for utlån av gjenstander for privatpersoner og bedrifter. BoCo streber for å bli den foretrukne plattformen for lån for privatpersoner og bedrifter i Norge.",
-        email: "BorrowCompany@BorrowCommunity.com",
+        email: "kontakt@boco.no",
         address: "O. S. Bragstads Plass 2G",
         city: "Trondheim",
         country: "Norge",

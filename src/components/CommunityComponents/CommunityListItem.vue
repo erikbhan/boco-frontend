@@ -54,7 +54,7 @@
         v-if="!community.picture"
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
-        <UserGroupIcon alt="Felleskapets bilde" class="h-10 w-10" />
+        <UserGroupIcon alt="Felleskapets bilde" class="h-10 w-10 text-primary-dark" />
       </div>
       <div
         v-else
@@ -67,7 +67,7 @@
         />
       </div>
       <div class="flex-1 pl-1 overflow-hidden">
-        <div class="font-medium dark:text-white truncate">
+        <div class="font-medium text-gray-800 dark:text-white truncate">
           {{ community.name }}
         </div>
       </div>

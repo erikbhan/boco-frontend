@@ -7,7 +7,7 @@
     >
       Forrige
     </span>
-    <label class="mx-2">{{ currentPage + 1 }} av {{ totalPages() }}</label>
+    <label class="mx-2 text-primary-light">{{ currentPage + 1 }} av {{ totalPages() }}</label>
     <span
       v-if="showNextLink()"
       class="cursor-pointer inline-flex items-center p-2 text-sm font-medium text-primary-light bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
