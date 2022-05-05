@@ -1,8 +1,8 @@
 <template>
   <footer
-    class="w-full bg-white dark:bg-gray-800 sm:flex-row border-1 border-t border-b border-gray-600 h-10"
+    class="w-full bg-white dark:bg-gray-800 sm:flex-row border-1 border-t border-gray-600 h-10"
   >
-    <p class="float-left text-xs my-3 ml-4">
+    <p class="float-left text-xs my-3 ml-4 text-primary-dark">
       © BoCo 2022 - All rights reserved
     </p>
     <QuestionMarkCircleIcon
