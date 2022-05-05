@@ -23,7 +23,6 @@ class CommunityService {
         headers: tokenHeader(),
       })
       .then((response) => {
-        console.log(response);
         return response.data;
       })
       .catch((error) => {
