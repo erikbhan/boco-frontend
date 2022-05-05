@@ -184,8 +184,8 @@ export default {
     for (var i = 0; i < this.publicCommunities.length; i++) {
       for (var j = 0; j < this.myCommunities.length; j++) {
         if (
-          this.publicCommunities[i].communityId ===
-          this.myCommunities[j].communityId
+          this.publicCommunities?.[i]?.communityId ===
+          this.myCommunities?.[j]?.communityId
         ) {
           this.publicCommunities.splice(i, 1);
         }
