@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="loading" class="flex place-content-center p-8">
+    <div v-if="loading" class="flex place-content-center p-8 min-h-screen">
       <LoaderSpinner />
     </div>
-    <div v-else>
+    <div v-else class="min-h-screen">
       <!-- My communities, with pagination -->
       <div v-if="loggedIn">
         <div class="flex flex-row p-4 relative">
