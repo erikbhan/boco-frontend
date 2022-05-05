@@ -42,6 +42,7 @@
         >Kategori</label
       >
       <select
+        @change="onChangeCategory($event)"
         v-model="v$.updatedItem.selectedCategory.$model"
         id="categories"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
@@ -50,6 +51,7 @@
           Velg en kategori
         </option>
         <option
+          :value="category"
           :selected="category == updatedItem.selectedCategory"
           v-for="category in categories"
           :key="category"
@@ -77,7 +79,7 @@
         >Grupper</label
       >
       <div
-        class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
+        class="overflow-auto w-full max-h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
@@ -193,12 +195,13 @@
     </div>
 
     <!-- Images -->
+    <!--
     <div>
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder
+        Legg til flere bilder (bildene må være .png)
       </label>
 
       <input
@@ -207,7 +210,7 @@
         style="display: none"
         @change="addImage"
         multiple
-        accept="image/png, image/jpeg"
+        accept="image/png"
       />
 
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
@@ -216,6 +219,7 @@
         <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
       </div>
     </div>
+    -->
 
     <!-- Save item button -->
     <div class="float-right">
@@ -374,28 +378,32 @@ export default {
     },
 
     onChangeCommunity(e) {
-      console.log(e);
-      this.selectedCommunityId = e.target.value;
+      this.updatedItem.selectedCommunityId = e.target.value;
       let alreadyInGroupList = false;
 
       for (let i = 0; i <= this.updatedItem.selectedCommunities.length; i++) {
         if (
-          this.selectedCommunityId == this.updatedItem.selectedCommunities[i]
+          this.updatedItem.selectedCommunityId == this.updatedItem.selectedCommunities[i]
         ) {
           const index = this.updatedItem.selectedCommunities.indexOf(
-            this.selectedCommunityId
+            this.updatedItem.selectedCommunityId
           );
           if (index > -1) {
-            this.item.selectedCommunities.splice(index, 1);
+            this.updatedItem.selectedCommunities.splice(index, 1);
           }
           alreadyInGroupList = true;
         }
       }
 
       if (!alreadyInGroupList) {
-        this.updatedItem.selectedCommunities.push(this.selectedCommunityId);
+        this.updatedItem.selectedCommunities.push(this.updatedItem.selectedCommunityId);
         this.communityErrorMessage = "";
       }
+    },
+
+    onChangeCategory(e) {
+      this.updatedItem.selectedCategory = e.target.value;
+      this.updatedItem.selectedCategories = [e.target.value];
     },
 
     isInSelectedCommunity(id) {
@@ -422,7 +430,7 @@ export default {
 
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
-    this.images = ListingService.getItemPictures(itemID);
+    this.images = await ListingService.getItemPictures(itemID);
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {
@@ -443,12 +451,12 @@ export default {
       price: this.initialItem.pricePerDay,
       selectedCategories: initialCategories,
       selectedCategory: selectedCategory,
-      images: [],
+      images: this.images,
       userId: this.initialItem.userID,
       selectedCommunityId: 0,
       selectedCommunities: initialCommunities,
     };
-    console.log(this.updatedItem);
+    console.log(this.images);
   },
 };
 </script>

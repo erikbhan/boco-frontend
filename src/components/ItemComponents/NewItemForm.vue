@@ -76,7 +76,7 @@
         >Grupper</label
       >
       <div
-        class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
+        class="overflow-auto w-full max-h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
@@ -202,7 +202,7 @@
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
 
       <div v-for="image in item.images" :key="image" class="m-2">
-        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
+        <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" /> <!-- @click="removeImage(image)" -->
       </div>
     </div>
 
@@ -311,7 +311,19 @@ export default {
         imagesToSend: [],
       },
       //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
-      categories: ["Hage", "Kjøkken", "Musikk", "Annet"],
+      categories: [
+        "Antikviteter og kunst",
+        "Dyr og utstyr",
+        "Elektronikk og hvitevarer",
+        "Foreldre og barn",
+        "Fritid, hobby og underholdning",
+        "Hage, oppussing og hus",
+        "Klær, kosmetikk og tilbehør",
+        "Møbler og interiør",
+        "Næringsvirksomhet",
+        "Sport og friluftsliv",
+        "Utstyr til bil, båt og MC",
+      ],
       groups: [],
       groupErrorMessage: "",
     };
@@ -338,7 +350,7 @@ export default {
           pricePerDay: this.item.price,
           address: this.item.address,
           userID: this.item.userId,
-          categoryNames: [],
+          categoryNames: [this.item.select],
           communityIDs: this.item.selectedGroups,
         };
         await postNewItem(itemInfo);
@@ -355,17 +367,16 @@ export default {
     },
 
     addImage: async function (event) {
-      this.item.images.push(URL.createObjectURL(event.target.files[0]));
-
       var that = this;
       let image = event.target.files[0];
       let fileReader = new FileReader();
       fileReader.onloadend = async function () {
         const res = fileReader.result;
         const id = await postNewImageCommunity(res);
-
+        console.log(id);
         const API_URL = process.env.VUE_APP_BASEURL;
         that.item.imagesToSend.push(API_URL + "images/" + id);
+        that.item.images.push(API_URL + "images/" + id)
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -392,6 +403,17 @@ export default {
         this.item.selectedGroups.push(this.selectedGroupId);
         this.groupErrorMessage = "";
       }
+    },
+
+    removeImage(image) {
+      let newImages = [];
+      for (let i in this.item.images) {
+        if (this.item.images[i] != image) {
+          newImages.push(this.item.images[i]);
+        }
+      }
+      this.item.images = newImages;
+
     },
   },
   beforeMount() {
