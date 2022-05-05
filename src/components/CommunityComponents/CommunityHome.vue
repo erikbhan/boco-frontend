@@ -1,79 +1,84 @@
 <template>
-  <section class="w-full px-5 py-4 mx-auto rounded-md">
-    <CommunityHeader :admin="false" class="mb-5" />
-
-    <!-- Search field -->
-    <div class="relative" id="searchComponent">
-      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-        <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
-      </span>
-
-      <input
-        type="text"
-        id="searchInput"
-        class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
-        placeholder="Search"
-        v-model="search"
-        @change="searchWritten"
-      />
+  <div>
+    <div v-if="loading" class="flex place-content-center">
+      <LoaderSpinner />
     </div>
+    <section v-else class="w-full px-5 py-4 mx-auto rounded-md">
+      <CommunityHeader :admin="false" class="mb-5" />
 
-    <div class="absolute inset-x-0 px-5 py-3">
-      <!-- ItemCards -->
-      <div class="flex items-center justify-center w-screen">
-        <!-- Shows items based on pagination -->
-        <div
-          class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
-          v-if="showItems"
-        >
-          <ItemCard
-            v-for="item in visibleItems"
-            :key="item"
-            :item="item"
-            @click="goToItemInfoPage(item.listingID)"
-          />
-        </div>
+      <!-- Search field -->
+      <div class="relative" id="searchComponent">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </span>
 
-        <!-- Shows items based on search field input -->
-        <div
-          class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-          v-if="showSearchedItems"
-        >
-          <ItemCard
-            v-for="item in searchedItems"
-            :key="item"
-            :item="item"
-            @click="goToItemInfoPage(item.listingID)"
-          />
-        </div>
-      </div>
-
-      <!-- pagination -->
-      <div class="flex justify-center" v-if="showItems">
-        <PaginationTemplate
-          v-bind:items="items"
-          v-on:page:update="updatePage"
-          v-bind:currentPage="currentPage"
-          v-bind:pageSize="pageSize"
-          class="mt-10"
+        <input
+          type="text"
+          class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
+          placeholder="Search"
+          v-model="search"
+          @change="searchWritten"
         />
       </div>
-    </div>
-  </section>
+
+      <div class="absolute inset-x-0 px-5 py-3">
+        <!-- ItemCards -->
+        <div class="flex items-center justify-center w-screen">
+          <!-- Shows items based on pagination -->
+          <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+            v-if="showItems"
+          >
+            <ItemCard
+              v-for="item in visibleItems"
+              :key="item"
+              :item="item"
+              @click="goToItemInfoPage(item.listingID)"
+            />
+          </div>
+
+          <!-- Shows items based on search field input -->
+          <div
+            class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+            v-if="showSearchedItems"
+          >
+            <ItemCard
+              v-for="item in searchedItems"
+              :key="item"
+              :item="item"
+              @click="goToItemInfoPage(item.listingID)"
+            />
+          </div>
+        </div>
+
+        <!-- pagination -->
+        <div class="flex justify-center" v-if="showItems">
+          <PaginationTemplate
+            v-bind:items="items"
+            v-on:page:update="updatePage"
+            v-bind:currentPage="currentPage"
+            v-bind:pageSize="pageSize"
+            class="mt-10"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
 import ItemCard from "@/components/ItemComponents/ItemCard";
 import CommunityHeader from "@/components/CommunityComponents/CommunityHeader";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
+import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner";
 
 import {
   GetCommunity,
@@ -81,11 +86,12 @@ import {
   getItemPictures,
 } from "@/utils/apiutil";
 export default {
-  name: "SearchItemListComponent",
+  name: "CommunityHome",
   components: {
     CommunityHeader,
     ItemCard,
     PaginationTemplate,
+    LoaderSpinner,
   },
   computed: {
     searchedItems() {
@@ -108,6 +114,7 @@ export default {
   },
   data() {
     return {
+      search: "",
       items: [],
       item: {
         listingID: 0,
@@ -122,6 +129,8 @@ export default {
 
       showItems: true,
       showSearchedItems: false,
+
+      loading: false,
 
       //Variables connected to pagination
       currentPage: 0,
@@ -181,9 +190,11 @@ export default {
     },
   },
   async beforeMount() {
+    this.loading = true;
     await this.getCommunityFromAPI(); //To get the id of the community before mounting the view
     await this.getListingsOfCommunityFromAPI();
     this.updateVisibleTodos();
+    this.loading = false;
   },
 };
 </script>

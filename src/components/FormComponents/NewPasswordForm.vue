@@ -25,7 +25,7 @@
       <!-- error message -->
       <div v-for="(error, index) of v$.user.oldPassword.$errors" :key="index">
         <div
-          class="text-red-600 text-sm"
+          class="text-error-medium text-sm"
           v-show="showError"
           id="oldPasswordErrorId"
         >
@@ -52,7 +52,7 @@
       <!-- error message -->
       <div v-for="(error, index) of v$.user.password.$errors" :key="index">
         <div
-          class="text-red-600 text-sm"
+          class="text-error-medium text-sm"
           v-show="showError"
           id="passwordErrorId"
         >
@@ -82,7 +82,7 @@
       <!-- error message -->
       <div v-for="(error, index) of v$.user.rePassword.$errors" :key="index">
         <div
-          class="text-red-600 text-sm"
+          class="text-error-medium text-sm"
           v-show="showError"
           id="rePasswordErrorId"
         >
