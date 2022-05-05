@@ -332,11 +332,24 @@ export function postNewImageCommunity(image) {
       headers: { ...tokenHeader(), "Content-Type": "image/png" },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
       console.log(error);
+      return error;
+    });
+}
+
+export function PostImagesArrayToListing(imagesArray) {
+  return axios
+    .post(API_URL + "listing/pictures", imagesArray, {
+      headers: tokenHeader(),
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.error(error.response);
       return error;
     });
 }

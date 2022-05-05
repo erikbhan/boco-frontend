@@ -145,9 +145,6 @@ export default {
       }
     },
   },
-  // beforeMount() {
-  //   this.getIfUserInCommunity();
-  // },
   async created() {
     await this.load();
     this.loading = false;
