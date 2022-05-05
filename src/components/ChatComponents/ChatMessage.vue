@@ -34,9 +34,7 @@ export default {
     message: Object,
   },
   data() {
-    return {
-      abc: "abcde",
-    };
+    return {};
   },
   computed: {
     userID() {
@@ -112,6 +110,6 @@ export default {
       // if date is equal or within the first and last dates of the week
       return date >= firstDayOfWeek && date <= lastDayOfWeek;
     },
-  },
+  }
 };
 </script>
