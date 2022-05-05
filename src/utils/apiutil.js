@@ -344,7 +344,7 @@ export function postNewImageCommunity(image) {
 //Not sure it will work
 export function PostImagesArrayToListing(imagesArray) {
   return axios
-      .post(API_URL + "images/listing", imagesArray, {
+      .post(API_URL + "listing/pictures", imagesArray, {
         headers: tokenHeader(),
       })
       .then((response) => {
