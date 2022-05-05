@@ -18,7 +18,7 @@
 
     <!-- User rating -->
     <div class="hidden md:block flex-auto">
-      <RatingComponent :rating="rating" :ratingType="'Gjennomsnitts rating'" />
+      <RatingComponent :rating="rating" :ratingType="'Vurderinger'" />
     </div>
 
     <!-- Buttons -->
@@ -132,7 +132,11 @@ export default {
     },
   },
   async created() {
-    this.rating = await UserService.getUserRatingAverage(this.user.userId);
+    const maybeRating = await UserService.getUserRatingAverage(
+      this.user.userId
+    );
+    if (isNaN(maybeRating)) this.rating = NaN;
+    else this.rating = maybeRating;
     this.communityID = this.$route.params.communityID;
   },
 };
