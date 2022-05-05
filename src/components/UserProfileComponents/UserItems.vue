@@ -268,12 +268,10 @@ export default {
       }
     },
     goToDeleteItem(item) {
-      console.log("Halllllo: " + item);
       this.chosenItem = item;
       this.readyToDelete = true;
     },
     async deleteItem() {
-      console.log("HEI " + this.chosenItem);
       await UserService.setListingToDeleted(this.chosenItem);
       this.$router.go(0);
     },
