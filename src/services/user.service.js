@@ -15,6 +15,19 @@ class UserService {
       .catch((err) => console.error(err));
   }
 
+  async getAdminList() {
+    return await axios
+      .get(API_URL + "communities/admin", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   async getUserRatingAverage(userId) {
     return await axios
       .get(API_URL + "rating/" + userId + "/average", {
@@ -29,14 +42,14 @@ class UserService {
   async setListingToDeleted(listingId) {
     return await axios
       .delete(API_URL + "listing/" + listingId, {
-        headers: tokenHeader()
+        headers: tokenHeader(),
       })
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
-      console.error(err);
-    })
+        console.error(err);
+      });
   }
 
   async getRenterHistory() {
