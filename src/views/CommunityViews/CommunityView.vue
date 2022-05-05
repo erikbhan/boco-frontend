@@ -75,6 +75,7 @@
         />
       </div>
     </div>
+    <FooterBar />
   </div>
 </template>
 
@@ -84,6 +85,7 @@ import { UserAddIcon, SearchIcon } from "@heroicons/vue/outline";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 import CommunityService from "@/services/community.service";
 import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner";
+import FooterBar from "@/components/BaseComponents/FooterBar";
 
 export default {
   name: "HomeView",
@@ -112,6 +114,7 @@ export default {
     PaginationTemplate,
     SearchIcon,
     LoaderSpinner,
+    FooterBar,
   },
   computed: {
     searchPublicCommunities() {
