@@ -5,7 +5,7 @@
   >
     <img
       class="h-10 w-10 rounded-full object-cover"
-      src="https://www.mintface.xyz/content/images/2021/08/QmTndiF423kjdXsNzsip1QQkBQqDuzDhJnGuJAXtv4XXiZ-1.png"
+      :src="src || 'S../../assets/defaultUserProfileImage.jpg'"
       :alt="{ name }"
     />
     <div class="w-full pb-2">
@@ -47,13 +47,41 @@ export default {
       );
     },
     lastMessageTime() {
-      return "5 min";
+      // Calculate time since last message
+      const time = this.conversation.lastMessage.timestamp;
+      const now = new Date();
+      const diff = now - time;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const months = Math.floor(days / 30);
+      const years = Math.floor(months / 12);
+
+      if (seconds < 60) {
+        return "Just now";
+      } else if (minutes < 60) {
+        return minutes + " minutes ago";
+      } else if (hours < 24) {
+        return hours + " hours ago";
+      } else if (days < 30) {
+        return days + " days ago";
+      } else if (months < 12) {
+        return months + " months ago";
+      } else {
+        return years + " years ago";
+      }
+    },
+    src() {
+      return this.conversation.recipient.picture
+        ? this.conversation.recipient.picture
+        : require("@/assets/defaultUserProfileImage.jpg");
     },
   },
   methods: {
     selectUser() {
-      this.$emit("recipient", this.conversation.recipient.userId);
+      this.$emit("recipient", this.conversation?.recipient.userId);
     },
-  },
+  }
 };
 </script>

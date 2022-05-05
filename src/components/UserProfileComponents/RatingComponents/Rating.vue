@@ -1,5 +1,17 @@
 <template>
-  <ul v-if="rating != -1" class="flex justify-center">
+  <ul v-if="isNaN(rating)" class="flex justify-center">
+    <li>
+      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+        {{ ratingType }}:&nbsp;
+      </p>
+    </li>
+    <li>
+      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+        Ingen vurderinger
+      </p>
+    </li>
+  </ul>
+  <ul v-else class="flex justify-center">
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {{ ratingType }}:&nbsp;
@@ -18,21 +30,10 @@
       </svg>
     </li>
     <li>
-      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+      <!-- Trenger vi å vise i tekst når vi har stjerner? -->
+      <!--       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {{ rating }} out of 5
-      </p>
-    </li>
-  </ul>
-  <ul v-else class="flex justify-center">
-    <li>
-      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        {{ ratingType }}:&nbsp;
-      </p>
-    </li>
-    <li>
-      <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        Ingen vurderinger
-      </p>
+      </p> -->
     </li>
   </ul>
 </template>
