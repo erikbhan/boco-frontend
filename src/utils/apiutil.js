@@ -353,3 +353,13 @@ export function PostImagesArrayToListing(imagesArray) {
       return error;
     });
 }
+
+export function getAvailibleTimesForListing(listingId) {
+  return axios.get(API_URL + "listing/" + listingId + "/availability", {
+    headers: tokenHeader(),
+  }).then((response) => {
+    return response.data;
+  }).catch((error) => {
+    console.error(error);
+  });
+}

@@ -54,7 +54,10 @@ export default {
     },
     blockedDaysRange: {
       type: Array,
-      default: () => [],
+      default: () => [
+        new Date(1651528800000),
+        new Date(1651701600000),
+      ],
     },
     messageOnDisplay: String,
   },

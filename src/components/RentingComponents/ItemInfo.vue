@@ -5,7 +5,10 @@
   <div v-if="!confirm">
     <div>
       <div v-if="noPicture" class="md:grid md:place-items-center md:h-screen">
-        <img :src="require('@/assets/default-product.png')" alt="No image found">
+        <img
+          :src="require('@/assets/default-product.png')"
+          alt="No image found"
+        />
       </div>
       <div v-else>
         <ImageCarousel :images="pictures"></ImageCarousel>
@@ -62,6 +65,7 @@
               <DatepickerRange
                 @value="setDate"
                 :messageOnDisplay="dateMessage"
+                :blockedDaysRange="nonAvailibleTimes"
               ></DatepickerRange>
             </p>
           </div>
@@ -88,7 +92,7 @@
 
 <script>
 import NewRent from "@/components/RentingComponents/NewRent.vue";
-import { getItem, getItemPictures } from "@/utils/apiutil";
+import { getItem, getItemPictures, getAvailibleTimesForListing } from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
@@ -131,6 +135,7 @@ export default {
       totPrice: 0,
       dateMessage: "Venligst velg dato for leieperioden",
       allowForRent: false,
+      nonAvailibleTimes: [],
     };
   },
   components: {
@@ -173,11 +178,24 @@ export default {
           };
           this.pictures.push(oneImage);
         }
-      } 
+      }
       //TODO fixs so each image get a correct alt text.
     },
     async getUser(userId) {
       this.userForId = await UserService.getUserFromId(userId);
+    },
+    async getAvailibleTimesForListing() {
+      let datesTakenInMilliseconds = await getAvailibleTimesForListing(this.item.listingID);
+      for(var i = 0; i < datesTakenInMilliseconds.length; i++) {
+        let oneArray = datesTakenInMilliseconds[i];
+        let bigArray = [];
+        let startDate = new Date(oneArray[0]);
+        let endDate = new Date(oneArray[1]);
+        bigArray.push(startDate);
+        bigArray.push(endDate);
+        this.nonAvailibleTimes.push(bigArray);
+      }
+      console.log(this.nonAvailibleTimes);
     },
     setDate(dateOfsomthing) {
       if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
@@ -200,6 +218,7 @@ export default {
     await this.getItemPictures();
     await this.getItem();
     await this.getUser(this.item.userID);
+    await this.getAvailibleTimesForListing();
   },
 };
 </script>
