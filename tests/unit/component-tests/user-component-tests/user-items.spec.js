@@ -37,8 +37,5 @@ describe("UserItems component", () => {
     it("Check headline", () => {
         expect(wrapper.find("#headline").text()).toMatch("Mine gjenstander");
     });
-    it("Check Itemcard title", () =>{
-        expect(wrapper.findAll("ItemCard").length).toBe(1)
-    })
 
 });
