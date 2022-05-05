@@ -82,9 +82,6 @@ export default {
     selectUser() {
       this.$emit("recipient", this.conversation?.recipient.userId);
     },
-  },
-  created() {
-    console.log("convesation", this.conversation);
-  },
+  }
 };
 </script>

@@ -65,7 +65,7 @@ export default {
   props: {
     openHamburger: { type: Function },
     recipientID: {
-      type: Number,
+      type: String,
     },
   },
   data() {
@@ -74,6 +74,7 @@ export default {
       scrollBehavior: "",
       recipient: null,
       rents: [],
+      message: "",
       msgs: [],
     };
   },
