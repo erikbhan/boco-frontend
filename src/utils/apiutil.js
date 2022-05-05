@@ -328,15 +328,15 @@ export function postNewRating(ratingInfo) {
 
 export function postNewImageCommunity(image) {
   return axios
-      .post(API_URL + "images", image, {
-        headers: {...tokenHeader(), "Content-Type": "image/png"},
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-        return error;
-      });
+    .post(API_URL + "images", image, {
+      headers: { ...tokenHeader(), "Content-Type": "image/png" },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
 }

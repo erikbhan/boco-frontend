@@ -114,13 +114,14 @@ export default {
         {
           question: "Hvordan kan jeg bli med i en gruppe?",
           answer:
-              "På hovedsiden vil alle offentlige og lukkede grupper vises. Når du trykker på ønsket gruppe vil du få muligheten til å bli med/sende medlemsforespørsel.",
+            "På hovedsiden vil alle offentlige og lukkede grupper vises. Når du trykker på ønsket gruppe vil du få muligheten til å bli med/sende medlemsforespørsel.",
           toggle: false,
         },
         {
-          question: "Hva vil jeg ha tilgang til ved å logge inn/opprette en bruker?",
+          question:
+            "Hva vil jeg ha tilgang til ved å logge inn/opprette en bruker?",
           answer:
-              "Uten å være logget inn vil du kunne se alle grupper, og også se gjenstander som ligger ute til lån i offentlige grupper. For å kunne låne en gjenstand må du være med i gruppen gjenstanden ligger i, og for dette må du være innlogget. Du må også være innlogget for å sende medlemsforespørsel i lukkede grupper.",
+            "Uten å være logget inn vil du kunne se alle grupper, og også se gjenstander som ligger ute til lån i offentlige grupper. For å kunne låne en gjenstand må du være med i gruppen gjenstanden ligger i, og for dette må du være innlogget. Du må også være innlogget for å sende medlemsforespørsel i lukkede grupper.",
           toggle: false,
         },
       ],
