@@ -65,7 +65,7 @@
               <DatepickerRange
                 @value="setDate"
                 :messageOnDisplay="dateMessage"
-                :blockedDaysRange="nonAvailibleTimes"
+                :blockedDaysRange="nonAvailableTimes"
               ></DatepickerRange>
             </p>
           </div>
@@ -92,7 +92,11 @@
 
 <script>
 import NewRent from "@/components/RentingComponents/NewRent.vue";
-import { getItem, getItemPictures, getAvailibleTimesForListing } from "@/utils/apiutil";
+import {
+  getItem,
+  getItemPictures,
+  getAvailableTimesForListing,
+} from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
@@ -135,7 +139,7 @@ export default {
       totPrice: 0,
       dateMessage: "Venligst velg dato for leieperioden",
       allowForRent: false,
-      nonAvailibleTimes: [],
+      nonAvailableTimes: [],
     };
   },
   components: {
@@ -184,18 +188,19 @@ export default {
     async getUser(userId) {
       this.userForId = await UserService.getUserFromId(userId);
     },
-    async getAvailibleTimesForListing() {
-      let datesTakenInMilliseconds = await getAvailibleTimesForListing(this.item.listingID);
-      for(var i = 0; i < datesTakenInMilliseconds.length; i++) {
+    async getAvailableTimesForListing() {
+      let datesTakenInMilliseconds = await getAvailableTimesForListing(
+        this.item.listingID
+      );
+      for (var i = 0; i < datesTakenInMilliseconds.length; i++) {
         let oneArray = datesTakenInMilliseconds[i];
         let bigArray = [];
         let startDate = new Date(oneArray[0]);
         let endDate = new Date(oneArray[1]);
         bigArray.push(startDate);
         bigArray.push(endDate);
-        this.nonAvailibleTimes.push(bigArray);
+        this.nonAvailableTimes.push(bigArray);
       }
-      console.log(this.nonAvailibleTimes);
     },
     setDate(dateOfsomthing) {
       if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
@@ -218,7 +223,7 @@ export default {
     await this.getItemPictures();
     await this.getItem();
     await this.getUser(this.item.userID);
-    await this.getAvailibleTimesForListing();
+    await this.getAvailableTimesForListing();
   },
 };
 </script>

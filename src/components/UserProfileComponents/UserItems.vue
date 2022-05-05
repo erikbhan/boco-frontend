@@ -39,7 +39,11 @@
           v-for="item in visibleItems"
           :key="item"
         >
-          <ItemCard id="ItemCardPage" class="ItemCard w-fit h-fit" :item="item" />
+          <ItemCard
+            id="ItemCardPage"
+            class="ItemCard w-fit h-fit"
+            :item="item"
+          />
 
           <TripleDotButton class="DotButton" @click="openDotMenu(item)">
           </TripleDotButton>
