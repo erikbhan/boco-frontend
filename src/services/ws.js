@@ -1,5 +1,6 @@
 const Stomp = require("stompjs");
-const SockJS = new require("sockjs-client")(process.env.VUE_APP_BASEURL + "ws");
+const SockJSRequire = require("sockjs-client");
+const SockJS = new SockJSRequire(process.env.VUE_APP_BASEURL + "ws");
 import { parseCurrentUser } from "@/utils/token-utils";
 
 // Create a Singleton function
