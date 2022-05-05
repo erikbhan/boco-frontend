@@ -1,4 +1,3 @@
-// import { tokenHeader } from "@/utils/token-utils";
 import { tokenHeader } from "@/utils/token-utils";
 import axios from "axios";
 
@@ -14,6 +13,19 @@ class UserService {
         return res.data;
       })
       .catch((err) => console.error(err));
+  }
+
+  async getAdminList() {
+    return await axios
+      .get(API_URL + "/communities/admin", {
+        headers: tokenHeader(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   async getUserRatingAverage(userId) {
