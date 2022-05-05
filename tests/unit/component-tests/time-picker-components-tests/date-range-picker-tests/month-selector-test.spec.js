@@ -6,7 +6,7 @@ describe("MonthSelector tests", () => {
   beforeEach(() => {
     wrapper = shallowMount(monthSelector, {
       propsData: {
-        month: new Date(1651739228545), // 05 May 2022 UTC
+        month: new Date(0), // 01 JAN 1970 UTC
         type: "type",
       },
     });
@@ -25,8 +25,8 @@ describe("MonthSelector tests", () => {
     expect(children.length).toBe(2);
 
     // Check children content
-    expect(children[0].text()).toBe("MAI");
-    expect(children[1].text()).toBe("2022");
+    expect(children[0].text()).toBe("JAN");
+    expect(children[1].text()).toBe("1970");
   });
 
   it("Check that changing are emitted", async () => {
