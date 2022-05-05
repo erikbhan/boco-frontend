@@ -90,9 +90,13 @@ export default {
   },
   async created() {
     await this.fetchChats();
-    ws.on("NEW_MESSAGE",async () => { 
-      await this.fetchChats()
-      }, "chats");
+    ws.on(
+      "NEW_MESSAGE",
+      async () => {
+        await this.fetchChats();
+      },
+      "chats"
+    );
     this.recipientID = this.$route.query?.userID || null;
     if (!this.recipientID) this.hambugerDisplay = "block";
   },

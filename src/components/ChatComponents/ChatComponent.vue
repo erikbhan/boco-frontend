@@ -190,9 +190,13 @@ export default {
     await this.getRecipient();
     await this.reloadRents();
 
-    ws.on("NEW_MESSAGE", () => {
-      this.reloadMessages();
-    }, "chat");
+    ws.on(
+      "NEW_MESSAGE",
+      () => {
+        this.reloadMessages();
+      },
+      "chat"
+    );
   },
   updated() {
     if (this.canScroll) this.scroll();
@@ -201,7 +205,7 @@ export default {
   },
   unmounted() {
     ws.end("NEW_MESSAGE", "chat");
-  }
+  },
 };
 </script>
 
