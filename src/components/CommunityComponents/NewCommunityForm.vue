@@ -1,28 +1,10 @@
 <template>
   <div
-    class="
-      md:ring-1
-      ring-gray-300
-      rounded-xl
-      overflow-hidden
-      mx-auto
-      mb-auto
-      max-w-md
-      w-full
-      p-4
-    "
+    class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
     <!-- Component heading -->
     <div
-      class="
-        text-xl
-        md:text-2xl
-        font-medium
-        text-center text-gray-600
-        dark:text-gray-200
-        mt-4
-        mb-10
-      "
+      class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
       Opprett ny gruppe
     </div>
@@ -36,25 +18,7 @@
       >
       <div class="form-check">
         <input
-          class="
-            form-check-input
-            appearance-none
-            rounded-full
-            h-4
-            w-4
-            border border-gray-300
-            bg-white
-            checked:bg-primary-medium checked:border-primary-medium
-            focus:outline-none
-            transition
-            duration-200
-            mt-1
-            align-top
-            bg-no-repeat bg-center bg-contain
-            float-left
-            mr-2
-            cursor-pointer
-          "
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioOpen"
@@ -72,25 +36,7 @@
       </div>
       <div class="form-check">
         <input
-          class="
-            form-check-input
-            appearance-none
-            rounded-full
-            h-4
-            w-4
-            border border-gray-300
-            bg-white
-            checked:bg-primary-medium checked:border-primary-medium
-            focus:outline-none
-            transition
-            duration-200
-            mt-1
-            align-top
-            bg-no-repeat bg-center bg-contain
-            float-left
-            mr-2
-            cursor-pointer
-          "
+          class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-primary-medium checked:border-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioPrivate"
@@ -117,36 +63,18 @@
       <input
         type="text"
         id="title"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.name.$model"
         required
       />
 
       <!-- error message for title-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.name.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -161,36 +89,18 @@
       >
       <input
         type="text"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         v-model="v$.group.place.$model"
         required
       />
 
       <!-- error message for place-->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.place.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -207,35 +117,17 @@
         id="description"
         rows="4"
         v-model="v$.group.description.$model"
-        class="
-          block
-          w-full
-          px-4
-          py-2
-          mt-2
-          text-gray-700
-          placeholder-gray-500
-          bg-white
-          border
-          rounded-md
-          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400
-          focus:border-primary-light
-          dark:focus:border-primary-light
-          focus:ring-opacity-40
-          focus:outline-none
-          focus:ring
-          focus:ring-primary-light
-        "
+        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
       <!-- error message for description -->
       <div
-        class="text-error"
+        class="text-error-medium"
         v-for="(error, index) of v$.group.description.$errors"
         :key="index"
       >
-        <div class="text-error text-sm">
+        <div class="text-error-medium text-sm">
           {{ error.$message }}
         </div>
       </div>
@@ -264,27 +156,11 @@
         <!--<div class="text-error uppercase text-center">Midlertidig fjernet</div> -->
         <button
           @click="$refs.file.click()"
-          class="
-            text-black
-            bg-gray-200
-            hover:bg-grey-800
-            focus:ring-4 focus:outline-none focus:ring-grey-300
-            font-medium
-            rounded-lg
-            text-sm
-            sm:w-auto
-            px-5
-            py-2.5
-            text-center
-            dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800
-            disabled:opacity-50
-          "
+          class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
           :disabled="imageAdded"
         >
           Velg bilde
         </button>
-
-        <!-- Button for removing an image -->
       </div>
 
       <!-- Div box for showing all chosen images -->
@@ -298,8 +174,6 @@
       <Button @click="saveClicked" id="saveButton" :text="'Lagre'"> </Button>
     </div>
   </div>
-
-  <!--<img :src="group.image" class="w-1/2 inline" alt="Bilde av gjenstanden" />-->
 </template>
 
 <script>
@@ -323,7 +197,7 @@ export default {
       group: {
         name: {
           required: helpers.withMessage(
-            () => "Navnt kan ikke være tom",
+            () => "Navn kan ikke være tom",
             required
           ),
           max: helpers.withMessage(
@@ -366,8 +240,6 @@ export default {
         image: "",
       },
       imageThere: false,
-      imageId: -1,
-      imageStringURL: "",
     };
   },
   computed: {
@@ -380,10 +252,6 @@ export default {
     },
   },
   methods: {
-    removeImage: function () {
-      this.group.images.pop();
-      this.imageThere = false;
-    },
     checkRadioButton: function (event) {
       this.group.radio = event.target.value;
 
@@ -403,7 +271,6 @@ export default {
 
     async saveClicked() {
       if (this.checkValidation()) {
-        //this.group.image = "https://image.shutterstock.com/image-photo/distribution-delivery-concept-global-business-600w-1650964204.jpg";
         const groupInfo = {
           name: this.group.name,
           description: this.group.description,
@@ -414,7 +281,10 @@ export default {
 
         console.log(this.group.image);
 
-        await postNewgroup(groupInfo);
+        const respone = await postNewgroup(groupInfo);
+        if (respone.status === 200 || respone.status === 201) {
+          this.$router.push({ path: "/", replace: true });
+        }
       }
     },
 
@@ -429,10 +299,7 @@ export default {
         const id = await postNewImageCommunity(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        console.log(id);
-        console.log(API_URL + "images/" + id);
         that.group.image = API_URL + "images/" + id;
-
       };
       fileReader.readAsArrayBuffer(image);
       this.imageThere = true;

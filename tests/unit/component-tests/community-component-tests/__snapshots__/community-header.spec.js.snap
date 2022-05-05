@@ -2,16 +2,27 @@
 
 exports[`CommunityHeader component renders correctly 1`] = `
 <div
-  data-v-app=""
+  adminstatus="true"
+  class="flex place-content-center mx-4"
+  community="[object Object]"
 >
-  
-  <!-- TODO PUT A LOADER HERE -->
   <div
-    adminstatus="true"
-    community="[object Object]"
+    class="loadingio-spinner-bean-eater-o5tefvffeqm"
   >
-    LASTER...
+    <div
+      class="ldio-sweozsnwol"
+    >
+      <div>
+        <div />
+        <div />
+        <div />
+      </div>
+      <div>
+        <div />
+        <div />
+        <div />
+      </div>
+    </div>
   </div>
-  
 </div>
 `;

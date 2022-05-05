@@ -1,22 +1,22 @@
 <template>
   <nav
-    class="flex items-center bg-white justify-between h-14 border-1 border-b border-gray-300 border-solid sticky top-0 z-50"
+    class="flex items-center bg-white justify-between h-10 md:h-14 border-1 border-b border-gray-300 border-solid sticky top-0 z-50"
   >
     <div class="logo">
       <img
-        class="m-1 ml-4 cursor-pointer h-12"
+        class="m-1 ml-4 cursor-pointer h-9 md:h-12"
         src="../../assets/logo3.svg"
         alt="BoCo logo"
         @click="$router.push('/')"
       />
     </div>
-    <ul class="flex">
-      <li>
+    <ul class="flex justify-between">
+      <li class="cursor-pointer" @click="$router.push('/newItem')">
         <PlusIcon
-          class="m-6 cursor-pointer h-7 text-primary-medium"
+          class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Legg til"
-          @click="$router.push('/newItem')"
         />
+        <a class="hidden md:block mt-7 text-sm float-right">Legg til</a>
       </li>
       <li>
         <div class="notification-container">
@@ -28,12 +28,12 @@
           <p @click="loadMessages()" class="notification" v-if="newMessages > 0">{{notifications}}</p>
         </div>
       </li>
-      <li>
+      <li class="cursor-pointer" @click="loadProfile">
         <UserCircleIcon
-          class="m-6 cursor-pointer h-7 text-primary-medium"
+          class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Profil"
-          @click="loadProfile"
         />
+        <a class="hidden md:block mr-4 mt-7 text-sm float-right">Profil</a>
       </li>
     </ul>
   </nav>

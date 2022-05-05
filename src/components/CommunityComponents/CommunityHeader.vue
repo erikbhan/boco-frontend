@@ -1,6 +1,7 @@
 <template>
-  <!-- TODO PUT A LOADER HERE -->
-  <div v-if="loading">LASTER...</div>
+  <div v-if="loading" class="flex place-content-center mx-4">
+    <LoaderSpinner />
+  </div>
   <div v-else class="flex items-center justify-between mx-4">
     <router-link
       :to="'/community/' + community.communityId"
@@ -83,6 +84,7 @@
 <script>
 import CommunityHamburger from "@/components/CommunityComponents/CommunityHamburger";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner";
 import CommunityService from "@/services/community.service";
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal";
 import { parseCurrentUser } from "@/utils/token-utils";
@@ -97,6 +99,7 @@ export default {
     CommunityHamburger,
     ColoredButton,
     CustomFooterModal,
+    LoaderSpinner,
   },
   computed: {
     userid() {
@@ -142,9 +145,6 @@ export default {
       }
     },
   },
-  // beforeMount() {
-  //   this.getIfUserInCommunity();
-  // },
   async created() {
     await this.load();
     this.loading = false;
