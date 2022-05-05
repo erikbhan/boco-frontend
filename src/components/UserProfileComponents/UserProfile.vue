@@ -68,10 +68,10 @@
             >
           </li>
           <li>
-            <router-link
-              to=""
+            <button
+              @click="deleteUser"
               class="block py-2 px-4 text-sm text-error-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Slett bruker</router-link
+              >Slett bruker</button
             >
           </li>
         </ul>
@@ -157,6 +157,10 @@ export default {
       if (ratingAsRenter >= 0 && ratingAsRenter <= 5) {
         this.renterRating = ratingAsRenter;
       }
+    },
+    async deleteUser(){
+      await UserService.deleteUser();
+      this.logout();
     },
     logout() {
       this.$store.commit("logout");
