@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CommunityListItem component renders correctly 1`] = `
-<div
-  data-v-app=""
->
-  
+<div>
   
   <!-- Main modal -->
   <!--v-if-->
@@ -50,6 +47,5 @@ exports[`CommunityListItem component renders correctly 1`] = `
       </svg>
     </div>
   </div>
-  
 </div>
 `;

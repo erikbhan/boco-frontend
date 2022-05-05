@@ -15,7 +15,6 @@
 
 <script>
 import CommunityListItem from "@/components/CommunityComponents/CommunityListItem.vue";
-//import Join
 
 export default {
   name: "CommunityList",
