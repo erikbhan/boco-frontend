@@ -126,7 +126,6 @@ export default {
             }
           }
         } else {
-          console.log("WHAt WHAT!")
           // check that day is in this month
           const day = new Date(blockedDay[0]);
           if (day.getMonth() !== this.monthDate.getMonth()) return;
