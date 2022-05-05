@@ -1,16 +1,16 @@
 <template>
-  <div class="mt-6 bg-white justify-center w-screen">
+  <div class="mt-10 bg-white justify-center w-screen">
     <div id="contact" class="grid place-items-center w-full">
       <div class="lg:mb-0 text-gray-700 w-full">
         <div class="mx-4">
-          <h2 class="text-primary-dark mb-6 uppercase font-bold text-2xl">
+          <h2 class="flex justify-center text-primary-dark mb-6 uppercase font-bold text-2xl mt-4">
             Kontakt oss
           </h2>
-          <p class="text-gray-500 leading-relaxed mb-9">
+          <p class="flex justify-center mx-auto text-gray-500 leading-relaxed mb-12 max-w-md mt-8">
             {{ contact.description }}
           </p>
         </div>
-        <div class="flex mb-8 ml-2 w-full">
+        <div class="flex justify-center mb-12 w-full">
           <div class="max-w-14 max-h-14 min-h-14 min-w-14">
             <LocationMarkerIcon
               class="w-14 h-14 text-primary-dark rounded mr-4"
@@ -23,7 +23,7 @@
             <p>{{ contact.country }}</p>
           </div>
         </div>
-        <div class="flex mb-8 ml-2 max-w-[370px] w-full">
+        <div class="flex justify-center mb-10 w-full pr-11">
           <div class="max-w-14 max-h-14 min-h-14 min-w-14">
             <MailIcon class="w-14 h-14 text-primary-dark rounded mr-4" />
           </div>
@@ -36,7 +36,7 @@
     </div>
     <div id="faq">
       <div
-        class="mx-auto text-center px-4 text-2xl text-primary-dark font-semibold"
+        class="mx-auto text-center px-4 mt-8 text-2xl text-primary-dark font-semibold"
       >
         Ofte stilte spørsmål
       </div>
