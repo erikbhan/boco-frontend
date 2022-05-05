@@ -27,6 +27,7 @@ describe("testing mocking of apiutil.js image api calls", () => {
             },
         };
 
+
         axios.post.mockImplementation(() =>
             Promise.resolve({ data: expectedResponse })
         );
