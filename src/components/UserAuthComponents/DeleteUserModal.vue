@@ -34,7 +34,7 @@
         </div>
         <!-- Modal body -->
         <div class="p-6 space-y-6">
-          <div click="deleteUser" class="text-xl text-error-dark cursor-pointer">Slett bruker</div>
+          <div @click="deleteUser" class="flex justify-center text-xl text-error-dark cursor-pointer">Slett bruker</div>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@ export default {
       this.$emit("close");
     },
     deleteUser(){
-      this.$emit("deleteUser")
+      this.$emit("deleteUser");
     },
   },
 };

@@ -103,7 +103,7 @@ class UserService {
 
   async deleteUser() {
     return await axios
-        .get(API_URL + "user/delete", {
+        .put(API_URL + "user/delete", {
           headers: tokenHeader(),
         })
         .then((res) => {
