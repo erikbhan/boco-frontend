@@ -58,6 +58,7 @@ export default {
   },
   created() {
     this.communityID = this.$route.params.communityID;
+    if (!Array.isArray(this.$store.state.user.adminList)) return;
     this.admin = this.$store.state.user.adminList.includes(
       parseInt(this.communityID)
     );
