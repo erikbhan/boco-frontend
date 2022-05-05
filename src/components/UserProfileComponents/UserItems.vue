@@ -1,6 +1,6 @@
 <template>
   <div id="headline" class="text-xl md:text-2xl text-primary-light font-medium">
-    Dine gjenstander
+    Mine gjenstander
   </div>
   <!-- Search field -->
   <div class="relative" id="searchComponent">
@@ -36,7 +36,7 @@
         <div class="cardContainer" id="item" v-for="item in visibleItems" :key="item">
           <ItemCard class="ItemCard w-fit h-fit" :item="item" />
 
-          <TripleDotButton class="DotButton" @click="item.toggle = !item.toggle">
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
           </TripleDotButton>
 
           <div
@@ -99,7 +99,7 @@
       >
       <div class="cardContainer" v-for="item in searchedItems" :key="item">
         <ItemCard class="ItemCard" :item="item" />
-        <TripleDotButton class="DotButton" @click="item.toggle = !item.toggle"> </TripleDotButton>
+        <TripleDotButton class="DotButton" @click="openDotMenu(item)"> </TripleDotButton>
 
         <div
           v-show="item.toggle"
@@ -222,6 +222,17 @@ export default {
     },
   },
   methods: {
+    openDotMenu(item){
+      if(item.toggle == false){ 
+        for(var i = 0; i<this.visibleItems.length; i++){
+          this.visibleItems[i].toggle = false;
+      }
+        item.toggle = true;
+      }
+      else{
+        item.toggle = false;
+      }
+    },
     getUserListingsFromAPI: async function () {
       this.items = await GetUserListings();
       for (var i = 0; i < this.items.length; i++) {
@@ -259,7 +270,7 @@ export default {
     async deleteItem() {
       console.log("HEI " + this.chosenItem);
       await UserService.setListingToDeleted(this.chosenItem);
-      // this.$router.go(0);
+      this.$router.go(0);
     },
     searchWritten: function () {
       //This method triggers when search input field is changed
@@ -284,6 +295,7 @@ export default {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-left: 20px;
 }
 .cardContainer{
   position: relative;
