@@ -106,9 +106,21 @@ export default {
           toggle: false,
         },
         {
-          question: "Hvordan kan jeg bli med i en gruppe?",
+          question: "Hvordan kan jeg opprette en ny gruppe?",
           answer:
             "Fra hovedsiden kan man trykke på pluss-person-ikonet ved siden av mine grupper som vil ta deg til skjemaet for å lage en ny gruppe.",
+          toggle: false,
+        },
+        {
+          question: "Hvordan kan jeg bli med i en gruppe?",
+          answer:
+              "På hovedsiden vil alle offentlige og lukkede grupper vises. Når du trykker på ønsket gruppe vil du få muligheten til å bli med/sende medlemsforespørsel.",
+          toggle: false,
+        },
+        {
+          question: "Hva vil jeg ha tilgang til ved å logge inn/opprette en bruker?",
+          answer:
+              "Uten å være logget inn vil du kunne se alle grupper, og også se gjenstander som ligger ute til lån i offentlige grupper. For å kunne låne en gjenstand må du være med i gruppen gjenstanden ligger i, og for dette må du være innlogget. Du må også være innlogget for å sende medlemsforespørsel i lukkede grupper.",
           toggle: false,
         },
       ],

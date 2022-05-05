@@ -1,5 +1,6 @@
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
+import NotFound from "@/views/NotFound.vue";
 
 /**
  * Guards routes. If token is null, no user is logged in and only the
@@ -133,11 +134,18 @@ const routes = [
     name: "UserItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
   },
+  // Make sure it's your last route definition
+  { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.resolve({
+  name: "not-found",
+  params: { pathMatch: ["not", "found"] },
+}).href;
 
 export default router;
