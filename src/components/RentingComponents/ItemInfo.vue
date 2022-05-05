@@ -4,12 +4,13 @@
   </div>
   <div v-if="!confirm">
     <div>
-      <div
-        v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 h-[600px] w-auto lg:grid-cols-5 place-items-center':
-            noPicture,
-        }"
-      >
+      <div v-if="noPicture" class="md:grid md:place-items-center md:h-screen">
+        <img
+          :src="require('@/assets/default-product.png')"
+          alt="No image found"
+        />
+      </div>
+      <div v-else>
         <ImageCarousel :images="pictures"></ImageCarousel>
       </div>
     </div>
@@ -64,6 +65,7 @@
               <DatepickerRange
                 @value="setDate"
                 :messageOnDisplay="dateMessage"
+                :blockedDaysRange="nonAvailableTimes"
               ></DatepickerRange>
             </p>
           </div>
@@ -90,7 +92,11 @@
 
 <script>
 import NewRent from "@/components/RentingComponents/NewRent.vue";
-import { getItem, getItemPictures } from "@/utils/apiutil";
+import {
+  getItem,
+  getItemPictures,
+  getAvailableTimesForListing,
+} from "@/utils/apiutil";
 import ImageCarousel from "@/components/RentingComponents/ImageCarousel.vue";
 import UserListItemCard from "@/components/UserProfileComponents/UserListItemCard.vue";
 import DatepickerRange from "@/components/TimepickerComponents/DatepickerRange/DatepickerRange.vue";
@@ -133,6 +139,7 @@ export default {
       totPrice: 0,
       dateMessage: "Venligst velg dato for leieperioden",
       allowForRent: false,
+      nonAvailableTimes: [],
     };
   },
   components: {
@@ -165,13 +172,7 @@ export default {
       let id = this.$router.currentRoute.value.params.id;
       this.images = await getItemPictures(id);
 
-      if (this.images.length < 1) {
-        let noImage = {
-          src: require("@/assets/default-product.png"),
-          alt: "No image found",
-        };
-        this.pictures.push(noImage);
-      } else {
+      if (this.images.length > 0) {
         this.noPicture = false;
         for (let i = 0; i < this.images.length; i++) {
           let oneImage = {
@@ -186,6 +187,20 @@ export default {
     },
     async getUser(userId) {
       this.userForId = await UserService.getUserFromId(userId);
+    },
+    async getAvailableTimesForListing() {
+      let datesTakenInMilliseconds = await getAvailableTimesForListing(
+        this.item.listingID
+      );
+      for (var i = 0; i < datesTakenInMilliseconds.length; i++) {
+        let oneArray = datesTakenInMilliseconds[i];
+        let bigArray = [];
+        let startDate = new Date(oneArray[0]);
+        let endDate = new Date(oneArray[1]);
+        bigArray.push(startDate);
+        bigArray.push(endDate);
+        this.nonAvailableTimes.push(bigArray);
+      }
     },
     setDate(dateOfsomthing) {
       if (dateOfsomthing.startDate == null || dateOfsomthing.endDate == null) {
@@ -208,6 +223,7 @@ export default {
     await this.getItemPictures();
     await this.getItem();
     await this.getUser(this.item.userID);
+    await this.getAvailableTimesForListing();
   },
 };
 </script>

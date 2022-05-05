@@ -2,25 +2,23 @@
 
 exports[`ItemCard component renders correctly 1`] = `
 <div
-  class="mt-5"
+  class="mt-5 px-5"
 >
   <div
-    class="w-4/5 rounded bg-gray-200 h-full overflow-hidden display:inline-block correct-size"
+    class="w-full h-full rounded bg-gray-200 overflow-hidden display:inline-block correct-size"
   >
-    <img
-      alt="Item image"
-      class="h-3/4"
-      src="String"
-    />
+    <div
+      class="relative h-0 pb-[66.7%]"
+    >
+      <img
+        alt="Item image"
+        class="w-full h-full absolute inset-0"
+        src="String"
+      />
+    </div>
     <div
       class="p-1 m-1 bottom-0"
     >
-      <p
-        class="text-gray-700 text-xs font-bold"
-        id="adress"
-      >
-        String
-      </p>
       <p
         class="font-bold text-sm"
         id="title"
@@ -32,6 +30,12 @@ exports[`ItemCard component renders correctly 1`] = `
         id="price"
       >
         0 kr 
+      </p>
+      <p
+        class="text-gray-700 text-xs font-bold"
+        id="adress"
+      >
+        String
       </p>
     </div>
   </div>
