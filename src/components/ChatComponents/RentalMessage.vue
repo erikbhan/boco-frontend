@@ -18,9 +18,15 @@
         </p>
       </div>
     </div>
-    <div class="buttons">
+    <div class="buttons" v-if = "(!rent.isAccepted && !rent.deleted)"> 
       <button class="button green" @click="accept">Godta</button>
       <button class="button red" @click="reject">Avslå</button>
+    </div>
+    <div class="" v-if = rent.isAccepted>
+        <h1 class="green">Godtatt</h1>
+    </div>
+    <div class="" v-if = rent.deleted>
+        <h1 class="red">Avslått</h1>
     </div>
   </div>
 </template>
@@ -32,20 +38,9 @@ export default {
   props: {
     rent: {
       type: Object,
-      default() {
-        return {
-          createdAd: 0,
-          fromTime: 0,
-          isAccepted: false,
-          listingId: 0,
-          message: "",
-          rentId: 0,
-          renterId: 0,
-          toTime: 0,
-        };
+     required: true
       },
     },
-  },
   computed: {
     img() {
       return "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80"; //this.rent.listing.imageUrl;
@@ -72,18 +67,16 @@ export default {
   },
   methods: {
     async accept() {
-       await axios.post(
+       await axios.put(
         process.env.VUE_APP_BASEURL +
-          `renting/${this.rent.rentId}/accept` ,
-        null,
+          `renting/${this.rent.rentId}/accept` ,null,
         { headers: tokenHeader() }
       );
     },
     async reject() {
          await axios.delete(
         process.env.VUE_APP_BASEURL +
-          `renting/${this.rent.rentId}/delete`,
-        null,
+          `renting/${this.rent.rentId}/delete`,null,
         { headers: tokenHeader() }
       );
       
