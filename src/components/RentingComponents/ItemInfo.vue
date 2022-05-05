@@ -4,12 +4,10 @@
   </div>
   <div v-if="!confirm">
     <div>
-      <div
-        v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 max-h-[600px] w-auto lg:grid-cols-5 place-items-center':
-            noPicture,
-        }"
-      >
+      <div v-if="noPicture" class="md:grid md:place-items-center md:h-screen">
+        <img :src="require('@/assets/default-product.png')" alt="No image found">
+      </div>
+      <div v-else>
         <ImageCarousel :images="pictures"></ImageCarousel>
       </div>
     </div>
@@ -165,13 +163,7 @@ export default {
       let id = this.$router.currentRoute.value.params.id;
       this.images = await getItemPictures(id);
 
-      if (this.images.length < 1) {
-        let noImage = {
-          src: require("@/assets/default-product.png"),
-          alt: "No image found",
-        };
-        this.pictures.push(noImage);
-      } else {
+      if (this.images.length > 0) {
         this.noPicture = false;
         for (let i = 0; i < this.images.length; i++) {
           let oneImage = {
@@ -181,7 +173,7 @@ export default {
           };
           this.pictures.push(oneImage);
         }
-      }
+      } 
       //TODO fixs so each image get a correct alt text.
     },
     async getUser(userId) {
