@@ -216,7 +216,12 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { parseUserFromToken } from "@/utils/token-utils";
-import {postNewItem, getMyGroups, postNewImageCommunity, PostImagesArrayToListing} from "@/utils/apiutil";
+import {
+  postNewItem,
+  getMyGroups,
+  postNewImageCommunity,
+  PostImagesArrayToListing,
+} from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
 
 import {
@@ -366,7 +371,6 @@ export default {
 
         //Not sure if this will work
         that.item.imagesToSend.push(API_URL + "images/" + id);
-
       };
       fileReader.readAsArrayBuffer(image);
     },
