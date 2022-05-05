@@ -6,7 +6,7 @@
     <div>
       <div
         v-bind:class="{
-          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 h-[600px] w-auto lg:grid-cols-5 place-items-center':
+          'grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 max-h-[600px] w-auto lg:grid-cols-5 place-items-center':
             noPicture,
         }"
       >

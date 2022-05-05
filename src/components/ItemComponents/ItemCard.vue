@@ -5,10 +5,10 @@
     >
       <div class="relative h-0 pb-[66%]">
         <img
-        class="w-full h-full absolute inset-0"
-        :src="item.img || require('../../assets/default-product.png')"
-        alt="Item image"
-      />
+          class="w-full h-full absolute inset-0"
+          :src="item.img || require('../../assets/default-product.png')"
+          alt="Item image"
+        />
       </div>
       <div class="p-1 m-1 bottom-0">
         <p class="text-gray-700 text-xs font-bold" id="adress">
