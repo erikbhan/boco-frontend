@@ -90,7 +90,6 @@ export default {
     async reject() {
       await axios.delete(
         process.env.VUE_APP_BASEURL + `renting/${this.rent.rentId}/delete`,
-        null,
         { headers: tokenHeader() }
       );
     },
