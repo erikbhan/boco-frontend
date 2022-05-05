@@ -4,11 +4,11 @@
   >
     <!-- Component heading -->
     <h3 class="text-xl font-medium text-center text-primary-light mt-4 mb-8">
-      Opprett ny utleie
+      Rediger gjenstand
     </h3>
 
     <!-- Title -->
-    <div class="mb-6" :class="{ error: v$.item.title.$errors.length }">
+    <div class="mb-6" :class="{ error: v$.updatedItem.title.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="titleLabel"
@@ -18,14 +18,14 @@
         type="text"
         id="title"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-        v-model="v$.item.title.$model"
+        v-model="v$.updatedItem.title.$model"
         required
       />
 
       <!-- error message for title-->
       <div
         class="text-error-medium"
-        v-for="(error, index) of v$.item.title.$errors"
+        v-for="(error, index) of v$.updatedItem.title.$errors"
         :key="index"
       >
         <div class="text-error-medium text-sm">
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <!-- Select category -->
+    <!-- Category -->
     <div class="mb-6">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -42,14 +42,17 @@
         >Kategori</label
       >
       <select
-        v-model="v$.item.select.$model"
+        @change="onChangeCategory($event)"
+        v-model="v$.updatedItem.selectedCategory.$model"
         id="categories"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
       >
-        <option class="text-gray-400" value="" disabled selected>
+        <option class="text-gray-400" value="" disabled>
           Velg en kategori
         </option>
         <option
+          :value="category"
+          :selected="category == updatedItem.selectedCategory"
           v-for="category in categories"
           :key="category"
           class="text-gray-900 text-sm"
@@ -61,7 +64,7 @@
       <!-- error message for select box -->
       <div
         class="text-error-medium"
-        v-for="(error, index) of v$.item.select.$errors"
+        v-for="(error, index) of v$.updatedItem.selectedCategory.$errors"
         :key="index"
       >
         <div class="text-error-medium text-sm">
@@ -80,28 +83,35 @@
       >
         <ul class="py-1" aria-labelledby="dropdownDefault">
           <li>
-            <div class="form-check" v-for="group in groups" :key="group">
+            <div
+              class="form-check"
+              v-for="community in communities"
+              :key="community"
+            >
               <input
                 class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary-medium focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="checkbox"
-                :value="group.communityId"
-                @change="onChangeGroup($event)"
+                :checked="isInSelectedCommunity(community.communityId)"
+                :value="community.communityId"
+                @change="onChangeCommunity($event)"
               />
               <label class="form-check-label inline-block text-gray-800">
-                {{ group.name }}
+                {{ community.name }}
               </label>
             </div>
           </li>
         </ul>
       </div>
-      <!-- Error message for community -->
       <label class="text-error-medium text-sm block">{{
-        groupErrorMessage
+        communityErrorMessage
       }}</label>
     </div>
 
     <!-- price -->
-    <div class="mb-6 mt-4" :class="{ error: v$.item.price.$errors.length }">
+    <div
+      class="mb-6 mt-4"
+      :class="{ error: v$.updatedItem.price.$errors.length }"
+    >
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="priceLabel"
@@ -109,7 +119,7 @@
       >
       <input
         type="number"
-        v-model="v$.item.price.$model"
+        v-model="v$.updatedItem.price.$model"
         id="price"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
@@ -117,8 +127,8 @@
 
       <!-- error message for price -->
       <div
-        class="text-error-medium"
-        v-for="(error, index) of v$.item.price.$errors"
+        class="text-error"
+        v-for="(error, index) of v$.updatedItem.price.$errors"
         :key="index"
       >
         <div class="text-error-medium text-sm">
@@ -128,7 +138,10 @@
     </div>
 
     <!-- Description -->
-    <div class="mb-6" :class="{ error: v$.item.description.$errors.length }">
+    <div
+      class="mb-6"
+      :class="{ error: v$.updatedItem.description.$errors.length }"
+    >
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="descriptionLabel"
@@ -137,15 +150,15 @@
       <textarea
         id="description"
         rows="4"
-        v-model="v$.item.description.$model"
+        v-model="v$.updatedItem.description.$model"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
         required
       ></textarea>
 
       <!-- error message for description -->
       <div
-        class="text-error-medium"
-        v-for="(error, index) of v$.item.description.$errors"
+        class="text-error"
+        v-for="(error, index) of v$.updatedItem.description.$errors"
         :key="index"
       >
         <div class="text-error-medium text-sm">
@@ -155,7 +168,7 @@
     </div>
 
     <!-- Address -->
-    <div class="mb-6" :class="{ error: v$.item.address.$errors.length }">
+    <div class="mb-6" :class="{ error: v$.updatedItem.address.$errors.length }">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="addressLabel"
@@ -164,15 +177,15 @@
       <input
         type="text"
         class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
-        v-model="v$.item.address.$model"
+        v-model="v$.updatedItem.address.$model"
         id="adress"
         required
       />
 
       <!-- error message for address-->
       <div
-        class="text-error-medium"
-        v-for="(error, index) of v$.item.address.$errors"
+        class="text-error"
+        v-for="(error, index) of v$.updatedItem.address.$errors"
         :key="index"
       >
         <div class="text-error-medium text-sm">
@@ -182,12 +195,13 @@
     </div>
 
     <!-- Images -->
+    <!--
     <div>
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-        Bilder (bildene må være .png)
+        Legg til flere bilder (bildene må være .png)
       </label>
 
       <input
@@ -201,11 +215,11 @@
 
       <Button :text="'Velg bilde'" @click="$refs.file.click()" />
 
-      <div v-for="image in item.images" :key="image" class="m-2">
+      <div v-for="image in updatedItem.images" :key="image" class="m-2">
         <img :src="image" class="w-2/5 inline" alt="Bilde av gjenstanden" />
-        <!-- @click="removeImage(image)" -->
       </div>
     </div>
+    -->
 
     <!-- Save item button -->
     <div class="float-right">
@@ -216,14 +230,10 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { parseUserFromToken } from "@/utils/token-utils";
-import {
-  postNewItem,
-  getMyGroups,
-  postNewImageCommunity,
-  PostImagesArrayToListing,
-} from "@/utils/apiutil";
 import Button from "@/components/BaseComponents/ColoredButton";
+import ListingService from "@/services/listing.service";
+import CommunityService from "@/services/community.service";
+import { parseCurrentUser } from "@/utils/token-utils";
 
 import {
   required,
@@ -234,7 +244,7 @@ import {
 } from "@vuelidate/validators";
 
 export default {
-  name: "AddNewItem",
+  name: "EditNewItem",
 
   components: {
     Button,
@@ -246,7 +256,7 @@ export default {
 
   validations() {
     return {
-      item: {
+      updatedItem: {
         title: {
           required: helpers.withMessage(
             () => "Tittelen kan ikke være tom",
@@ -278,7 +288,7 @@ export default {
             between(0, 25000)
           ),
         },
-        select: {
+        selectedCategory: {
           required: helpers.withMessage(() => `Velg en kategori`, required),
         },
         address: {
@@ -297,21 +307,19 @@ export default {
 
   data() {
     return {
-      item: {
+      updatedItem: {
         title: "",
         description: "",
         address: "",
         price: "",
         category: "",
-        select: null,
-        type: "",
+        selectedCategory: "",
+        selectedCategories: [],
         images: [],
         userId: -1,
-        selectedGroupId: -1,
-        selectedGroups: [],
-        imagesToSend: [],
+        selectedCommunityId: -1,
+        selectedCommunities: [],
       },
-      //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: [
         "Antikviteter og kunst",
         "Dyr og utstyr",
@@ -325,16 +333,22 @@ export default {
         "Sport og friluftsliv",
         "Utstyr til bil, båt og MC",
       ],
-      groups: [],
-      groupErrorMessage: "",
+      initialItem: {},
+      communities: [],
+      communityErrorMessage: "",
+      images: [],
     };
   },
+
   methods: {
-    checkValidation: function () {
-      this.v$.item.$touch();
-      if (this.v$.item.$invalid || this.item.selectedGroups.length === 0) {
-        if (this.item.selectedGroups.length === 0) {
-          this.groupErrorMessage = "Velg gruppe/grupper";
+    checkValidation() {
+      this.v$.updatedItem.$touch();
+      if (
+        this.v$.updatedItem.$invalid ||
+        this.updatedItem.selectedCommunities.length === 0
+      ) {
+        if (this.updatedItem.selectedCommunities.length === 0) {
+          this.communityErrorMessage = "Velg gruppe/grupper";
         }
         return false;
       }
@@ -343,81 +357,105 @@ export default {
 
     async saveClicked() {
       if (this.checkValidation()) {
-        this.checkUser();
-
-        const itemInfo = {
-          title: this.item.title,
-          description: this.item.description,
-          pricePerDay: this.item.price,
-          address: this.item.address,
-          userID: this.item.userId,
-          categoryNames: [this.item.select],
-          communityIDs: this.item.selectedGroups,
+        let itemInfo = {
+          listingID: parseInt(this.initialItem.listingID),
+          title: this.updatedItem.title,
+          description: this.updatedItem.description,
+          pricePerDay: this.updatedItem.price,
+          address: this.updatedItem.address,
+          userID: this.updatedItem.userId,
+          categoryNames: this.updatedItem.selectedCategories,
+          communityIDs: this.updatedItem.selectedCommunities,
         };
-        await postNewItem(itemInfo);
-
-        await PostImagesArrayToListing(this.item.imagesToSend);
-
-        this.$router.push("/");
+        await ListingService.putItem(itemInfo);
+        this.$router.push("/itempage/" + this.initialItem.listingID);
       }
     },
 
-    checkUser: async function () {
-      let user = parseUserFromToken(this.$store.state.user.token);
-      this.item.userId = parseInt(user.accountId);
+    addImage(event) {
+      this.updatedItem.images.push(URL.createObjectURL(event.target.files[0]));
     },
 
-    addImage: async function (event) {
-      var that = this;
-      let image = event.target.files[0];
-      let fileReader = new FileReader();
-      fileReader.onloadend = async function () {
-        const res = fileReader.result;
-        const id = await postNewImageCommunity(res);
-
-        const API_URL = process.env.VUE_APP_BASEURL;
-        that.item.imagesToSend.push(API_URL + "images/" + id);
-        that.item.images.push(API_URL + "images/" + id);
-      };
-      fileReader.readAsArrayBuffer(image);
-    },
-
-    getGroups: async function () {
-      this.groups = await getMyGroups();
-    },
-
-    onChangeGroup: function (e) {
-      this.selectedGroupId = e.target.value;
+    onChangeCommunity(e) {
+      this.updatedItem.selectedCommunityId = e.target.value;
       let alreadyInGroupList = false;
 
-      for (let i = 0; i <= this.item.selectedGroups.length; i++) {
-        if (this.selectedGroupId == this.item.selectedGroups[i]) {
-          const index = this.item.selectedGroups.indexOf(this.selectedGroupId);
+      for (let i = 0; i <= this.updatedItem.selectedCommunities.length; i++) {
+        if (
+          this.updatedItem.selectedCommunityId ==
+          this.updatedItem.selectedCommunities[i]
+        ) {
+          const index = this.updatedItem.selectedCommunities.indexOf(
+            this.updatedItem.selectedCommunityId
+          );
           if (index > -1) {
-            this.item.selectedGroups.splice(index, 1);
+            this.updatedItem.selectedCommunities.splice(index, 1);
           }
           alreadyInGroupList = true;
         }
       }
 
       if (!alreadyInGroupList) {
-        this.item.selectedGroups.push(this.selectedGroupId);
-        this.groupErrorMessage = "";
+        this.updatedItem.selectedCommunities.push(
+          this.updatedItem.selectedCommunityId
+        );
+        this.communityErrorMessage = "";
       }
     },
 
-    removeImage(image) {
-      let newImages = [];
-      for (let i in this.item.images) {
-        if (this.item.images[i] != image) {
-          newImages.push(this.item.images[i]);
+    onChangeCategory(e) {
+      this.updatedItem.selectedCategory = e.target.value;
+      this.updatedItem.selectedCategories = [e.target.value];
+    },
+
+    isInSelectedCommunity(id) {
+      for (let i in this.updatedItem.selectedCommunities) {
+        if (this.updatedItem.selectedCommunities[i] == id) {
+          return true;
         }
       }
-      this.item.images = newImages;
+      return false;
     },
   },
-  beforeMount() {
-    this.getGroups();
+
+  async beforeMount() {
+    let itemID = await this.$router.currentRoute.value.params.id;
+    let item = await ListingService.getItem(itemID);
+
+    // Check if user is the owner of the item
+    let userID = await parseCurrentUser().userId;
+    if (item.userID == userID) {
+      this.$router.push(this.$router.options.history.state.back);
+    }
+
+    this.initialItem = item;
+    this.communities = await CommunityService.getUserCommunities();
+    this.images = await ListingService.getItemPictures(itemID);
+
+    let initialCategories = [];
+    for (let i in this.initialItem.categoryNames) {
+      initialCategories.push(this.initialItem.categoryNames[i]);
+    }
+    let selectedCategory =
+      initialCategories.length > 0 ? initialCategories[0] : "";
+
+    let initialCommunities = [];
+    for (let i in this.initialItem.communityIDs) {
+      initialCommunities.push(this.initialItem.communityIDs[i]);
+    }
+
+    this.updatedItem = {
+      title: this.initialItem.title,
+      description: this.initialItem.description,
+      address: this.initialItem.address,
+      price: this.initialItem.pricePerDay,
+      selectedCategories: initialCategories,
+      selectedCategory: selectedCategory,
+      images: this.images,
+      userId: this.initialItem.userID,
+      selectedCommunityId: 0,
+      selectedCommunities: initialCommunities,
+    };
   },
 };
 </script>

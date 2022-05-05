@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="conversations">
-      <h1>Samtaler:</h1>
+      <h1>Meldinger</h1>
       <hr />
       <ChatProfile
         v-for="(conversation, i) in conversations"
@@ -90,9 +90,13 @@ export default {
   },
   async created() {
     await this.fetchChats();
-    ws.on("NEW_MESSAGE",async () => { 
-      await this.fetchChats()
-      }, "chats");
+    ws.on(
+      "NEW_MESSAGE",
+      async () => {
+        await this.fetchChats();
+      },
+      "chats"
+    );
     this.recipientID = this.$route.query?.userID || null;
     if (!this.recipientID) this.hambugerDisplay = "block";
   },

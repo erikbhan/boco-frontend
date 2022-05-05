@@ -41,6 +41,14 @@
     <div class="flex justify-center mt-10 float-right">
       <Button @click="saveClicked" id="saveButton" :text="'Send'"> </Button>
     </div>
+
+    <notification-modal
+      @click="routeToHome"
+      :visible="sendRequestClicked"
+      :title="'Vellykket'"
+      :message="'Forespørsel sendt!'"
+    >
+    </notification-modal>
   </div>
 </template>
 
@@ -51,12 +59,14 @@ import { required, helpers, maxLength } from "@vuelidate/validators";
 import Button from "@/components/BaseComponents/ColoredButton";
 import { tokenHeader } from "@/utils/token-utils";
 import { GetCommunity } from "@/utils/apiutil";
+import NotificationModal from "@/components/BaseComponents/NotificationModal";
 
 export default {
   name: "CommunityRequestForm.vue",
 
   components: {
     Button,
+    NotificationModal,
   },
   setup() {
     return { v$: useVuelidate() };
@@ -81,10 +91,14 @@ export default {
       message: "",
       communityId: null,
       community: {},
+      sendRequestClicked: false,
     };
   },
   computed: {},
   methods: {
+    routeToHome() {
+      this.$router.push("/");
+    },
     //TODO fix so that community id is set (not null)
     async saveClicked() {
       this.communityID = await this.$router.currentRoute.value.params
@@ -96,6 +110,8 @@ export default {
         { message: this.message },
         { headers: tokenHeader() }
       );
+
+      this.sendRequestClicked = true;
     },
     getCommunityFromAPI: async function () {
       this.communityID = await this.$router.currentRoute.value.params

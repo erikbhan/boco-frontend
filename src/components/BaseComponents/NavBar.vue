@@ -11,21 +11,29 @@
       />
     </div>
     <ul class="flex justify-between">
-      <li class="cursor-pointer" @click="$router.push('/newItem')">
+      <li
+        class="cursor-pointer"
+        v-if="this.$store.state.user.token !== null"
+        @click="$router.push('/newItem')"
+      >
         <PlusIcon
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Legg til"
         />
         <a class="hidden md:block mt-7 text-sm float-right">Legg til</a>
       </li>
-      <li>
+      <li
+        class="cursor-pointer"
+        v-if="this.$store.state.user.token !== null"
+        @click="loadMessages"
+      >
         <div class="notification-container">
           <ChatAlt2Icon
-            class="m-6 cursor-pointer h-7"
+            class="m-6 md:mr-2 h-7 text-primary-medium float-left"
             alt="Meldinger"
-            @click="loadMessages()"
           />
-          <p @click="loadMessages()" class="notification" v-if="newMessages > 0">{{notifications}}</p>
+          <p class="notification" v-if="newMessages > 0">{{ notifications }}</p>
+          <a class="hidden md:block mt-7 text-sm float-right">Meldinger</a>
         </div>
       </li>
       <li class="cursor-pointer" @click="loadProfile">
@@ -33,7 +41,14 @@
           class="m-6 md:mr-2 h-7 text-primary-medium float-left"
           alt="Profil"
         />
-        <a class="hidden md:block mr-4 mt-7 text-sm float-right">Profil</a>
+        <a
+          v-if="this.$store.state.user.token !== null"
+          class="hidden md:block mr-4 mt-7 text-sm float-right"
+          >Profil</a
+        >
+        <a v-else class="hidden md:block mr-4 mt-7 text-sm float-right"
+          >Logg inn</a
+        >
       </li>
     </ul>
   </nav>
@@ -42,24 +57,24 @@
 <script>
 import { parseUserFromToken } from "@/utils/token-utils";
 import { PlusIcon, ChatAlt2Icon, UserCircleIcon } from "@heroicons/vue/outline";
-import ws from '@/services/ws';
+import ws from "@/services/ws";
 
 export default {
   name: "NavBar.vue",
   data() {
     return {
       newMessages: 0,
-    }
+    };
   },
   computed: {
     notifications() {
       // if  new messages is greater than 99 show +99
       if (this.newMessages > 99) {
-        return '+99'
+        return "+99";
       } else {
-        return this.newMessages
+        return this.newMessages;
       }
-    }
+    },
   },
   components: {
     PlusIcon,
@@ -79,15 +94,19 @@ export default {
     },
     loadMessages() {
       this.newMessages = 0;
-      this.$router.push('/messages');
-    }
+      this.$router.push("/messages");
+    },
   },
   created() {
-    ws.on('NEW_MESSAGE', () => {
-      if(this.$router.currentRoute.value.name == 'messages') return;
-      this.newMessages += 1;
-    }, "header");
-  }
+    ws.on(
+      "NEW_MESSAGE",
+      () => {
+        if (this.$router.currentRoute.value.name == "messages") return;
+        this.newMessages += 1;
+      },
+      "header"
+    );
+  },
 };
 </script>
 
@@ -96,19 +115,19 @@ export default {
   position: relative;
 }
 .notification {
-    position: absolute;
-    background-color: #ff5a5f;
-    top: 0;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 0.25rem;
-    transform: translate(-80%, -30%);
-    color: white;
-    font-size: 10px;
-    border-radius: 50%;
-    font-weight: bold;
-    text-align: center;
-    right: 0;
-    cursor: pointer;
+  position: absolute;
+  background-color: #ff5a5f;
+  top: 0;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 0.25rem;
+  transform: translate(-80%, -30%);
+  color: white;
+  font-size: 10px;
+  border-radius: 50%;
+  font-weight: bold;
+  text-align: center;
+  right: 0;
+  cursor: pointer;
 }
 </style>

@@ -82,6 +82,6 @@ export default {
     selectUser() {
       this.$emit("recipient", this.conversation?.recipient.userId);
     },
-  }
+  },
 };
 </script>

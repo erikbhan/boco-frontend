@@ -15,6 +15,12 @@ function guardRoute(to, from, next) {
   }
 }
 
+function isAdmin(to, from, next) {
+  if (store.state.user.adminList.includes(parseInt(from.params.communityID)))
+    next();
+  else next("/");
+}
+
 const routes = [
   {
     path: "/",
@@ -47,7 +53,7 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () => import("../views/FormViews/RegisterView.vue"),
+    component: () => import("../views/UserAuthViews/RegisterView.vue"),
   },
   {
     path: "/messages",
@@ -58,12 +64,12 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/FormViews/LoginView.vue"),
+    component: () => import("../views/UserAuthViews/LoginView.vue"),
   },
   {
     path: "/newPassword",
     name: "newPassword",
-    component: () => import("../views/FormViews/NewPasswordView"),
+    component: () => import("../views/UserAuthViews/NewPasswordView"),
     beforeEnter: guardRoute,
   },
   {
@@ -74,7 +80,7 @@ const routes = [
   {
     path: "/resetPassword",
     name: "resetPassword",
-    component: () => import("../views/FormViews/ResetPasswordView.vue"),
+    component: () => import("../views/UserAuthViews/ResetPasswordView.vue"),
   },
   {
     path: "/newCommunity",
@@ -95,13 +101,6 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
-    path: "/notifications",
-    name: "notifications",
-    component: () =>
-      import("../components/BaseComponents/NotificationsForm.vue"),
-    beforeEnter: guardRoute,
-  },
-  {
     path: "/community/:communityID",
     name: "communityHome",
     component: () => import("../views/CommunityViews/CommunityHomeView.vue"),
@@ -110,9 +109,9 @@ const routes = [
     path: "/community/:communityID/private/join",
     name: "communityRequest",
     component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
+    beforeEnter: guardRoute,
   },
   {
-    beforeEnter: guardRoute,
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
@@ -121,7 +120,7 @@ const routes = [
     path: "/community/:communityID/admin",
     name: "CommunityAdminView",
     component: () => import("@/views/CommunityViews/AdminView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: isAdmin,
   },
   {
     path: "/itempage/:id",
@@ -130,9 +129,16 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/item/:id/edit",
+    name: "editItem",
+    component: () => import("../views/ItemViews/EditItemView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/user/userItems",
     name: "UserItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+    beforeEnter: guardRoute,
   },
   // Make sure it's your last route definition
   { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },

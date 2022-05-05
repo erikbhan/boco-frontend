@@ -39,7 +39,11 @@
           v-for="item in visibleItems"
           :key="item"
         >
-          <ItemCard class="ItemCard w-fit h-fit" :item="item" />
+          <ItemCard
+            id="ItemCardPage"
+            class="ItemCard w-fit h-fit"
+            :item="item"
+          />
 
           <TripleDotButton class="DotButton" @click="openDotMenu(item)">
           </TripleDotButton>
@@ -54,7 +58,9 @@
             >
               <li>
                 <button
-                  to="/user/userItems"
+                  @click="
+                    this.$router.push('/item/' + item.listingID + '/edit')
+                  "
                   class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Rediger gjenstand
@@ -103,7 +109,7 @@
         v-if="showSearchedItems"
       >
         <div class="cardContainer" v-for="item in searchedItems" :key="item">
-          <ItemCard class="ItemCard" :item="item" />
+          <ItemCard id="ItemCardSearch" class="ItemCard" :item="item" />
           <TripleDotButton class="DotButton" @click="openDotMenu(item)">
           </TripleDotButton>
 
@@ -117,7 +123,9 @@
             >
               <li>
                 <button
-                  to="/user/userItems"
+                  @click="
+                    this.$router.push('/item/' + item.listingID + '/edit')
+                  "
                   class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Rediger gjenstand
@@ -268,12 +276,10 @@ export default {
       }
     },
     goToDeleteItem(item) {
-      console.log("Halllllo: " + item);
       this.chosenItem = item;
       this.readyToDelete = true;
     },
     async deleteItem() {
-      console.log("HEI " + this.chosenItem);
       await UserService.setListingToDeleted(this.chosenItem);
       this.$router.go(0);
     },

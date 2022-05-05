@@ -2,6 +2,8 @@
   <div
     class="w-full max-w-xl m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
+    <DeleteUserModal :visible="show" @close="this.show = false"
+    @deleteUser="deleteUser"/>
     <div v-show="isCurrentUser" class="float-right px-4 pt-4">
       <button
         id="dropdownDefault"
@@ -68,11 +70,11 @@
             >
           </li>
           <li>
-            <router-link
-              to=""
-              class="block py-2 px-4 text-sm text-error-dark hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Slett bruker</router-link
-            >
+            <div class="block py-2 px-4 text-sm text-error-dark cursor-pointer"
+            @click="toggleModal"
+                 >
+              Slett bruker
+            </div>
           </li>
         </ul>
       </div>
@@ -108,6 +110,7 @@ import RatingComponent from "@/components/UserProfileComponents/RatingComponents
 import { parseCurrentUser } from "@/utils/token-utils";
 import { getUser } from "@/utils/apiutil";
 import UserService from "@/services/user.service";
+import DeleteUserModal from "@/components/UserAuthComponents/DeleteUserModal";
 
 export default {
   name: "LargeProfileCard",
@@ -123,10 +126,12 @@ export default {
       profileImage: {
         src: require("../../assets/defaultUserProfileImage.jpg"),
       },
+      show: false,
     };
   },
   components: {
     RatingComponent,
+    DeleteUserModal,
   },
   computed: {
     getProfilePicture() {
@@ -134,6 +139,9 @@ export default {
         return this.user.picture;
       }
       return this.profileImage.src;
+    },
+    adminList() {
+      return this.$store.state.user.adminList;
     },
   },
   methods: {
@@ -161,6 +169,13 @@ export default {
     logout() {
       this.$store.commit("logout");
       this.$router.push("/");
+    },
+    toggleModal() {
+      this.show = !this.show;
+    },
+    async deleteUser(){
+      await UserService.deleteUser();
+      this.logout()
     },
   },
   beforeMount() {

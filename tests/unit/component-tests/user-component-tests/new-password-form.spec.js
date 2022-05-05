@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import NewPasswordForm from "@/components/FormComponents/NewPasswordForm.vue";
+import NewPasswordForm from "@/components/UserAuthComponents/NewPasswordForm.vue";
 
 describe("NewPasswordForm component", () => {
   let wrapper;
