@@ -32,9 +32,7 @@
         </div>
         <!-- Modal body -->
         <div class="p-6 space-y-6">
-          <p
-            class="text-lg text-base leading-relaxed text-gray-500 dark:text-gray-400"
-          >
+          <p class="text-lg leading-relaxed text-gray-500 dark:text-gray-400">
             {{ title }}
           </p>
         </div>
