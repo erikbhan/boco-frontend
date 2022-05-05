@@ -149,7 +149,7 @@ export default {
       this.hamburgerOpen = !this.hamburgerOpen;
     },
     leaveCommunity: async function () {
-      await LeaveCommunity(this.community.communityID);
+      await LeaveCommunity(this.community.communityId);
       this.$router.push("/");
     },
     async load() {

@@ -53,6 +53,7 @@ export default {
     this.admin = this.$store.state.user.adminList.includes(
       parseInt(this.communityID)
     );
+    console.log(this.communityID);
   },
 };
 </script>
