@@ -5,7 +5,7 @@
     >
       <div class="months" v-for="day in days" :key="day">{{ day }}</div>
     </div>
-    <div class="grid grid-cols-7 gap-y-0.5 my-1">
+    <div class="daysList grid grid-cols-7 gap-y-0.5 my-1">
       <div
         class="days blocked"
         v-for="index in daysBeforeStartOfMonth"
@@ -191,14 +191,6 @@ export default {
     },
     isBlocked(day) {
       return this.blockedDays.includes(day);
-    },
-    isDayBlocked(day) {
-      return this.blockedDays.includes(day);
-    },
-    isDayBetweenBlocked(day) {
-      return this.blockedDaysRange.some(([start, end]) => {
-        return start <= day && day <= end;
-      });
     },
     // Get date from day and month and check if it is between start and end
     isDayBetweenStartAndEndDate(day) {
