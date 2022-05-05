@@ -55,22 +55,57 @@ exports[`NewItemForm component renders correctly 1`] = `
       <option
         class="text-gray-900 text-sm"
       >
-        Hage
+        Antikviteter og kunst
       </option>
       <option
         class="text-gray-900 text-sm"
       >
-        Kjøkken
+        Dyr og utstyr
       </option>
       <option
         class="text-gray-900 text-sm"
       >
-        Musikk
+        Elektronikk og hvitevarer
       </option>
       <option
         class="text-gray-900 text-sm"
       >
-        Annet
+        Foreldre og barn
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Fritid, hobby og underholdning
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Hage, oppussing og hus
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Klær, kosmetikk og tilbehør
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Møbler og interiør
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Næringsvirksomhet
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Sport og friluftsliv
+      </option>
+      <option
+        class="text-gray-900 text-sm"
+      >
+        Utstyr til bil, båt og MC
       </option>
       
     </select>
@@ -88,7 +123,7 @@ exports[`NewItemForm component renders correctly 1`] = `
       Grupper
     </label>
     <div
-      class="overflow-auto w-full h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
+      class="overflow-auto w-full max-h-32 mt-2 text-base list-none bg-white rounded divide-y divide-gray-100 dark:bg-gray-700"
     >
       <ul
         aria-labelledby="dropdownDefault"

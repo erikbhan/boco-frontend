@@ -25,7 +25,7 @@ describe("MonthSelector tests", () => {
     expect(children.length).toBe(2);
 
     // Check children content
-    expect(children[0].text()).toBe("MAY");
+    expect(children[0].text()).toBe("MAI");
     expect(children[1].text()).toBe("2022");
   });
 
