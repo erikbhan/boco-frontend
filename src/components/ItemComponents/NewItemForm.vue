@@ -352,9 +352,9 @@ export default {
         };
         await ListingService.postNewItem(itemInfo);
 
-        await ImageService.PostImagesArrayToListing(this.item.images);
+        await ImageService.postImagesArrayToListing(this.item.images);
 
-        this.$router.push("/");
+        this.$router.go(-1);
       }
     },
 
@@ -397,7 +397,7 @@ export default {
       }
     },
 
-    removeImage(image) {
+    async removeImage(image) {
       let newImages = [];
       for (let i in this.item.images) {
         if (this.item.images[i] != image) {
