@@ -54,10 +54,7 @@
         v-if="!community.picture"
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
-        <UserGroupIcon
-          alt="Bilde"
-          class="h-10 w-10 text-primary-dark"
-        />
+        <UserGroupIcon alt="Bilde" class="h-10 w-10 text-primary-dark" />
       </div>
       <div
         v-else
@@ -66,7 +63,7 @@
         <img
           :src="community.picture"
           alt="Bilde"
-          class="rounded-md"
+          class="rounded-md h-14 w-14 object-contain"
         />
       </div>
       <div class="flex-1 pl-1 overflow-hidden">
