@@ -4,6 +4,10 @@ import { tokenHeader } from "@/utils/token-utils";
 const API_URL = process.env.VUE_APP_BASEURL;
 
 class ChatService {
+  /**
+   * Service method to get the logged in user's conversations.
+   * @returns an array of objects containing two objects containing the last message and the recipient.
+   */
   async getConversations() {
     return await axios
       .get(API_URL + "chats/users", {
