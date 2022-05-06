@@ -98,7 +98,7 @@
         <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
       </div>
 
-      <div v-show="!isCurrentUser" class="flex mt-4 space-x-3 lg:mt-6">
+      <div v-show="!isCurrentUser" @click="$router.push('/messages?userID=' + id)" class="flex mt-4 space-x-3 lg:mt-6">
         <a
           href="#"
           class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
