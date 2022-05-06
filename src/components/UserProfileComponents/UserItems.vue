@@ -40,13 +40,13 @@
           :key="item"
         >
           <div class="w-full">
-          <ItemCard
-            id="ItemCardPage"
-            class="ItemCard w-full h-full"
-            :item="item"
-          />
-        </div>
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
+            <ItemCard
+              id="ItemCardPage"
+              class="ItemCard w-full h-full"
+              :item="item"
+            />
+          </div>
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
           <div
             v-show="item.toggle"
@@ -110,10 +110,13 @@
       >
         <div class="cardContainer" v-for="item in searchedItems" :key="item">
           <div class="w-full">
-          <ItemCard id="ItemCardSearch" class="ItemCard w-full h-full" :item="item" />
+            <ItemCard
+              id="ItemCardSearch"
+              class="ItemCard w-full h-full"
+              :item="item"
+            />
           </div>
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
-
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
           <div
             v-show="item.toggle"
