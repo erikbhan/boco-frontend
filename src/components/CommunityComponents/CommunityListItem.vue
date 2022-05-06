@@ -55,7 +55,7 @@
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
         <UserGroupIcon
-          alt="Felleskapets bilde"
+          alt="Bilde"
           class="h-10 w-10 text-primary-dark"
         />
       </div>
@@ -65,7 +65,7 @@
       >
         <img
           :src="community.picture"
-          alt="Fellsekaps bilde"
+          alt="Bilde"
           class="rounded-md"
         />
       </div>
