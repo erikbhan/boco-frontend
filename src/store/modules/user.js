@@ -6,6 +6,7 @@ const state = {
 const mutations = {
   logout(state) {
     state.token = null;
+    state.adminList = [];
   },
   saveToken(state, token) {
     state.token = token;
@@ -17,6 +18,10 @@ const mutations = {
       if (isNaN(communityIDArray[i])) continue;
       state.adminList.push(communityIDArray[i]);
     }
+  },
+  addAdmin(state, communityID) {
+    if (!Number(communityID)) return;
+    state.adminList.push(communityID);
   },
 };
 

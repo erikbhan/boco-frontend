@@ -1,39 +1,56 @@
 <template>
-  <div class="message" style="max-width: 70%">
-    <div class="info">
-      <div class="text">
-        <h2 class="header">Ny utleie forespørsel</h2>
-        <p>Dato: {{ from }} - {{ to }}</p>
-        <p>Pris: {{ price }}kr</p>
+  <div class="message-container">
+    <div class="message">
+      <div class="info">
+        <div class="text">
+          <h2 class="header">Ny utleie forespørsel</h2>
+          <p>Dato: {{ from }} - {{ to }}</p>
+          <p>Pris: {{ price }}kr</p>
+        </div>
+        <div class="img-container">
+          <img class="img" :src="image" alt="Produkt Bilde" />
+        </div>
       </div>
-      <div class="img-container">
-        <img class="img" :src="img" alt="Produkt Bilde" />
+      <div>
+        <p class="more-header">Melding fra leier:</p>
+        <div class="more">
+          <p>
+            {{ extra }}
+          </p>
+        </div>
       </div>
-    </div>
-    <div>
-      <p class="more-header">Melding fra leier:</p>
-      <div class="more">
-        <p>
-          {{ extra }}
-        </p>
+      <div
+        class="buttons"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId != this.userID
+        "
+      >
+        <button class="button green" @click="accept">Godta</button>
+        <button class="button red" @click="reject">Avslå</button>
       </div>
-    </div>
-    <div class="buttons" v-if="!rent.isAccepted && !rent.deleted">
-      <button class="button green" @click="accept">Godta</button>
-      <button class="button red" @click="reject">Avslå</button>
-    </div>
-    <div class="" v-if="rent.isAccepted">
-      <h1 class="green">Godtatt</h1>
-    </div>
-    <div class="" v-if="rent.deleted">
-      <h1 class="red">Avslått</h1>
+      <div
+        class="waiting"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId == this.userID
+        "
+      >
+        Waiting for owner to accept
+      </div>
+      <div class="" v-if="rent.isAccepted">
+        <h1 class="approved">Godtatt</h1>
+      </div>
+      <div class="" v-if="rent.deleted">
+        <h1 class="declined">Avslått</h1>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { tokenHeader } from "@/utils/token-utils";
+import { tokenHeader, parseCurrentUser } from "@/utils/token-utils";
+import { getItemPictures, } from "@/utils/apiutil";
+
 export default {
   props: {
     rent: {
@@ -41,7 +58,15 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      image: null,
+    }
+  },
   computed: {
+    userID() {
+      return parseCurrentUser().accountId;
+    },
     img() {
       return "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80"; //this.rent.listing.imageUrl;
     },
@@ -64,6 +89,9 @@ export default {
     extra() {
       return this.rent.message || "Ingen Melding";
     },
+    side() {
+      return this.rent.renterId == this.userID ? "flex-end" : "flex-start";
+    },
   },
   methods: {
     async accept() {
@@ -76,22 +104,53 @@ export default {
     async reject() {
       await axios.delete(
         process.env.VUE_APP_BASEURL + `renting/${this.rent.rentId}/delete`,
-        null,
         { headers: tokenHeader() }
       );
     },
+    async getImage() {
+      let images = await getItemPictures(this.rent.listingId);
+
+      if (images.length > 0) {
+        this.image = images[0].picture;
+      } else {
+        this.image = "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80";
+
+      }
+    },
+  },
+  async beforeMount() {
+    await this.getImage();
   },
 };
 </script>
 
 <style scoped>
-.message {
+.message-container {
   display: flex;
+  justify-content: v-bind(side);
+}
+.message {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  display: block;
   flex-direction: column;
   width: 100%;
   background: #d1d5db;
   border-radius: 10px;
   padding: 10px;
+  max-width: 50%;
+}
+
+@media (max-width: 800px) {
+  .message {
+    max-width: 80%;
+  }
+}
+
+.waiting {
+  font-weight: bold;
+  color: black;
+  text-align: center;
 }
 
 .info {
@@ -108,6 +167,20 @@ export default {
 
 .text h1 {
   text-decoration: underline;
+}
+
+.approved {
+  color: darkgreen;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.declined {
+  color: darkred;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5rem;
 }
 
 @media (max-width: 1200px) {

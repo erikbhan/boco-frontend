@@ -121,7 +121,7 @@ export default {
   min-width: 20px;
   min-height: 20px;
   padding: 0.25rem;
-  transform: translate(-80%, -30%);
+  transform: translate(-290%, 50%);
   color: white;
   font-size: 10px;
   border-radius: 50%;
@@ -129,5 +129,11 @@ export default {
   text-align: center;
   right: 0;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .notification {
+    transform: translate(-60%, 70%);
+  }
 }
 </style>
