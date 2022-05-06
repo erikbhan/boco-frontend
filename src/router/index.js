@@ -3,12 +3,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import NotFound from "@/views/NotFound.vue";
 
 /**
- * Guards routes.
+ * Guard route for logged-in users.
  * If token is null, no user is logged in and only the
  * login, register, reset password, help and listing of public groups and items pages will be accessible.
  * Without a token the user gets redirected to the login page when trying to access guard routed pages.
  */
-function guardRoute(to, from, next) {
+function authGuardRoute(to, from, next) {
   let isAuthenticated = store.state.user.token != null;
   if (isAuthenticated) {
     next(); // allow to enter route
@@ -18,10 +18,10 @@ function guardRoute(to, from, next) {
 }
 
 /**
- * Guards routes for administartors. If token is null or
+ * Guards route for administartors. If token is null or
  * the user is not the administrator of the group, the user gets sent to the home page.
  */
-function isAdmin(to, from, next) {
+function adminGuardRoute(to, from, next) {
   if (store.state.user.adminList.includes(parseInt(from.params.communityID)))
     next(); // allow to enter route
   else
@@ -44,19 +44,19 @@ const routes = [
     path: "/community/:communityID/admin",
     name: "communityAdminPage",
     component: () => import("@/views/CommunityViews/AdminView.vue"),
-    beforeEnter: [guardRoute, isAdmin],
+    beforeEnter: [authGuardRoute, adminGuardRoute],
   },
   {
     path: "/community/:communityID/memberlist",
     name: "memberlist",
     component: () => import("../views/CommunityViews/MemberListView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/community/:communityID/private/join",
     name: "communityRequest",
     component: () => import("../views/CommunityViews/CommunityRequestView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/help",
@@ -67,13 +67,13 @@ const routes = [
     path: "/item/:id",
     name: "itemInfo",
     component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/item/:id/edit",
     name: "editItem",
     component: () => import("../views/ItemViews/EditItemView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/login",
@@ -84,49 +84,49 @@ const routes = [
     path: "/messages",
     name: "messages",
     component: () => import("../views/ChatViews/ChatView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/newCommunity",
     name: "newCommunity",
     component: () => import("../views/CommunityViews/NewCommunityView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/newItem",
     name: "newItem",
     component: () => import("../views/ItemViews/NewItemView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/newPassword",
     name: "newPassword",
     component: () => import("../views/UserAuthViews/NewPasswordView"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/profile/:id",
     name: "profile",
     component: () => import("../views/UserProfileViews/ProfileView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/profile/communities",
     name: "myCommunities",
     component: () => import("../views/UserProfileViews/MyCommunitiesView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/profile/history",
     name: "history",
     component: () => import("../views/UserProfileViews/RentHistoryView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/profile/items",
     name: "userItems",
     component: () => import("../views/UserProfileViews/UserItemsView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
   {
     path: "/register",
@@ -147,7 +147,7 @@ const routes = [
     path: "/test",
     name: "test",
     component: () => import("../views/TestView.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: authGuardRoute,
   },
 
   /**
