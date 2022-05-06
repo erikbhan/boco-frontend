@@ -109,7 +109,9 @@
         v-if="showSearchedItems"
       >
         <div class="cardContainer" v-for="item in searchedItems" :key="item">
-          <ItemCard id="ItemCardSearch" class="ItemCard" :item="item" />
+          <div class="w-full">
+          <ItemCard id="ItemCardSearch" class="ItemCard w-full h-full" :item="item" />
+          </div>
           <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
 
 
