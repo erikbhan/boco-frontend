@@ -58,7 +58,7 @@ export default {
     calculateTime() {
       var time = this?.message.timestamp;
       var date = new Date(time);
-      //Todo add 07 instead of 7 with minutes and maybe hrs 
+    
       var mmOfMessage = String(date.getMinutes());
       var hhOfMessage = String(date.getHours());
       if(mmOfMessage <= 9){
@@ -69,7 +69,7 @@ export default {
       }
       var ddOfMessage = String(date.getDate()).padStart(2, "0");
       var dayOfMessage = date.toLocaleString("default", { weekday: "short" });
-      var monthOfMessage = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var monthOfMessage = String(date.getMonth() + 1).padStart(2, "0"); 
       const shortMonthOfMessage = date.toLocaleString("default", {
         month: "short",
       });
@@ -77,7 +77,7 @@ export default {
 
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, "0");
-      var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var mm = String(today.getMonth() + 1).padStart(2, "0"); 
       var yyyy = today.getFullYear();
       if (ddOfMessage == dd) {
         return "" + hhOfMessage + ":" + mmOfMessage + "";
