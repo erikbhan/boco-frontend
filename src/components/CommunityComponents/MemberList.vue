@@ -1,4 +1,5 @@
 <template>
+  <!-- Shows all members in a community -->
   <ul>
     <li v-for="member in members" :key="member.userId">
       <UserListItemCard :buttons="buttons" :user="member" />

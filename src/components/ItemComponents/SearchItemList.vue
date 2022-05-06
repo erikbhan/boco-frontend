@@ -1,4 +1,5 @@
 <template>
+  <!-- A template for searching in item list -->
   <section class="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
     <div class="relative" id="searchComponent">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -17,7 +18,7 @@
         type="text"
         id="searchInput"
         class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
-        placeholder="Search"
+        placeholder="Søk"
         v-model="search"
       />
     </div>
@@ -53,12 +54,6 @@ export default {
       return filteredItems;
     },
   },
-
-  /**
-   * Her må det lages en metode som henter alle items (i en gruppe) fra databasen.
-   * De kan deretter bli pusha inn i items array, og da burde de bli displayet i lista.
-   * Når denne metoden er på plass kan items[] i data tømmes. Da vil alt dataen komme fra db.
-   */
 
   data() {
     return {

@@ -39,7 +39,7 @@
         />
       </div>
 
-      <!-- If a user is not logges in and tries to join a community, this message shows -->
+      <!-- If a user is not logged in and tries to join a community, this message shows -->
       <div class="flex justify-center p-2">
         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
           {{ responseToUser }}
@@ -55,7 +55,7 @@
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
         <UserGroupIcon
-          alt="Felleskapets bilde"
+          alt="Bilde"
           class="h-10 w-10 text-primary-dark"
         />
       </div>
@@ -65,7 +65,7 @@
       >
         <img
           :src="community.picture"
-          alt="Fellsekaps bilde"
+          alt="Bilde"
           class="rounded-md"
         />
       </div>

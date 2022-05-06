@@ -24,6 +24,10 @@ exports[`RegisterFormComponent renders correctly 1`] = `
         <!-- error message -->
         
         
+        <div
+          class="text-error-medium text-sm"
+          style="display: none;"
+        />
       </div>
       <div>
         <input

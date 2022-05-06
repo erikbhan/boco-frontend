@@ -1,4 +1,5 @@
 <template>
+  <!-- View for search item component -->
   <SearchItemListComponent></SearchItemListComponent>
 </template>
 
@@ -11,5 +12,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
