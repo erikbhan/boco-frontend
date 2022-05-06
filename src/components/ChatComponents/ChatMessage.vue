@@ -58,18 +58,18 @@ export default {
     calculateTime() {
       var time = this?.message.timestamp;
       var date = new Date(time);
-    
+
       var mmOfMessage = String(date.getMinutes());
       var hhOfMessage = String(date.getHours());
-      if(mmOfMessage <= 9){
+      if (mmOfMessage <= 9) {
         mmOfMessage = "0" + mmOfMessage;
       }
-      if(hhOfMessage<=9){
+      if (hhOfMessage <= 9) {
         hhOfMessage = "0" + hhOfMessage;
       }
       var ddOfMessage = String(date.getDate()).padStart(2, "0");
       var dayOfMessage = date.toLocaleString("default", { weekday: "short" });
-      var monthOfMessage = String(date.getMonth() + 1).padStart(2, "0"); 
+      var monthOfMessage = String(date.getMonth() + 1).padStart(2, "0");
       const shortMonthOfMessage = date.toLocaleString("default", {
         month: "short",
       });
@@ -77,7 +77,7 @@ export default {
 
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, "0");
-      var mm = String(today.getMonth() + 1).padStart(2, "0"); 
+      var mm = String(today.getMonth() + 1).padStart(2, "0");
       var yyyy = today.getFullYear();
       if (ddOfMessage == dd) {
         return "" + hhOfMessage + ":" + mmOfMessage + "";

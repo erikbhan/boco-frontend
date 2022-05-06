@@ -1,4 +1,7 @@
 <template>
+  <!-- Hamburger menu for community header, contains options for adding a new listing,
+       seeing all members in the community, administrating the community if admin and
+       leaving the community -->
   <div
     id="dropdown"
     class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"

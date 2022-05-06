@@ -42,6 +42,19 @@ class ImageService {
         console.error(error.response);
       });
   }
+
+  deleteImage(image) {
+    return axios
+      .delete(image, {
+        headers: tokenHeader(),
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.error(error.response);
+      });
+  }
 }
 
 export default new ImageService();

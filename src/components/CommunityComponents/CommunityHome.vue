@@ -1,8 +1,12 @@
 <template>
+  <!-- The community home page, shows all the items in the community with the possibility of
+       clicking on an item to be redirected to the item info page -->
   <div>
+    <!-- Shows loading component while loading the content for the page -->
     <div v-if="loading" class="flex place-content-center">
       <LoaderSpinner />
     </div>
+    <!-- When finish loading the home page for community is shown -->
     <section v-else class="w-full px-5 py-4 mx-auto rounded-md">
       <CommunityHeader :admin="false" class="mb-5" />
 

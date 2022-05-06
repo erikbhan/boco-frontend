@@ -228,6 +228,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import FormImageDisplay from "@/components/BaseComponents/FormImageDisplay.vue";
 import ListingService from "@/services/listing.service";
 import CommunityService from "@/services/community.service";
 import ImageService from "@/services/image.service";
@@ -246,6 +247,7 @@ export default {
 
   components: {
     ColoredButton,
+    FormImageDisplay,
   },
 
   setup() {
@@ -313,10 +315,10 @@ export default {
         category: "",
         selectedCategory: "",
         selectedCategories: [],
-        images: [],
         userId: -1,
         selectedCommunityId: -1,
         selectedCommunities: [],
+        images: [],
       },
       categories: [
         "Antikviteter og kunst",
@@ -366,7 +368,10 @@ export default {
           communityIDs: this.updatedItem.selectedCommunities,
         };
         await ListingService.putItem(itemInfo);
-        await ImageService.putListingImages(this.images);
+        await ImageService.putListingImages(
+          this.initialItem.listingID,
+          this.updatedItem.images
+        );
         this.$router.push("/itempage/" + this.initialItem.listingID);
       }
     },
@@ -380,7 +385,7 @@ export default {
         const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.item.images.push(API_URL + "images/" + id);
+        that.updatedItem.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -425,18 +430,18 @@ export default {
       }
       return false;
     },
-    removeImage(image) {
+    async removeImage(image) {
       let newImages = [];
-      for (let i in this.item.images) {
-        if (this.item.images[i] != image) {
-          newImages.push(this.item.images[i]);
+      for (let i in this.updatedItem.images) {
+        if (this.updatedItem.images[i] != image) {
+          newImages.push(this.images[i]);
         }
       }
-      this.item.images = newImages;
+      this.updatedItem.images = newImages;
     },
   },
 
-  async beforeMount() {
+  async beforeCreate() {
     let itemID = await this.$router.currentRoute.value.params.id;
     let item = await ListingService.getItem(itemID);
 
@@ -448,7 +453,12 @@ export default {
 
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
+
     this.images = await ListingService.getItemPictures(itemID);
+    let imageURLS = [];
+    for (let i in this.images) {
+      imageURLS.push(this.images[i].picture);
+    }
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {
@@ -469,7 +479,7 @@ export default {
       price: this.initialItem.pricePerDay,
       selectedCategories: initialCategories,
       selectedCategory: selectedCategory,
-      images: this.images,
+      images: imageURLS,
       userId: this.initialItem.userID,
       selectedCommunityId: 0,
       selectedCommunities: initialCommunities,

@@ -42,7 +42,7 @@
   </div>
   <div>
     <notification-modal
-      @click="routeToHome"
+      @click="routeToChat"
       :visible="confirmed"
       :title="'Vellykket'"
       :message="'Forespørsel sendt!'"
@@ -150,8 +150,8 @@ export default {
     cancelRent() {
       this.$router.go(0);
     },
-    routeToHome() {
-      this.$router.push("/");
+    routeToChat() {
+      this.$router.push("/messages?userID=" + this.newRentBox.renterId);
     },
     sendRent: async function () {
       const rent = {

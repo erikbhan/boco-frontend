@@ -39,7 +39,7 @@
         />
       </div>
 
-      <!-- If a user is not logges in and tries to join a community, this message shows -->
+      <!-- If a user is not logged in and tries to join a community, this message shows -->
       <div class="flex justify-center p-2">
         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
           {{ responseToUser }}
