@@ -8,7 +8,7 @@ describe("FormImageDisplay component", () => {
     wrapper = mount(FormImageDisplay, {
       //passing prop to component
       props: {
-          image: "http://localhost:3000/api/images/5"
+        image: "http://localhost:3000/api/images/5",
       },
     });
   });

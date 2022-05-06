@@ -152,10 +152,7 @@ const routes = [
    * Catch all for wrong/non-existing routes
    * Must be last to catch all
    */
-  { path: "/:pathMatch(.*)*",
-    name: "not-found",
-    component: NotFound
-  },
+  { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
 ];
 
 const router = createRouter({
