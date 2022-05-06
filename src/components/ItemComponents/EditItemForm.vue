@@ -213,8 +213,8 @@
 
       <ColoredButton :text="'Velg bilde'" @click="$refs.file.click()" />
 
-      <div v-for="image in images" :key="image.picture" class="m-2">
-        <form-image-display :image="image.picture" @remove="removeImage(image)" />
+      <div v-for="image in updatedItem.images" :key="image" class="m-2">
+        <form-image-display :image="image" @remove="removeImage(image)" />
       </div>
     </div>
 
@@ -318,6 +318,7 @@ export default {
         userId: -1,
         selectedCommunityId: -1,
         selectedCommunities: [],
+        images: [],
       },
       categories: [
         "Antikviteter og kunst",
@@ -367,7 +368,10 @@ export default {
           communityIDs: this.updatedItem.selectedCommunities,
         };
         await ListingService.putItem(itemInfo);
-        await ImageService.putListingImages(this.images);
+        await ImageService.putListingImages(
+          this.initialItem.listingID,
+          this.updatedItem.images
+        );
         this.$router.push("/itempage/" + this.initialItem.listingID);
       }
     },
@@ -381,7 +385,7 @@ export default {
         const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.images.push(API_URL + "images/" + id);
+        that.updatedItem.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -428,12 +432,12 @@ export default {
     },
     async removeImage(image) {
       let newImages = [];
-      for (let i in this.images) {
-        if (this.images[i] != image) {
+      for (let i in this.updatedItem.images) {
+        if (this.updatedItem.images[i] != image) {
           newImages.push(this.images[i]);
         }
       }
-      this.images = newImages;
+      this.updatedItem.images = newImages;
     },
   },
 
@@ -449,7 +453,12 @@ export default {
 
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
+
     this.images = await ListingService.getItemPictures(itemID);
+    let imageURLS = [];
+    for (let i in this.images) {
+      imageURLS.push(this.images[i].picture);
+    }
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {
@@ -470,7 +479,7 @@ export default {
       price: this.initialItem.pricePerDay,
       selectedCategories: initialCategories,
       selectedCategory: selectedCategory,
-      images: this.images,
+      images: imageURLS,
       userId: this.initialItem.userID,
       selectedCommunityId: 0,
       selectedCommunities: initialCommunities,
