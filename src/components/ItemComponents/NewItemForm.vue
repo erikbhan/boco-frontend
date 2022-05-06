@@ -1,4 +1,5 @@
 <template>
+  <!-- Form for adding a new item -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
@@ -58,7 +59,7 @@
         </option>
       </select>
 
-      <!-- error message for select box -->
+      <!-- error message for select category -->
       <div
         class="text-error-medium"
         v-for="(error, index) of v$.item.select.$errors"
@@ -70,7 +71,7 @@
       </div>
     </div>
 
-    <!-- Grupper -->
+    <!-- Community -->
     <div class="mb-6">
       <label class="block text-sm font-medium text-gray-900 dark:text-gray-400"
         >Grupper</label
@@ -95,9 +96,9 @@
         </ul>
       </div>
       <!-- Error message for community -->
-      <label class="text-error-medium text-sm block">{{
-        groupErrorMessage
-      }}</label>
+      <label class="text-error-medium text-sm block">
+        {{ groupErrorMessage }}
+      </label>
     </div>
 
     <!-- price -->
@@ -105,7 +106,7 @@
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         id="priceLabel"
-        >Pris</label
+        >Pris per dag</label
       >
       <input
         type="number"
@@ -198,8 +199,10 @@
         accept="image/png"
       />
 
+      <!-- Opens file explorer -->
       <colored-button :text="'Velg bilde'" @click="$refs.file.click()" />
 
+      <!-- Shows chosen images -->
       <div v-for="image in item.images" :key="image" class="m-2">
         <form-image-display :image="image" @remove="removeImage(image)" />
       </div>
@@ -307,7 +310,6 @@ export default {
         selectedGroupId: -1,
         selectedGroups: [],
       },
-      //Kategorier skal legges inn ved api/hente fra db, her må det endres etterhvert
       categories: [
         "Antikviteter og kunst",
         "Dyr og utstyr",
@@ -326,6 +328,12 @@ export default {
     };
   },
   methods: {
+
+    /**
+     * Checks validation. Checks also if any community is selected.
+     * If no community is selected or any other field isn't valid
+     * false is returned, otherwise true is returned.
+     */
     checkValidation: function () {
       this.v$.item.$touch();
       if (this.v$.item.$invalid || this.item.selectedGroups.length === 0) {
@@ -337,6 +345,11 @@ export default {
       return true;
     },
 
+    /**
+     * When save is clicked, the validation gets checked. If validated,
+     * the user is parsed from the token to get the userId. Then the item
+     * and the pictures are posted to db.
+     */
     async saveClicked() {
       if (this.checkValidation()) {
         this.checkUser();
@@ -358,11 +371,20 @@ export default {
       }
     },
 
+    /**
+     * Parses user from token and uses it when posting item in saveClciked method
+     */
     checkUser: async function () {
       let user = parseUserFromToken(this.$store.state.user.token);
       this.item.userId = parseInt(user.accountId);
     },
 
+    /**
+     * Adds image when an image is selected from file explorer.
+     * Posts it to the db and gets the id of the image posted in return.
+     * Adds that id to an image URL and saves it in an array.
+     * That array containing image URLs gets posted to the db when save is clicked.
+     */
     addImage: async function (event) {
       var that = this;
       let image = event.target.files[0];
@@ -377,6 +399,11 @@ export default {
       fileReader.readAsArrayBuffer(image);
     },
 
+    /**
+     * Runs every time a chech box under 'grupper' is changed(checked/unchecked).
+     * Finds out if it was checked or unchecked and adds/removes the community from
+     * the array based on that.
+     */
     onChangeGroup: function (e) {
       this.selectedGroupId = e.target.value;
       let alreadyInGroupList = false;
@@ -396,6 +423,7 @@ export default {
         this.groupErrorMessage = "";
       }
     },
+
 
     async removeImage(image) {
       let newImages = [];

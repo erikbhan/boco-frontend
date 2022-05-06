@@ -18,21 +18,6 @@ export function doLogin(loginRequest) {
     });
 }
 
-export function registerUser(registerInfo) {
-  return axios
-    .post(API_URL + "register", {
-      email: registerInfo.email,
-      firstName: registerInfo.firstName,
-      lastName: registerInfo.lastname,
-      password: registerInfo.password,
-      address: registerInfo.address,
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((err) => console.error(err));
-}
-
 export async function getUser(userid) {
   return axios
     .get(API_URL + "users/" + userid + "/profile", {

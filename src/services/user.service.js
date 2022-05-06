@@ -124,5 +124,19 @@ class UserService {
       })
       .catch((err) => console.log(err));
   }
+
+  async registerUser(userInfo) {
+    return await axios
+      .post(API_URL + "register", userInfo)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        if (err.response) {
+          return err.response.data;
+        }
+        console.error(err);
+      });
+  }
 }
 export default new UserService();

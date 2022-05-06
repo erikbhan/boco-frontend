@@ -25,13 +25,12 @@
             v-for="(error, index) of v$.email.$errors"
             :key="index"
           >
-            <div
-              class="text-error-medium text-sm"
-              v-show="showError"
-              id="emailErrorId"
-            >
+            <div class="text-error-medium text-sm" v-show="showError">
               {{ error.$message }}
             </div>
+          </div>
+          <div class="text-error-medium text-sm" v-show="errorMessage">
+            {{ errorMessage }}
           </div>
         </div>
 
@@ -166,7 +165,7 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { doLogin, registerUser } from "@/utils/apiutil";
+import { doLogin } from "@/utils/apiutil";
 import {
   required,
   email,
@@ -246,10 +245,7 @@ export default {
 
       //If a user is created succsessfully, try to login
       //If we get this far, we will be pushed anyway so there is no point updating "loading"
-      if (!userCreated) {
-        this.errorMessage = "Could not create user.";
-        return;
-      }
+      if (!userCreated) return;
 
       const loginRequest = {
         email: this.email,
@@ -270,17 +266,16 @@ export default {
       await this.$router.push("/");
     },
     async sendRegisterRequest() {
-      const registerInfo = {
+      const userInfo = {
         email: this.email,
         firstName: this.firstName,
-        lastname: this.lastName,
+        lastName: this.lastName,
         password: this.password,
         address: this.address,
       };
-
-      const response = await registerUser(registerInfo);
-
-      return response.status === 200;
+      const res = await UserService.registerUser(userInfo);
+      this.errorMessage = res;
+      return res.status === 200;
     },
   },
 };
