@@ -146,7 +146,7 @@ export default {
       member: false,
       community: {},
       loading: true,
-      openDialog: false,
+      dialogOpen: false,
     };
   },
   props: {
