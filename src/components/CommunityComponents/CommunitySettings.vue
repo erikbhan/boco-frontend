@@ -19,8 +19,12 @@ export default {
     IconButton,
   },
   methods: {
-    deleteCommunity() {
-      CommunityAdminService.deleteCommunity(this.$route.params.communityID);
+    async deleteCommunity() {
+      let response = await CommunityAdminService.deleteCommunity(
+        this.$route.params.communityID
+      );
+      if (response.status === 200)
+        this.$router.push({ name: "home", replace: true });
     },
   },
 };
