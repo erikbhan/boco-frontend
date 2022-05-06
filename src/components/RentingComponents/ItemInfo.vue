@@ -227,8 +227,7 @@ export default {
       );
       if (isNaN(maybeRating)) {
         this.rating = NaN;
-      }
-      else {
+      } else {
         this.rating = maybeRating;
         if (this.rating > 5) this.rating = 5;
         else if (this.rating < 1) this.rating = 1;
