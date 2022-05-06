@@ -1,12 +1,17 @@
 <template>
+  <!-- User profile with the logged in user's info and a dropdown menu-->
   <div
     class="w-full max-w-xl m-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
+    <!-- A warning when deleting a user account to ask the user
+         if it is sure -->
     <DeleteUserModal
       :visible="show"
       @close="this.show = false"
       @deleteUser="deleteUser"
     />
+
+    <!-- dropdown icon button to toggle(open/close) the dropdown menu -->
     <div v-show="isCurrentUser" class="float-right px-4 pt-4">
       <button
         id="dropdownDefault"
@@ -27,6 +32,8 @@
         </svg>
       </button>
 
+      <!-- Dropdown menu containing options for seeing user's items, user's communities,
+           renting history, logging out, changing password and deleting account -->
       <div
         id="dropdown"
         v-show="dropdown"
@@ -84,6 +91,7 @@
       </div>
     </div>
 
+    <!-- User info (name, rating and profile picture) -->
     <div class="flex flex-col items-center pb-10 mt-16 z-5">
       <img
         class="mb-3 w-24 h-24 rounded-full shadow-lg"
@@ -153,6 +161,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Gets the user and it's ratings
+     */
     async getUser() {
       this.currentUser = await parseCurrentUser();
       this.id = await this.$router.currentRoute.value.params.id;
@@ -174,6 +185,10 @@ export default {
         this.renterRating = ratingAsRenter;
       }
     },
+
+    /**
+     * Logs out the user and sets token in state to be null.
+     */
     logout() {
       this.$store.commit("logout");
       this.$router.push("/");

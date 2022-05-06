@@ -1,4 +1,5 @@
 <template>
+  <!-- A view for showing all the communities a user is part of -->
   <div>
     <div v-if="loading" class="flex place-content-center p-8">
       <LoaderSpinner />

@@ -1,4 +1,7 @@
 <template>
+  <!-- A card for displaying a user in a list.
+       Displays a user's profile picture, name, rating and some
+       buttons based on where the list is being shown. -->
   <div
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
@@ -96,6 +99,10 @@ export default {
     buttons: Array,
   },
   computed: {
+    /**
+     * returns the user's profile picture. If the user does not have any
+     * profile picture the default profile picture is returned.
+     */
     getProfilePicture() {
       if (this.user.picture !== "" && this.user.picture != null) {
         return this.user.picture;
@@ -104,18 +111,25 @@ export default {
     },
   },
   methods: {
+    /**
+     * If chat button clicked, the user's gets redirected to chat page.
+     */
     openChatWithUser() {
       this.$router.push({
         name: "messages",
         query: { userID: this.user.userId },
       });
     },
+
+    /**
+     * Admin related methods for kicking a user from a community,
+     * accepting and rejecting a user's join community request
+     */
     kickUserFromCommunity() {
       CommunityAdminService.removeUserFromCommunity(
         this.communityID,
         this.user.userId
       );
-      //Find a better way to do this
       window.location.reload();
     },
     acceptMemberRequest() {
@@ -131,6 +145,9 @@ export default {
       );
     },
   },
+  /**
+   * Gets the user's rating before mounting the page
+   */
   async beforeMount() {
     const maybeRating = await UserService.getUserRatingAverage(
       this.user.userId
