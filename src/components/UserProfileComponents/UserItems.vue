@@ -61,15 +61,16 @@
                   @click="
                     this.$router.push('/item/' + item.listingID + '/edit')
                   "
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="editButton block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Rediger gjenstand
                 </button>
               </li>
               <li>
                 <button
+                
                   @click="goToDeleteItem(item.listingID)"
-                  class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="deleteButton block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Slett gjenstand
                 </button>
@@ -96,7 +97,7 @@
               id="confirmDeleteButton"
               @click="deleteItem"
               :text="'Slett'"
-              class="m-2 bg-error-medium"
+              class="confirmDelete m-2 bg-error-medium"
             >
             </ColoredButton>
           </div>
@@ -155,7 +156,7 @@
         >
           <div class="flex justify-center p-2">
             <ColoredButton
-              id="#cancelDeleteButton"
+              id="cancelDeleteButton"
               :text="'Avbryt'"
               @click="cancelDelete"
               class="bg-gray-500 m-2"
