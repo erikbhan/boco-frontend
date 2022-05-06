@@ -381,7 +381,7 @@ export default {
         const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.updateItem.images.push(API_URL + "images/" + id);
+        that.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -450,7 +450,6 @@ export default {
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
     this.images = await ListingService.getItemPictures(itemID);
-    console.log(this.images);
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {
