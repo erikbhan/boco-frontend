@@ -7,8 +7,12 @@ jest.mock("@/utils/token-utils", () => {
     tokenHeader: () => {
       return {};
     },
+    parseCurrentUser: () => {
+      return { accountId: 1 };
+    },
   };
 });
+
 
 jest.mock("axios");
 
@@ -29,7 +33,7 @@ describe("RentalMessage.vue", () => {
             description: "Test",
             pricePerDay: 100,
           },
-          renterId: 1,
+          renterId: 0,
           message: "Hello",
           deleted: false,
         },
