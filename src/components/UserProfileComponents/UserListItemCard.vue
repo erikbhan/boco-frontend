@@ -131,7 +131,7 @@ export default {
       );
     },
   },
-  async created() {
+  async beforeMount() {
     const maybeRating = await UserService.getUserRatingAverage(
       this.user.userId
     );
