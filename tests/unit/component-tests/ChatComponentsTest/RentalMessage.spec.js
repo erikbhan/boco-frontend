@@ -29,7 +29,7 @@ describe("RentalMessage.vue", () => {
   let wrapper;
   const mockRouter = {
     go: jest.fn(),
-  }
+  };
   beforeEach(() => {
     wrapper = shallowMount(RentalMessage, {
       propsData: {
@@ -54,7 +54,7 @@ describe("RentalMessage.vue", () => {
         mocks: {
           $router: mockRouter,
         },
-      }
+      },
     });
   });
 

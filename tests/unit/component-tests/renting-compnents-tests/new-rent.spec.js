@@ -7,8 +7,8 @@ let mockRouter;
 
 describe("Confirm and send a rent request", () => {
   mockRouter = {
-    go: jest.fn()
-  }
+    go: jest.fn(),
+  };
 
   let wrapper;
   beforeEach(() => {
@@ -24,11 +24,11 @@ describe("Confirm and send a rent request", () => {
           isAccepted: false,
         },
       },
-      global:{
-        mocks:{
-          $router: mockRouter
-        }
-      }
+      global: {
+        mocks: {
+          $router: mockRouter,
+        },
+      },
     });
   });
 
@@ -51,11 +51,11 @@ describe("Confirm and send a rent request", () => {
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
-  it("Checks that page is reloaded when cancelButton is press", async () =>{  
+  it("Checks that page is reloaded when cancelButton is press", async () => {
     const button = wrapper.find("#cancelButton");
     button.trigger("click");
     await wrapper.vm.$nextTick();
     expect(mockRouter.go).toHaveBeenCalledTimes(1);
     expect(mockRouter.go).toHaveBeenCalledWith(0);
-  })
+  });
 });

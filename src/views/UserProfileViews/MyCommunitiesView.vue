@@ -25,7 +25,7 @@
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import CommunityService from "@/services/community.service";
 import { UserAddIcon } from "@heroicons/vue/outline";
-import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner"
+import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner";
 
 export default {
   data() {

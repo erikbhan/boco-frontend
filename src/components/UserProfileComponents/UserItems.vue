@@ -42,15 +42,15 @@
           :key="item"
         >
           <div class="w-full">
-          <ItemCard
-            id="ItemCardPage"
-            class="ItemCard w-full h-full"
-            :item="item"
-          />
-        </div>
+            <ItemCard
+              id="ItemCardPage"
+              class="ItemCard w-full h-full"
+              :item="item"
+            />
+          </div>
 
           <!-- Dropdown menu with options for editing an item and deleting an item -->
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
           <div
             v-show="item.toggle"
@@ -124,7 +124,7 @@
           </div>
 
           <!-- Dropdown menu with options for editing an item and deleting an item -->
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
           <div
             v-show="item.toggle"
             class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"

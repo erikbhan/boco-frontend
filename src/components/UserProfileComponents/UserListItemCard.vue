@@ -65,7 +65,6 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
-import UserService from "@/services/user.service";
 import CommunityAdminService from "@/services/community-admin.service";
 
 import {
@@ -79,7 +78,6 @@ export default {
   name: "UserListItem",
   data() {
     return {
-      rating: -1.0,
       communityID: -1,
       profileImage: {
         src: require("../../assets/defaultUserProfileImage.jpg"),
@@ -97,6 +95,7 @@ export default {
   props: {
     user: Object,
     buttons: Array,
+    rating: Number,
   },
   computed: {
     /**
@@ -145,17 +144,7 @@ export default {
       );
     },
   },
-  /**
-   * Gets the user's rating before mounting the page
-   */
-  async beforeMount() {
-    const maybeRating = await UserService.getUserRatingAverage(
-      this.user.userId
-    );
-    if (isNaN(maybeRating)) this.rating = NaN;
-    else this.rating = maybeRating;
-    if (this.rating > 5) this.rating = 5;
-    if (this.rating < 1) this.rating = 1;
+  async beforeMounted() {
     this.communityID = this.$route.params.communityID;
   },
 };

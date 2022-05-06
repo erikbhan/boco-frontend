@@ -103,7 +103,10 @@
       </h5>
       <div>
         <rating-component :rating="renterRating" :ratingType="'Leietaker'" />
-        <rating-component :rating="ownerRating" :ratingType="'Utleier'" />
+        <RatingComponent
+          :rating="ownerRating"
+          :ratingType="'Utleier'"
+        ></RatingComponent>
       </div>
 
       <div
@@ -172,11 +175,13 @@ export default {
         this.isCurrentUser = true;
         this.user = this.currentUser;
         this.user = await UserService.getUserFromId(this.user.accountId);
-        return;
+      } else {
+        this.user = await getUser(this.id);
       }
-      this.user = await getUser(this.id);
-      let ratingAsOwner = await UserService.getUserRatingAsOwner(this.id);
-      let ratingAsRenter = await UserService.getUserRatingAsRenter(this.id);
+      let ratingAsOwner = await UserService.getUserRatingAverageOwner(this.id);
+      let ratingAsRenter = await UserService.getUserRatingAverageRenter(
+        this.id
+      );
 
       if (ratingAsOwner >= 0 && ratingAsOwner <= 5) {
         this.ownerRating = ratingAsOwner;
@@ -201,8 +206,8 @@ export default {
       this.logout();
     },
   },
-  beforeMount() {
-    this.getUser();
+  async beforeMount() {
+    await this.getUser();
   },
 };
 </script>

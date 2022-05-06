@@ -43,7 +43,7 @@ export default {
   methods: {
     //Fills the rating stars
     getFill(i) {
-      if (i <= this.rating) {
+      if (i <= Math.round(this.rating)) {
         return "w-5 h-5 text-warn-medium";
       }
       return "w-5 h-5 text-gray-300 dark:text-gray-500";

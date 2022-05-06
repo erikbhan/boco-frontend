@@ -24,10 +24,8 @@ function authGuardRoute(to, from, next) {
 function adminGuardRoute(to, from, next) {
   if (store.state.user.adminList.includes(parseInt(from.params.communityID)))
     next(); // allow to enter route
-  else
-    next("/"); // go to the home page
+  else next("/"); // go to the home page
 }
-
 
 const routes = [
   {
