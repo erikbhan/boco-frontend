@@ -3,6 +3,7 @@
        Displays a user's profile picture, name, rating and some
        buttons based on where the list is being shown. -->
   <div
+    v-if="userID != user.userId"
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
     <!-- User image -->
@@ -67,6 +68,7 @@ import RatingComponent from "@/components/UserProfileComponents/RatingComponents
 import IconButton from "@/components/BaseComponents/IconButton.vue";
 import UserService from "@/services/user.service";
 import CommunityAdminService from "@/services/community-admin.service";
+import { parseCurrentUser } from "@/utils/token-utils";
 
 import {
   ChatIcon,
@@ -99,6 +101,9 @@ export default {
     buttons: Array,
   },
   computed: {
+    userID() {
+      return parseCurrentUser().accountId;
+    },
     /**
      * returns the user's profile picture. If the user does not have any
      * profile picture the default profile picture is returned.
