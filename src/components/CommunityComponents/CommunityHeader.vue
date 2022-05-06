@@ -1,5 +1,10 @@
 <template>
+  <!-- Community header contains the community's name and address, a join button if
+       the user is not in the community and community hamburger menu if the user is
+       in the community -->
   <div>
+    <!-- A warning asking user is it is sure it wants to leave the community when leave community
+         from hamburger menu is clicked -->
     <CustomFooterModal
       :title="'Er du sikker på at du vil forlate felleskapet?'"
       :message="'Dersom felleskapet er låst er du nødt til å spørre om å bli med på nytt.'"
@@ -20,9 +25,13 @@
         />
       </div>
     </CustomFooterModal>
+
+    <!-- The load spinner will show while community and it's members are being loaded from the db -->
     <div v-if="loading" class="flex place-content-center mx-4">
       <LoaderSpinner />
     </div>
+
+    <!-- After loaded the community header shows -->
     <div v-else class="flex items-center justify-between mx-4">
       <router-link
         :to="'/community/' + community.communityId"
@@ -97,7 +106,6 @@
             :community-i-d="community.communityId"
             :admin="admin"
           />
-          <!-- class="absolute" -->
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 <template>
+  <!-- A list conatining all the communities -->
   <p v-if="!communities.length" class="flex place-content-center text-gray-400">
     Ingen grupper
   </p>
