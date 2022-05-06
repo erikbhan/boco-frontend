@@ -3,6 +3,9 @@ import { tokenHeader } from "@/utils/token-utils";
 
 const API_URL = process.env.VUE_APP_BASEURL;
 
+/**
+ * Service class acting as a middle layer between our components and the API
+ */
 class ChatService {
   /**
    * Service method to get the logged in user's conversations.

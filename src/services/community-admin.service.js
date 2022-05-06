@@ -26,7 +26,7 @@ class CommunityAdminService {
    * Accepts a member request.
    * @param {Number} communityID the community to accept the request into.
    * @param {Number} userID the user id of the user being accepted into the community.
-   * @returns 
+   * @returns just the promise.
    */
   async acceptUserIntoCommunity(communityID, userID) {
     return await axios.post(
@@ -36,7 +36,12 @@ class CommunityAdminService {
     );
   }
 
-  //TODO
+  /**
+   * Reject a user's request to join a community.
+   * @param {Number} communityID 
+   * @param {*} userID 
+   * @returns 
+   */
   async rejectUserFromCommunity(communityID, userID) {
     return await axios.patch(
       API_URL + "communitites/" + communityID + "/requests/reject",
