@@ -1,4 +1,5 @@
 <template>
+  <!-- A view for showing all the communities a user is part of -->
   <div>
     <div v-if="loading" class="flex place-content-center p-8">
       <LoaderSpinner />
@@ -24,6 +25,7 @@
 import CommunityList from "@/components/CommunityComponents/CommunityList.vue";
 import CommunityService from "@/services/community.service";
 import { UserAddIcon } from "@heroicons/vue/outline";
+import LoaderSpinner from "@/components/BaseComponents/LoaderSpinner";
 
 export default {
   data() {
@@ -35,6 +37,7 @@ export default {
   components: {
     CommunityList,
     UserAddIcon,
+    LoaderSpinner,
   },
   async beforeCreate() {
     this.loading = true;
