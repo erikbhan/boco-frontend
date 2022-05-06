@@ -4,7 +4,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
 <div
   data-v-app=""
 >
-
+  
   <!-- A form for creating a new community -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
@@ -13,7 +13,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
     <div
       class="text-xl md:text-2xl font-medium text-center text-gray-600 dark:text-gray-200 mt-4 mb-10"
     >
-       Opprett ny gruppe
+       Opprett ny gruppe 
     </div>
     <!-- Radio boxes -->
     <div
@@ -40,7 +40,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
           for="flexRadioOpen"
           id="radioBoxOpenLabel"
         >
-           Åpen
+           Åpen 
         </label>
       </div>
       <div
@@ -58,7 +58,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
           for="flexRadioPrivate"
           id="radioBoxPrivateLabel"
         >
-           Privat
+           Privat 
         </label>
       </div>
     </div>
@@ -79,8 +79,8 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
         type="text"
       />
       <!-- error message for title-->
-
-
+      
+      
     </div>
     <!-- Place -->
     <div
@@ -98,8 +98,8 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
         type="text"
       />
       <!-- error message for place-->
-
-
+      
+      
     </div>
     <!-- Description -->
     <div
@@ -118,8 +118,8 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
         rows="4"
       />
       <!-- error message for description -->
-
-
+      
+      
     </div>
     <!-- Images -->
     <div
@@ -129,7 +129,7 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         id="imageLabel"
       >
-         Bilde (bildet må være .png)
+         Bilde (bildet må være .png) 
       </label>
       <input
         accept="image/png"
@@ -145,12 +145,12 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
         <button
           class="text-black bg-gray-200 hover:bg-grey-800 focus:ring-4 focus:outline-none focus:ring-grey-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-grey-600 dark:hover:bg-grey-700 dark:focus:ring-grey-800 disabled:opacity-50"
         >
-           Velg bilde
+           Velg bilde 
         </button>
       </div>
       <!-- Div box for showing all chosen images -->
-
-
+      
+      
     </div>
     <!-- Save item button -->
     <div
@@ -163,6 +163,6 @@ exports[`CreateNewGroup elements rendering renders correctly 1`] = `
       />
     </div>
   </div>
-
+  
 </div>
 `;
