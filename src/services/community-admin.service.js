@@ -26,7 +26,7 @@ class CommunityAdminService {
    * Accepts a member request.
    * @param {Number} communityID the community to accept the request into.
    * @param {Number} userID the user id of the user being accepted into the community.
-   * @returns just the promise.
+   * @returns the response.
    */
   async acceptUserIntoCommunity(communityID, userID) {
     return await axios.post(
@@ -38,9 +38,9 @@ class CommunityAdminService {
 
   /**
    * Reject a user's request to join a community.
-   * @param {Number} communityID 
-   * @param {*} userID 
-   * @returns 
+   * @param {Number} communityID id of the community to reject the request from.
+   * @param {Number} userID id of the user being rejected.
+   * @returns the response.
    */
   async rejectUserFromCommunity(communityID, userID) {
     return await axios.patch(
@@ -52,9 +52,9 @@ class CommunityAdminService {
 
   /**
    * Method that kicks a user from a community
-   * @param {int} communityID the community to remove the user from
-   * @param {int} userID the user to remove
-   * @returns TODO
+   * @param {Number} communityID the community to remove the user from
+   * @param {Number} userID the user to remove
+   * @returns the response.
    */
   async removeUserFromCommunity(communityID, userID) {
     return await axios.patch(
@@ -71,7 +71,7 @@ class CommunityAdminService {
 
   /**
    * Method to delete a community
-   * @param {int} communityID id of the community to delete.
+   * @param {Number} communityID id of the community to delete.
    * @returns TODO
    */
   async deleteCommunity(communityID) {
