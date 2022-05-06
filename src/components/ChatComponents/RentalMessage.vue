@@ -60,12 +60,15 @@ export default {
   },
   data() {
     return {
-      image: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
+      image: null,
     }
   },
   computed: {
     userID() {
       return parseCurrentUser().accountId;
+    },
+    img() {
+      return "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80"; //this.rent.listing.imageUrl;
     },
     from() {
       // take ms and turn into date and return date
@@ -105,13 +108,14 @@ export default {
       );
     },
     async getImage() {
-      console.log(this.rent);
       let images = await getItemPictures(this.rent.listingId);
-      console.log(images);
 
-       if (images.length > 0) {
-         this.image = images[0].picture;
-       }
+      if (images.length > 0) {
+        this.image = images[0].picture;
+      } else {
+        this.image = "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80";
+
+      }
     },
   },
   async beforeMount() {
