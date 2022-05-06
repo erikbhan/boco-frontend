@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-5 px-5">
+  <div class="mt-5 px-3">
     <div
-      class="w-full h-full rounded bg-gray-200 overflow-hidden display:inline-block correct-size"
+      class="w-full h-full rounded bg-gray-100 ring-1 ring-gray-200 overflow-hidden display:inline-block correct-size"
     >
       <div class="relative h-0 pb-[66.7%]">
         <img
-          class="w-full h-full absolute inset-0"
+          class="w-full h-full object-contain absolute"
           :src="item.img || require('../../assets/default-product.png')"
           alt="Item image"
         />
