@@ -9,7 +9,7 @@
 </template>
 
 <script>
-// import CommunityAdminService from "@/services/community-admin.service";
+import CommunityAdminService from "@/services/community-admin.service";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
 
 //TODO: OPEN CONFIRMATION DIALOG WHEN DELETING
@@ -20,8 +20,7 @@ export default {
   },
   methods: {
     deleteCommunity() {
-      console.log("DELETED");
-      // CommunityAdminService.deleteCommunity(this.$route.params.communityID);
+      CommunityAdminService.deleteCommunity(this.$route.params.communityID);
     },
   },
 };
