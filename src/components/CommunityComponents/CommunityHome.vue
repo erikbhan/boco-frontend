@@ -55,14 +55,14 @@
 
             <!-- Shows items based on search field input -->
             <div
-              class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-              v-if="showSearchedItems"
+                class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+                v-if="showSearchedItems"
             >
               <ItemCard
-                v-for="item in searchedItems"
-                :key="item"
-                :item="item"
-                @click="goToItemInfoPage(item.listingID)"
+                  v-for="item in searchedItems"
+                  :key="item"
+                  :item="item"
+                  @click="goToItemInfoPage(item.listingID)"
               />
             </div>
           </div>

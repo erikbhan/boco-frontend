@@ -110,18 +110,23 @@
       </div>
 
       <!-- Shows items based on search field input -->
-      <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
-        v-if="showSearchedItems"
-      >
-        <div class="cardContainer" v-for="item in searchedItems" :key="item">
-          <div class="w-full">
-            <ItemCard
-              id="ItemCardSearch"
-              class="ItemCard w-full h-full"
-              :item="item"
-            />
-          </div>
+          <div
+              class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
+              v-if="showSearchedItems"
+          >
+            <div
+                class="cardContainer"
+                id="item"
+                v-for="item in searchedItems"
+                :key="item"
+            >
+              <div class="w-full">
+                <ItemCard
+                    id="ItemCardSearch"
+                    class="ItemCard w-full h-full"
+                    :item="item"
+                />
+              </div>
 
           <!-- Dropdown menu with options for editing an item and deleting an item -->
           <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
