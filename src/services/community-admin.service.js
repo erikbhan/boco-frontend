@@ -72,7 +72,7 @@ class CommunityAdminService {
   /**
    * Method to delete a community
    * @param {Number} communityID id of the community to delete.
-   * @returns TODO
+   * @returns the response.
    */
   async deleteCommunity(communityID) {
     return await axios.delete(
