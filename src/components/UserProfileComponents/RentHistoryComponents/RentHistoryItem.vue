@@ -97,7 +97,10 @@ export default {
     getDateString(milliseconds) {
       let today = new Date();
       let date = new Date(milliseconds);
-      let dateString = date.getDate() + "." + (date.getMonth() + 1);
+      const shortMonthOfRentHistoryItem = date.toLocaleString("default", {
+        month: "short",
+      });
+      let dateString = date.getDate() + ". " + shortMonthOfRentHistoryItem;
 
       if (date.getFullYear() != today.getFullYear()) {
         dateString += "." + date.getFullYear();

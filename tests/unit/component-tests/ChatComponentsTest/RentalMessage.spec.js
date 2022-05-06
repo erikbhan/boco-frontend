@@ -13,6 +13,15 @@ jest.mock("@/utils/token-utils", () => {
   };
 });
 
+jest.mock("@/utils/apiutil", () => {
+  return {
+    getItemPictures: () => {
+      return new Promise((resolve) => {
+        resolve([]);
+      });
+    },
+  };
+});
 
 jest.mock("axios");
 
