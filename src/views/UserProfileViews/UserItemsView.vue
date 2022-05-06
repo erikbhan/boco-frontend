@@ -1,4 +1,5 @@
 <template>
+  <!-- A view for showing all the items the user has posted/added -->
   <user-items> </user-items>
 </template>
 
@@ -11,5 +12,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

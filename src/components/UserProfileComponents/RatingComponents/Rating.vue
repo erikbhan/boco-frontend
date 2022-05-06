@@ -1,4 +1,5 @@
 <template>
+  <!-- Shows rating, if no rating found, tells the user that no rating is registered -->
   <ul v-if="isNaN(rating)" class="flex justify-center">
     <li>
       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -29,12 +30,6 @@
         ></path>
       </svg>
     </li>
-    <li>
-      <!-- Trenger vi å vise i tekst når vi har stjerner? -->
-      <!--       <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-        {{ rating }} out of 5
-      </p> -->
-    </li>
   </ul>
 </template>
 
@@ -46,8 +41,9 @@ export default {
     ratingType: String,
   },
   methods: {
+    //Fills the rating stars
     getFill(i) {
-      if (i <= this.rating) {
+      if (i <= Math.round(this.rating)) {
         return "w-5 h-5 text-warn-medium";
       }
       return "w-5 h-5 text-gray-300 dark:text-gray-500";

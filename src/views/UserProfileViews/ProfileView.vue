@@ -1,4 +1,5 @@
 <template>
+  <!-- A view for the user profile card -->
   <div>
     <LargeProfileCard :isCurrentUser="true" class="md:mt-8" />
   </div>

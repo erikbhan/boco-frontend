@@ -13,6 +13,10 @@ describe("IconButtonComponent", () => {
     });
   });
 
+  it("renders correctly", () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   it("is instantiated", () => {
     expect(wrapper.exists()).toBeTruthy();
   });

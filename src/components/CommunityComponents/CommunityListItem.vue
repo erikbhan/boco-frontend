@@ -39,7 +39,7 @@
         />
       </div>
 
-      <!-- If a user is not logges in and tries to join a community, this message shows -->
+      <!-- If a user is not logged in and tries to join a community, this message shows -->
       <div class="flex justify-center p-2">
         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
           {{ responseToUser }}
@@ -54,10 +54,7 @@
         v-if="!community.picture"
         class="h-10 w-10 flex flex-col justify-center items-center ml-2 mr-2"
       >
-        <UserGroupIcon
-          alt="Felleskapets bilde"
-          class="h-10 w-10 text-primary-dark"
-        />
+        <UserGroupIcon alt="Bilde" class="h-10 w-10 text-primary-dark" />
       </div>
       <div
         v-else
@@ -65,8 +62,8 @@
       >
         <img
           :src="community.picture"
-          alt="Fellsekaps bilde"
-          class="rounded-md"
+          alt="Bilde"
+          class="rounded-md h-14 w-14 object-contain"
         />
       </div>
       <div class="flex-1 pl-1 overflow-hidden">

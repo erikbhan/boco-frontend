@@ -1,4 +1,5 @@
 <template>
+  <!-- A view for showing rating and rent history -->
   <rating-modal
     :visible="modal.show"
     :name="modal.name"
@@ -57,9 +58,6 @@ export default {
       fullHistory.filter((item) => item.isAccepted);
       fullHistory.sort(compareHistoryItems);
       return fullHistory;
-    },
-    hasNoHistory() {
-      return this.renterHistory.length == 0 && this.ownerHistory.length == 0;
     },
   },
   methods: {

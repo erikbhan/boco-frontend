@@ -1,6 +1,6 @@
 <template>
   <div class="message-container">
-    <div class="message">
+    <div class="message bg-gray-100 ring-1 ring-gray-300">
       <div class="info">
         <div class="text">
           <h2 class="header">Ny utleie forespørsel</h2>
@@ -8,7 +8,7 @@
           <p>Pris: {{ price }}kr</p>
         </div>
         <div class="img-container">
-          <img class="img" :src="img" alt="Produkt Bilde" />
+          <img class="img" :src="image" alt="Produkt Bilde" />
         </div>
       </div>
       <div>
@@ -19,11 +19,21 @@
           </p>
         </div>
       </div>
-      <div class="buttons" v-if="(!rent.isAccepted && !rent.deleted && this.rent.renterId != this.userID)">
+      <div
+        class="buttons"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId != this.userID
+        "
+      >
         <button class="button green" @click="accept">Godta</button>
         <button class="button red" @click="reject">Avslå</button>
       </div>
-      <div class="waiting" v-if="!rent.isAccepted && !rent.deleted && this.rent.renterId == this.userID">
+      <div
+        class="waiting"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId == this.userID
+        "
+      >
         Waiting for owner to accept
       </div>
       <div class="" v-if="rent.isAccepted">
@@ -38,8 +48,8 @@
 
 <script>
 import axios from "axios";
-import { tokenHeader } from "@/utils/token-utils";
-import { parseCurrentUser } from "@/utils/token-utils";
+import { tokenHeader, parseCurrentUser } from "@/utils/token-utils";
+import { getItemPictures } from "@/utils/apiutil";
 
 export default {
   props: {
@@ -47,6 +57,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      image: null,
+    };
   },
   computed: {
     userID() {
@@ -75,9 +90,8 @@ export default {
       return this.rent.message || "Ingen Melding";
     },
     side() {
-      return this.rent.renterId == this.userID
-        ? "flex-end" : "flex-start";
-    }
+      return this.rent.renterId == this.userID ? "flex-end" : "flex-start";
+    },
   },
   methods: {
     async accept() {
@@ -86,13 +100,28 @@ export default {
         null,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
     async reject() {
       await axios.delete(
         process.env.VUE_APP_BASEURL + `renting/${this.rent.rentId}/delete`,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
+    async getImage() {
+      let images = await getItemPictures(this.rent.listingId);
+
+      if (images.length > 0) {
+        this.image = images[0].picture;
+      } else {
+        this.image =
+          "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80";
+      }
+    },
+  },
+  async beforeMount() {
+    await this.getImage();
   },
 };
 </script>
@@ -108,7 +137,6 @@ export default {
   display: block;
   flex-direction: column;
   width: 100%;
-  background: #d1d5db;
   border-radius: 10px;
   padding: 10px;
   max-width: 50%;

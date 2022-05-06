@@ -1,4 +1,5 @@
 <template>
+  <!-- A form for creating a new community -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
@@ -278,12 +279,13 @@ export default {
           location: this.group.place,
           picture: this.group.image,
         };
-
-        console.log(this.group.image);
-
         const respone = await postNewgroup(groupInfo);
         if (respone.status === 200 || respone.status === 201) {
-          this.$router.push({ path: "/", replace: true });
+          this.$store.commit("addAdmin", respone.data);
+          this.$router.push({
+            path: "/community/" + respone.data,
+            replace: true,
+          });
         }
       }
     },

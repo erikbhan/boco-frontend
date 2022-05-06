@@ -1,9 +1,11 @@
 <template>
+  <!-- Shows all the items a user has posted with search and pagination.
+       Includes a dropdown menu for editing or deleting an item. -->
   <div id="headline" class="text-xl md:text-2xl text-primary-light font-medium">
     Mine gjenstander
   </div>
   <!-- Search field -->
-  <div class="relative" id="searchComponent">
+  <div class="relative mx-4" id="searchComponent">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
       <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
         <path
@@ -20,12 +22,12 @@
       type="text"
       id="searchInput"
       class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
-      placeholder="Search"
+      placeholder="Søk"
       v-model="search"
       @change="searchWritten"
     />
   </div>
-  <div class="absolute inset-x-0 px-5 py-3">
+  <div class="absolute inset-x-0">
     <!-- ItemCards -->
     <div class="flex items-center justify-center w-screen">
       <!-- Shows items based on pagination -->
@@ -39,18 +41,20 @@
           v-for="item in visibleItems"
           :key="item"
         >
-          <ItemCard
-            id="ItemCardPage"
-            class="ItemCard w-fit h-fit"
-            :item="item"
-          />
+          <div class="w-full">
+            <ItemCard
+              id="ItemCardPage"
+              class="ItemCard w-full h-full"
+              :item="item"
+            />
+          </div>
 
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
-          </TripleDotButton>
+          <!-- Dropdown menu with options for editing an item and deleting an item -->
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
           <div
             v-show="item.toggle"
-            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 pt-4 pl-12"
           >
             <ul
               class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
@@ -61,7 +65,7 @@
                   @click="
                     this.$router.push('/item/' + item.listingID + '/edit')
                   "
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="editButton block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Rediger gjenstand
                 </button>
@@ -69,7 +73,7 @@
               <li>
                 <button
                   @click="goToDeleteItem(item.listingID)"
-                  class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="deleteButton block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Slett gjenstand
                 </button>
@@ -78,6 +82,8 @@
           </div>
         </div>
 
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -86,17 +92,17 @@
         >
           <div class="flex justify-center p-2">
             <ColoredButton
-              id="#cancelDeleteButton"
+              id="#cancelDeleteButton1"
               :text="'Avbryt'"
               @click="cancelDelete"
               class="bg-gray-500 m-2"
             ></ColoredButton>
 
             <ColoredButton
-              id="confirmDeleteButton"
+              id="confirmDeleteButton1"
               @click="deleteItem"
               :text="'Slett'"
-              class="m-2 bg-error-medium"
+              class="confirmDelete m-2 bg-error-medium"
             >
             </ColoredButton>
           </div>
@@ -105,14 +111,25 @@
 
       <!-- Shows items based on search field input -->
       <div
-        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+        class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
         v-if="showSearchedItems"
       >
-        <div class="cardContainer" v-for="item in searchedItems" :key="item">
-          <ItemCard id="ItemCardSearch" class="ItemCard" :item="item" />
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
-          </TripleDotButton>
+        <div
+          class="cardContainer"
+          id="item"
+          v-for="item in searchedItems"
+          :key="item"
+        >
+          <div class="w-full">
+            <ItemCard
+              id="ItemCardSearch"
+              class="ItemCard w-full h-full"
+              :item="item"
+            />
+          </div>
 
+          <!-- Dropdown menu with options for editing an item and deleting an item -->
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
           <div
             v-show="item.toggle"
             class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
@@ -142,6 +159,9 @@
             </ul>
           </div>
         </div>
+
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -150,7 +170,7 @@
         >
           <div class="flex justify-center p-2">
             <ColoredButton
-              id="#cancelDeleteButton"
+              id="cancelDeleteButton"
               :text="'Avbryt'"
               @click="cancelDelete"
               class="bg-gray-500 m-2"
@@ -167,6 +187,7 @@
         </CustomFooterModal>
       </div>
     </div>
+
     <!-- pagination -->
     <div class="flex justify-center" v-if="showItems">
       <PaginationTemplate
@@ -181,13 +202,13 @@
 </template>
 <script>
 import TripleDotButton from "@/components/BaseComponents/TripleDotButton.vue";
-import { GetUserListings, getItemPictures } from "@/utils/apiutil";
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
-
-import UserService from "@/services/user.service";
 import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue";
+
+import UserService from "@/services/user.service";
+import listingService from "@/services/listing.service";
 
 export default {
   name: "UserItems",
@@ -215,6 +236,7 @@ export default {
       search: "",
       readyToDelete: false,
       dropdown: false,
+
       //Variables connected to pagination
       currentPage: 0,
       pageSize: 12,
@@ -222,6 +244,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * Searchs items based on their title, address and price per day.
+     */
     searchedItems() {
       let filteredItems = [];
 
@@ -247,10 +272,12 @@ export default {
       }
     },
     getUserListingsFromAPI: async function () {
-      this.items = await GetUserListings();
+      this.items = await UserService.getUserListings();
       for (var i = 0; i < this.items.length; i++) {
         this.items[i].toggle = false;
-        let images = await getItemPictures(this.items[i].listingID);
+        let images = await listingService.getItemPictures(
+          this.items[i].listingID
+        );
         if (images.length > 0) {
           this.items[i].img = images[0].picture;
         }
@@ -259,7 +286,10 @@ export default {
     cancelDelete() {
       this.readyToDelete = false;
     },
-    //Pagination
+    /**
+     * 2 methods related to pagination. Updates page and updates
+     * visible items on page.
+     */
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
       this.updateVisibleTodos();
@@ -275,6 +305,7 @@ export default {
         this.updatePage(this.currentPage - 1);
       }
     },
+
     goToDeleteItem(item) {
       this.chosenItem = item;
       this.readyToDelete = true;
@@ -283,8 +314,11 @@ export default {
       await UserService.setListingToDeleted(this.chosenItem);
       this.$router.go(0);
     },
+
+    /**
+     * This method triggers when search input field is changed
+     */
     searchWritten: function () {
-      //This method triggers when search input field is changed
       if (this.search.length > 0) {
         this.showItems = false;
         this.showSearchedItems = true;
@@ -294,6 +328,11 @@ export default {
       }
     },
   },
+
+  /**
+   * Gets userlistings and prepares the pagination by
+   * updating the items to be visible.
+   */
   async beforeMount() {
     await this.getUserListingsFromAPI();
     this.updateVisibleTodos();
@@ -311,6 +350,7 @@ export default {
 .cardContainer {
   position: relative;
 }
+
 .DotButton {
   position: absolute;
   right: 40px;

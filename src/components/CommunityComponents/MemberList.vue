@@ -1,9 +1,15 @@
 <template>
-  <ul>
-    <li v-for="member in members" :key="member.userId">
-      <UserListItemCard :buttons="buttons" :user="member" />
-    </li>
-  </ul>
+  <!-- Shows all members in a community -->
+  <div>
+    <ul v-if="members.length">
+      <li v-for="member in members" :key="member.userId">
+        <UserListItemCard :buttons="buttons" :user="member" />
+      </li>
+    </ul>
+    <div v-else class="flex place-content-center text-gray-400">
+      Ingenting å vise
+    </div>
+  </div>
 </template>
 
 <script>

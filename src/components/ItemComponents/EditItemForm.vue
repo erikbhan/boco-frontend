@@ -1,4 +1,5 @@
 <template>
+  <!-- Form for editing an item -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
@@ -228,6 +229,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import FormImageDisplay from "@/components/BaseComponents/FormImageDisplay.vue";
 import ListingService from "@/services/listing.service";
 import CommunityService from "@/services/community.service";
 import ImageService from "@/services/image.service";
@@ -246,6 +248,7 @@ export default {
 
   components: {
     ColoredButton,
+    FormImageDisplay,
   },
 
   setup() {
@@ -313,10 +316,10 @@ export default {
         category: "",
         selectedCategory: "",
         selectedCategories: [],
-        images: [],
         userId: -1,
         selectedCommunityId: -1,
         selectedCommunities: [],
+        images: [],
       },
       categories: [
         "Antikviteter og kunst",
@@ -353,6 +356,10 @@ export default {
       return true;
     },
 
+    /**
+     * Validation gets checked, and if it returns true
+     * the item and the images gets updated.
+     */
     async saveClicked() {
       if (this.checkValidation()) {
         let itemInfo = {
@@ -366,11 +373,20 @@ export default {
           communityIDs: this.updatedItem.selectedCommunities,
         };
         await ListingService.putItem(itemInfo);
-        await ImageService.putListingImages(this.images);
-        this.$router.push("/itempage/" + this.initialItem.listingID);
+        await ImageService.putListingImages(
+          this.initialItem.listingID,
+          this.updatedItem.images
+        );
+        this.$router.push("/item/" + this.initialItem.listingID);
       }
     },
 
+    /**
+     * Adds image when an image is selected from file explorer.
+     * Posts it to the db and gets the id of the image posted in return.
+     * Adds that id to an image URL and saves it in an array.
+     * That array containing image URLs gets posted to the db when save is clicked.
+     */
     async addImage(event) {
       var that = this;
       let image = event.target.files[0];
@@ -380,11 +396,16 @@ export default {
         const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.item.images.push(API_URL + "images/" + id);
+        that.updatedItem.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
 
+    /**
+     * Runs every time a chech box under 'grupper' is changed(checked/unchecked).
+     * Finds out if it was checked or unchecked and adds/removes the community from
+     * the array based on that.
+     */
     onChangeCommunity(e) {
       this.updatedItem.selectedCommunityId = e.target.value;
       let alreadyInGroupList = false;
@@ -412,11 +433,19 @@ export default {
       }
     },
 
+    /**
+     * Updates the selected category when it gets changed changes.
+     */
     onChangeCategory(e) {
       this.updatedItem.selectedCategory = e.target.value;
       this.updatedItem.selectedCategories = [e.target.value];
     },
 
+    /**
+     * pre-selects (check marks) the community/communities the item
+     * is posted in so the user can see where the item already is posted and
+     * then change the community/communities
+     */
     isInSelectedCommunity(id) {
       for (let i in this.updatedItem.selectedCommunities) {
         if (this.updatedItem.selectedCommunities[i] == id) {
@@ -425,18 +454,26 @@ export default {
       }
       return false;
     },
-    removeImage(image) {
+
+    /**
+     * Removes image from item
+     */
+    async removeImage(image) {
       let newImages = [];
-      for (let i in this.item.images) {
-        if (this.item.images[i] != image) {
-          newImages.push(this.item.images[i]);
+      for (let i in this.updatedItem.images) {
+        if (this.updatedItem.images[i] != image) {
+          newImages.push(this.images[i]);
         }
       }
-      this.item.images = newImages;
+      this.updatedItem.images = newImages;
     },
   },
 
-  async beforeMount() {
+  /**
+   * Gets the item before the page gets mounted so the item info
+   * is filled in and ready to be displayed to user.
+   */
+  async beforeCreate() {
     let itemID = await this.$router.currentRoute.value.params.id;
     let item = await ListingService.getItem(itemID);
 
@@ -448,7 +485,12 @@ export default {
 
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
+
     this.images = await ListingService.getItemPictures(itemID);
+    let imageURLS = [];
+    for (let i in this.images) {
+      imageURLS.push(this.images[i].picture);
+    }
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {
@@ -469,7 +511,7 @@ export default {
       price: this.initialItem.pricePerDay,
       selectedCategories: initialCategories,
       selectedCategory: selectedCategory,
-      images: this.images,
+      images: imageURLS,
       userId: this.initialItem.userID,
       selectedCommunityId: 0,
       selectedCommunities: initialCommunities,

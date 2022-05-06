@@ -51,10 +51,11 @@
             </p>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2" v-if="userForId">
           <UserListItemCard
             :buttons="['chat']"
             :user="userForId"
+            :rating="rating"
           ></UserListItemCard>
         </div>
         <div class="mt-4">
@@ -75,6 +76,7 @@
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
+            <p v-if="error" class="text-error-medium">Dato er påkrevd</p>
             <button
               class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-500 rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
               v-bind:class="{ colorChange: allowForRent }"
@@ -107,6 +109,7 @@ export default {
   data() {
     return {
       confirm: false,
+      error: false,
       item: {
         listingID: 0,
         title: "",
@@ -140,6 +143,7 @@ export default {
       dateMessage: "Venligst velg dato for leieperioden",
       allowForRent: false,
       nonAvailableTimes: [],
+      rating: 0,
     };
   },
   components: {
@@ -153,6 +157,8 @@ export default {
       if (this.allowForRent) {
         this.confirm = true;
         this.createPushItem();
+      } else {
+        this.error = true;
       }
     },
     createPushItem() {
@@ -161,6 +167,7 @@ export default {
       this.pushItem.toTime = this.rentingEndDate;
       this.pushItem.title = this.item.title;
       this.pushItem.price = this.totPrice;
+      this.pushItem.renterId = this.item.userID;
     },
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
@@ -211,18 +218,32 @@ export default {
         this.rentingEndDate = dateOfsomthing.endDate;
         this.calculateTotPrice();
         this.allowForRent = true;
+        this.error = false;
       }
     },
     calculateTotPrice() {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
-      amountOfDays = amountOfDays / 86400000;
+      amountOfDays = Math.ceil(amountOfDays / 86400000);
       this.totPrice = this.item.pricePerDay * amountOfDays;
     },
+    async getUserRating() {
+      let maybeRating = await UserService.getUserRatingAverage(
+        this.userForId.userId
+      );
+      if (isNaN(maybeRating)) {
+        this.rating = NaN;
+      } else {
+        this.rating = maybeRating;
+        if (this.rating > 5) this.rating = 5;
+        else if (this.rating < 1) this.rating = 1;
+      }
+    },
   },
-  async beforeMount() {
+  async created() {
     await this.getItemPictures();
     await this.getItem();
     await this.getUser(this.item.userID);
+    await this.getUserRating();
     await this.getAvailableTimesForListing();
   },
 };

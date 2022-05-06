@@ -13,11 +13,23 @@ jest.mock("@/utils/token-utils", () => {
   };
 });
 
+jest.mock("@/utils/apiutil", () => {
+  return {
+    getItemPictures: () => {
+      return new Promise((resolve) => {
+        resolve([]);
+      });
+    },
+  };
+});
 
 jest.mock("axios");
 
 describe("RentalMessage.vue", () => {
   let wrapper;
+  const mockRouter = {
+    go: jest.fn(),
+  };
   beforeEach(() => {
     wrapper = shallowMount(RentalMessage, {
       propsData: {
@@ -36,6 +48,11 @@ describe("RentalMessage.vue", () => {
           renterId: 0,
           message: "Hello",
           deleted: false,
+        },
+      },
+      global: {
+        mocks: {
+          $router: mockRouter,
         },
       },
     });
