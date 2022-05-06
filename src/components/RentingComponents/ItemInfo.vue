@@ -76,7 +76,7 @@
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
-            <p v-if="error" style="color: red">Dato er påkrevd</p>
+            <p v-if="error" class="text-error-medium">Dato er påkrevd</p>
             <button
               class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-500 rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
               v-bind:class="{ colorChange: allowForRent }"
