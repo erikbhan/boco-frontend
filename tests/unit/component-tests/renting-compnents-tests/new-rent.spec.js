@@ -2,30 +2,14 @@ import { mount } from "@vue/test-utils";
 import NewRent from "@/components/RentingComponents/NewRent.vue";
 import axios from "axios";
 
-// jest.mock("@/utils/token-utils", () => {
-//   return {
-//     tokenHeader: () => {
-//       return {};
-//     },
-//     parseCurrentUser: () => {
-//       return { accountId: 1 };
-//     },
-//   };
-// });
-
-jest.mock("@/utils/apiutil", () => {
-  return {
-    postNewRent: () => {
-      return new Promise((resolve) => {
-        resolve([]);
-      });
-    },
-  };
-});
 jest.mock("axios");
-
+let mockRouter;
 
 describe("Confirm and send a rent request", () => {
+  mockRouter = {
+    go: jest.fn()
+  }
+
   let wrapper;
   beforeEach(() => {
     wrapper = mount(NewRent, {
@@ -40,6 +24,11 @@ describe("Confirm and send a rent request", () => {
           isAccepted: false,
         },
       },
+      global:{
+        mocks:{
+          $router: mockRouter
+        }
+      }
     });
   });
 
@@ -54,15 +43,19 @@ describe("Confirm and send a rent request", () => {
     expect(wrapper.find("#price").text()).toEqual("Totaltpris: 200 kr");
   });
 
-  it("Check that clicking rent opens confirmbox",async () => {
+  it("Check that clicking rent sends post request", async () => {
     const button = wrapper.find("#confirmButton");
     axios.post.mockResolvedValueOnce();
-    button.trigger("click");   
-    
+    button.trigger("click");
     await wrapper.vm.$nextTick();
-    
-
-    // expect(wrapper.find("notification-modal").exists()).toBeTruthy();
     expect(axios.post).toHaveBeenCalledTimes(1);
+  });
+
+  it("Checks that page is reloaded when cancelButton is press", async () =>{  
+    const button = wrapper.find("#cancelButton");
+    button.trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(mockRouter.go).toHaveBeenCalledTimes(1);
+    expect(mockRouter.go).toHaveBeenCalledWith(0);
   })
 });
