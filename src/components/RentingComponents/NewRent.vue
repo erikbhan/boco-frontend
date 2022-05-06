@@ -151,7 +151,7 @@ export default {
       this.$router.go(0);
     },
     routeToHome() {
-      this.$router.push("/");
+      this.$router.push("/messages?userID=" + this.newRentBox.renterId);
     },
     sendRent: async function () {
       const rent = {
