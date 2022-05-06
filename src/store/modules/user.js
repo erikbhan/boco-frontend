@@ -22,7 +22,7 @@ const mutations = {
   addAdmin(state, communityID) {
     if (!Number(communityID)) return;
     state.adminList.push(communityID);
-  }
+  },
 };
 
 export default {
