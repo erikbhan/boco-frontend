@@ -189,6 +189,7 @@ export default {
       await postNewRating(ratingInfo);
 
       this.$emit("reload");
+      this.$router.go(0);
     },
   },
 };
