@@ -22,6 +22,8 @@ exports[`CommunityHeader component renders correctly 1`] = `
     <div
       class="flex place-content-center mx-4"
     >
+      
+      <!-- PacMan for indicating loading -->
       <div
         class="loadingio-spinner-bean-eater-o5tefvffeqm"
       >
@@ -40,6 +42,7 @@ exports[`CommunityHeader component renders correctly 1`] = `
           </div>
         </div>
       </div>
+      
     </div>
   </div>
   

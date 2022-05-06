@@ -69,17 +69,23 @@ exports[`UserItems component renders correctly 1`] = `
     <div
       class="flex justify-center"
     >
+      
+      <!-- Pagination -->
       <div
         class="mt-10"
       >
+        <!-- Prev button -->
         <!--v-if-->
+        <!-- Current page -->
         <label
           class="mx-2 text-primary-light"
         >
           1 av 1
         </label>
+        <!-- Next button -->
         <!--v-if-->
       </div>
+      
     </div>
   </div>
   

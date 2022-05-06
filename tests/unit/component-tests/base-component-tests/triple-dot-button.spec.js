@@ -1,16 +1,11 @@
 import { mount } from "@vue/test-utils";
-import IconButton from "@/components/BaseComponents/IconButton.vue";
+import TripleDotButton from "@/components/BaseComponents/TripleDotButton.vue";
 
-describe("IconButtonComponent", () => {
+describe("TripleDotButton component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(IconButton, {
-      //passing prop to component
-      props: {
-        text: "hei",
-      },
-    });
+    wrapper = mount(TripleDotButton);
   });
 
   it("renders correctly", () => {
