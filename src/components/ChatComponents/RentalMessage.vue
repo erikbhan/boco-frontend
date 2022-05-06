@@ -8,7 +8,7 @@
           <p>Pris: {{ price }}kr</p>
         </div>
         <div class="img-container">
-          <img class="img" :src="img" alt="Produkt Bilde" />
+          <img class="img" :src="image" alt="Produkt Bilde" />
         </div>
       </div>
       <div>
@@ -19,11 +19,21 @@
           </p>
         </div>
       </div>
-      <div class="buttons" v-if="(!rent.isAccepted && !rent.deleted && this.rent.renterId != this.userID)">
+      <div
+        class="buttons"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId != this.userID
+        "
+      >
         <button class="button green" @click="accept">Godta</button>
         <button class="button red" @click="reject">Avslå</button>
       </div>
-      <div class="waiting" v-if="!rent.isAccepted && !rent.deleted && this.rent.renterId == this.userID">
+      <div
+        class="waiting"
+        v-if="
+          !rent.isAccepted && !rent.deleted && this.rent.renterId == this.userID
+        "
+      >
         Waiting for owner to accept
       </div>
       <div class="" v-if="rent.isAccepted">
@@ -38,8 +48,8 @@
 
 <script>
 import axios from "axios";
-import { tokenHeader } from "@/utils/token-utils";
-import { parseCurrentUser } from "@/utils/token-utils";
+import { tokenHeader, parseCurrentUser } from "@/utils/token-utils";
+import { getItemPictures, } from "@/utils/apiutil";
 
 export default {
   props: {
@@ -48,12 +58,14 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      image: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80",
+    }
+  },
   computed: {
     userID() {
       return parseCurrentUser().accountId;
-    },
-    img() {
-      return "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80"; //this.rent.listing.imageUrl;
     },
     from() {
       // take ms and turn into date and return date
@@ -75,9 +87,8 @@ export default {
       return this.rent.message || "Ingen Melding";
     },
     side() {
-      return this.rent.renterId == this.userID
-        ? "flex-end" : "flex-start";
-    }
+      return this.rent.renterId == this.userID ? "flex-end" : "flex-start";
+    },
   },
   methods: {
     async accept() {
@@ -93,6 +104,18 @@ export default {
         { headers: tokenHeader() }
       );
     },
+    async getImage() {
+      console.log(this.rent);
+      let images = await getItemPictures(this.rent.listingId);
+      console.log(images);
+
+       if (images.length > 0) {
+         this.image = images[0].picture;
+       }
+    },
+  },
+  async beforeMount() {
+    await this.getImage();
   },
 };
 </script>

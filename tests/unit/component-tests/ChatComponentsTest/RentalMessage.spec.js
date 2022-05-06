@@ -13,7 +13,6 @@ jest.mock("@/utils/token-utils", () => {
   };
 });
 
-
 jest.mock("axios");
 
 describe("RentalMessage.vue", () => {
