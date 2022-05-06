@@ -49,7 +49,7 @@
 <script>
 import axios from "axios";
 import { tokenHeader, parseCurrentUser } from "@/utils/token-utils";
-import { getItemPictures, } from "@/utils/apiutil";
+import { getItemPictures } from "@/utils/apiutil";
 
 export default {
   props: {
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       image: null,
-    }
+    };
   },
   computed: {
     userID() {
@@ -113,8 +113,8 @@ export default {
       if (images.length > 0) {
         this.image = images[0].picture;
       } else {
-        this.image = "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80";
-
+        this.image =
+          "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80";
       }
     },
   },
