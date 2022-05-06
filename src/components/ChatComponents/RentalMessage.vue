@@ -100,12 +100,14 @@ export default {
         null,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
     async reject() {
       await axios.delete(
         process.env.VUE_APP_BASEURL + `renting/${this.rent.rentId}/delete`,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
     async getImage() {
       let images = await getItemPictures(this.rent.listingId);
