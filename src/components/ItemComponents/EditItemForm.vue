@@ -213,8 +213,8 @@
 
       <ColoredButton :text="'Velg bilde'" @click="$refs.file.click()" />
 
-      <div v-for="image in updatedItem.images" :key="image" class="m-2">
-        <form-image-display :image="image" @remove="removeImage(image)" />
+      <div v-for="image in images" :key="image.picture" class="m-2">
+        <form-image-display :image="image.picture" @remove="removeImage(image)" />
       </div>
     </div>
 
@@ -228,6 +228,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import ColoredButton from "@/components/BaseComponents/ColoredButton";
+import FormImageDisplay from "@/components/BaseComponents/FormImageDisplay.vue";
 import ListingService from "@/services/listing.service";
 import CommunityService from "@/services/community.service";
 import ImageService from "@/services/image.service";
@@ -246,6 +247,7 @@ export default {
 
   components: {
     ColoredButton,
+    FormImageDisplay,
   },
 
   setup() {
@@ -313,7 +315,6 @@ export default {
         category: "",
         selectedCategory: "",
         selectedCategories: [],
-        images: [],
         userId: -1,
         selectedCommunityId: -1,
         selectedCommunities: [],
@@ -380,7 +381,7 @@ export default {
         const id = await ImageService.postNewImage(res);
 
         const API_URL = process.env.VUE_APP_BASEURL;
-        that.item.images.push(API_URL + "images/" + id);
+        that.updateItem.images.push(API_URL + "images/" + id);
       };
       fileReader.readAsArrayBuffer(image);
     },
@@ -427,17 +428,16 @@ export default {
     },
     async removeImage(image) {
       let newImages = [];
-      for (let i in this.item.images) {
-        if (this.item.images[i] != image) {
-          newImages.push(this.item.images[i]);
+      for (let i in this.images) {
+        if (this.images[i] != image) {
+          newImages.push(this.images[i]);
         }
       }
-      this.item.images = newImages;
-      await ImageService.deleteImage(image);
+      this.images = newImages;
     },
   },
 
-  async beforeMount() {
+  async beforeCreate() {
     let itemID = await this.$router.currentRoute.value.params.id;
     let item = await ListingService.getItem(itemID);
 
@@ -450,6 +450,7 @@ export default {
     this.initialItem = item;
     this.communities = await CommunityService.getUserCommunities();
     this.images = await ListingService.getItemPictures(itemID);
+    console.log(this.images);
 
     let initialCategories = [];
     for (let i in this.initialItem.categoryNames) {

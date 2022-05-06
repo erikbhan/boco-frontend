@@ -405,7 +405,6 @@ export default {
         }
       }
       this.item.images = newImages;
-      await ImageService.deleteImage(image);
     },
   },
   async beforeMount() {
