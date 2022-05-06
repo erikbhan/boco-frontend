@@ -65,7 +65,7 @@
                   @click="
                     this.$router.push('/item/' + item.listingID + '/edit')
                   "
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="editButton block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Rediger gjenstand
                 </button>
@@ -73,7 +73,7 @@
               <li>
                 <button
                   @click="goToDeleteItem(item.listingID)"
-                  class="block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  class="deleteButton block py-2 px-4 text-sm text-error-medium hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Slett gjenstand
                 </button>
@@ -102,7 +102,7 @@
               id="confirmDeleteButton1"
               @click="deleteItem"
               :text="'Slett'"
-              class="m-2 bg-error-medium"
+              class="confirmDelete m-2 bg-error-medium"
             >
             </ColoredButton>
           </div>
@@ -170,7 +170,7 @@
         >
           <div class="flex justify-center p-2">
             <ColoredButton
-              id="#cancelDeleteButton"
+              id="cancelDeleteButton"
               :text="'Avbryt'"
               @click="cancelDelete"
               class="bg-gray-500 m-2"
@@ -202,13 +202,13 @@
 </template>
 <script>
 import TripleDotButton from "@/components/BaseComponents/TripleDotButton.vue";
-import { GetUserListings, getItemPictures } from "@/utils/apiutil";
 import ColoredButton from "@/components/BaseComponents/ColoredButton.vue";
-
-import UserService from "@/services/user.service";
 import ItemCard from "@/components/ItemComponents/ItemCard.vue";
 import PaginationTemplate from "@/components/BaseComponents/PaginationTemplate";
 import CustomFooterModal from "@/components/BaseComponents/CustomFooterModal.vue";
+
+import UserService from "@/services/user.service";
+import listingService from "@/services/listing.service";
 
 export default {
   name: "UserItems",
@@ -272,10 +272,12 @@ export default {
       }
     },
     getUserListingsFromAPI: async function () {
-      this.items = await GetUserListings();
+      this.items = await UserService.getUserListings();
       for (var i = 0; i < this.items.length; i++) {
         this.items[i].toggle = false;
-        let images = await getItemPictures(this.items[i].listingID);
+        let images = await listingService.getItemPictures(
+          this.items[i].listingID
+        );
         if (images.length > 0) {
           this.items[i].img = images[0].picture;
         }
