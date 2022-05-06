@@ -311,6 +311,7 @@ export default {
 .cardContainer {
   position: relative;
 }
+
 .DotButton {
   position: absolute;
   right: 40px;
