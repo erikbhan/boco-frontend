@@ -1,5 +1,5 @@
 <template>
-  <!-- Main modal -->
+  <!-- Main modal for rating -->
   <div
     v-if="visible"
     class="fixed grid place-items-center bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto inset-0 h-full"
@@ -47,6 +47,7 @@
           />
         </div>
 
+        <!-- 5 rating stars -->
         <div class="flex items-center justify-center mb-8">
           <StarIcon :class="getStarType(0)" @click="setRating(1)"> </StarIcon>
           <StarIcon :class="getStarType(1)" @click="setRating(2)"> </StarIcon>
@@ -55,6 +56,7 @@
           <StarIcon :class="getStarType(4)" @click="setRating(5)"> </StarIcon>
         </div>
 
+        <!-- Button for submitting the rating -->
         <div class="flex justify-center mb-4">
           <ColoredButton
             :text="'Send en vurdering'"
@@ -64,7 +66,6 @@
 
         <!-- Modal footer -->
         <div class="rounded-b border-t border-gray-200 dark:border-gray-600">
-          <!-- Slot: Add any html you want here -->
           <slot />
         </div>
       </div>
@@ -108,6 +109,7 @@ export default {
     StarIcon,
   },
   methods: {
+    //A method for setting the rating
     setRating(ratingNumber) {
       this.score = ratingNumber;
       for (let i = 0; i < 5; i++) {
@@ -124,6 +126,10 @@ export default {
     close() {
       this.$emit("close");
     },
+    /**
+     * A method for sending the rating when button is clicked.
+     * It posts the rating to the db.
+     */
     async sendRating() {
       const ratingInfo = {
         score: this.score,
@@ -134,6 +140,7 @@ export default {
 
       await postNewRating(ratingInfo);
       this.$emit("reload");
+      this.$router.go(0);
     },
   },
 };

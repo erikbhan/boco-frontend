@@ -5,6 +5,8 @@ exports[`UserItems component renders correctly 1`] = `
   data-v-app=""
 >
   
+  <!-- Shows all the items a user has posted with search and pagination.
+       Includes a dropdown menu for editing or deleting an item. -->
   <div
     class="text-xl md:text-2xl text-primary-light font-medium"
     id="headline"
@@ -13,7 +15,7 @@ exports[`UserItems component renders correctly 1`] = `
   </div>
   <!-- Search field -->
   <div
-    class="relative"
+    class="relative mx-4"
     id="searchComponent"
   >
     <span
@@ -36,12 +38,12 @@ exports[`UserItems component renders correctly 1`] = `
     <input
       class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
       id="searchInput"
-      placeholder="Search"
+      placeholder="Søk"
       type="text"
     />
   </div>
   <div
-    class="absolute inset-x-0 px-5 py-3"
+    class="absolute inset-x-0"
   >
     <!-- ItemCards -->
     <div
@@ -53,6 +55,8 @@ exports[`UserItems component renders correctly 1`] = `
       >
         
         
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         
         <!-- Main modal -->
         <!--v-if-->

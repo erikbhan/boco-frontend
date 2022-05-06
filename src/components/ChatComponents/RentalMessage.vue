@@ -1,6 +1,6 @@
 <template>
   <div class="message-container">
-    <div class="message">
+    <div class="message bg-gray-100 ring-1 ring-gray-300">
       <div class="info">
         <div class="text">
           <h2 class="header">Ny utleie forespørsel</h2>
@@ -100,12 +100,14 @@ export default {
         null,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
     async reject() {
       await axios.delete(
         process.env.VUE_APP_BASEURL + `renting/${this.rent.rentId}/delete`,
         { headers: tokenHeader() }
       );
+      this.$router.go(0);
     },
     async getImage() {
       let images = await getItemPictures(this.rent.listingId);
@@ -135,7 +137,6 @@ export default {
   display: block;
   flex-direction: column;
   width: 100%;
-  background: #d1d5db;
   border-radius: 10px;
   padding: 10px;
   max-width: 50%;

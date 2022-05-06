@@ -42,6 +42,7 @@
   </div>
   <div>
     <notification-modal
+      id="notification-modal"
       @click="routeToChat"
       :visible="confirmed"
       :title="'Vellykket'"

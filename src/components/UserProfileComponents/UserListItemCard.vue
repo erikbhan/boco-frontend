@@ -1,4 +1,7 @@
 <template>
+  <!-- A card for displaying a user in a list.
+       Displays a user's profile picture, name, rating and some
+       buttons based on where the list is being shown. -->
   <div
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
@@ -62,7 +65,6 @@
 <script>
 import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
-import UserService from "@/services/user.service";
 import CommunityAdminService from "@/services/community-admin.service";
 
 import {
@@ -76,7 +78,6 @@ export default {
   name: "UserListItem",
   data() {
     return {
-      rating: -1.0,
       communityID: -1,
       profileImage: {
         src: require("../../assets/defaultUserProfileImage.jpg"),
@@ -94,8 +95,13 @@ export default {
   props: {
     user: Object,
     buttons: Array,
+    rating: Number,
   },
   computed: {
+    /**
+     * returns the user's profile picture. If the user does not have any
+     * profile picture the default profile picture is returned.
+     */
     getProfilePicture() {
       if (this.user.picture !== "" && this.user.picture != null) {
         return this.user.picture;
@@ -104,18 +110,25 @@ export default {
     },
   },
   methods: {
+    /**
+     * If chat button clicked, the user's gets redirected to chat page.
+     */
     openChatWithUser() {
       this.$router.push({
         name: "messages",
         query: { userID: this.user.userId },
       });
     },
+
+    /**
+     * Admin related methods for kicking a user from a community,
+     * accepting and rejecting a user's join community request
+     */
     kickUserFromCommunity() {
       CommunityAdminService.removeUserFromCommunity(
         this.communityID,
         this.user.userId
       );
-      //Find a better way to do this
       window.location.reload();
     },
     acceptMemberRequest() {
@@ -131,14 +144,7 @@ export default {
       );
     },
   },
-  async beforeMount() {
-    const maybeRating = await UserService.getUserRatingAverage(
-      this.user.userId
-    );
-    if (isNaN(maybeRating)) this.rating = NaN;
-    else this.rating = maybeRating;
-    if (this.rating > 5) this.rating = 5;
-    if (this.rating < 1) this.rating = 1;
+  async beforeMounted() {
     this.communityID = this.$route.params.communityID;
   },
 };
