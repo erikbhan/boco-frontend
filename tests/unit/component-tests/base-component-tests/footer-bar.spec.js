@@ -1,16 +1,11 @@
 import { mount } from "@vue/test-utils";
-import IconButton from "@/components/BaseComponents/IconButton.vue";
+import FooterBar from "@/components/BaseComponents/FooterBar.vue";
 
-describe("IconButtonComponent", () => {
+describe("FooterBar component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(IconButton, {
-      //passing prop to component
-      props: {
-        text: "hei",
-      },
-    });
+    wrapper = mount(FooterBar);
   });
 
   it("renders correctly", () => {

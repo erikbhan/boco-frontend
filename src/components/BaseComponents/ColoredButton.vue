@@ -1,4 +1,5 @@
 <template>
+  <!-- Button with custom text and color -->
   <button
     class="flex items-center px-2 py-2 font-medium tracking-wide capitalize text-white transition-colors duration-200 transform rounded-md focus:outline-none focus:ring focus:ring-opacity-80 min-w-{20px}"
     :class="color"
@@ -8,6 +9,13 @@
 </template>
 
 <script>
+/**
+ * Colored button component with customizable text and 3 possible colors.
+ * Colors:
+ * blue (default),
+ * red,
+ * green
+ */
 export default {
   name: "ColoredButton",
   props: {
@@ -18,6 +26,9 @@ export default {
     },
   },
   computed: {
+    /**
+     * Formats the tailwind css tags based on the color passed from parent
+     */
     color() {
       if (this.buttonColor === "red") {
         return "bg-error-medium hover:bg-error-dark focus:ring-error-light";

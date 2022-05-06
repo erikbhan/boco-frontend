@@ -328,7 +328,6 @@ export default {
     };
   },
   methods: {
-
     /**
      * Checks validation. Checks also if any community is selected.
      * If no community is selected or any other field isn't valid
@@ -423,7 +422,6 @@ export default {
         this.groupErrorMessage = "";
       }
     },
-
 
     async removeImage(image) {
       let newImages = [];

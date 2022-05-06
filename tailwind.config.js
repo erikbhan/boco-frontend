@@ -26,10 +26,7 @@ module.exports = {
         medium: "#004aad",
         dark: "#002B66",
       },
-      secondary: {
-        light: "#653273",
-        dark: "#731050",
-      },
+      secondary: "#ff5a5f",
       error: {
         light: "#EF4444",
         medium: "#DC2626",

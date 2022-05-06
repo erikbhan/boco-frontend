@@ -1,5 +1,5 @@
 <template>
-  <!-- Main modal -->
+  <!-- Main modal for deleting a user -->
   <div
     v-if="visible"
     class="fixed grid place-items-center bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto inset-0 h-full"

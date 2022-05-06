@@ -1,4 +1,6 @@
 <template>
+  <!-- Shows all the items a user has posted with search and pagination.
+       Includes a dropdown menu for editing or deleting an item. -->
   <div id="headline" class="text-xl md:text-2xl text-primary-light font-medium">
     Mine gjenstander
   </div>
@@ -46,6 +48,8 @@
               :item="item"
             />
           </div>
+
+          <!-- Dropdown menu with options for editing an item and deleting an item -->
           <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
           <div
@@ -79,6 +83,8 @@
           </div>
         </div>
 
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -87,14 +93,14 @@
         >
           <div class="flex justify-center p-2">
             <ColoredButton
-              id="#cancelDeleteButton"
+              id="#cancelDeleteButton1"
               :text="'Avbryt'"
               @click="cancelDelete"
               class="bg-gray-500 m-2"
             ></ColoredButton>
 
             <ColoredButton
-              id="confirmDeleteButton"
+              id="confirmDeleteButton1"
               @click="deleteItem"
               :text="'Slett'"
               class="confirmDelete m-2 bg-error-medium"
@@ -117,8 +123,9 @@
               :item="item"
             />
           </div>
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
 
+          <!-- Dropdown menu with options for editing an item and deleting an item -->
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)" />
           <div
             v-show="item.toggle"
             class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
@@ -148,6 +155,9 @@
             </ul>
           </div>
         </div>
+
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         <CustomFooterModal
           @close="this.readyToDelete = false"
           :visible="readyToDelete"
@@ -173,6 +183,7 @@
         </CustomFooterModal>
       </div>
     </div>
+
     <!-- pagination -->
     <div class="flex justify-center" v-if="showItems">
       <PaginationTemplate
@@ -221,6 +232,7 @@ export default {
       search: "",
       readyToDelete: false,
       dropdown: false,
+
       //Variables connected to pagination
       currentPage: 0,
       pageSize: 12,
@@ -228,6 +240,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * Searchs items based on their title, address and price per day.
+     */
     searchedItems() {
       let filteredItems = [];
 
@@ -265,7 +280,10 @@ export default {
     cancelDelete() {
       this.readyToDelete = false;
     },
-    //Pagination
+    /**
+     * 2 methods related to pagination. Updates page and updates
+     * visible items on page.
+     */
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
       this.updateVisibleTodos();
@@ -281,6 +299,7 @@ export default {
         this.updatePage(this.currentPage - 1);
       }
     },
+
     goToDeleteItem(item) {
       this.chosenItem = item;
       this.readyToDelete = true;
@@ -289,8 +308,11 @@ export default {
       await UserService.setListingToDeleted(this.chosenItem);
       this.$router.go(0);
     },
+
+    /**
+     * This method triggers when search input field is changed
+     */
     searchWritten: function () {
-      //This method triggers when search input field is changed
       if (this.search.length > 0) {
         this.showItems = false;
         this.showSearchedItems = true;
@@ -300,6 +322,11 @@ export default {
       }
     },
   },
+
+  /**
+   * Gets userlistings and prepares the pagination by
+   * updating the items to be visible.
+   */
   async beforeMount() {
     await this.getUserListingsFromAPI();
     this.updateVisibleTodos();

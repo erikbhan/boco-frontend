@@ -5,6 +5,8 @@ exports[`UserItems component renders correctly 1`] = `
   data-v-app=""
 >
   
+  <!-- Shows all the items a user has posted with search and pagination.
+       Includes a dropdown menu for editing or deleting an item. -->
   <div
     class="text-xl md:text-2xl text-primary-light font-medium"
     id="headline"
@@ -146,6 +148,8 @@ exports[`UserItems component renders correctly 1`] = `
           </div>
         </div>
         
+        <!-- A waring asking the user if it is sure it wants to delete the item
+             with options to go ahead with the deleting or to cancel the delete. -->
         
         <!-- Main modal -->
         <!--v-if-->
@@ -158,17 +162,23 @@ exports[`UserItems component renders correctly 1`] = `
     <div
       class="flex justify-center"
     >
+      
+      <!-- Pagination -->
       <div
         class="mt-10"
       >
+        <!-- Prev button -->
         <!--v-if-->
+        <!-- Current page -->
         <label
           class="mx-2 text-primary-light"
         >
           1 av 1
         </label>
+        <!-- Next button -->
         <!--v-if-->
       </div>
+      
     </div>
   </div>
   

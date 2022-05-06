@@ -1,16 +1,14 @@
 import { mount } from "@vue/test-utils";
-import NotificationModal from "@/components/BaseComponents/NotificationModal.vue";
+import FormImageDisplay from "@/components/BaseComponents/FormImageDisplay.vue";
 
-describe("NotificationModal component", () => {
+describe("FormImageDisplay component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(NotificationModal, {
+    wrapper = mount(FormImageDisplay, {
       //passing prop to component
       props: {
-        visible: true,
-        title: "String",
-        message: "String",
+          image: "http://localhost:3000/api/images/5"
       },
     });
   });

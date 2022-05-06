@@ -1,7 +1,7 @@
 <template>
   <!-- A view for editing the item -->
   <div class="h-screen grid md:mt-8">
-    <edit-item-form/>
+    <edit-item-form />
   </div>
 </template>
 
