@@ -3,7 +3,7 @@
     Mine gjenstander
   </div>
   <!-- Search field -->
-  <div class="relative" id="searchComponent">
+  <div class="relative mx-4" id="searchComponent">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
       <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
         <path
@@ -20,12 +20,12 @@
       type="text"
       id="searchInput"
       class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-primary-medium dark:focus:border-primary-medium focus:outline-none focus:ring"
-      placeholder="Search"
+      placeholder="Søk"
       v-model="search"
       @change="searchWritten"
     />
   </div>
-  <div class="absolute inset-x-0 px-5 py-3">
+  <div class="absolute inset-x-0">
     <!-- ItemCards -->
     <div class="flex items-center justify-center w-screen">
       <!-- Shows items based on pagination -->
@@ -39,18 +39,18 @@
           v-for="item in visibleItems"
           :key="item"
         >
+          <div class="w-full">
           <ItemCard
             id="ItemCardPage"
-            class="ItemCard w-fit h-fit"
+            class="ItemCard w-full h-full"
             :item="item"
           />
-
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
-          </TripleDotButton>
+        </div>
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
 
           <div
             v-show="item.toggle"
-            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+            class="options z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 pt-4 pl-12"
           >
             <ul
               class="py-1 absolute bg-white ring-1 ring-gray-300 rounded-xl"
@@ -109,9 +109,11 @@
         v-if="showSearchedItems"
       >
         <div class="cardContainer" v-for="item in searchedItems" :key="item">
-          <ItemCard id="ItemCardSearch" class="ItemCard" :item="item" />
-          <TripleDotButton class="DotButton" @click="openDotMenu(item)">
-          </TripleDotButton>
+          <div class="w-full">
+          <ItemCard id="ItemCardSearch" class="ItemCard w-full h-full" :item="item" />
+          </div>
+          <TripleDotButton class="DotButton" @click="openDotMenu(item)"/>
+
 
           <div
             v-show="item.toggle"
