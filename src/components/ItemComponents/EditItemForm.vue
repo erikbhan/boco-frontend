@@ -425,7 +425,7 @@ export default {
       }
       return false;
     },
-    removeImage(image) {
+    async removeImage(image) {
       let newImages = [];
       for (let i in this.item.images) {
         if (this.item.images[i] != image) {
@@ -433,6 +433,7 @@ export default {
         }
       }
       this.item.images = newImages;
+      await ImageService.deleteImage(image);
     },
   },
 
