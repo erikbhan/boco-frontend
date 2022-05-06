@@ -60,7 +60,7 @@ class CommunityAdminService {
    * @returns TODO
    */
   async deleteCommunity(communityID) {
-    return await axios.post(
+    return await axios.delete(
       API_URL + "communities/" + communityID + "/remove",
       {
         headers: tokenHeader(),
