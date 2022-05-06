@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-5 px-3">
+  <!-- Item card, displays title, address, price per day and a picture -->
+  <div class="mt-5 px-5">
     <div
       class="w-full h-full rounded bg-gray-100 ring-1 ring-gray-200 overflow-hidden display:inline-block correct-size cursor-pointer"
     >
