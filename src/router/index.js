@@ -64,15 +64,15 @@ const routes = [
     component: () => import("../views/HelpView.vue"),
   },
   {
-    path: "/item/:id/edit",
-    name: "editItem",
-    component: () => import("../views/ItemViews/EditItemView.vue"),
+    path: "/item/:id",
+    name: "itemInfo",
+    component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
     beforeEnter: guardRoute,
   },
   {
-    path: "/itempage/:id",
-    name: "itemInfo",
-    component: () => import("../views/RentingViews/ItemInfoPageView.vue"),
+    path: "/item/:id/edit",
+    name: "editItem",
+    component: () => import("../views/ItemViews/EditItemView.vue"),
     beforeEnter: guardRoute,
   },
   {
@@ -123,6 +123,12 @@ const routes = [
     beforeEnter: guardRoute,
   },
   {
+    path: "/profile/items",
+    name: "userItems",
+    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
+    beforeEnter: guardRoute,
+  },
+  {
     path: "/register",
     name: "register",
     component: () => import("../views/UserAuthViews/RegisterView.vue"),
@@ -143,15 +149,15 @@ const routes = [
     component: () => import("../views/TestView.vue"),
     beforeEnter: guardRoute,
   },
-  {
-    path: "/user/userItems",
-    name: "userItems",
-    component: () => import("../views/UserProfileViews/UserItemsView.vue"),
-    beforeEnter: guardRoute,
-  },
 
-  // Make sure it's your last route definition
-  { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
+  /**
+   * Catch all for wrong/non-existing routes
+   * Must be last to catch all
+   */
+  { path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: NotFound
+  },
 ];
 
 const router = createRouter({
