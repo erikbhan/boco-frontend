@@ -2,13 +2,23 @@ import { mount } from "@vue/test-utils";
 import NewRent from "@/components/RentingComponents/NewRent.vue";
 import axios from "axios";
 
-jest.mock("@/utils/token-utils", () => {
+// jest.mock("@/utils/token-utils", () => {
+//   return {
+//     tokenHeader: () => {
+//       return {};
+//     },
+//     parseCurrentUser: () => {
+//       return { accountId: 1 };
+//     },
+//   };
+// });
+
+jest.mock("@/utils/apiutil", () => {
   return {
-    tokenHeader: () => {
-      return {};
-    },
-    parseCurrentUser: () => {
-      return { accountId: 1 };
+    postNewRent: () => {
+      return new Promise((resolve) => {
+        resolve([]);
+      });
     },
   };
 });
@@ -45,13 +55,12 @@ describe("Confirm and send a rent request", () => {
   });
 
   it("Check that clicking rent opens confirmbox",async () => {
-    wrapper.find("#confirmButton").trigger("click");
+    const button = wrapper.find("#confirmButton");
+    axios.post.mockResolvedValueOnce();
+    button.trigger("click");   
     
+    await wrapper.vm.$nextTick();
     
-    // await wrapper.vm.$nextTick();
-    await axios.put.mockResolvedValueOnce(props.newRentBox);
-    
-  
 
     // expect(wrapper.find("notification-modal").exists()).toBeTruthy();
     expect(axios.post).toHaveBeenCalledTimes(1);

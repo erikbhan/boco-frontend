@@ -34,8 +34,7 @@ describe("UserItems component", () => {
   it("Check headline", () => {
     expect(wrapper.find("#headline").text()).toMatch("Mine gjenstander");
   });
-  
-  // it("Check title", () => {
-  //   expect(wrapper.findAll(".ItemCardPage")[0].exists()).toBeTruthy();
-  // })
+
+
+
 });
