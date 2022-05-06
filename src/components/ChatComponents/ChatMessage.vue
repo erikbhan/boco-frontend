@@ -58,9 +58,15 @@ export default {
     calculateTime() {
       var time = this?.message.timestamp;
       var date = new Date(time);
-      //Todo add timing for mm and hh and week of message
+      //Todo add 07 instead of 7 with minutes and maybe hrs 
       var mmOfMessage = String(date.getMinutes());
       var hhOfMessage = String(date.getHours());
+      if(mmOfMessage <= 9){
+        mmOfMessage = "0" + mmOfMessage;
+      }
+      if(hhOfMessage<=9){
+        hhOfMessage = "0" + hhOfMessage;
+      }
       var ddOfMessage = String(date.getDate()).padStart(2, "0");
       var dayOfMessage = date.toLocaleString("default", { weekday: "short" });
       var monthOfMessage = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
