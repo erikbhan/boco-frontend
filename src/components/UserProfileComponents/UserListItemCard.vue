@@ -27,7 +27,7 @@
     <!-- Buttons -->
     <div class="flex flex-row gap-4">
       <IconButton
-        v-if="buttons.includes('chat')"
+        v-if="buttons.includes('chat') && userID != user.userId"
         @click="openChatWithUser()"
         :text="'Chat'"
         :buttonColor="'blue'"
@@ -36,7 +36,7 @@
       /></IconButton>
 
       <IconButton
-        v-if="buttons.includes('kick')"
+        v-if="buttons.includes('kick') && userID != user.userId"
         @click="kickUserFromCommunity()"
         :buttonColor="'red'"
         :text="'Spark'"
@@ -66,6 +66,7 @@
 import RatingComponent from "@/components/UserProfileComponents/RatingComponents/Rating.vue";
 import IconButton from "@/components/BaseComponents/IconButton.vue";
 import CommunityAdminService from "@/services/community-admin.service";
+import { parseCurrentUser } from "@/utils/token-utils";
 
 import {
   ChatIcon,
@@ -98,6 +99,9 @@ export default {
     rating: Number,
   },
   computed: {
+    userID() {
+      return parseCurrentUser().accountId;
+    },
     /**
      * returns the user's profile picture. If the user does not have any
      * profile picture the default profile picture is returned.
