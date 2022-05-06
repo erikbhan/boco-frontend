@@ -189,8 +189,6 @@ export default {
 
       const postResponse = await postNewRating(ratingInfo);
 
-      console.log("posted: " + postResponse);
-
       this.$router.push("/");
     },
   },

@@ -51,10 +51,11 @@
             </p>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2" v-if="userForId">
           <UserListItemCard
             :buttons="['chat']"
             :user="userForId"
+            :rating="rating"
           ></UserListItemCard>
         </div>
         <div class="mt-4">
@@ -140,6 +141,7 @@ export default {
       dateMessage: "Venligst velg dato for leieperioden",
       allowForRent: false,
       nonAvailableTimes: [],
+      rating: 0,
     };
   },
   components: {
@@ -219,11 +221,25 @@ export default {
       amountOfDays = amountOfDays / 86400000;
       this.totPrice = this.item.pricePerDay * amountOfDays;
     },
+    async getUserRating() {
+      let maybeRating = await UserService.getUserRatingAverage(
+        this.userForId.userId
+      );
+      if (isNaN(maybeRating)) {
+        this.rating = NaN;
+      }
+      else {
+        this.rating = maybeRating;
+        if (this.rating > 5) this.rating = 5;
+        else if (this.rating < 1) this.rating = 1;
+      }
+    },
   },
-  async beforeMount() {
+  async created() {
     await this.getItemPictures();
     await this.getItem();
     await this.getUser(this.item.userID);
+    await this.getUserRating();
     await this.getAvailableTimesForListing();
   },
 };
