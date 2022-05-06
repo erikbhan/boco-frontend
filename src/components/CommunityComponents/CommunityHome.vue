@@ -55,7 +55,7 @@
 
             <!-- Shows items based on search field input -->
             <div
-              class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full place-items-center"
+              class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full"
               v-if="showSearchedItems"
             >
               <ItemCard
