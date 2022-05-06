@@ -3,7 +3,6 @@
        Displays a user's profile picture, name, rating and some
        buttons based on where the list is being shown. -->
   <div
-    v-if="userID != user.userId"
     class="bg-white shadow dark:bg-gray-800 select-none cursor-pointer hover:bg-gray-50 flex items-center p-4"
   >
     <!-- User image -->
@@ -28,7 +27,7 @@
     <!-- Buttons -->
     <div class="flex flex-row gap-4">
       <IconButton
-        v-if="buttons.includes('chat')"
+        v-if="buttons.includes('chat') && userID != user.userId"
         @click="openChatWithUser()"
         :text="'Chat'"
         :buttonColor="'blue'"
@@ -37,7 +36,7 @@
       /></IconButton>
 
       <IconButton
-        v-if="buttons.includes('kick')"
+        v-if="buttons.includes('kick') && userID != user.userId"
         @click="kickUserFromCommunity()"
         :buttonColor="'red'"
         :text="'Spark'"
