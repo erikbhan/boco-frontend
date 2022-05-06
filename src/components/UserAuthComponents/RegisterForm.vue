@@ -1,4 +1,5 @@
 <template>
+  <!-- Register form for creating a new user account -->
   <div
     class="w-full max-w-md mx-auto mb-auto md:ring-1 ring-gray-300 overflow-hidden rounded-xl p-4"
   >
@@ -12,6 +13,7 @@
     <form @submit.prevent>
       <div class="grid grid-cols-1 gap-6 mt-4">
         <div>
+          <!-- Email -->
           <input
             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
             v-model="email"
@@ -19,7 +21,7 @@
             type="email"
             placeholder="E-post adresse"
           />
-          <!-- error message -->
+          <!-- error message for email -->
           <div
             class="text-error-medium text-sm"
             v-for="(error, index) of v$.email.$errors"
@@ -35,6 +37,7 @@
         </div>
 
         <div>
+          <!-- Password -->
           <input
             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
             v-model="password"
@@ -83,6 +86,7 @@
         </div>
 
         <div>
+          <!-- First name -->
           <input
             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
             data-test="firstNameTest"
@@ -91,7 +95,7 @@
             type="text"
             placeholder="Fornavn"
           />
-          <!-- error message -->
+          <!-- error message for first name-->
           <div
             class="text-error-medium text-sm"
             v-for="(error, index) of v$.firstName.$errors"
@@ -108,6 +112,7 @@
         </div>
 
         <div>
+          <!-- Last name -->
           <input
             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
             v-model="lastName"
@@ -115,7 +120,7 @@
             type="text"
             placeholder="Etternavn"
           />
-          <!-- error message -->
+          <!-- error message for last name -->
           <div
             class="text-error-medium text-sm"
             v-for="(error, index) of v$.lastName.$errors"
@@ -132,6 +137,7 @@
         </div>
 
         <div>
+          <!-- Address -->
           <input
             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-primary-light dark:focus:border-primary-light focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-primary-light"
             v-model="address"
@@ -139,7 +145,7 @@
             type="text"
             placeholder="Adresse"
           />
-          <!-- error message -->
+          <!-- error message for address -->
           <div
             class="text-error-medium text-sm"
             v-for="(error, index) of v$.address.$errors"
@@ -176,8 +182,6 @@ import {
 import Button from "@/components/BaseComponents/ColoredButton";
 import UserService from "@/services/user.service";
 
-// const isEmailTaken = (value) =>
-// fetch(`/api/unique/${value}`).then((r) => r.json()); // check the email in the server
 
 export default {
   components: {
@@ -201,7 +205,6 @@ export default {
       email: {
         required: helpers.withMessage(`Feltet må være utfylt`, required),
         email: helpers.withMessage("E-posten er ugyldig", email),
-        // isUnique: helpers.withAsync(isEmailTaken),
       },
       password: {
         required: helpers.withMessage(`Feltet må være utfylt`, required),

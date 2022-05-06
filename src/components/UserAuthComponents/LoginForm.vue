@@ -1,7 +1,9 @@
 <template>
+  <!-- Login form -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full"
   >
+    <!-- Header -->
     <div class="px-6 py-4 mt-4">
       <div
         class="text-xl md:text-2xl font-medium text-center text-primary-light mt-4 mb-8"
@@ -9,6 +11,7 @@
         Logg på
       </div>
 
+      <!-- Email -->
       <div>
         <div
           class="w-full mt-6"
@@ -21,7 +24,7 @@
             v-model="v$.user.email.$model"
             required
           />
-          <!-- error message -->
+          <!-- error message for email -->
           <div v-for="(error, index) of v$.user.email.$errors" :key="index">
             <div
               class="text-error-medium text-sm"
@@ -33,6 +36,7 @@
           </div>
         </div>
 
+        <!-- Password -->
         <div
           class="w-full mt-6"
           :class="{ error: v$.user.password.$errors.length }"
@@ -45,7 +49,7 @@
             @keyup.enter="loginClicked"
             required
           />
-          <!-- error message -->
+          <!-- error message for password -->
           <div
             class="text-error-medium text-sm"
             v-for="(error, index) of v$.user.password.$errors"
@@ -61,11 +65,13 @@
           </div>
         </div>
 
+        <!-- Router link for forgetting password. Redirects to reset password page. -->
         <div class="flex items-center justify-between mt-8">
           <router-link to="/resetPassword" class="text-primary-medium"
             >Glemt passord?</router-link
           >
 
+          <!-- Button for logging in -->
           <Button
             class="login"
             @click="loginClicked"
@@ -78,6 +84,7 @@
     <div
       class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"
     >
+      <!-- Router link to redirect to registering a new user page -->
       <router-link
         to="/register"
         class="mx-2 text-sm font-bold text-primary-medium dark:text-primary-light hover:underline"
@@ -85,6 +92,7 @@
       >
     </div>
     <div class="flex items-center justify-center text-center bg-gray-50">
+      <!-- Shows a message to user if login fails -->
       <label
         class="mx-2 text-sm font-bold text-error-medium dark:text-primary-light hover:underline"
         >{{ message }}</label
@@ -122,7 +130,6 @@ export default {
       },
     };
   },
-
   data() {
     return {
       message: "",
@@ -136,6 +143,12 @@ export default {
   },
 
   methods: {
+    /**
+     * When login clicked, the inputs gets validated. If validation goes
+     * through loginRequest gets posted to api. If it returns false,
+     * user gets a message saying the email or password is wrong. If it
+     * returns true, the token returned gets saved to the state.
+     */
     async loginClicked() {
       this.showError = true;
 
