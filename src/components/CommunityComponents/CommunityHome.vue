@@ -164,7 +164,7 @@ export default {
       }
     },
     goToItemInfoPage(item) {
-      this.$router.push("/itempage/" + item);
+      this.$router.push("/item/" + item);
     },
     getItemPictures: async function (itemid) {
       let res = await getItemPictures(itemid);

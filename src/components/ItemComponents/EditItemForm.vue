@@ -377,7 +377,7 @@ export default {
           this.initialItem.listingID,
           this.updatedItem.images
         );
-        this.$router.push("/itempage/" + this.initialItem.listingID);
+        this.$router.push("/item/" + this.initialItem.listingID);
       }
     },
 
