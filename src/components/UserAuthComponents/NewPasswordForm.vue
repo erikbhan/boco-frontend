@@ -15,8 +15,7 @@
       id="oldPasswordField"
       :class="{ error: v$.user.oldPassword.$errors.length }"
     >
-      <label
-        class="block text-sm text-gray-800 dark:text-gray-200"
+      <label class="block text-sm text-gray-800 dark:text-gray-200"
         >Gammelt passord</label
       >
       <input
@@ -42,8 +41,7 @@
       class="mt-4"
       :class="{ error: v$.user.password.$errors.length }"
     >
-      <label
-        class="block text-sm text-gray-800 dark:text-gray-200"
+      <label class="block text-sm text-gray-800 dark:text-gray-200"
         >Nytt passord</label
       >
       <input
@@ -70,8 +68,7 @@
       :class="{ error: v$.user.rePassword.$errors.length }"
     >
       <div class="flex items-center justify-between">
-        <label
-          class="block text-sm text-gray-800 dark:text-gray-200"
+        <label class="block text-sm text-gray-800 dark:text-gray-200"
           >Gjenta nytt passord</label
         >
       </div>

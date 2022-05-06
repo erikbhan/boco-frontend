@@ -182,7 +182,6 @@ import {
 import Button from "@/components/BaseComponents/ColoredButton";
 import UserService from "@/services/user.service";
 
-
 export default {
   components: {
     Button,
