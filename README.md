@@ -4,7 +4,7 @@
 <img src="public/favicon.ico" height="100" title="hover text">
 
 ## Table of contents
-1. [instalasjon](#project-setup)
+1. [Installation](#project-setup)
 1. [Running the project](#running-the-project)
 1. [Running tests](#running-tests)
 
@@ -19,10 +19,10 @@ Install required dependencies by running
 npm install
 ```
 
-The frontend cannot run by iteself and requires a backend service. The URL to this backend service needs to be provided in the enviormental variables. This can be done in these steps
+The frontend cannot run by itself and requires a backend service. The URL to this backend service needs to be provided in the environmental variables. This can be done in these steps
 
 - Create a file with the name ``.env`` in the root folder
-- If the backend service uses the default configuration insert into the file
+- If the backend service uses the default configuration insert this into the file
     ```
     VUE_APP_BASEURL=http://localhost:3000/api/
     ```
@@ -34,7 +34,7 @@ The frontend cannot run by iteself and requires a backend service. The URL to th
     npm run serve
     ```
 
-- To compile and minifi project for prodoction
+- To compile and minify project for prodoction
     ```
     npm run build
     ```
