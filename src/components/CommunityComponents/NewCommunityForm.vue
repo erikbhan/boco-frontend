@@ -1,4 +1,5 @@
 <template>
+  <!-- A form for creating a new community -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >

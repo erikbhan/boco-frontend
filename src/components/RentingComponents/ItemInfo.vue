@@ -161,6 +161,7 @@ export default {
       this.pushItem.toTime = this.rentingEndDate;
       this.pushItem.title = this.item.title;
       this.pushItem.price = this.totPrice;
+      this.pushItem.renterId = this.item.userID;
     },
     async getItem() {
       let id = this.$router.currentRoute.value.params.id;
