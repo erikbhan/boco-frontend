@@ -13,7 +13,7 @@ exports[`CommunityListItem component renders correctly 1`] = `
       class="h-3 w-14 flex flex-col justify-center items-center ml-2 mt-4 mb-4 mr-2"
     >
       <img
-        alt="Fellsekaps bilde"
+        alt="Bilde"
         class="rounded-md"
         src="string"
       />
