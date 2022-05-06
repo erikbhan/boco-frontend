@@ -75,6 +75,7 @@
             <p class="text-xl font-semibold text-gray-900">
               Total pris: {{ totPrice }} kr
             </p>
+            <p v-if="error" style="color: red;">Dato er påkrevd</p>
             <button
               class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-500 rounded-md focus:outline-none focus:ring focus:ring-opacity-80"
               v-bind:class="{ colorChange: allowForRent }"
@@ -107,6 +108,7 @@ export default {
   data() {
     return {
       confirm: false,
+      error: false,
       item: {
         listingID: 0,
         title: "",
@@ -153,6 +155,8 @@ export default {
       if (this.allowForRent) {
         this.confirm = true;
         this.createPushItem();
+      } else {
+        this.error = true;
       }
     },
     createPushItem() {
@@ -212,11 +216,12 @@ export default {
         this.rentingEndDate = dateOfsomthing.endDate;
         this.calculateTotPrice();
         this.allowForRent = true;
+        this.error = false;
       }
     },
     calculateTotPrice() {
       let amountOfDays = this.rentingEndDate - this.rentingStartDate;
-      amountOfDays = amountOfDays / 86400000;
+      amountOfDays = Math.ceil(amountOfDays / 86400000);
       this.totPrice = this.item.pricePerDay * amountOfDays;
     },
   },

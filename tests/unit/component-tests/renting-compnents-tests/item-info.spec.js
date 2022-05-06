@@ -64,17 +64,21 @@ describe("ItemInfo component", () => {
     })
 
     it("Check that button cannot be clicked if date is not selected", async () => {
-        
         const jestCreatePushItemMock = jest.fn();
         wrapper.vm.createPushItem = jestCreatePushItemMock;
+        
         // Click rent button
         wrapper.find("button").trigger("click");
+        
         // wait a tick
         await wrapper.vm.$nextTick();
 
         // Check that jestMock was not clicked
         expect(mockMethod).toHaveBeenCalledTimes(1);
         expect(mockCreatePush).toHaveBeenCalledTimes(0);
+        // Check that the last p contains "Dato er påkrevd"
+        expect(wrapper.findAll("p")[wrapper.findAll("p").length - 1].text()).toBe("Dato er påkrevd");
+
     })
 
     it("Check that send to confirm works", async () => {
@@ -91,5 +95,15 @@ describe("ItemInfo component", () => {
         expect(mockCreatePush).toHaveBeenCalledTimes(1);
     })
 
+    it("Test that price calculation works", async () => {
+        wrapper.vm.setDate({
+            startDate: new Date("2022-01-01"),
+            endDate: new Date("2022-01-03"),
+        })
+        // wait a tick
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
 
+        expect(wrapper.vm.totPrice).toBe(200);
+    })
 });
