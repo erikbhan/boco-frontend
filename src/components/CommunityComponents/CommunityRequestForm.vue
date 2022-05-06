@@ -1,4 +1,5 @@
 <template>
+  <!-- A request form for joining a private community -->
   <div
     class="md:ring-1 ring-gray-300 rounded-xl overflow-hidden mx-auto mb-auto max-w-md w-full p-4"
   >
@@ -99,7 +100,6 @@ export default {
     routeToHome() {
       this.$router.push("/");
     },
-    //TODO fix so that community id is set (not null)
     async saveClicked() {
       this.communityID = await this.$router.currentRoute.value.params
         .communityID;
